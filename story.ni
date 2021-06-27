@@ -67,6 +67,39 @@ friendly bishop	enemy traitor bishop
 friendly knight	enemy traitor knight
 friendly knight	enemy traitor knight
 
+chapter whether attacks
+
+to decide which number is abs of (n - a number):
+	if n > 0, decide on n;
+	decide on 0 - n;
+
+to decide whether (p1 - a piece) attacks (p2 - a piece):
+	let x1 be xval of location of p1;
+	let x2 be xval of location of p2;
+	let y1 be yval of location of p1;
+	let y2 be yval of location of p2;
+	let dx be abs of (x1 - x2);
+	let dy be abs of (y1 - y2);
+	if p1 is a king:
+		if dx > 1, no;
+		if dy > 1, no;
+		yes;
+	if p1 is a bishop:
+		if abs of (x1 - x2) is not abs of (y1 - y2), no;
+		let the way be the best route from p1 to p2;
+		let temp-room be p1;
+		while 1 is 1:
+			now temp-room is the room the way of temp-room;
+			say "Checking [temp-room].";
+			if p2 is in temp-room, yes;
+			if number of pieces in temp-room is 1, no;
+			if temp-room is nowhere, no;
+		no;
+	if p1 is a knight:
+		if dx is 1 and dy is 2, yes;
+		if dx is 2 and dy is 1, yes;
+		no;
+
 chapter bishop
 
 a bishop is a kind of piece.
