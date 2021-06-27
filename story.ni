@@ -1,8 +1,16 @@
 "Fourbyfourian Intrigue" by Andrew Schultz
 
+the story headline is "Flagrant Horsing Around".
+
+the story description is "Less impossible than beating Stockfish".
+
+volume basics and definitions
+
+include Trivial Niceties by Andrew Schultz.
+
 volume rooms
 
-a room has a number called xval. a room has a number called yval. a room has text called room-edge-text. the description of a room is usually "You are [room-edge-text of the item described]. You can go [if number of viable directions is 8]any which way[else][list of viable directions]."
+a room has a number called xval. a room has a number called yval. a room has text called room-edge-text. the description of a room is usually "You are [room-edge-text of the item described]. You can go [if number of viable directions is 8]any which way[else][list of viable directions][end if]."
 
 offsite is a room. xval of offsite is -3. yval of offsite is -3.
 
@@ -49,9 +57,43 @@ definition: a direction (called d) is viable:
 	if the room d from the location of player is nowhere, no;
 	yes;
 
+volume pieces
+
+a piece is a kind of person. a piece can be reserved, irrelevant or placed. a piece is usually irrelevant. a piece has a list of truth state called summon-list. a piece has text called short-text.
+
+table of quest participants
+my-piece	their-piece
+friendly bishop	enemy traitor bishop
+friendly knight	enemy traitor knight
+friendly knight	enemy traitor knight
+
+chapter bishop
+
+a bishop is a kind of piece.
+
+the friendly bishop is a bishop.
+
+the enemy traitor bishop is a bishop.
+
+chapter knight
+
+a knight is a kind of piece.
+
+the friendly knight is a knight.
+
+the enemy traitor knight is a knight.
+
+chapter king
+
+a king is a kind of piece.
+
+the friendly king is a  king.
+
+the enemy traitor king is a king.
+
 volume when play begins
 
-the player is in c2. description of player is "You're ... distinguished. A distinguished spy."
+the player is in c2. description of player is "You're ... distinguished. A distinguished spy. Or people say you are."
 
 when play begins:
 	repeat with xval running from 0 to 3:
