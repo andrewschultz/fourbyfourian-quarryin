@@ -61,6 +61,10 @@ volume pieces
 
 a piece is a kind of person. a piece can be reserved, irrelevant or placed. a piece is usually irrelevant. a piece has a list of truth state called summon-list. a piece has text called short-text.
 
+team is a kind of value. team is black or white.
+
+a piece has a team called color.
+
 table of quest participants
 my-piece	their-piece
 friendly bishop	enemy traitor bishop
@@ -74,10 +78,14 @@ to decide which number is abs of (n - a number):
 	decide on 0 - n;
 
 to decide whether (p1 - a piece) attacks (p2 - a piece):
+	if p1 attacks location of p2, yes;
+	no;
+
+to decide whether (p1 - a piece) attacks (r - a room):
 	let x1 be xval of location of p1;
-	let x2 be xval of location of p2;
+	let x2 be xval of r;
 	let y1 be yval of location of p1;
-	let y2 be yval of location of p2;
+	let y2 be yval of r;
 	let dx be abs of (x1 - x2);
 	let dy be abs of (y1 - y2);
 	if p1 is a king:
@@ -86,12 +94,12 @@ to decide whether (p1 - a piece) attacks (p2 - a piece):
 		yes;
 	if p1 is a bishop:
 		if abs of (x1 - x2) is not abs of (y1 - y2), no;
-		let the way be the best route from p1 to p2;
+		let the way be the best route from p1 to r;
 		let temp-room be p1;
 		while 1 is 1:
 			now temp-room is the room the way of temp-room;
 			say "Checking [temp-room].";
-			if p2 is in temp-room, yes;
+			if temp-room is r, yes;
 			if number of pieces in temp-room is 1, no;
 			if temp-room is nowhere, no;
 		no;
@@ -99,6 +107,23 @@ to decide whether (p1 - a piece) attacks (p2 - a piece):
 		if dx is 1 and dy is 2, yes;
 		if dx is 2 and dy is 1, yes;
 		no;
+
+to decide whether (p1 - a piece) is checked:
+	repeat with p2 running through pieces:
+		if color of p1 is color of p2, next;
+		if p2 attacks p1, yes;
+	no;
+
+to decide whether (p1 - a piece) is immobile:
+	repeat with Q running through planar directions:
+		let R be the room Q of location of p1;
+		if R is nowhere, next;
+		let this-attack be false;
+		repeat with p2 running through pieces:
+			if color of p1 is color of p2, next;
+			if p2 attacks R, now this-attack is true;
+		if this-attack is false, no;
+	yes;
 
 chapter bishop
 
