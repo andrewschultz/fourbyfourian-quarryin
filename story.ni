@@ -8,6 +8,8 @@ volume basics and definitions
 
 include Trivial Niceties by Andrew Schultz.
 
+debug-state is a truth state that varies.
+
 volume rooms
 
 a room has a number called xval. a room has a number called yval. a room has text called room-edge-text. the description of a room is usually "You are [room-edge-text of the item described]. You can go [if number of viable directions is 8]any which way[else][list of viable directions][end if]."
@@ -68,11 +70,11 @@ a piece has a team called the color.
 quest-index is a number that varies. quest-index is 1.
 
 table of quest participants
-my-piece	their-piece
-friendly bishop	enemy traitor bishop
-friendly knight	enemy traitor bishop
-friendly knight	enemy traitor knight
-friendly bishop	enemy traitor bishop
+first-piece	second-piece	orig-order	solved-yet	check-rule
+friendly bishop	enemy traitor bishop	1	false	a rule
+friendly knight	enemy traitor bishop	2	false	--
+friendly knight	enemy traitor knight	3	false	--
+friendly bishop	enemy traitor bishop	4	false	--
 
 chapter whether attacks
 
@@ -218,8 +220,8 @@ to new-quest:
 	now all pieces are irrelevant;
 	now all kings are reserved;
 	choose row quest-index in table of quest participants;
-	now my-piece entry is reserved;
-	now their-piece entry is reserved;
+	now first-piece entry is reserved;
+	now second-piece entry is reserved;
 	reset-board;
 
 to reset-board:
@@ -236,6 +238,13 @@ definition: a piece (called p) is not-last:
 	if p is reserved, yes;
 
 volume testing - not for release
+
+chapter when play begins
+
+when play begins (this is the set debug state rule):
+	now debug-state is true;
+
+the set debug state rule is listed first in the when play begins rulebook.
 
 chapter pie
 
@@ -266,6 +275,8 @@ volume when play begins
 the player is in c2. description of player is "You're ... distinguished. A distinguished spy. Or people say you are."
 
 when play begins:
+	if debug-state is false:
+		sort the table of quest participants in random order;
 	now quest-index is 1;
 	new-quest;
 	repeat with xval running from 0 to 3:
