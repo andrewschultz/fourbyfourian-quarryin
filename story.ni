@@ -70,7 +70,7 @@ quest-index is a number that varies. quest-index is 1.
 table of quest participants
 my-piece	their-piece
 friendly bishop	enemy traitor bishop
-friendly knight	enemy traitor knight
+friendly knight	enemy traitor bishop
 friendly knight	enemy traitor knight
 
 chapter whether attacks
@@ -84,6 +84,7 @@ to decide whether (p1 - a piece) attacks (p2 - a piece):
 	no;
 
 to decide whether (p1 - a piece) attacks (r - a room):
+	if location of p1 is offsite, no;
 	let x1 be xval of location of p1;
 	let x2 be xval of r;
 	let y1 be yval of location of p1;
@@ -121,11 +122,16 @@ to decide whether (p1 - a piece) is immobile:
 		if R is nothing, next;
 		let this-attack be false;
 		repeat with p2 running through pieces:
+			if location of p2 is offsite, next;
+			say "Looking at [p2].";
 			if color of p1 is color of p2:
+				say "Same-color.";
 				if location of p2 is R, now this-attack is true;
 				next;
+			say "Opposite color.";
 			if p2 attacks R, now this-attack is true;
 		if this-attack is false:
+			say "[R] [q] of [location of p1] is an escapable square.";
 			no;
 	yes;
 
@@ -183,10 +189,12 @@ carry out calling:
 	move noun to location of player;
 	now noun is placed;
 	if friendly king is placed:
+		say "call1.";
 		if friendly king is checked:
 			say "But wait. Your king would be under attack from the enemy there. You'll need to try again.";
 			move noun to offsite;
 			the rule succeeds;
+		say "call2.";
 	if noun is enemy king:
 		unless enemy king is checked:
 			say "But the enemy king is not checked. So things fall apart.";
@@ -198,6 +206,10 @@ carry out calling:
 			if quest-index is 4:
 				say "You win, yay!";
 				end the story finally;
+				the rule succeeds;
+			new-quest;
+		else:
+			say "Oh no! The enemy king escapes.";
 			new-quest;
 	the rule succeeds;
 
@@ -240,6 +252,11 @@ carry out pieing:
 chapter tests
 
 test q1 with "w/place friendly bishop/ne/n/place enemy bishop/se/s/place friendly king/n/n/place enemy king".
+test q2 with "n/place friendly knight/n/place friendly king/sw/w/place enemy bishop/n/place enemy king".
+test q3 with "w/place friendly knight/ne/place friendly king/w/w/place enemy knight/n/place enemy king".
+
+test a2 with "test q1/test q2".
+test a3 with "test q1/test q2/test q3".
 
 volume when play begins
 
