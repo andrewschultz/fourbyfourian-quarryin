@@ -59,11 +59,11 @@ definition: a direction (called d) is viable:
 
 volume pieces
 
+team is a kind of value. the teams are black and white.
+
 a piece is a kind of person. a piece can be reserved, irrelevant or placed. a piece is usually irrelevant. a piece has a list of truth state called summon-list. a piece has text called short-text.
 
-team is a kind of value. team is black or white.
-
-a piece has a team called color.
+a piece has a team called the color.
 
 quest-index is a number that varies. quest-index is 1.
 
@@ -96,11 +96,10 @@ to decide whether (p1 - a piece) attacks (r - a room):
 		yes;
 	if p1 is a bishop:
 		if abs of (x1 - x2) is not abs of (y1 - y2), no;
-		let the way be the best route from p1 to r;
-		let temp-room be p1;
+		let the way be the best route from location of p1 to r;
+		let temp-room be location of p1;
 		while 1 is 1:
 			now temp-room is the room the way of temp-room;
-			say "Checking [temp-room].";
 			if temp-room is r, yes;
 			if number of pieces in temp-room is 1, no;
 			if temp-room is nowhere, no;
@@ -118,38 +117,41 @@ to decide whether (p1 - a piece) is checked:
 
 to decide whether (p1 - a piece) is immobile:
 	repeat with Q running through planar directions:
-		let R be the room Q of location of p1;
-		if R is nowhere, next;
+		let R be the room Q from location of p1;
+		if R is nothing, next;
 		let this-attack be false;
 		repeat with p2 running through pieces:
-			if color of p1 is color of p2, next;
+			if color of p1 is color of p2:
+				if location of p2 is R, now this-attack is true;
+				next;
 			if p2 attacks R, now this-attack is true;
-		if this-attack is false, no;
+		if this-attack is false:
+			no;
 	yes;
 
 chapter bishop
 
 a bishop is a kind of piece.
 
-the friendly bishop is a bishop.
+the friendly bishop is a bishop. color of friendly bishop is white.
 
-the enemy traitor bishop is a bishop.
+the enemy traitor bishop is a bishop. color of enemy traitor bishop is black.
 
 chapter knight
 
 a knight is a kind of piece.
 
-the friendly knight is a knight.
+the friendly knight is a knight. color of friendly knight is white.
 
-the enemy traitor knight is a knight.
+the enemy traitor knight is a knight. color of enemy traitor knight is black.
 
 chapter king
 
 a king is a kind of piece.
 
-the friendly king is a  king.
+the friendly king is a king. color of friendly king is white.
 
-the enemy traitor king is a king.
+the enemy traitor king is a king. color of enemy traitor king is black.
 
 volume verbs
 
@@ -193,11 +195,10 @@ carry out calling:
 		if enemy king is immobile:
 			say "Bang! Got him.";
 			increment quest-index;
-			new-quest;
 			if quest-index is 4:
 				say "You win, yay!";
 				end the story finally;
-			reset-board;
+			new-quest;
 	the rule succeeds;
 
 to new-quest:
@@ -235,6 +236,10 @@ carry out pieing:
 	repeat with P running through pieces:
 		say "[P] [if p is irrelevant](irrelevant) [end if][location of P].";
 	the rule succeeds;
+
+chapter tests
+
+test q1 with "w/place friendly bishop/ne/n/place enemy bishop/se/s/place friendly king/n/n/place enemy king".
 
 volume when play begins
 
