@@ -65,6 +65,8 @@ team is a kind of value. team is black or white.
 
 a piece has a team called color.
 
+quest-index is a number that varies. quest-index is 1.
+
 table of quest participants
 my-piece	their-piece
 friendly bishop	enemy traitor bishop
@@ -149,11 +151,98 @@ the friendly king is a  king.
 
 the enemy traitor king is a king.
 
+volume verbs
+
+chapter calling
+
+calling is an action applying to one visible thing.
+
+understand the command "call" as something new.
+understand the command "c" as something new.
+understand the command "place" as something new.
+understand the command "p" as something new.
+
+understand "call [any thing]" as calling.
+understand "c [any thing]" as calling.
+understand "place [any thing]" as calling.
+understand "p [any thing]" as calling.
+
+understand "call" as calling.
+understand "c" as calling.
+understand "place" as calling.
+understand "p" as calling.
+
+carry out calling:
+	if noun is irrelevant, say "You don't need to call [the noun]." instead;
+	if noun is enemy king and number of reserved pieces > 1, say "You will want to call [the noun] last." instead;
+	if number of pieces in location of player is 1, say "But [the random piece in location of player] is already there." instead;
+	if noun is placed, say "But [the noun] is already at [location of the noun]." instead;
+	say "You place [the noun] at [location of player].";
+	move noun to location of player;
+	now noun is placed;
+	if friendly king is placed:
+		if friendly king is checked:
+			say "But wait. Your king would be under attack from the enemy there. You'll need to try again.";
+			move noun to offsite;
+			the rule succeeds;
+	if noun is enemy king:
+		unless enemy king is checked:
+			say "But the enemy king is not checked. So things fall apart.";
+			new-quest;
+			the rule succeeds;
+		if enemy king is immobile:
+			say "Bang! Got him.";
+			increment quest-index;
+			new-quest;
+			if quest-index is 4:
+				say "You win, yay!";
+				end the story finally;
+			reset-board;
+	the rule succeeds;
+
+to new-quest:
+	now all pieces are irrelevant;
+	now all kings are reserved;
+	choose row quest-index in table of quest participants;
+	now my-piece entry is reserved;
+	now their-piece entry is reserved;
+	reset-board;
+
+to reset-board:
+	repeat with P running through pieces:
+		say "Moving [P] offsite.";
+		move P to offsite;
+	repeat with P running through placed pieces:
+		say "Reserving [P].";
+		now P is reserved;
+	if player is not in c2, move the player to c2;
+
+definition: a piece (called p) is not-last:
+	if p is enemy traitor king, no;
+	if p is reserved, yes;
+
+volume testing - not for release
+
+chapter pie
+
+pieing is an action out of world.
+
+understand the command "pie" as something new.
+
+understand "pie" as pieing.
+
+carry out pieing:
+	repeat with P running through pieces:
+		say "[P] [if p is irrelevant](irrelevant) [end if][location of P].";
+	the rule succeeds;
+
 volume when play begins
 
 the player is in c2. description of player is "You're ... distinguished. A distinguished spy. Or people say you are."
 
 when play begins:
+	now quest-index is 1;
+	new-quest;
 	repeat with xval running from 0 to 3:
 		repeat with yval running from 0 to 3:
 			let r be reverse-room of xval and yval;
