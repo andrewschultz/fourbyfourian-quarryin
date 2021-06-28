@@ -72,6 +72,7 @@ my-piece	their-piece
 friendly bishop	enemy traitor bishop
 friendly knight	enemy traitor bishop
 friendly knight	enemy traitor knight
+friendly bishop	enemy traitor bishop
 
 chapter whether attacks
 
@@ -203,7 +204,7 @@ carry out calling:
 		if enemy king is immobile:
 			say "Bang! Got him.";
 			increment quest-index;
-			if quest-index is 4:
+			if quest-index is number of rows in table of quest participants:
 				say "You win, yay!";
 				end the story finally;
 				the rule succeeds;
@@ -254,9 +255,11 @@ chapter tests
 test q1 with "w/place friendly bishop/ne/n/place enemy bishop/se/s/place friendly king/n/n/place enemy king".
 test q2 with "n/place friendly knight/n/place friendly king/sw/w/place enemy bishop/n/place enemy king".
 test q3 with "w/place friendly knight/ne/place friendly king/w/w/place enemy knight/n/place enemy king".
+test q4 with "place friendly king/n/place friendly bishop/n/place enemy knight/w/place enemy king".
 
 test a2 with "test q1/test q2".
 test a3 with "test q1/test q2/test q3".
+test a4 with "test q1/test q2/test q3/test q4".
 
 volume when play begins
 
