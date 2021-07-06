@@ -241,6 +241,22 @@ definition: a piece (called p) is not-last:
 	if p is enemy traitor king, no;
 	if p is reserved, yes;
 
+volume beta testing - not for release
+
+chapter shuf
+
+shufing is an action out of world.
+
+understand the command "shuf" as something new.
+
+understand "shuf" as shufing.
+
+carry out shufing:
+	if quest-index > 1:
+		say "Since you already completed a quest, reordering things would be a problem." instead;
+	sort the table of quest participants in random order;
+	the rule succeeds;
+
 volume testing - not for release
 
 chapter when play begins
@@ -261,17 +277,6 @@ understand "pie" as pieing.
 carry out pieing:
 	repeat with P running through pieces:
 		say "[P] [if p is irrelevant](irrelevant) [end if][location of P].";
-	the rule succeeds;
-
-chapter shuf
-
-shufing is an action out of world.
-
-understand the command "shuf" as something new.
-
-understand "shuf" as shufing.
-
-carry out shufing:
 	the rule succeeds;
 
 chapter tests
