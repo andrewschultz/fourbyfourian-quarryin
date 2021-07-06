@@ -10,6 +10,10 @@ include Trivial Niceties by Andrew Schultz.
 
 debug-state is a truth state that varies.
 
+chapter modules not for release
+
+include Debug Levels and Checks by Andrew Schultz.
+
 volume rooms
 
 a room has a number called xval. a room has a number called yval. a room has text called room-edge-text. the description of a room is usually "You are [room-edge-text of the item described]. You can go [if number of viable directions is 8]any which way[else][list of viable directions][end if]."
@@ -192,12 +196,12 @@ carry out calling:
 	move noun to location of player;
 	now noun is placed;
 	if friendly king is placed:
-		say "call1.";
+		dc-say "Placing friendly king.";
 		if friendly king is checked:
 			say "But wait. Your king would be under attack from the enemy there. You'll need to try again.";
 			move noun to offsite;
 			the rule succeeds;
-		say "call2.";
+		dc-say "Done placing friendly king, checks avoided.";
 	if noun is enemy king:
 		unless enemy king is checked:
 			say "But the enemy king is not checked. So things fall apart.";
@@ -257,6 +261,17 @@ understand "pie" as pieing.
 carry out pieing:
 	repeat with P running through pieces:
 		say "[P] [if p is irrelevant](irrelevant) [end if][location of P].";
+	the rule succeeds;
+
+chapter shuf
+
+shufing is an action out of world.
+
+understand the command "shuf" as something new.
+
+understand "shuf" as shufing.
+
+carry out shufing:
 	the rule succeeds;
 
 chapter tests
