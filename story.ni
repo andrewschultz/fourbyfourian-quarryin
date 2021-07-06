@@ -16,6 +16,20 @@ include Debug Levels and Checks by Andrew Schultz.
 
 volume rooms
 
+to decide which number is edge-count of (r - a room):
+	let temp be 0;
+	if xval of r is 4 or yval of r is 4, increment temp;
+	if xval of r is 0 or yval of r is 0, increment temp;
+	decide on temp;
+
+definition: a room (called r) is edgy:
+	if edge-count of r > 0, yes;
+	no;
+
+definition: a room (called r) is cornery:
+	if edge-count of r is 2, yes;
+	no;
+
 a room has a number called xval. a room has a number called yval. a room has text called room-edge-text. the description of a room is usually "You are [room-edge-text of the item described]. You can go [if number of viable directions is 8]any which way[else][list of viable directions][end if]."
 
 offsite is a room. xval of offsite is -3. yval of offsite is -3.
@@ -74,11 +88,14 @@ a piece has a team called the color.
 quest-index is a number that varies. quest-index is 1.
 
 table of quest participants
-first-piece	second-piece	orig-order	solved-yet	check-rule
-friendly bishop	enemy traitor bishop	1	false	a rule
-friendly knight	enemy traitor bishop	2	false	--
-friendly knight	enemy traitor knight	3	false	--
-friendly bishop	enemy traitor bishop	4	false	--
+first-piece	second-piece	orig-order	solved-yet	king-place	check-rule
+friendly bishop	enemy traitor bishop	1	false	a rule	a rule
+friendly knight	enemy traitor bishop	2	false	--	--
+friendly knight	enemy traitor knight	3	false	--	--
+friendly bishop	enemy traitor bishop	4	false	--	--
+friendly bishop	second bishop	5	false	no-corner rule	--
+friendly bishop	friendly knight	6	false	no-corner rule	--
+friendly knight	second knight	7	false	no-corner rule	--
 
 chapter whether attacks
 
@@ -150,6 +167,8 @@ the friendly bishop is a bishop. color of friendly bishop is white.
 
 the enemy traitor bishop is a bishop. color of enemy traitor bishop is black.
 
+the second bishop is a bishop. color of second bishop is white.
+
 chapter knight
 
 a knight is a kind of piece.
@@ -157,6 +176,8 @@ a knight is a kind of piece.
 the friendly knight is a knight. color of friendly knight is white.
 
 the enemy traitor knight is a knight. color of enemy traitor knight is black.
+
+the second knight is a knight. color of second knight is white.
 
 chapter king
 
@@ -203,11 +224,17 @@ carry out calling:
 			the rule succeeds;
 		dc-say "Done placing friendly king, checks avoided.";
 	if noun is enemy king:
+		if number of reserved pieces > 1:
+			say "You'll want to place the enemy king last." instead;
+			choose row quest-index in table of quest participants;
+			if there is a king-place entry, abide by the king-place entry;
 		unless enemy king is checked:
 			say "But the enemy king is not checked. So things fall apart.";
 			new-quest;
 			the rule succeeds;
 		if enemy king is immobile:
+			choose row quest-index in table of quest participants;
+			if there is a check-rule entry, abide by the check-rule entry;
 			say "Bang! Got him.";
 			increment quest-index;
 			if quest-index is number of rows in table of quest participants:
@@ -240,6 +267,12 @@ to reset-board:
 definition: a piece (called p) is not-last:
 	if p is enemy traitor king, no;
 	if p is reserved, yes;
+
+section rules for placing
+
+this is the no-corner rule:
+	if location of player is cornery:
+		say "The enemy king, alas, knows your tricks. He won't be snuck into some corner, at least not without any allies. You'll have to find somewhere else to 'invite' him.";
 
 volume beta testing - not for release
 
