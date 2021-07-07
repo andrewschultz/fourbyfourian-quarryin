@@ -43,6 +43,8 @@ the Ministry of Unity is a room. xval is 8. yval is 8. "You can go [list of unso
 
 the hub check rule is listed first in the check going rulebook.
 
+the can't exit when not inside anything rule is not listed in any rulebook.
+
 to decide what indexed text is conquest of (d - a direction):
 	let temp be "[d]" in title case;
 	decide on "[temp] Fourbyfouria"
@@ -57,7 +59,10 @@ check going (this is the hub check rule):
 		abide by can-visit of noun;
 		now quest-dir is noun;
 		say "You head [noun] to [conquest of noun]. Assisting you, along with your king, are [first-piece of noun] and [second-piece of noun].";
+		new-quest;
 		move player to c3 instead;
+		if noun is outside:
+			say "You'll have to specify a compass direction to go out from the Ministry of Unity." instead;
 	if noun is outside:
 		say "You return to the Ministry of Unity. This conquest can wait for later.";
 		now all pieces are irrelevant;
@@ -72,37 +77,55 @@ a room has a number called xval. a room has a number called yval. a room has tex
 
 offsite is a room. xval of offsite is -3. yval of offsite is -3.
 
-a1 is a room. xval of a1 is 0. yval of a1 is 0. room-edge-text is "in the southwest corner".
+a1 is a room. xval of a1 is 0. yval of a1 is 0. room-edge-text is "at the relatively inaccessible southwest corner".
 
-b1 is a room. xval of b1 is 1. yval of b1 is 0. room-edge-text is "just west of the center of the south edge".
+b1 is a room. xval of b1 is 1. yval of b1 is 0. room-edge-text is "on the south edge and near the west edge".
 
-c1 is a room. xval of c1 is 2. yval of c1 is 0. room-edge-text is "just east of the center of the south edge".
+c1 is a room. xval of c1 is 2. yval of c1 is 0. room-edge-text is "in the center of the south edge".
 
-d1 is a room. xval of d1 is 3. yval of d1 is 0. room-edge-text is "in the southeast corner".
+d1 is a room. xval of d1 is 3. yval of d1 is 0. room-edge-text is "on the south edge and near the east edge".
 
-a2 is a room. xval of a2 is 0. yval of a2 is 1. room-edge-text is "just south of the center of the west edge".
+e1 is a room. xval of e1 is 4. yval of e1 is 0. room-edge-text is "at the relatively inaccessible southeast corner".
 
-b2 is a room. xval of b2 is 1. yval of b2 is 1. room-edge-text is "just southwest of the very center".
+a2 is a room. xval of a2 is 0. yval of a2 is 1. room-edge-text is "on the west edge and near the south edge".
 
-c2 is a room. xval of c2 is 2. yval of c2 is 1. room-edge-text is "just southeast of the very center".
+b2 is a room. xval of b2 is 1. yval of b2 is 1. room-edge-text is "in a southwest-ish area".
 
-d2 is a room. xval of d2 is 3. yval of d2 is 1. room-edge-text is "just south of the center of the east edge".
+c2 is a room. xval of c2 is 2. yval of c2 is 1. room-edge-text is "just south of the center".
 
-a3 is a room. xval of a3 is 0. yval of a3 is 2. room-edge-text is "just north of the center of the west edge".
+d2 is a room. xval of d2 is 3. yval of d2 is 1. room-edge-text is "in a southeast-ish area".
 
-b3 is a room. xval of b3 is 1. yval of b3 is 2. room-edge-text is "just northwest of the very center".
+e2 is a room. xval of e2 is 4. yval of e2 is 1. room-edge-text is "on the east edge and near the south edge".
 
-c3 is a room. xval of c3 is 2. yval of c3 is 2. room-edge-text is "just northeast of the very center".
+a3 is a room. xval of a3 is 0. yval of a3 is 2. room-edge-text is "at the center of the west edge".
 
-d3 is a room. xval of d3 is 3. yval of d3 is 2. room-edge-text is "just south of the center of the east edge".
+b3 is a room. xval of b3 is 1. yval of b3 is 2. room-edge-text is "just west of the center".
 
-a4 is a room. xval of a4 is 0. yval of a4 is 3. room-edge-text is "in the northwest corner".
+c3 is a room. xval of c3 is 2. yval of c3 is 2. room-edge-text is "smack in the center".
 
-b4 is a room. xval of b4 is 1. yval of b4 is 3. room-edge-text is "just west of the center of the north edge".
+d3 is a room. xval of d3 is 3. yval of d3 is 2. room-edge-text is "just east of the center".
 
-c4 is a room. xval of c4 is 2. yval of c4 is 3. room-edge-text is "just east of the center of the north edge".
+e3 is a room. xval of e3 is 4. yval of e3 is 2. room-edge-text is "at the center of the east edge".
 
-d4 is a room. xval of d4 is 3. yval of d4 is 3. room-edge-text is "in the northeast corner".
+a4 is a room. xval of a4 is 0. yval of a4 is 3. room-edge-text is "on the west edge and near the north edge".
+
+b4 is a room. xval of b4 is 1. yval of b4 is 3. room-edge-text is "in a northwest-ish area".
+
+c4 is a room. xval of c4 is 2. yval of c4 is 3. room-edge-text is "just north of the center".
+
+d4 is a room. xval of d4 is 3. yval of d4 is 3. room-edge-text is "in a northeast-ish area".
+
+e4 is a room. xval of e4 is 4. yval of e4 is 3. room-edge-text is "on the east edge and near the north edge".
+
+a5 is a room. xval of a5 is 0. yval of a5 is 4. room-edge-text is "at the relatively inaccessible northwest corner".
+
+b5 is a room. xval of b5 is 1. yval of b5 is 4. room-edge-text is "on the north edge and near the west edge".
+
+c5 is a room. xval of c5 is 2. yval of c5 is 4. room-edge-text is "in the center of the north edge".
+
+d5 is a room. xval of d5 is 3. yval of d5 is 4. room-edge-text is "on the north edge and near the east edge".
+
+e5 is a room. xval of e5 is 4. yval of e5 is 4. room-edge-text is "at the relatively inaccessible northeast corner".
 
 to decide which room is reverse-room of (x - a number) and (y - a number):
 	repeat with Q running through rooms:
@@ -144,6 +167,7 @@ to decide whether (p1 - a piece) attacks (p2 - a piece):
 
 to decide whether (p1 - a piece) attacks (r - a room):
 	if location of p1 is offsite, no;
+	if location of p1 is r, no;
 	let x1 be xval of location of p1;
 	let x2 be xval of r;
 	let y1 be yval of location of p1;
@@ -156,13 +180,13 @@ to decide whether (p1 - a piece) attacks (r - a room):
 		yes;
 	if p1 is a bishop:
 		if abs of (x1 - x2) is not abs of (y1 - y2), no;
-		let the way be the best route from location of p1 to r;
 		let temp-room be location of p1;
+		let the way be the best route from temp-room to r;
 		while 1 is 1:
 			now temp-room is the room the way of temp-room;
 			if temp-room is r, yes;
+			if temp-room is nothing, no;
 			if number of pieces in temp-room is 1, no;
-			if temp-room is nowhere, no;
 		no;
 	if p1 is a knight:
 		if dx is 1 and dy is 2, yes;
@@ -177,20 +201,17 @@ to decide whether (p1 - a piece) is checked:
 
 to decide whether (p1 - a piece) is immobile:
 	repeat with Q running through planar directions:
-		let R be the room Q from location of p1;
-		if R is nothing, next;
+		let R2 be the room Q from location of p1;
+		if R2 is nothing, next;
 		let this-attack be false;
 		repeat with p2 running through pieces:
 			if location of p2 is offsite, next;
-			say "Looking at [p2].";
 			if color of p1 is color of p2:
-				say "Same-color.";
-				if location of p2 is R, now this-attack is true;
+				if location of p2 is R2, now this-attack is true;
 				next;
-			say "Opposite color.";
-			if p2 attacks R, now this-attack is true;
+			if p2 attacks R2, now this-attack is true;
 		if this-attack is false:
-			say "[R] [q] of [location of p1] is an escapable square.";
+			if debug-state is true, say "[R2] [q] of [location of p1] is an escapable square.";
 			no;
 	yes;
 
@@ -259,15 +280,15 @@ section individual quest properties
 
 first-piece of southwest is friendly bishop. second-piece of southwest is enemy traitor bishop. questable of southwest is true.
 
+first-piece of north is friendly knight. second-piece of north is enemy traitor bishop. questable of north is true.
+
 first-piece of northeast is friendly knight. second-piece of northeast is enemy traitor knight. questable of northeast is true.
 
 first-piece of west is friendly bishop. second-piece of west is enemy traitor knight. questable of west is true.
 
-first-piece of north is friendly knight. second-piece of north is enemy traitor bishop. questable of north is true.
+first-piece of south is friendly knight. second-piece of south is second knight. king-place of south is no-corner-no-close rule. questable of south is true.
 
 first-piece of east is friendly bishop. second-piece of east is second bishop. king-place of east is no-corner-no-close rule. questable of east is true.
-
-first-piece of south is friendly knight. second-piece of south is second knight. king-place of south is no-corner-no-close rule. questable of south is true.
 
 first-piece of southeast is friendly bishop. second-piece of southeast is friendly knight. king-place of east is no-corner-no-close rule. questable of southeast is true.
 
@@ -299,19 +320,17 @@ carry out calling:
 	if noun is placed, say "But [the noun] is already at [location of the noun]." instead;
 	say "You place [the noun] at [location of player].";
 	move noun to location of player;
-	now noun is placed;
 	if noun is a bishop:
 		if number of placed bishops is 1:
 			let Q be a random placed bishop;
 			if color of noun is white and color of Q is white and location of Q and location of player are samecolored:
 				say "You realize that you are about to place both your bishops on the same color square. You may break a lot of stuffy old rules in Twelvebytwelvia, but that's not one of them, especially since breaking that rule gives no practical benefit. Okay, it actually harms you." instead;
+	now noun is placed;
 	if friendly king is placed:
-		dc-say "Placing friendly king.";
 		if friendly king is checked:
 			say "But wait. Your king would be under attack from the enemy there. You'll need to try again.";
 			move noun to offsite;
 			the rule succeeds;
-		dc-say "Done placing friendly king, checks avoided.";
 	if noun is enemy king:
 		if number of reserved pieces > 1:
 			say "You'll want to place the enemy king last." instead;
@@ -323,6 +342,7 @@ carry out calling:
 		if enemy king is immobile:
 			abide by right-checkmate of quest-dir;
 			say "Bang! Got him.";
+			now solved-yet of quest-dir is true;
 			if number of unsolved directions is 0:
 				say "You win, yay!";
 				end the story finally;
@@ -336,6 +356,7 @@ carry out calling:
 to new-quest:
 	now all pieces are irrelevant;
 	now all kings are reserved;
+	say "Reserving [first-piece of quest-dir] and [second-piece of quest-dir].";
 	now first-piece of quest-dir is reserved;
 	now second-piece of quest-dir is reserved;
 	reset-board;
@@ -386,10 +407,10 @@ carry out pieing:
 
 chapter tests
 
-test q1 with "w/place friendly bishop/ne/n/place enemy bishop/se/s/place friendly king/n/n/place enemy king".
-test q2 with "n/place friendly knight/n/place friendly king/sw/w/place enemy bishop/n/place enemy king".
-test q3 with "w/place friendly knight/ne/place friendly king/w/w/place enemy knight/n/place enemy king".
-test q4 with "place friendly king/n/place friendly bishop/n/place enemy knight/w/place enemy king".
+test q1 with "sw/place friendly bishop/ne/n/place enemy bishop/se/s/place friendly king/n/n/place enemy king". [BvB]
+test q2 with "n/n/place friendly knight/n/place friendly king/sw/w/place enemy bishop/n/place enemy king". [NvB]
+test q3 with "ne/w/place friendly knight/ne/place friendly king/w/w/place enemy knight/n/place enemy king". [NvN]
+test q4 with "w/w/place friendly king/n/place friendly bishop/n/place enemy knight/w/place enemy king". [BvN]
 
 test a2 with "test q1/test q2".
 test a3 with "test q1/test q2/test q3".
@@ -401,8 +422,8 @@ the player is in Ministry of Unity. description of player is "You're ... disting
 
 when play begins:
 	new-quest;
-	repeat with xval running from 0 to 3:
-		repeat with yval running from 0 to 3:
+	repeat with xval running from 0 to 4:
+		repeat with yval running from 0 to 4:
 			let r be reverse-room of xval and yval;
 			let rn be reverse-room of xval and yval + 1;
 			let re be reverse-room of xval + 1 and yval;
