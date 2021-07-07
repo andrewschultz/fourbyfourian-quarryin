@@ -219,29 +219,29 @@ chapter bishop
 
 a bishop is a kind of piece.
 
-the friendly bishop is a bishop. color of friendly bishop is white.
+the friendly bishop is a bishop. color of friendly bishop is white. understand "b" and "fb" as friendly bishop.
 
-the enemy traitor bishop is a bishop. color of enemy traitor bishop is black.
+the enemy traitor bishop is a bishop. color of enemy traitor bishop is black. understand "b" and "eb" as enemy bishop.
 
-the second bishop is a bishop. color of second bishop is white.
+the second bishop is a bishop. color of second bishop is white. understand "b" and "sb" as second bishop.
 
 chapter knight
 
 a knight is a kind of piece.
 
-the friendly knight is a knight. color of friendly knight is white.
+the friendly knight is a knight. color of friendly knight is white. understand "n" and "fn" as friendly knight.
 
-the enemy traitor knight is a knight. color of enemy traitor knight is black.
+the enemy traitor knight is a knight. color of enemy traitor knight is black. understand "n" and "en" as enemy knight.
 
-the second knight is a knight. color of second knight is white.
+the second knight is a knight. color of second knight is white. understand "n" and "sn" as second knight.
 
 chapter king
 
 a king is a kind of piece.
 
-the friendly king is a king. color of friendly king is white.
+the friendly king is a king. color of friendly king is white. understand "k" and "fk" as friendly king.
 
-the enemy traitor king is a king. color of enemy traitor king is black.
+the enemy king is a king. color of enemy king is black. understand "k" and "ek" as enemy king.
 
 volume directions
 
@@ -296,6 +296,16 @@ volume verbs
 
 chapter calling
 
+does the player mean calling the friendly bishop when friendly bishop is reserved: it is likely.
+
+does the player mean calling the friendly knight when friendly knight is reserved: it is likely.
+
+does the player mean calling the enemy king when friendly king is reserved: it is unlikely.
+
+does the player mean calling a reserved piece: it is very likely.
+
+does the player mean calling an irrelevant piece: it is very unlikely.
+
 calling is an action applying to one visible thing.
 
 understand the command "call" as something new.
@@ -314,6 +324,7 @@ understand "place" as calling.
 understand "p" as calling.
 
 carry out calling:
+	if location of player is Ministry of Unity, say "You don't need to call allies until you're away from the Ministry." instead;
 	if noun is irrelevant, say "You don't need to call [the noun]." instead;
 	if noun is enemy king and number of reserved pieces > 1, say "You will want to call [the noun] last." instead;
 	if number of pieces in location of player is 1, say "But [the random piece in location of player] is already there." instead;
@@ -368,7 +379,7 @@ to reset-board:
 		now P is reserved;
 
 definition: a piece (called p) is not-last:
-	if p is enemy traitor king, no;
+	if p is enemy king, no;
 	if p is reserved, yes;
 
 section rules for placing
@@ -408,9 +419,18 @@ carry out pieing:
 chapter tests
 
 test q1 with "sw/place friendly bishop/ne/n/place enemy bishop/se/s/place friendly king/n/n/place enemy king". [BvB]
+
 test q2 with "n/n/place friendly knight/n/place friendly king/sw/w/place enemy bishop/n/place enemy king". [NvB]
+
 test q3 with "ne/w/place friendly knight/ne/place friendly king/w/w/place enemy knight/n/place enemy king". [NvN]
+
 test q4 with "w/w/place friendly king/n/place friendly bishop/n/place enemy knight/w/place enemy king". [BvN]
+
+test q5 with "e/e/place bishop/w/w/w/place k/se/place b/s/place k". [KBBvK]
+
+test q6 with "s/e/place n/w/w/w/place n/se/se/e/e/place k/w/w/place k". [KNNvK]
+
+test q7 with "place n/w/place k/e/e/e/place b/sw/sw/place k". [KBNvK]
 
 test a2 with "test q1/test q2".
 test a3 with "test q1/test q2/test q3".
@@ -421,7 +441,6 @@ volume when play begins
 the player is in Ministry of Unity. description of player is "You're ... distinguished. A distinguished spy. Or people say you are."
 
 when play begins:
-	new-quest;
 	repeat with xval running from 0 to 4:
 		repeat with yval running from 0 to 4:
 			let r be reverse-room of xval and yval;
