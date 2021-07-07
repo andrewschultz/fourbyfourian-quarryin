@@ -82,6 +82,8 @@ chapter the grid
 
 a room has a number called xval. a room has a number called yval. a room has text called room-edge-text. the description of a room is usually "You are [room-edge-text of the item described]. You can go [if number of viable directions is 8]any which way[else][list of viable directions][end if]."
 
+a room can be guarded. A room is usually not guarded.
+
 offsite is a room. xval of offsite is -3. yval of offsite is -3.
 
 a1 is a room. xval of a1 is 0. yval of a1 is 0. room-edge-text is "at the relatively inaccessible southwest corner".
@@ -348,7 +350,9 @@ carry out calling:
 		if friendly king is checked:
 			say "But wait. Your king would be under attack from the enemy there. You'll need to try again.";
 			move noun to offsite;
+			now noun is reserved;
 			the rule succeeds;
+	update-guarded;
 	if noun is enemy king:
 		if number of reserved pieces > 1:
 			say "You'll want to place the enemy king last." instead;
@@ -372,6 +376,7 @@ carry out calling:
 	the rule succeeds;
 
 to new-quest:
+	now all rooms are not guarded;
 	now all pieces are irrelevant;
 	now all kings are reserved;
 	now first-piece of quest-dir is reserved;
@@ -388,6 +393,45 @@ definition: a piece (called p) is not-last:
 	if p is enemy king, no;
 	if p is reserved, yes;
 
+section rules for what's guarded
+
+to knight-mark (p - a piece):
+	let myx be xval of location of p;
+	let myy be yval of location of p;
+	repeat through table of knight offsets:
+		let newx be myx + the-x entry;
+		let newy be myy + the-y entry;
+		let RR be reverse-room of newx and newy;
+		if RR is offsite, next;
+		now RR is guarded;
+
+to bishop-mark (p - a piece):
+	repeat with Q running through diagonal directions:
+		let temp-room be the room Q of location of P;
+		while temp-room is not nothing:
+			say "Old temp-room [temp-room]. Heading [Q].";
+			now temp-room is guarded;
+			if number of pieces in temp-room is 1, break;
+			now temp-room is the room Q of location of temp-room;
+			say "New temp-room [temp-room].";
+
+table of knight offsets
+the-x	the-y
+2	1
+2	-1
+-2	1
+-2	-1
+1	2
+1	-2
+-1	2
+-1	-2
+
+to update-guarded:
+	repeat with Q running through placed pieces:
+		if color of Q is black, next;
+		if Q is a bishop, bishop-mark Q;
+		if Q is a knight, knight-mark Q;
+
 section rules for placing
 
 this is the no-corner rule:
@@ -397,6 +441,57 @@ this is the no-corner rule:
 
 this is the no-corner-no-close rule:
 	abide by the no-corner rule;
+
+chapter maps
+
+boarding is an action applying to nothing.
+
+understand the command "board" as something new.
+understand the command "b" as something new.
+understand the command "map" as something new.
+understand the command "m" as something new.
+
+understand "board" as boarding.
+understand "b" as boarding.
+understand "map" as boarding.
+understand "m" as boarding.
+
+carry out boarding:
+	if location of player is ministry of unity, say "There is no map to look at right now." instead;
+	show-the-board;
+	the rule succeeds.
+
+to show-the-board:
+	say "STRATEGIC MAP OF FIVEBYFIVIA SO FAR:[line break]";
+	say "[fixed letter spacing]  a b c d e[line break]";
+	say "5[pie of a5][pie of b5][pie of c5][pie of d5][pie of e5] 5[line break]";
+	say "4[pie of a4][pie of b4][pie of c4][pie of d4][pie of e4] 4[line break]";
+	say "3[pie of a3][pie of b3][pie of c3][pie of d3][pie of e3] 3[line break]";
+	say "2[pie of a2][pie of b2][pie of c2][pie of d2][pie of e2] 2[line break]";
+	say "1[pie of a1][pie of b1][pie of c1][pie of d1][pie of e1] 1[line break]";
+	say "  a b c d e[variable letter spacing][paragraph break]";
+
+to say pie of (rm - a room):
+	say " ";
+	if enemy bishop is in rm:
+		say "b";
+	else if friendly bishop is in rm or second bishop is in rm:
+		say "B";
+	else if enemy knight is in rm:
+		say "n";
+	else if friendly knight is in rm or second knight is in rm:
+		say "N";
+	else if friendly king is in rm:
+		say "K";
+	else if enemy king is in rm:
+		say "k";
+	else if rm is guarded:
+		say "+";
+	else if location of player is rm:
+		say "*";
+	else:
+		say "-";
+
 
 volume beta testing - not for release
 
