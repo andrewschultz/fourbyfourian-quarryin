@@ -37,6 +37,37 @@ definition: a room (called r) is cornery:
 	if edge-count of r is 2, yes;
 	no;
 
+chapter central
+
+the Ministry of Unity is a room. xval is 8. yval is 8. "You can go [list of unsolved directions] from here[if number of solved-already directions > 0]. You've already taken care of business to the [list of solved-already directions][end if].".
+
+the hub check rule is listed first in the check going rulebook.
+
+to decide what indexed text is conquest of (d - a direction):
+	let temp be "[d]" in title case;
+	decide on "[temp] Fourbyfouria"
+
+check going (this is the hub check rule):
+	if noun is up or noun is down:
+		say "Flying machines are a century or more away." instead;
+	if player is in Ministry of Unity:
+		let cur-row be 0;
+		if questable of noun is false, say "You can't go [noun] from the Ministry." instead;
+		if solved-yet of noun is true, say "You already conquered [noun] Fourbyfouria." instead;
+		abide by can-visit of noun;
+		now quest-dir is noun;
+		say "You head [noun] to [conquest of noun]. Assisting you, along with your king, are [first-piece of noun] and [second-piece of noun].";
+		move player to c3 instead;
+	if noun is outside:
+		say "You return to the Ministry of Unity. This conquest can wait for later.";
+		now all pieces are irrelevant;
+		move player to Ministry of Unity;
+		the rule succeeds;
+	if noun is inside:
+		say "You need to go a planar direction.";
+
+chapter the grid
+
 a room has a number called xval. a room has a number called yval. a room has text called room-edge-text. the description of a room is usually "You are [room-edge-text of the item described]. You can go [if number of viable directions is 8]any which way[else][list of viable directions][end if]."
 
 offsite is a room. xval of offsite is -3. yval of offsite is -3.
@@ -93,12 +124,6 @@ to decide which number is diag-dist of (r1 - a room) and (r2 - a room):
 to decide which number is diag-dist of (t1 - a thing) and (t2 - a thing):
 	decide on diag-dist of location of t1 and location of t2;
 
-chapter directions
-
-definition: a direction (called d) is viable:
-	if the room d from the location of player is nowhere, no;
-	yes;
-
 volume pieces
 
 team is a kind of value. the teams are black and white.
@@ -106,18 +131,6 @@ team is a kind of value. the teams are black and white.
 a piece is a kind of person. a piece can be reserved, irrelevant or placed. a piece is usually irrelevant. a piece has a list of truth state called summon-list. a piece has text called short-text.
 
 a piece has a team called the color.
-
-quest-index is a number that varies. quest-index is 1.
-
-table of quest participants
-first-piece	second-piece	orig-order	solved-yet	king-place	check-rule
-friendly bishop	enemy traitor bishop	1	false	a rule	a rule
-friendly knight	enemy traitor bishop	2	false	--	--
-friendly knight	enemy traitor knight	3	false	--	--
-friendly bishop	enemy traitor bishop	4	false	--	--
-friendly bishop	second bishop	5	false	no-corner-no-close rule	--
-friendly bishop	friendly knight	6	false	no-corner-no-close rule	--
-friendly knight	second knight	7	false	no-corner-no-close rule	--
 
 chapter whether attacks
 
@@ -209,6 +222,55 @@ the friendly king is a king. color of friendly king is white.
 
 the enemy traitor king is a king. color of enemy traitor king is black.
 
+volume directions
+
+definition: a direction (called d) is unsolved:
+	if solved-yet of d is true, no;
+	if questable of d is false, no;
+	yes;
+
+definition: a direction (called d) is solved-already:
+	if solved-yet of d is true, yes;
+	no;
+
+definition: a direction (called d) is viable:
+	if the room d from the location of player is nowhere, no;
+	yes;
+
+quest-dir is a direction that varies.
+
+chapter properties for quests
+
+a direction has a truth state called questable. questable of a direction is usually false.
+
+a direction has a truth state called solved-yet. solved-yet of a direction is usually false.
+
+a direction has a piece called first-piece.
+
+a direction has a piece called second-piece.
+
+a direction has a rule called can-visit. can-visit of a direction is usually the trivially ignorable rule.
+
+a direction has a rule called king-place. king-place of a direction is usually the trivially ignorable rule.
+
+a direction has a rule called right-checkmate. right-checkmate of a direction is usually the trivially ignorable rule.
+
+section individual quest properties
+
+first-piece of southwest is friendly bishop. second-piece of southwest is enemy traitor bishop. questable of southwest is true.
+
+first-piece of northeast is friendly knight. second-piece of northeast is enemy traitor knight. questable of northeast is true.
+
+first-piece of west is friendly bishop. second-piece of west is enemy traitor knight. questable of west is true.
+
+first-piece of north is friendly knight. second-piece of north is enemy traitor bishop. questable of north is true.
+
+first-piece of east is friendly bishop. second-piece of east is second bishop. king-place of east is no-corner-no-close rule. questable of east is true.
+
+first-piece of south is friendly knight. second-piece of south is second knight. king-place of south is no-corner-no-close rule. questable of south is true.
+
+first-piece of southeast is friendly bishop. second-piece of southeast is friendly knight. king-place of east is no-corner-no-close rule. questable of southeast is true.
+
 volume verbs
 
 chapter calling
@@ -238,10 +300,10 @@ carry out calling:
 	say "You place [the noun] at [location of player].";
 	move noun to location of player;
 	now noun is placed;
-	if noun is a white bishop:
-		if number of placed white bishops is 1:
-			let b be a random placed white bishop;
-			if location of b and location of player are samecolored:
+	if noun is a bishop:
+		if number of placed bishops is 1:
+			let Q be a random placed bishop;
+			if color of noun is white and color of Q is white and location of Q and location of player are samecolored:
 				say "You realize that you are about to place both your bishops on the same color square. You may break a lot of stuffy old rules in Twelvebytwelvia, but that's not one of them, especially since breaking that rule gives no practical benefit. Okay, it actually harms you." instead;
 	if friendly king is placed:
 		dc-say "Placing friendly king.";
@@ -253,22 +315,19 @@ carry out calling:
 	if noun is enemy king:
 		if number of reserved pieces > 1:
 			say "You'll want to place the enemy king last." instead;
-			choose row quest-index in table of quest participants;
-			if there is a king-place entry, abide by the king-place entry;
+			abide by the king-place of quest-dir;
 		unless enemy king is checked:
 			say "But the enemy king is not checked. So things fall apart.";
 			new-quest;
 			the rule succeeds;
 		if enemy king is immobile:
-			choose row quest-index in table of quest participants;
-			if there is a check-rule entry, abide by the check-rule entry;
+			abide by right-checkmate of quest-dir;
 			say "Bang! Got him.";
-			increment quest-index;
-			if quest-index is number of rows in table of quest participants:
+			if number of unsolved directions is 0:
 				say "You win, yay!";
 				end the story finally;
 				the rule succeeds;
-			new-quest;
+			move player to Ministry of Unity;
 		else:
 			say "Oh no! The enemy king escapes.";
 			new-quest;
@@ -277,19 +336,15 @@ carry out calling:
 to new-quest:
 	now all pieces are irrelevant;
 	now all kings are reserved;
-	choose row quest-index in table of quest participants;
-	now first-piece entry is reserved;
-	now second-piece entry is reserved;
+	now first-piece of quest-dir is reserved;
+	now second-piece of quest-dir is reserved;
 	reset-board;
 
 to reset-board:
 	repeat with P running through pieces:
-		say "Moving [P] offsite.";
 		move P to offsite;
 	repeat with P running through placed pieces:
-		say "Reserving [P].";
 		now P is reserved;
-	if player is not in c2, move the player to c2;
 
 definition: a piece (called p) is not-last:
 	if p is enemy traitor king, no;
@@ -306,20 +361,6 @@ this is the no-corner-no-close rule:
 	abide by the no-corner rule;
 
 volume beta testing - not for release
-
-chapter shuf
-
-shufing is an action out of world.
-
-understand the command "shuf" as something new.
-
-understand "shuf" as shufing.
-
-carry out shufing:
-	if quest-index > 1:
-		say "Since you already completed a quest, reordering things would be a problem." instead;
-	sort the table of quest participants in random order;
-	the rule succeeds;
 
 volume testing - not for release
 
@@ -356,12 +397,9 @@ test a4 with "test q1/test q2/test q3/test q4".
 
 volume when play begins
 
-the player is in c2. description of player is "You're ... distinguished. A distinguished spy. Or people say you are."
+the player is in Ministry of Unity. description of player is "You're ... distinguished. A distinguished spy. Or people say you are."
 
 when play begins:
-	if debug-state is false:
-		sort the table of quest participants in random order;
-	now quest-index is 1;
 	new-quest;
 	repeat with xval running from 0 to 3:
 		repeat with yval running from 0 to 3:
