@@ -16,6 +16,13 @@ include Debug Levels and Checks by Andrew Schultz.
 
 volume rooms
 
+to decide which number is the parity of (r - a room):
+	decide on the remainder after dividing (xval of r + yval of r) by 2;
+
+to decide if (r1 - a room) and (r2 - a room) are samecolored:
+	if parity of r1 is parity of r2, yes;
+	no;
+
 to decide which number is edge-count of (r - a room):
 	let temp be 0;
 	if xval of r is 4 or yval of r is 4, increment temp;
@@ -231,6 +238,11 @@ carry out calling:
 	say "You place [the noun] at [location of player].";
 	move noun to location of player;
 	now noun is placed;
+	if noun is a white bishop:
+		if number of placed white bishops is 1:
+			let b be a random placed white bishop;
+			if location of b and location of player are samecolored:
+				say "You realize that you are about to place both your bishops on the same color square. You may break a lot of stuffy old rules in Twelvebytwelvia, but that's not one of them, especially since breaking that rule gives no practical benefit. Okay, it actually harms you." instead;
 	if friendly king is placed:
 		dc-say "Placing friendly king.";
 		if friendly king is checked:
