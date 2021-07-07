@@ -8,6 +8,8 @@ volume basics and definitions
 
 include Trivial Niceties by Andrew Schultz.
 
+include Bypass Disambiguation by Climbing Stars.
+
 debug-state is a truth state that varies.
 
 chapter modules not for release
@@ -409,11 +411,9 @@ to bishop-mark (p - a piece):
 	repeat with Q running through diagonal directions:
 		let temp-room be the room Q of location of P;
 		while temp-room is not nothing:
-			say "Old temp-room [temp-room]. Heading [Q].";
 			now temp-room is guarded;
 			if number of pieces in temp-room is 1, break;
 			now temp-room is the room Q of location of temp-room;
-			say "New temp-room [temp-room].";
 
 table of knight offsets
 the-x	the-y
@@ -441,6 +441,30 @@ this is the no-corner rule:
 
 this is the no-corner-no-close rule:
 	abide by the no-corner rule;
+
+section disambiguating when nothing is relevant
+
+Include (-
+[ FindInParseList obj i k marker;
+marker = 0;
+for (i=1 : i<=number_of_classes : i++) {
+while (((match_classes–>marker) ~= i) && ((match_classes–>marker) ~= -i)) marker++;
+k = match_list–>marker;
+if (k==obj) rtrue;
+}
+rfalse;
+];
+-)
+
+To decide whether (N - an object) fits the parse list: (- (FindInParseList({N})) -)
+
+definition: a thing is matched if it fits the parse list.
+
+rule for asking which do you mean when everything matched is irrelevant (this is the bypass disambiguation rule):
+	if the current action is calling:
+		say "Everyone matching that request isn't part of the current maneuvers, so I can't figure anyone to call.";
+		the rule succeeds;
+	continue the action;
 
 chapter maps
 
