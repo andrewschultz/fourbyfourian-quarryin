@@ -71,6 +71,21 @@ to decide which room is reverse-room of (x - a number) and (y - a number):
 		if xval of Q is x and yval of Q is y, decide on Q;
 	decide on offsite;
 
+to decide which number is basic-dist of (r1 - a room) and (r2 - a room):
+	decide on abs of (xval of r1 - xval of r2) + abs of (yval of r1 - yval of r2)
+
+to decide which number is basic-dist of (t1 - a thing) and (t2 - a thing):
+	decide on basic-dist of location of t1 and location of t2;
+
+to decide which number is diag-dist of (r1 - a room) and (r2 - a room):
+	let x be abs of (xval of r1 - xval of r2);
+	let y be abs of (yval of r1 - yval of r2);
+	if x > y, decide on x;
+	decide on y;
+
+to decide which number is diag-dist of (t1 - a thing) and (t2 - a thing):
+	decide on diag-dist of location of t1 and location of t2;
+
 chapter directions
 
 definition: a direction (called d) is viable:
@@ -93,9 +108,9 @@ friendly bishop	enemy traitor bishop	1	false	a rule	a rule
 friendly knight	enemy traitor bishop	2	false	--	--
 friendly knight	enemy traitor knight	3	false	--	--
 friendly bishop	enemy traitor bishop	4	false	--	--
-friendly bishop	second bishop	5	false	no-corner rule	--
-friendly bishop	friendly knight	6	false	no-corner rule	--
-friendly knight	second knight	7	false	no-corner rule	--
+friendly bishop	second bishop	5	false	no-corner-no-close rule	--
+friendly bishop	friendly knight	6	false	no-corner-no-close rule	--
+friendly knight	second knight	7	false	no-corner-no-close rule	--
 
 chapter whether attacks
 
@@ -273,6 +288,10 @@ section rules for placing
 this is the no-corner rule:
 	if location of player is cornery:
 		say "The enemy king, alas, knows your tricks. He won't be snuck into some corner, at least not without any allies. You'll have to find somewhere else to 'invite' him.";
+		the rule fails;
+
+this is the no-corner-no-close rule:
+	abide by the no-corner rule;
 
 volume beta testing - not for release
 
