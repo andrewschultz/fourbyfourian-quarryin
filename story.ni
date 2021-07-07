@@ -43,11 +43,25 @@ the Ministry of Unity is a room. xval is 8. yval is 8. "You can go [list of unso
 
 the hub check rule is listed first in the check going rulebook.
 
-the can't exit when not inside anything rule is not listed in any rulebook.
-
 to decide what indexed text is conquest of (d - a direction):
 	let temp be "[d]" in title case;
 	decide on "[temp] Fourbyfouria"
+
+check exiting (this is the blanket exit rule):
+	if location of player is Ministry of Unity:
+		if number of unsolved directions is 1:
+			let D be a random unsolved direction;
+			say "Only one direction to go out: [D]. So you do.";
+			try going D instead;
+		say "You need to specify a compass direction to go out from the Ministry of Unity." instead;
+	say "You return to the Ministry of Unity. This conquest can wait for later.";
+	repeat with P running through pieces:
+		now P is irrelevant;
+		move P to offsite;
+	move player to Ministry of Unity;
+	the rule succeeds;
+
+the blanket exit rule is listed before the can't exit when not inside anything rule in the check exiting rulebook.
 
 check going (this is the hub check rule):
 	if noun is up or noun is down:
@@ -61,13 +75,6 @@ check going (this is the hub check rule):
 		say "You head [noun] to [conquest of noun]. Assisting you, along with your king, are [first-piece of noun] and [second-piece of noun].";
 		new-quest;
 		move player to c3 instead;
-		if noun is outside:
-			say "You'll have to specify a compass direction to go out from the Ministry of Unity." instead;
-	if noun is outside:
-		say "You return to the Ministry of Unity. This conquest can wait for later.";
-		now all pieces are irrelevant;
-		move player to Ministry of Unity;
-		the rule succeeds;
 	if noun is inside:
 		say "You need to go a planar direction.";
 
@@ -367,7 +374,6 @@ carry out calling:
 to new-quest:
 	now all pieces are irrelevant;
 	now all kings are reserved;
-	say "Reserving [first-piece of quest-dir] and [second-piece of quest-dir].";
 	now first-piece of quest-dir is reserved;
 	now second-piece of quest-dir is reserved;
 	reset-board;
@@ -430,7 +436,7 @@ test q5 with "e/e/place bishop/w/w/w/place k/se/place b/s/place k". [KBBvK]
 
 test q6 with "s/e/place n/w/w/w/place n/se/se/e/e/place k/w/w/place k". [KNNvK]
 
-test q7 with "place n/w/place k/e/e/e/place b/sw/sw/place k". [KBNvK]
+test q7 with "se/place n/w/place k/e/e/e/place b/sw/sw/place k". [KBNvK]
 
 test a2 with "test q1/test q2".
 test a3 with "test q1/test q2/test q3".
