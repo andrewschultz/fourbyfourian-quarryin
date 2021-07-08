@@ -47,7 +47,11 @@ Constant AGAIN2__WD = 'again';
 
 chapter modules not for release
 
+[add hyphen above to really Git Tuff on debug code]
+
 include Debug Levels and Checks by Andrew Schultz.
+
+volume starting
 
 volume rooms
 
@@ -103,6 +107,7 @@ check going (this is the hub check rule):
 		say "Flying machines are a century or more away." instead;
 	if player is in Ministry of Unity:
 		let cur-row be 0;
+		if noun is northwest, say "Alas, the vast lands northwest of Twelvebytwelvia are inhospitable and forbidding to would-be conquerors." instead;
 		if questable of noun is false, say "You can't go [noun] from the Ministry." instead;
 		if solved-yet of noun is true, say "You already conquered [noun] Fourbyfouria." instead;
 		abide by can-visit of noun;
@@ -330,11 +335,21 @@ first-piece of northeast is friendly knight. second-piece of northeast is enemy 
 
 first-piece of west is friendly bishop. second-piece of west is enemy traitor knight. questable of west is true.
 
-first-piece of south is friendly knight. second-piece of south is second knight. king-place of south is no-corner-no-close rule. questable of south is true.
+first-piece of south is friendly knight. second-piece of south is second knight. king-place of south is no-corner-no-close rule. questable of south is true. can-visit of south is two-cleared rule.
 
-first-piece of east is friendly bishop. second-piece of east is second bishop. king-place of east is no-corner-no-close rule. questable of east is true.
+first-piece of east is friendly bishop. second-piece of east is second bishop. king-place of east is no-corner-no-close rule. questable of east is true. can-visit of east is two-cleared rule.
 
-first-piece of southeast is friendly bishop. second-piece of southeast is friendly knight. king-place of east is no-corner-no-close rule. questable of southeast is true.
+first-piece of southeast is friendly bishop. second-piece of southeast is friendly knight. king-place of southeast is no-corner-no-close rule. questable of southeast is true. can-visit of southeast is corner-cleared rule.
+
+section quest rules
+
+this is the corner-cleared rule:
+	if solved-yet of east is false and solved-yet of south is false:
+		say "You will need to conquer South or East Fourbyfouria to have a passage to Southeast Fourbyfouria." instead;
+
+this is the two-cleared rule:
+	if number of solved-already directions < 1: [?? EZ - TOUGH >= 2]
+		say "Tackling the treacherous lands [noun] is a bit too risky. You'll have two allies, but you don't want a big show of strength that soon." instead; [this is totally not me saying that I believe certain quests are tougher than others, so you should try to ramp up.]
 
 volume verbs
 
