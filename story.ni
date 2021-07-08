@@ -12,6 +12,13 @@ include Bypass Disambiguation by Climbing Stars.
 
 debug-state is a truth state that varies.
 
+Include (-
+
+#Undef AGAIN2__WD;
+Constant AGAIN2__WD = 'again';
+
+-) after “Language.i6t”.
+
 chapter modules not for release
 
 include Debug Levels and Checks by Andrew Schultz.
@@ -304,6 +311,33 @@ first-piece of east is friendly bishop. second-piece of east is second bishop. k
 first-piece of southeast is friendly bishop. second-piece of southeast is friendly knight. king-place of east is no-corner-no-close rule. questable of southeast is true.
 
 volume verbs
+
+chapter g
+
+definition: a room (called r) is legitimate:
+	if r is offsite or r is ministry of unity, no;
+	yes;
+
+ging is an action applying to one visible thing.
+
+understand the command "g" as something new.
+understand the command "gt" as something new.
+
+understand "g [any legitimate room]" as ging.
+understand "gt [any legitimate room]" as ging.
+understand "[any legitimate room]" as ging.
+
+carry out ging:
+	if noun is location of player:
+		say "You're already here." instead;
+	if player is in Ministry:
+		say "You need to depart from the Ministry before going anywhere." instead;
+	if noun is Ministry:
+		try going outside instead;
+	let bd be diag-dist of location of player and noun;
+	say "You take a [if bd is 1]brief[else if bd is 2]moderate[else if bd is 3]nice long[else]serious[end if] walk...";
+	move player to noun;
+	the rule succeeds;
 
 chapter calling
 
