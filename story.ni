@@ -12,12 +12,38 @@ include Bypass Disambiguation by Climbing Stars.
 
 debug-state is a truth state that varies.
 
+book i6 modification(s)
+
+section Command-Line Verb Expansion
+
+Include (-
+Replace LanguageVerb;
+-) after "Definitions.i6t".
+
+Include (-
+[ LanguageVerb i;
+	switch (i) {
+	'i//','inv','inventory': print "take inventory";
+	'l//':   print "look";
+	'x//':   print "examine";
+	'z//':   print "wait";
+	'about':  print "see info about the game";
+	'credit', 'credits': print "see the credits";
+	'c//', 'p//', 'call', 'place': print "(P)lace or (C)all";
+	'g//', 'gt//': print "go to";
+	default: rfalse;
+	}
+	rtrue;
+];
+-) after "Language.i6t".
+
+
 Include (-
 
 #Undef AGAIN2__WD;
 Constant AGAIN2__WD = 'again';
 
--) after “Language.i6t”.
+-) after "Language.i6t".
 
 chapter modules not for release
 
@@ -312,22 +338,26 @@ first-piece of southeast is friendly bishop. second-piece of southeast is friend
 
 volume verbs
 
-chapter g
+chapter going to
+
+rule for supplying a missing noun when gotoing:
+	if player is in Ministry of Unity, now noun is c3;
 
 definition: a room (called r) is legitimate:
 	if r is offsite or r is ministry of unity, no;
 	yes;
 
-ging is an action applying to one visible thing.
+gotoing is an action applying to one visible thing.
 
 understand the command "g" as something new.
 understand the command "gt" as something new.
+understand the command "go to" as something new.
 
-understand "g [any legitimate room]" as ging.
-understand "gt [any legitimate room]" as ging.
-understand "[any legitimate room]" as ging.
+understand "g [any legitimate room]" as gotoing.
+understand "gt [any legitimate room]" as gotoing.
+understand "go to [any legitimate room]" as gotoing.
 
-carry out ging:
+carry out gotoing:
 	if noun is location of player:
 		say "You're already here." instead;
 	if player is in Ministry:
@@ -550,6 +580,13 @@ to say pie of (rm - a room):
 	else:
 		say "-";
 
+volume parser rules
+
+after reading a command:
+	if the player's command matches the regular expression "^<a-e><1-5>$":
+		let n be indexed text;
+		now n is "gt [the player's command]";
+		change the text of the player's command to n;
 
 volume beta testing - not for release
 
