@@ -12,6 +12,15 @@ include Bypass Disambiguation by Climbing Stars.
 
 debug-state is a truth state that varies.
 
+to say 4b: say "Fourbyfouria"
+
+to say 12b: say "Twelvebytwelvia"
+
+to say q of (d - a direction):
+	let t be indexed text;
+	now t is "[d]" in title case;
+	say "[t] [4b]";
+
 book i6 modification(s)
 
 section Command-Line Verb Expansion
@@ -84,7 +93,7 @@ the hub check rule is listed first in the check going rulebook.
 
 to decide what indexed text is conquest of (d - a direction):
 	let temp be "[d]" in title case;
-	decide on "[temp] Fourbyfouria"
+	decide on "[temp] [4b]"
 
 check exiting (this is the blanket exit rule):
 	if location of player is Ministry of Unity:
@@ -107,9 +116,9 @@ check going (this is the hub check rule):
 		say "Flying machines are a century or more away." instead;
 	if player is in Ministry of Unity:
 		let cur-row be 0;
-		if noun is northwest, say "Alas, the vast lands northwest of Twelvebytwelvia are inhospitable and forbidding to would-be conquerors." instead;
+		if noun is northwest, say "Alas, the vast lands northwest of [12b] are inhospitable and forbidding to would-be conquerors." instead;
 		if questable of noun is false, say "You can't go [noun] from the Ministry." instead;
-		if solved-yet of noun is true, say "You already conquered [noun] Fourbyfouria." instead;
+		if solved-yet of noun is true, say "You already conquered [noun] [4b]." instead;
 		abide by can-visit of noun;
 		now quest-dir is noun;
 		say "You head [noun] to [conquest of noun]. Assisting you, along with your king, are [first-piece of noun] and [second-piece of noun].";
@@ -345,7 +354,7 @@ section quest rules
 
 this is the corner-cleared rule:
 	if solved-yet of east is false and solved-yet of south is false:
-		say "You will need to conquer South or East Fourbyfouria to have a passage to Southeast Fourbyfouria." instead;
+		say "You will need to conquer [q of south] or [q of east] to gain passage to [q of southeast]." instead;
 
 this is the two-cleared rule:
 	if number of solved-already directions < 1: [?? EZ - TOUGH >= 2]
@@ -425,7 +434,7 @@ carry out calling:
 		if number of placed bishops is 1:
 			let Q be a random placed bishop;
 			if color of noun is white and color of Q is white and location of Q and location of player are samecolored:
-				say "You realize that you are about to place both your bishops on the same color square. You may break a lot of stuffy old rules in Twelvebytwelvia, but that's not one of them, especially since breaking that rule gives no practical benefit. Okay, it actually harms you." instead;
+				say "You realize that you are about to place both your bishops on the same color square. You may break a lot of stuffy old rules in [12b], but that's not one of them, especially since breaking that rule gives no practical benefit. Okay, it actually harms you." instead;
 	now noun is placed;
 	if friendly king is placed:
 		if friendly king is checked:
