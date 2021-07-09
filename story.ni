@@ -24,7 +24,7 @@ to say q of (d - a direction):
 section scoring
 
 check requesting the score:
-	say "This game doesn't keep track of scores, but to give you an idea of your progress, you've helped conquer [number of solved-already directions] of [number of questable directions] [4b]s so far[one of].[paragraph break]This is tracked in the upper-right status bar[or][stopping]." instead;
+	say "This game doesn't keep track of scores, but to give you an idea of your progress, you've helped conquer [number of solved directions] of [number of questable directions] [4b]s so far[one of].[paragraph break]This is tracked in the upper-right status bar[or][stopping]." instead;
 
 The print final score rule is not listed in the for printing the player's obituary rulebook.
 
@@ -94,7 +94,7 @@ definition: a room (called r) is cornery:
 
 chapter central
 
-the Ministry of Unity is a room. xval is 8. yval is 8. "You can go [list of unsolved directions] from here[if number of solved-already directions > 0]. You've already taken care of business to the [list of solved-already directions][end if].".
+the Ministry of Unity is a room. xval is 8. yval is 8. "You can go [list of unsolved directions] from here[if number of solved directions > 0]. You've already taken care of business to the [list of solved directions][end if].".
 
 the hub check rule is listed first in the check going rulebook.
 
@@ -124,8 +124,8 @@ check going (this is the hub check rule):
 	if player is in Ministry of Unity:
 		let cur-row be 0;
 		if noun is northwest, say "Alas, the vast lands northwest of [12b] are inhospitable and forbidding to would-be conquerors." instead;
-		if questable of noun is false, say "You can't go [noun] from the Ministry." instead;
-		if solved-yet of noun is true, say "You already conquered [noun] [4b]." instead;
+		if noun is unquestable, say "You can't go [noun] from the Ministry." instead;
+		if noun is solved, say "You already conquered [noun] [4b]." instead;
 		abide by can-visit of noun;
 		now quest-dir is noun;
 		say "You head to [conquest of noun]. Assisting you to entrap the enemy king are [the first-piece of noun] and [the second-piece of noun].";
@@ -316,9 +316,7 @@ chapter properties for quests
 
 a direction can be unquestable, primary, secondary or tertiary. a direction is usually unquestable. [okay, number crunchers will note it's usually primary, but we want to set questable directions explicitly.]
 
-a direction has a truth state called questable. questable of a direction is usually false.
-
-a direction has a truth state called solved-yet. solved-yet of a direction is usually false.
+a direction can be solved or unsolved. a direction is usually unsolved.
 
 a direction has a piece called first-piece.
 
@@ -332,15 +330,6 @@ a direction has a rule called right-checkmate. right-checkmate of a direction is
 
 section direction definitions
 
-definition: a direction (called d) is unsolved:
-	if solved-yet of d is true, no;
-	if questable of d is false, no;
-	yes;
-
-definition: a direction (called d) is solved-already:
-	if solved-yet of d is true, yes;
-	no;
-
 definition: a direction (called d) is viable:
 	if the room d from the location of player is nowhere, no;
 	yes;
@@ -351,30 +340,30 @@ definition: a direction (called d) is questable: [ We can say "not unquestable" 
 
 section individual quest properties
 
-first-piece of southwest is friendly bishop. second-piece of southwest is enemy traitor bishop. questable of southwest is true. southwest is primary.
+first-piece of southwest is friendly bishop. second-piece of southwest is enemy traitor bishop. southwest is primary.
 
-first-piece of north is friendly knight. second-piece of north is enemy traitor bishop. questable of north is true. north is primary.
+first-piece of north is friendly knight. second-piece of north is enemy traitor bishop. north is primary.
 
-first-piece of northeast is friendly knight. second-piece of northeast is enemy traitor knight. questable of northeast is true. northeast is primary.
+first-piece of northeast is friendly knight. second-piece of northeast is enemy traitor knight. northeast is primary.
 
-first-piece of west is friendly bishop. second-piece of west is enemy traitor knight. questable of west is true. west is primary.
+first-piece of west is friendly bishop. second-piece of west is enemy traitor knight. west is primary.
 
-first-piece of south is friendly knight. second-piece of south is second knight. king-place of south is no-corner-no-close rule. questable of south is true. can-visit of south is two-cleared rule. south is secondary.
+first-piece of south is friendly knight. second-piece of south is second knight. king-place of south is no-corner-no-close rule. can-visit of south is two-cleared rule. south is secondary.
 
-first-piece of east is friendly bishop. second-piece of east is second bishop. king-place of east is no-corner-no-close rule. questable of east is true. can-visit of east is two-cleared rule. east is secondary.
+first-piece of east is friendly bishop. second-piece of east is second bishop. king-place of east is no-corner-no-close rule. can-visit of east is two-cleared rule. east is secondary.
 
-first-piece of southeast is friendly bishop. second-piece of southeast is friendly knight. king-place of southeast is no-corner-no-close rule. questable of southeast is true. can-visit of southeast is corner-cleared rule. southeast is secondary.
+first-piece of southeast is friendly bishop. second-piece of southeast is friendly knight. king-place of southeast is no-corner-no-close rule. can-visit of southeast is corner-cleared rule. southeast is secondary.
 
 section quest rules
 
 fourth-wall-warn is a truth state that varies.
 
 this is the corner-cleared rule:
-	if solved-yet of east is false and solved-yet of south is false:
+	if east is unsolved and south is unsolved:
 		say "You will need to conquer [q of south] or [q of east] to gain passage to [q of southeast]." instead;
 
 this is the two-cleared rule:
-	if number of solved-already directions < 1: [?? EZ - TOUGH >= 2]
+	if number of solved directions < 1: [?? EZ - TOUGH >= 2]
 		say "Tackling [q of noun] seems tactically unwise at the moment. You'll have two allies, not a traitor close to the enemy king, but a big show of strength that soon might tip your hand. Maybe [list of primary unsolved directions] seem better to start.";
 		if fourth-wall-warn is false:
 			now fourth-wall-warn is true;
@@ -474,7 +463,7 @@ carry out calling:
 		if enemy king is immobile:
 			abide by right-checkmate of quest-dir;
 			say "Bang! Got him.";
-			now solved-yet of quest-dir is true;
+			now quest-dir is solved;
 			if number of unsolved directions is 0:
 				say "You win, yay!";
 				end the story finally;
@@ -682,7 +671,7 @@ the player is in Ministry of Unity. description of player is "You're ... disting
 
 when play begins:
 	now left hand status line is "[if player is not in Ministry of Unity][q of quest-dir], [end if][location of player]";
-	now right hand status line is "[number of solved-already directions]/[number of questable directions]";
+	now right hand status line is "[number of solved directions]/[number of questable directions]";
 	repeat with xval running from 0 to 4:
 		repeat with yval running from 0 to 4:
 			let r be reverse-room of xval and yval;
