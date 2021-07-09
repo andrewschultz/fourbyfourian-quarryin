@@ -21,6 +21,13 @@ to say q of (d - a direction):
 	now t is "[d]" in title case;
 	say "[t] [4b]";
 
+section scoring
+
+check requesting the score:
+	say "This game doesn't keep track of scores, but to give you an idea of your progress, you've helped conquer [number of solved-already directions] of [number of questable directions] [4b]s so far[one of].[paragraph break]This is tracked in the upper-right status bar[or][stopping]." instead;
+
+The print final score rule is not listed in the for printing the player's obituary rulebook.
+
 book i6 modification(s)
 
 section Command-Line Verb Expansion
@@ -307,7 +314,7 @@ quest-dir is a direction that varies.
 
 chapter properties for quests
 
-a direction can be unquestable, primary, secondary or tertiary. a direction is usually primary.
+a direction can be unquestable, primary, secondary or tertiary. a direction is usually unquestable. [okay, number crunchers will note it's usually primary, but we want to set questable directions explicitly.]
 
 a direction has a truth state called questable. questable of a direction is usually false.
 
@@ -344,13 +351,13 @@ definition: a direction (called d) is questable: [ We can say "not unquestable" 
 
 section individual quest properties
 
-first-piece of southwest is friendly bishop. second-piece of southwest is enemy traitor bishop. questable of southwest is true.
+first-piece of southwest is friendly bishop. second-piece of southwest is enemy traitor bishop. questable of southwest is true. southwest is primary.
 
-first-piece of north is friendly knight. second-piece of north is enemy traitor bishop. questable of north is true.
+first-piece of north is friendly knight. second-piece of north is enemy traitor bishop. questable of north is true. north is primary.
 
-first-piece of northeast is friendly knight. second-piece of northeast is enemy traitor knight. questable of northeast is true.
+first-piece of northeast is friendly knight. second-piece of northeast is enemy traitor knight. questable of northeast is true. northeast is primary.
 
-first-piece of west is friendly bishop. second-piece of west is enemy traitor knight. questable of west is true.
+first-piece of west is friendly bishop. second-piece of west is enemy traitor knight. questable of west is true. west is primary.
 
 first-piece of south is friendly knight. second-piece of south is second knight. king-place of south is no-corner-no-close rule. questable of south is true. can-visit of south is two-cleared rule. south is secondary.
 
@@ -360,13 +367,18 @@ first-piece of southeast is friendly bishop. second-piece of southeast is friend
 
 section quest rules
 
+fourth-wall-warn is a truth state that varies.
+
 this is the corner-cleared rule:
 	if solved-yet of east is false and solved-yet of south is false:
 		say "You will need to conquer [q of south] or [q of east] to gain passage to [q of southeast]." instead;
 
 this is the two-cleared rule:
 	if number of solved-already directions < 1: [?? EZ - TOUGH >= 2]
-		say "Tackling [q of noun] is a bit too risky right now. You'll have two allies, but you don't want a big show of strength that soon. Maybe [list of primary unsolved directions] seem better to start." instead; [this is totally not me saying that I believe certain quests are tougher than others, so you should try to ramp up.]
+		say "Tackling [q of noun] seems tactically unwise at the moment. You'll have two allies, not a traitor close to the enemy king, but a big show of strength that soon might tip your hand. Maybe [list of primary unsolved directions] seem better to start.";
+		if fourth-wall-warn is false:
+			now fourth-wall-warn is true;
+			say "[line break]And, yes, this is totally not me saying that I believe certain [4b]s are easier to conquer than others, or at least, they have more similar themes, so you'll get off to a quicker start." instead;
 
 volume verbs
 
@@ -669,6 +681,8 @@ volume when play begins
 the player is in Ministry of Unity. description of player is "You're ... distinguished. A distinguished spy. Or people say you are."
 
 when play begins:
+	now left hand status line is "[if player is not in Ministry of Unity][q of quest-dir], [end if][location of player]";
+	now right hand status line is "[number of solved-already directions]/[number of questable directions]";
 	repeat with xval running from 0 to 4:
 		repeat with yval running from 0 to 4:
 			let r be reverse-room of xval and yval;
