@@ -47,6 +47,7 @@ Include (-
 	'credit', 'credits': print "see the credits";
 	'c//', 'p//', 'call', 'place': print "(P)lace or (C)all";
 	'g//', 'gt//': print "go to";
+	'd//', 'detail': print "print details about";
 	default: rfalse;
 	}
 	rtrue;
@@ -94,7 +95,7 @@ definition: a room (called r) is cornery:
 
 chapter central
 
-the Ministry of Unity is a room. xval is 8. yval is 8. "You can go [list of unsolved directions] from here[if number of solved directions > 0]. You've already taken care of business to the [list of solved directions][end if].".
+the Ministry of Unity is a room. xval is 8. yval is 8. "You can go [list of to-solve directions] from here[if number of solved directions > 0]. You've already taken care of business to the [list of solved directions][end if].".
 
 the hub check rule is listed first in the check going rulebook.
 
@@ -328,6 +329,8 @@ a direction has a rule called king-place. king-place of a direction is usually t
 
 a direction has a rule called right-checkmate. right-checkmate of a direction is usually the trivially ignorable rule.
 
+a direction has text called quest-details.
+
 section direction definitions
 
 definition: a direction (called d) is viable:
@@ -336,6 +339,11 @@ definition: a direction (called d) is viable:
 
 definition: a direction (called d) is questable: [ We can say "not unquestable" but I'd like to make clear code when necessary. ]
 	if d is unquestable, no;
+	yes;
+
+definition: a direction (called d) is to-solve:
+	if d is unquestable, no;
+	if d is solved, no;
 	yes;
 
 section individual quest properties
@@ -348,11 +356,11 @@ first-piece of northeast is friendly knight. second-piece of northeast is enemy 
 
 first-piece of west is friendly bishop. second-piece of west is enemy traitor knight. west is primary.
 
-first-piece of south is friendly knight. second-piece of south is second knight. king-place of south is no-corner-no-close rule. can-visit of south is two-cleared rule. south is secondary.
+first-piece of south is friendly knight. second-piece of south is second knight. king-place of south is no-corner-no-close rule. can-visit of south is two-cleared rule. south is secondary. quest-details of south is "The bishop and knight checkmate is a tricky one. It took me a while to figure. I walked away saying, 'Hey, look, here's proof that the two bishops are better than a bishop and knight if pawns aren't in the way.' But one night I was able to put it together: you have to push the enemy king to the corner your bishop can't cover, then push the king to the other corner. Having the bishop two squares from your knight puts a lock on critical escape squares, and the checkmate taught me a lot about square control."
 
-first-piece of east is friendly bishop. second-piece of east is second bishop. king-place of east is no-corner-no-close rule. can-visit of east is two-cleared rule. east is secondary.
+first-piece of east is friendly bishop. second-piece of east is second bishop. king-place of east is no-corner-no-close rule. can-visit of east is two-cleared rule. east is secondary. quest-details of east is "Checkmate with two bishops and nothing else isn't too bad to figure out. You push the enemy king to the side of the board, where he has only two moves. Then you lose a move with one of the bishop as you roll him into the corner. However, I was shocked to learn one Chicago area master I respected greatly (I had a Learning Experience against him) was unable to convert the advantage in a tournament with long time controls.".
 
-first-piece of southeast is friendly bishop. second-piece of southeast is friendly knight. king-place of southeast is no-corner-no-close rule. can-visit of southeast is corner-cleared rule. southeast is secondary.
+first-piece of southeast is friendly bishop. second-piece of southeast is friendly knight. king-place of southeast is no-corner-no-close rule. can-visit of southeast is corner-cleared rule. southeast is secondary. quest-details of southeast is "Checkmate with two knights against a king is impossible unless the opponent cooperates. However, two knights against a pawn may be very possible indeed, depending on where the pawn is. You can Google Troitsky Line for more on that. I remember reading an article about the endgame at math camp in high school. We were all pretty smart, but we didn't get far with it. Years later I read a blog post describing the strategies in an actual tournament game and remembered math camp. I felt pretty smart understanding the concept. Then I found out the person with the two knights ... wasn't in high school yet. I felt less smart."
 
 section quest rules
 
@@ -637,6 +645,27 @@ understand "credits" as creditsing.
 carry out creditsing:
 	the rule succeeds;
 
+chapter detailing
+
+rule for supplying a missing noun when detailing:
+	if player is in Ministry of Unity:
+		say "There are no specific technical details for the Ministry of Unity. You should go out in the field to see more.";
+		reject the player's command;
+	now noun is quest-dir;
+
+detailing is an action applying to one visible thing.
+
+understand the command "d" as something new.
+
+understand "d" as detailing.
+understand "d [direction]" as detailing.
+
+carry out detailing:
+	if noun is primary, say "I remember discovering a minor piece vs. minor piece checkmate many years ago. Then I discovered a couple others. It always amused me. A post on chess.stackexchange brought old memories of this. You may be amused to note that, because of the possibility of checkmate even with cooperative play, professional blitz-chess play may allow participants to claim a forfeit with minor piece vs. minor piece, but they could not with minor piece vs. king." instead;
+	if quest-details of noun is empty, say "There are no details for this, but there should be." instead;
+	say "[quest-details of noun]";
+	the rule succeeds;
+
 chapter verbs
 
 verbsing is an action out of world.
@@ -670,6 +699,19 @@ when play begins (this is the set debug state rule):
 	now debug-state is true;
 
 the set debug state rule is listed first in the when play begins rulebook.
+
+chapter testlisting
+
+testlisting is an action out of world.
+
+understand the command "tl" as something new.
+
+understand "tl" as testlisting.
+
+carry out testlisting:
+	repeat with D running through questable directions:
+		say "[D]: [first-piece of D] + [second-piece of D].";
+	the rule succeeds;
 
 chapter pie
 
