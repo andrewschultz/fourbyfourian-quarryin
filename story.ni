@@ -121,7 +121,7 @@ check going (this is the hub check rule):
 		if solved-yet of noun is true, say "You already conquered [noun] [4b]." instead;
 		abide by can-visit of noun;
 		now quest-dir is noun;
-		say "You head [noun] to [conquest of noun]. Assisting you, along with your king, are [first-piece of noun] and [second-piece of noun].";
+		say "You head to [conquest of noun]. Assisting you to entrap the enemy king are [the first-piece of noun] and [the second-piece of noun].";
 		new-quest;
 		move player to c3 instead;
 	if noun is inside:
@@ -303,22 +303,11 @@ the enemy king is a king. color of enemy king is black. understand "k" and "ek" 
 
 volume directions
 
-definition: a direction (called d) is unsolved:
-	if solved-yet of d is true, no;
-	if questable of d is false, no;
-	yes;
-
-definition: a direction (called d) is solved-already:
-	if solved-yet of d is true, yes;
-	no;
-
-definition: a direction (called d) is viable:
-	if the room d from the location of player is nowhere, no;
-	yes;
-
 quest-dir is a direction that varies.
 
 chapter properties for quests
+
+a direction can be unquestable, primary, secondary or tertiary. a direction is usually primary.
 
 a direction has a truth state called questable. questable of a direction is usually false.
 
@@ -334,6 +323,25 @@ a direction has a rule called king-place. king-place of a direction is usually t
 
 a direction has a rule called right-checkmate. right-checkmate of a direction is usually the trivially ignorable rule.
 
+section direction definitions
+
+definition: a direction (called d) is unsolved:
+	if solved-yet of d is true, no;
+	if questable of d is false, no;
+	yes;
+
+definition: a direction (called d) is solved-already:
+	if solved-yet of d is true, yes;
+	no;
+
+definition: a direction (called d) is viable:
+	if the room d from the location of player is nowhere, no;
+	yes;
+
+definition: a direction (called d) is questable: [ We can say "not unquestable" but I'd like to make clear code when necessary. ]
+	if d is unquestable, no;
+	yes;
+
 section individual quest properties
 
 first-piece of southwest is friendly bishop. second-piece of southwest is enemy traitor bishop. questable of southwest is true.
@@ -344,11 +352,11 @@ first-piece of northeast is friendly knight. second-piece of northeast is enemy 
 
 first-piece of west is friendly bishop. second-piece of west is enemy traitor knight. questable of west is true.
 
-first-piece of south is friendly knight. second-piece of south is second knight. king-place of south is no-corner-no-close rule. questable of south is true. can-visit of south is two-cleared rule.
+first-piece of south is friendly knight. second-piece of south is second knight. king-place of south is no-corner-no-close rule. questable of south is true. can-visit of south is two-cleared rule. south is secondary.
 
-first-piece of east is friendly bishop. second-piece of east is second bishop. king-place of east is no-corner-no-close rule. questable of east is true. can-visit of east is two-cleared rule.
+first-piece of east is friendly bishop. second-piece of east is second bishop. king-place of east is no-corner-no-close rule. questable of east is true. can-visit of east is two-cleared rule. east is secondary.
 
-first-piece of southeast is friendly bishop. second-piece of southeast is friendly knight. king-place of southeast is no-corner-no-close rule. questable of southeast is true. can-visit of southeast is corner-cleared rule.
+first-piece of southeast is friendly bishop. second-piece of southeast is friendly knight. king-place of southeast is no-corner-no-close rule. questable of southeast is true. can-visit of southeast is corner-cleared rule. southeast is secondary.
 
 section quest rules
 
@@ -358,7 +366,7 @@ this is the corner-cleared rule:
 
 this is the two-cleared rule:
 	if number of solved-already directions < 1: [?? EZ - TOUGH >= 2]
-		say "Tackling the treacherous lands [noun] is a bit too risky. You'll have two allies, but you don't want a big show of strength that soon." instead; [this is totally not me saying that I believe certain quests are tougher than others, so you should try to ramp up.]
+		say "Tackling [q of noun] is a bit too risky right now. You'll have two allies, but you don't want a big show of strength that soon. Maybe [list of primary unsolved directions] seem better to start." instead; [this is totally not me saying that I believe certain quests are tougher than others, so you should try to ramp up.]
 
 volume verbs
 
