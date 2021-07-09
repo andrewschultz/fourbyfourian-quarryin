@@ -613,7 +613,43 @@ to say pie of (rm - a room):
 	else:
 		say "-";
 
-volume parser rules
+volume meta-verbs
+
+chapter about
+
+abouting is an action out of world.
+
+understand the command "about" as something new.
+
+understand "about" as abouting.
+
+carry out abouting:
+	the rule succeeds;
+
+chapter credits
+
+creditsing is an action out of world.
+
+understand the command "credits" as something new.
+
+understand "credits" as creditsing.
+
+carry out creditsing:
+	the rule succeeds;
+
+chapter verbs
+
+verbsing is an action out of world.
+
+understand the command "verbs" as something new.
+
+understand "verbs" as verbsing.
+
+carry out verbsing:
+	say "Placeholder for verb description.";
+	the rule succeeds;
+
+volume parser rules and errors
 
 after reading a command:
 	if the player's command matches the regular expression "^<a-e><1-5>$":
@@ -624,6 +660,9 @@ after reading a command:
 volume beta testing - not for release
 
 volume testing - not for release
+
+rule for printing a parser error when the latest parser error is the didn't understand error or the latest parser error is the not a verb I recognise error:
+	say "That wasn't a verb I recognized. You may wish to type [b]V[r] or [b]VERBS[r] to see the list of pared-down verbs in this game."
 
 chapter when play begins
 
