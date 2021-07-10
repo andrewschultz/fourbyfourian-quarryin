@@ -335,6 +335,8 @@ a direction has a rule called king-place. king-place of a direction is usually t
 
 a direction has a rule called right-checkmate. right-checkmate of a direction is usually the trivially ignorable rule.
 
+a direction has a rule called misc-checks. misc-checks of a direction is usually the trivially ignorable rule.
+
 a direction has text called quest-details.
 
 a direction has text called hint-text.
@@ -364,7 +366,7 @@ first-piece of north is friendly knight. second-piece of north is enemy traitor 
 
 first-piece of northeast is friendly knight. second-piece of northeast is enemy traitor knight. northeast is primary. quick-text of northeast is "N vs. N".
 
-first-piece of west is friendly bishop. second-piece of west is enemy traitor knight. west is primary. quick-text of west is "N vs. B".
+first-piece of west is friendly bishop. second-piece of west is enemy traitor knight. west is primary. quick-text of west is "N vs. B". misc-checks is knight blocks bishop rule.
 
 first-piece of south is friendly knight. second-piece of south is second knight. king-place of south is no-corner-no-close rule. can-visit of south is two-cleared rule. south is secondary. quest-details of south is "The bishop and knight checkmate is a tricky one. It took me a while to figure. I walked away saying, 'Hey, look, here's proof that the two bishops are better than a bishop and knight if pawns aren't in the way.' But one night I was able to put it together: you have to push the enemy king to the corner your bishop can't cover, then push the king to the other corner. Having the bishop two squares from your knight puts a lock on critical escape squares, and the checkmate taught me a lot about square control.". hint-text of south is "[piece-cooperation]". quick-text of south is "2 N's".
 
@@ -378,7 +380,19 @@ to say hint-minor-vs of (d - a direction):
 to say piece-cooperation:
 	say "You want your king to cover two escape squares, with one minor piece checking and covering an escape square, and another covering two escape squares."
 
-section quest rules
+section quest solve rules
+
+this is the knight blocks bishop rule:
+	let Q be diag-dist of friendly bishop and enemy knight;
+	if Q < 2, continue the action;
+	say "The enemy knight, who wants to cooperate, unfortunately has no choice. The king being in danger, and the knight in obvious position to prevent it, jumps to action![paragraph break]";
+	if Q is 2:
+		say "A big fight ensues! A fake one, to impress the enemy king and not really raise suspicions.[paragraph break]Eh well. There's more bishops where THEY came from.";
+	else:
+		say "The knight throws itself in front of the bishop. You have no choice but to dismiss the bishop in disgrace and assure the enemy king you had nothing to do with it, and if you can help yourself, it won't happen again.";
+	the rule succeeds;
+
+section quest start rules
 
 fourth-wall-warn is a truth state that varies.
 
@@ -479,6 +493,7 @@ carry out calling:
 	move noun to location of player;
 	if noun is a bishop:
 		abide by the same-colored-bishops rule;
+	abide by misc-checks of quest-dir;
 	now noun is placed;
 	if friendly king is placed:
 		if friendly king is checked:
@@ -851,6 +866,9 @@ test a7 with "test qse".
 test all with "test a14/test a56/test a7".
 
 test bcolors with "jump/sw/place bishop/ne/place bishop/out/e/place bishop/ne/place bishop/out"
+
+test bvn1 with "w/place bishop/w/place king/n/n/place knight/w/place king".
+test bvn2 with "w/se/place bishop/nw/w/place king/n/n/place knight/w/place king".
 
 volume when play begins
 
