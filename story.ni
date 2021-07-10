@@ -16,6 +16,8 @@ debug-state is a truth state that varies.
 
 to say 4b: say "Fourbyfouria"
 
+to say 5b: say "[i]Fivebyfivia Delenda Est[r]"
+
 to say 12b: say "Twelvebytwelvia"
 
 to say q of (d - a direction):
@@ -97,7 +99,7 @@ definition: a room (called r) is cornery:
 
 chapter central
 
-the Ministry of Unity is a room. xval is 8. yval is 8. "Conquests await [list of to-solve directions] from here[if number of solved directions > 0]. You've already taken care of business to the [list of solved directions][end if].".
+the Ministry of Unity is a room. xval is 8. yval is 8. "Conquests await [list of to-solve directions] from here[if number of solved directions > 0]. You've already taken care of business to the [list of solved directions][end if][if number of tried unsolved directions > 0] You've been [list of tried unsolved directions] before[end if].".
 
 the hub check rule is listed first in the check going rulebook.
 
@@ -664,6 +666,7 @@ understand the command "about" as something new.
 understand "about" as abouting.
 
 carry out abouting:
+	say "[this-game] is a sequel to [5b], my entry in the 2021 ParserComp. I first had the idea for [this-game] a week or so before the deadline. Obviously, I couldn't do much with it besides write out the basic stuff. Most of the puzzles revolve around checkmates with very few pieces left on the board. I wondered how many I could find. I had some problems with solutions being too similar. But it seemed there was enough for a challenging game.";
 	the rule succeeds;
 
 chapter credits
@@ -675,6 +678,8 @@ understand the command "credits" as something new.
 understand "credits" as creditsing.
 
 carry out creditsing:
+	say "Thanks to chess.com, lichess.org, chessgames.com, and everyone who helped chess streaming become popular during the pandemic. It saved my sanity enough to write [this-game], which will hopefully not take too much of yours.";
+	say "[line break]Thanks to Robin Johnson, whose technical suggestion for [5b] paid quick dividends in [this-game].";
 	the rule succeeds;
 
 chapter detailing
