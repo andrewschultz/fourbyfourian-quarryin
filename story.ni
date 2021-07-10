@@ -483,6 +483,15 @@ this is the same-colored-bishops rule:
 		say "Your bishop and the enemy bishop look over at each other. They then both glare at you, as if in slight doubt of your leadership. They can't actually ... risk crossing paths, which might happen, since they're on the same color square.";
 	the rule succeeds;
 
+this is the excessive beatdown rule:
+	let temp be 0;
+	repeat with Q running through placed pieces:
+		if Q is friendly king, continue the action;
+		if color of Q is black, continue the action;
+		if Q attacks the enemy king, increment temp;
+	if temp is 2:
+		say "The pieces under your command look over at you questioningly. While they recognize what fun it is to both be attacking the enemy king at once, they also consider such fun is not strategically sound. Still, you're the boss...";
+
 carry out calling:
 	if location of player is Ministry of Unity, say "You don't need to call allies until you're away from the Ministry." instead;
 	if noun is irrelevant, say "You don't need to call [the noun]." instead;
@@ -505,7 +514,9 @@ carry out calling:
 	if noun is enemy king:
 		if number of reserved pieces > 1:
 			say "You'll want to place the enemy king last." instead;
-			abide by the king-place of quest-dir;
+		if diag-dist of friendly king and enemy king > 1, say "You can't really place the enemy kings that close to each other. Oh, sure, they'll perform all the proper diplomacy ... but they really don't WANT to. At least, your king doesn't want to. He doesn't want his fingerprints on any ... disappearances." instead;
+		consider the excessive beatdown rule;
+		abide by the king-place of quest-dir;
 		unless enemy king is checked:
 			say "But the enemy king is not checked. So things fall apart.";
 			new-quest;
