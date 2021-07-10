@@ -317,6 +317,8 @@ chapter properties for quests
 
 a direction can be unquestable, primary, secondary or tertiary. a direction is usually unquestable. [okay, number crunchers will note it's usually primary, but we want to set questable directions explicitly.]
 
+a direction can be tried or untried. a direction is usually untried.
+
 a direction can be solved or unsolved. a direction is usually unsolved.
 
 a direction has a piece called first-piece.
@@ -493,6 +495,7 @@ carry out calling:
 	the rule succeeds;
 
 to new-quest:
+	now quest-dir is tried;
 	now all rooms are not guarded;
 	now all pieces are irrelevant;
 	now all kings are reserved;
@@ -698,10 +701,9 @@ hintdiring is an action applying to one visible thing.
 understand "h [direction]" as hintdiring.
 
 carry out hintdiring:
-	if noun is not questable:
-		say "That's not a direction for a conquerable [4b]." instead;
-	if noun is solved:
-		say "You've already solved [q of noun], so I won't show these hints. I suppose you can restart the game or look at the source if you really want to see them." instead;
+	if noun is not questable, say "No [4b] exists that way to conquer." instead;
+	if noun is untried, say "You haven't looked at [q of noun] yet, so I don't want to give any hints." instead;
+	if noun is solved, say "You've already conquered [q of noun], so I won't show these hints. You can restart the game or look at the source if you really want to see them, or you can [b]R[r] or [b]RECAP[r] to see details." instead;
 	if noun is primary:
 		say "[hint-text of noun]";
 	else:
