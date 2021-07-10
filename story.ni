@@ -710,7 +710,7 @@ understand "tl" as testlisting.
 
 carry out testlisting:
 	repeat with D running through questable directions:
-		say "[D]: [first-piece of D] + [second-piece of D].";
+		say "[D][if d is solved] (solved)[end if]: [first-piece of D] + [second-piece of D].";
 	the rule succeeds;
 
 chapter pie
@@ -728,23 +728,34 @@ carry out pieing:
 
 chapter tests
 
-test q1 with "sw/place friendly bishop/ne/n/place enemy bishop/se/s/place friendly king/n/n/place enemy king". [BvB]
+test bvb with "sw/place friendly bishop/ne/n/place enemy bishop/se/s/place friendly king/n/n/place enemy king". [BvB]
+test qsw with "test qsw".
 
-test q2 with "n/n/place friendly knight/n/place friendly king/sw/w/place enemy bishop/n/place enemy king". [NvB]
+test nvb with "n/n/place friendly knight/n/place friendly king/sw/w/place enemy bishop/n/place enemy king". [NvB]
+test qn with "test nvb".
 
-test q3 with "ne/w/place friendly knight/ne/place friendly king/w/w/place enemy knight/n/place enemy king". [NvN]
+test nvn with "ne/w/place friendly knight/ne/place friendly king/w/w/place enemy knight/n/place enemy king". [NvN]
+test qne with "test nvn".
 
-test q4 with "w/w/place friendly king/n/place friendly bishop/n/place enemy knight/w/place enemy king". [BvN]
+test bvn with "w/w/place friendly king/n/place friendly bishop/n/place enemy knight/w/place enemy king". [BvN]
+test qw with "test bvn".
 
-test q5 with "e/e/place bishop/w/w/w/place k/se/place b/s/place k". [KBBvK]
+test bb with "e/e/place bishop/w/w/w/place k/se/place b/s/place k". [KBBvK]
+test qe with "test bb".
 
-test q6 with "s/e/place n/w/w/w/place n/se/se/e/e/place k/w/w/place k". [KNNvK]
+test nn with "s/e/place n/w/w/w/place n/se/se/e/e/place k/w/w/place k". [KNNvK]
+test qs with "test nn".
 
-test q7 with "se/place n/w/place k/e/e/e/place b/sw/sw/place k". [KBNvK]
+test bn with "se/place n/w/place k/e/e/e/place b/sw/sw/place k". [KBNvK]
+test qse with "test bn".
 
-test a2 with "test q1/test q2".
-test a3 with "test q1/test q2/test q3".
-test a4 with "test q1/test q2/test q3/test q4".
+test a14 with "test bvb/test nvb/test nvn/test bvn".
+
+test a56 with "test nn/test bb".
+
+test a7 with "test qse".
+
+test all with "test a14/test a56/test a7".
 
 volume when play begins
 
