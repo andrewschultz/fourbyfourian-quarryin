@@ -95,7 +95,7 @@ definition: a room (called r) is cornery:
 
 chapter central
 
-the Ministry of Unity is a room. xval is 8. yval is 8. "You can go [list of to-solve directions] from here[if number of solved directions > 0]. You've already taken care of business to the [list of solved directions][end if].".
+the Ministry of Unity is a room. xval is 8. yval is 8. "Conquests await [list of to-solve directions] from here[if number of solved directions > 0]. You've already taken care of business to the [list of solved directions][end if].".
 
 the hub check rule is listed first in the check going rulebook.
 
@@ -331,6 +331,8 @@ a direction has a rule called right-checkmate. right-checkmate of a direction is
 
 a direction has text called quest-details.
 
+a direction has text called hint-text.
+
 section direction definitions
 
 definition: a direction (called d) is viable:
@@ -356,11 +358,17 @@ first-piece of northeast is friendly knight. second-piece of northeast is enemy 
 
 first-piece of west is friendly bishop. second-piece of west is enemy traitor knight. west is primary.
 
-first-piece of south is friendly knight. second-piece of south is second knight. king-place of south is no-corner-no-close rule. can-visit of south is two-cleared rule. south is secondary. quest-details of south is "The bishop and knight checkmate is a tricky one. It took me a while to figure. I walked away saying, 'Hey, look, here's proof that the two bishops are better than a bishop and knight if pawns aren't in the way.' But one night I was able to put it together: you have to push the enemy king to the corner your bishop can't cover, then push the king to the other corner. Having the bishop two squares from your knight puts a lock on critical escape squares, and the checkmate taught me a lot about square control."
+first-piece of south is friendly knight. second-piece of south is second knight. king-place of south is no-corner-no-close rule. can-visit of south is two-cleared rule. south is secondary. quest-details of south is "The bishop and knight checkmate is a tricky one. It took me a while to figure. I walked away saying, 'Hey, look, here's proof that the two bishops are better than a bishop and knight if pawns aren't in the way.' But one night I was able to put it together: you have to push the enemy king to the corner your bishop can't cover, then push the king to the other corner. Having the bishop two squares from your knight puts a lock on critical escape squares, and the checkmate taught me a lot about square control.". hint-text of south is "[piece-cooperation]".
 
-first-piece of east is friendly bishop. second-piece of east is second bishop. king-place of east is no-corner-no-close rule. can-visit of east is two-cleared rule. east is secondary. quest-details of east is "Checkmate with two bishops and nothing else isn't too bad to figure out. You push the enemy king to the side of the board, where he has only two moves. Then you lose a move with one of the bishop as you roll him into the corner. However, I was shocked to learn one Chicago area master I respected greatly (I had a Learning Experience against him) was unable to convert the advantage in a tournament with long time controls.".
+first-piece of east is friendly bishop. second-piece of east is second bishop. king-place of east is no-corner-no-close rule. can-visit of east is two-cleared rule. east is secondary. quest-details of east is "Checkmate with two bishops and nothing else isn't too bad to figure out. You push the enemy king to the side of the board, where he has only two moves. Then you lose a move with one of the bishop as you roll him into the corner. However, I was shocked to learn one Chicago area master I respected greatly (I had a Learning Experience against him) was unable to convert the advantage in a tournament with long time controls.". hint-text of east is "[piece-cooperation]".
 
-first-piece of southeast is friendly bishop. second-piece of southeast is friendly knight. king-place of southeast is no-corner-no-close rule. can-visit of southeast is corner-cleared rule. southeast is secondary. quest-details of southeast is "Checkmate with two knights against a king is impossible unless the opponent cooperates. However, two knights against a pawn may be very possible indeed, depending on where the pawn is. You can Google Troitsky Line for more on that. I remember reading an article about the endgame at math camp in high school. We were all pretty smart, but we didn't get far with it. Years later I read a blog post describing the strategies in an actual tournament game and remembered math camp. I felt pretty smart understanding the concept. Then I found out the person with the two knights ... wasn't in high school yet. I felt less smart."
+first-piece of southeast is friendly bishop. second-piece of southeast is friendly knight. king-place of southeast is no-corner-no-close rule. can-visit of southeast is corner-cleared rule. southeast is secondary. quest-details of southeast is "Checkmate with two knights against a king is impossible unless the opponent cooperates. However, two knights against a pawn may be very possible indeed, depending on where the pawn is. You can Google Troitsky Line for more on that. I remember reading an article about the endgame at math camp in high school. We were all pretty smart, but we didn't get far with it. Years later I read a blog post describing the strategies in an actual tournament game and remembered math camp. I felt pretty smart understanding the concept. Then I found out the person with the two knights ... wasn't in high school yet. I felt less smart.". hint-text of southeast is "[piece-cooperation]".
+
+to say hint-minor-vs of (d - a direction):
+	say "You'll need to restrict the squares the enemy king can run to. Also, your [if friendly bishop is irrelevant]knight can check but not cover escape squares[else]bishop can check and cover an escape square, but your king can't cover the rest[end if]. How can you cover that final square?"
+
+to say piece-cooperation:
+	say "You want your king to cover two escape squares, with one minor piece checking and covering an escape square, and another covering two escape squares."
 
 section quest rules
 
@@ -472,7 +480,7 @@ carry out calling:
 			abide by right-checkmate of quest-dir;
 			say "Bang! Got him.";
 			now quest-dir is solved;
-			if number of unsolved directions is 0:
+			if number of to-solve directions is 0:
 				say "You win, yay!";
 				end the story finally;
 				the rule succeeds;
@@ -664,6 +672,38 @@ carry out detailing:
 	if noun is primary, say "I remember discovering a minor piece vs. minor piece checkmate many years ago. Then I discovered a couple others. It always amused me. A post on chess.stackexchange brought old memories of this. You may be amused to note that, because of the possibility of checkmate even with cooperative play, professional blitz-chess play may allow participants to claim a forfeit with minor piece vs. minor piece, but they could not with minor piece vs. king." instead;
 	if quest-details of noun is empty, say "There are no details for this, but there should be." instead;
 	say "[quest-details of noun]";
+	the rule succeeds;
+
+chapter hinting
+
+hinting is an action out of world.
+
+understand the command "h" as something new.
+
+understand "h" as hinting.
+
+carry out hinting:
+	if player is in Ministry of Unity, say "You have nothing to do in the [unity], but you can hint a direction if you want, for specific [4b]s." instead;
+	if debug-state is false:
+		abide by the can-visit of noun;
+	try hintdiring quest-dir;
+	the rule succeeds;
+
+section hintdiring
+
+hintdiring is an action applying to one visible thing.
+
+understand "h [direction]" as hintdiring.
+
+carry out hintdiring:
+	if noun is not questable:
+		say "That's not a direction for a conquerable [4b]." instead;
+	if noun is solved:
+		say "You've already solved [q of noun], so I won't show these hints. I suppose you can restart the game or look at the source if you really want to see them." instead;
+	if noun is primary:
+		say "[hint-text of noun]";
+	else:
+		say "[piece-cooperation]";
 	the rule succeeds;
 
 chapter verbs
