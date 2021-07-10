@@ -10,6 +10,8 @@ include Trivial Niceties by Andrew Schultz.
 
 include Bypass Disambiguation by Climbing Stars.
 
+jump-over is a truth state that varies.
+
 debug-state is a truth state that varies.
 
 to say 4b: say "Fourbyfouria"
@@ -387,7 +389,11 @@ this is the two-cleared rule:
 		say "Tackling [q of noun] seems tactically unwise at the moment. You'll have two allies, not a traitor close to the enemy king, but a big show of strength that soon might tip your hand. Maybe [list of primary unsolved directions] seem better to start.";
 		if fourth-wall-warn is false:
 			now fourth-wall-warn is true;
-			say "[line break]And, yes, this is totally not me saying that I believe certain [4b]s are easier to conquer than others, or at least, they have more similar themes, so you'll get off to a quicker start." instead;
+			say "[line break]And, yes, this is totally not me saying that I believe certain [4b]s are easier to conquer than others, or at least, they have more similar themes, so you'll get off to a quicker start.";
+		if jump-over is true:
+			say "[line break]But since you enabled jumping-over as a beta tester, I'll let you by.[paragraph break]";
+			continue the action;
+		the rule fails;
 
 volume verbs
 
@@ -584,6 +590,12 @@ rule for asking which do you mean when everything matched is irrelevant (this is
 		the rule succeeds;
 	continue the action;
 
+rule for asking which do you mean when everything matched is not reserved (this is the bypass disambiguation 2 rule):
+	if the current action is calling:
+		say "Everyone matching that request is either placed or not part of the current maneuvers, so I can't figure anyone to call.";
+		the rule succeeds;
+	continue the action;
+
 chapter maps
 
 boarding is an action applying to nothing.
@@ -715,11 +727,15 @@ chapter verbs
 verbsing is an action out of world.
 
 understand the command "verbs" as something new.
+understand the command "verb" as something new.
+understand the command "v" as something new.
 
 understand "verbs" as verbsing.
+understand "verb" as verbsing.
+understand "v" as verbsing.
 
 carry out verbsing:
-	say "Placeholder for verb description.";
+	say "In [this-game] you have some pared-down commands. The big ones are that you can move in any of the eight basic directions: N, S, E, W, NW, NE, SW, SE.[paragraph break]You can also go to a square when you're not in the Ministry of Unity. So typing a1 sends you to a1, etc.[paragraph break]You can also (C)all or (P)lace a piece, enemy or friendly.[paragraph break]Meta-verbs and options are discussed in (M)eta.";
 	the rule succeeds;
 
 volume parser rules and errors
@@ -732,10 +748,30 @@ after reading a command:
 
 volume beta testing - not for release
 
-volume testing - not for release
+when play begins:
+	if debug-state is false, say "Note you can use the J command to jump to areas that might be too advanced in release mode.";
+
+chapter jumping
+
+jumpovering is an action out of world.
+
+understand the command "jump" as something new.
+understand the command "j" as something new.
+
+understand "jump" as jumpovering.
+understand "j" as jumpovering.
+
+carry out jumpovering:
+	now jump-over is whether or not jump-over is false;
+	say "Jumping over is now toggled to [on-off of jump-over].";
+	the rule succeeds;
+
+volume parser errors
 
 rule for printing a parser error when the latest parser error is the didn't understand error or the latest parser error is the not a verb I recognise error:
 	say "That wasn't a verb I recognized. You may wish to type [b]V[r] or [b]VERBS[r] to see the list of pared-down verbs in this game."
+
+volume testing - not for release
 
 chapter when play begins
 
