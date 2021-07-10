@@ -457,6 +457,16 @@ understand "c" as calling.
 understand "place" as calling.
 understand "p" as calling.
 
+this is the same-colored-bishops rule:
+	unless number of placed bishops is 1, continue the action;
+	let Q be a random placed bishop;
+	unless location of Q and location of player are samecolored, continue the action;
+	if enemy bishop is irrelevant:
+		say "But wait! You realize that you are about to place both your bishops on same-colored square. You may break a lot of stuffy old rules in [12b], but that's not one of them, especially since breaking that rule gives no practical benefit. Okay, it actually harms you.[paragraph break]Somewhere else, maybe.";
+	else:
+		say "Your bishop and the enemy bishop look over at each other. They then both glare at you, as if in slight doubt of your leadership. They can't actually ... risk crossing paths, which might happen, since they're on the same color square.";
+	the rule succeeds;
+
 carry out calling:
 	if location of player is Ministry of Unity, say "You don't need to call allies until you're away from the Ministry." instead;
 	if noun is irrelevant, say "You don't need to call [the noun]." instead;
@@ -466,10 +476,7 @@ carry out calling:
 	say "You place [the noun] at [location of player].";
 	move noun to location of player;
 	if noun is a bishop:
-		if number of placed bishops is 1:
-			let Q be a random placed bishop;
-			if color of noun is white and color of Q is white and location of Q and location of player are samecolored:
-				say "You realize that you are about to place both your bishops on the same color square. You may break a lot of stuffy old rules in [12b], but that's not one of them, especially since breaking that rule gives no practical benefit. Okay, it actually harms you." instead;
+		abide by the same-colored-bishops rule;
 	now noun is placed;
 	if friendly king is placed:
 		if friendly king is checked:
@@ -837,6 +844,8 @@ test a56 with "test nn/test bb".
 test a7 with "test qse".
 
 test all with "test a14/test a56/test a7".
+
+test bcolors with "jump/sw/place bishop/ne/place bishop/out/e/place bishop/ne/place bishop/out"
 
 volume when play begins
 
