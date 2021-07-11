@@ -32,6 +32,20 @@ check requesting the score:
 
 The print final score rule is not listed in the for printing the player's obituary rulebook.
 
+section tricky endgame manual
+
+rule for supplying a missing noun when examining:
+	now noun is tricky endgame manual;
+
+The tricky endgame manual is a thing. The player carries the tricky endgame manual. description of tricky endgame manual is "[if player is in Ministry of Unity]You read up on the basics of taking down an enemy king with two relatively inauspicious allies or, perhaps, one ally and one equally-strong traitor. No specifics apply right here. Not until you leave the Ministry of Unity[else if quest-dir is primary]You read about how a traitorous confidant may be able to elbow out their king just enough to trap them. However, the traitorous confidant cannot expose themselves by refusing to attack you, if you are in their sight[else if quest-dir is secondary]You read about how an enemy king isn't going to just back himself into a corner if faced with another king and two allies. Maybe on the edges, but not the corner[else]You read about how two knights shouldn't be able to force an enemy king into the corner to trap him, much less the sides, but stranger things have happened if you call him in at the right moment, on the right square[end if]. Sadly, the section on cornering an enemy king with [summary-text of quest-dir] is high on flowery writing and low on further details. You'll have to figure things out for yourself."
+
+instead of doing something with tricky endgame manual:
+	if current action is not examining:
+		say "You can really only examine the [manual].";
+
+check taking inventory:
+	say "All you have on you, besides various expensive rings and medals designating your position as a prominent [12b]n, is a tricky endgame manual. You can [b]X[r] it at any time to see what needs to be done [if player is in ministry]outside the ministry[else]here or in other [4b]s[end if]." instead;
+
 book i6 modification(s)
 
 section Command-Line Verb Expansion
@@ -133,7 +147,7 @@ check going (this is the hub check rule):
 		if noun is solved, say "You already conquered [noun] [4b]." instead;
 		abide by can-visit of noun;
 		now quest-dir is noun;
-		say "You head to [conquest of noun]. Assisting you to entrap the enemy king are [the first-piece of noun] and [the second-piece of noun].";
+		say "You head to [conquest of noun]. Your allies for this quest are [summary-text of noun].";
 		new-quest;
 		move player to c3 instead;
 	if noun is inside:
@@ -343,6 +357,8 @@ a direction has text called hint-text.
 
 a direction has text called quick-text.
 
+a direction has text called summary-text.
+
 section direction definitions
 
 definition: a direction (called d) is viable:
@@ -360,19 +376,19 @@ definition: a direction (called d) is to-solve:
 
 section individual quest properties
 
-first-piece of southwest is friendly bishop. second-piece of southwest is enemy traitor bishop. southwest is primary. quick-text of southwest is "B vs. N".
+first-piece of southwest is friendly bishop. second-piece of southwest is enemy traitor bishop. southwest is primary. quick-text of southwest is "B vs. B". summary-text of southwest is "two bishops, one traitorous".
 
-first-piece of north is friendly knight. second-piece of north is enemy traitor bishop. north is primary. quick-text of north is "N vs. B".
+first-piece of north is friendly knight. second-piece of north is enemy traitor bishop. north is primary. quick-text of north is "N vs. B". summary-text of north is "a knight and a traitorous bishop".
 
-first-piece of northeast is friendly knight. second-piece of northeast is enemy traitor knight. northeast is primary. quick-text of northeast is "N vs. N".
+first-piece of northeast is friendly knight. second-piece of northeast is enemy traitor knight. northeast is primary. quick-text of northeast is "N vs. N". summary-text of northeast is "two knights, one traitorous".
 
-first-piece of west is friendly bishop. second-piece of west is enemy traitor knight. west is primary. quick-text of west is "N vs. B". misc-checks is knight blocks bishop rule.
+first-piece of west is friendly bishop. second-piece of west is enemy traitor knight. west is primary. quick-text of west is "B vs. N". misc-checks is knight blocks bishop rule. summary-text of west is "a bishop and a traitorous knight".
 
-first-piece of south is friendly knight. second-piece of south is second knight. king-place of south is no-corner-no-close rule. can-visit of south is two-cleared rule. south is secondary. quest-details of south is "The bishop and knight checkmate is a tricky one. It took me a while to figure. I walked away saying, 'Hey, look, here's proof that the two bishops are better than a bishop and knight if pawns aren't in the way.' But one night I was able to put it together: you have to push the enemy king to the corner your bishop can't cover, then push the king to the other corner. Having the bishop two squares from your knight puts a lock on critical escape squares, and the checkmate taught me a lot about square control.". hint-text of south is "[piece-cooperation]". quick-text of south is "2 N's".
+first-piece of south is friendly knight. second-piece of south is second knight. king-place of south is no-corner-no-close rule. can-visit of south is two-cleared rule. south is secondary. quest-details of south is "The bishop and knight checkmate is a tricky one. It took me a while to figure. I walked away saying, 'Hey, look, here's proof that the two bishops are better than a bishop and knight if pawns aren't in the way.' But one night I was able to put it together: you have to push the enemy king to the corner your bishop can't cover, then push the king to the other corner. Having the bishop two squares from your knight puts a lock on critical escape squares, and the checkmate taught me a lot about square control.". hint-text of south is "[piece-cooperation]". quick-text of south is "2 N's". summary-text of south is "two knights".
 
-first-piece of east is friendly bishop. second-piece of east is second bishop. king-place of east is no-corner-no-close rule. can-visit of east is two-cleared rule. east is secondary. quest-details of east is "Checkmate with two bishops and nothing else isn't too bad to figure out. You push the enemy king to the side of the board, where he has only two moves. Then you lose a move with one of the bishop as you roll him into the corner. However, I was shocked to learn one Chicago area master I respected greatly (I had a Learning Experience against him) was unable to convert the advantage in a tournament with long time controls.". hint-text of east is "[piece-cooperation]". quick-text of east is "2 B's".
+first-piece of east is friendly bishop. second-piece of east is second bishop. king-place of east is no-corner-no-close rule. can-visit of east is two-cleared rule. east is secondary. quest-details of east is "Checkmate with two bishops and nothing else isn't too bad to figure out. You push the enemy king to the side of the board, where he has only two moves. Then you lose a move with one of the bishop as you roll him into the corner. However, I was shocked to learn one Chicago area master I respected greatly (I had a Learning Experience against him) was unable to convert the advantage in a tournament with long time controls.". hint-text of east is "[piece-cooperation]". quick-text of east is "2 B's". summary-text of east is "two bishops".
 
-first-piece of southeast is friendly bishop. second-piece of southeast is friendly knight. king-place of southeast is no-corner-no-close rule. can-visit of southeast is corner-cleared rule. southeast is secondary. quest-details of southeast is "Checkmate with two knights against a king is impossible unless the opponent cooperates. However, two knights against a pawn may be very possible indeed, depending on where the pawn is. You can Google Troitsky Line for more on that. I remember reading an article about the endgame at math camp in high school. We were all pretty smart, but we didn't get far with it. Years later I read a blog post describing the strategies in an actual tournament game and remembered math camp. I felt pretty smart understanding the concept. Then I found out the person with the two knights ... wasn't in high school yet. I felt less smart.". hint-text of southeast is "[piece-cooperation]". quick-text of southeast is "B & N".
+first-piece of southeast is friendly bishop. second-piece of southeast is friendly knight. king-place of southeast is no-corner-no-close rule. can-visit of southeast is corner-cleared rule. southeast is secondary. quest-details of southeast is "Checkmate with two knights against a king is impossible unless the opponent cooperates. However, two knights against a pawn may be very possible indeed, depending on where the pawn is. You can Google Troitsky Line for more on that. I remember reading an article about the endgame at math camp in high school. We were all pretty smart, but we didn't get far with it. Years later I read a blog post describing the strategies in an actual tournament game and remembered math camp. I felt pretty smart understanding the concept. Then I found out the person with the two knights ... wasn't in high school yet. I felt less smart.". hint-text of southeast is "[piece-cooperation]". quick-text of southeast is "B & N". summary-text of southeast is "a bishop and a knight".
 
 to say hint-minor-vs of (d - a direction):
 	say "You'll need to restrict the squares the enemy king can run to. Also, your [if friendly bishop is irrelevant]knight can check but not cover escape squares[else]bishop can check and cover an escape square, but your king can't cover the rest[end if]. How can you cover that final square?"
