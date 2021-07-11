@@ -27,6 +27,10 @@ to say q of (d - a direction):
 	now t is "[d]" in title case;
 	say "[t] [4b]";
 
+to say email: say "blurglecruncheon@gmail.com"
+
+to say github: say "https://github.com/andrewschultz/fourbyfourian-intrigue"
+
 section scoring
 
 check requesting the score:
@@ -394,7 +398,7 @@ first-piece of north is friendly knight. second-piece of north is enemy traitor 
 
 first-piece of northeast is friendly knight. second-piece of northeast is enemy traitor knight. northeast is primary. quick-text of northeast is "N vs. N". summary-text of northeast is "two knights, one traitorous".
 
-first-piece of west is friendly bishop. second-piece of west is enemy traitor knight. west is primary. quick-text of west is "B vs. N". misc-checks is knight blocks bishop rule. summary-text of west is "a bishop and a traitorous knight".
+first-piece of west is friendly bishop. second-piece of west is enemy traitor knight. west is primary. quick-text of west is "B vs. N". misc-checks of west is knight blocks bishop rule. summary-text of west is "a bishop and a traitorous knight".
 
 first-piece of south is friendly knight. second-piece of south is second knight. king-place of south is no-corner-no-close rule. can-visit of south is two-cleared rule. south is secondary. quest-details of south is "The bishop and knight checkmate is a tricky one. It took me a while to figure. I walked away saying, 'Hey, look, here's proof that the two bishops are better than a bishop and knight if pawns aren't in the way.' But one night I was able to put it together: you have to push the enemy king to the corner your bishop can't cover, then push the king to the other corner. Having the bishop two squares from your knight puts a lock on critical escape squares, and the checkmate taught me a lot about square control.". hint-text of south is "[piece-cooperation]". quick-text of south is "2 N's". summary-text of south is "two knights".
 
@@ -414,6 +418,7 @@ this is the knight blocks bishop rule:
 	if enemy king is not placed, continue the action;
 	let Q be diag-dist of friendly bishop and enemy knight;
 	if Q < 2, continue the action;
+	note-amusing-stuff "bvn-miss";
 	say "The enemy knight, who wants to cooperate with your cunning plan, unfortunately has no choice. The king being in danger, and the knight in obvious position to prevent it, jumps to action![paragraph break]";
 	if Q is 2:
 		say "A big fight ensues! A fake one, to impress the enemy king and not really raise suspicions.[paragraph break]Eh well. There's more bishops where THEY came from.";
@@ -506,6 +511,7 @@ this is the same-colored-bishops rule:
 	unless number of placed bishops is 1, continue the action;
 	let Q be a random placed bishop;
 	unless location of Q and location of player are samecolored, continue the action;
+	note-amusing-stuff "bb-colors";
 	if enemy bishop is irrelevant:
 		say "But wait! You realize that you are about to place both your bishops on same-colored square. You may break a lot of stuffy old rules in [12b], but that's not one of them, especially since breaking that rule gives no practical benefit. Okay, it actually harms you.[paragraph break]Somewhere else, maybe.";
 	else:
@@ -519,6 +525,7 @@ this is the excessive beatdown rule:
 		if color of Q is black, continue the action;
 		if Q attacks the enemy king, increment temp;
 	if temp is 2:
+		note-amusing-stuff "beatdown";
 		say "The pieces under your command look over at you questioningly. While they recognize what fun it is to both be attacking the enemy king at once, they also consider such fun is not strategically sound. Still, you're the boss...";
 
 carry out calling:
@@ -531,8 +538,8 @@ carry out calling:
 	move noun to location of player;
 	if noun is a bishop:
 		abide by the same-colored-bishops rule;
-	abide by misc-checks of quest-dir;
 	now noun is placed;
+	abide by misc-checks of quest-dir;
 	if friendly king is placed:
 		if friendly king is checked:
 			say "But wait. Your king would be under attack from the enemy there. You'll need to try again.";
@@ -733,8 +740,9 @@ understand the command "credits" as something new.
 understand "credits" as creditsing.
 
 carry out creditsing:
-	say "Thanks to chess.com, lichess.org, chessgames.com, and everyone who helped chess streaming become popular during the pandemic. It saved my sanity enough to write [this-game], which will hopefully not take too much of yours.";
+	say "Thanks to chess.com, lichess.org, chessgames.com, and everyone who helped chess streaming become popular during the pandemic. It saved my sanity enough to write [this-game], which will hopefully not take too much of yours. Thanks to Adam Sommerfield for ParserComp, which led to this game.";
 	say "[line break]Thanks to Robin Johnson, whose technical suggestion for [5b] paid quick dividends in [this-game].";
+	say "[line break]If you find a bug or have a transcript, mail me at [email]. Or you can report bugs at [github].";
 	the rule succeeds;
 
 chapter detailing
@@ -804,6 +812,36 @@ understand "v" as verbsing.
 carry out verbsing:
 	say "In [this-game] you have some pared-down commands. The big ones are that you can move in any of the eight basic directions, abbreviated as follows: N, S, E, W, NW, NE, SW, SE.[paragraph break]You can also go to a square when you're not in the Ministry of Unity. So typing [b]a1[r] sends you to a1, etc.[paragraph break]You will also (C)all or (P)lace piece, enemy or friendly.[paragraph break]Meta-verbs and options are discussed in (M)eta.";
 	the rule succeeds;
+
+volume amusing post-game
+
+Rule for amusing a victorious player:
+	look-for-amuse false;
+	look-for-amuse true;
+
+to look-for-amuse (t - a truth state):
+	let any-done-yet be false;
+	repeat through table of stuff worth trying:
+		if done-yet entry is t:
+			if any-done-yet is false:
+				now any-done-yet is true;
+				say "YOU [if t is true]ALREADY TRIED[else]COULD TRY[end if]:[line break]";
+			say "    ----[amuse-list entry][line break]";
+	if t is false and any-done-yet is false:
+		say "Impressive! You found all my cheap jokes. Thanks for exploring so diligently."
+
+to note-amusing-stuff (t - text):
+	repeat through table of stuff worth trying:
+		if t is code entry:
+			now done-yet entry is true;
+			continue the action;
+	say "WARNING: tried to note you already did amusing stuff with code [t] but couldn't find it in the table. Let me know at [email].";
+
+table of stuff worth trying
+code	done-yet	amuse-list
+"beatdown"	false	"Constructing a double check (both allies, no traitors, attacking the enemy king)"
+"bvn-miss"	false	"Placing the bishop too far from the king when you have the traitor knight"
+"bb-colors"	false	"Placing two bishops on the same color tile"
 
 volume parser rules and errors
 
@@ -904,6 +942,8 @@ test a56 with "test nn/test bb".
 test a7 with "test qse".
 
 test all with "test a14/test a56/test a7".
+
+section amusing / special cases
 
 test bcolors with "jump/sw/place bishop/ne/place bishop/out/e/place bishop/ne/place bishop/out"
 
