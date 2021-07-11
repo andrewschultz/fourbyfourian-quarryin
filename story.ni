@@ -10,6 +10,8 @@ include Trivial Niceties by Andrew Schultz.
 
 include Bypass Disambiguation by Climbing Stars.
 
+include Intro Restore Skip by Andrew Schultz.
+
 jump-over is a truth state that varies.
 
 debug-state is a truth state that varies.
@@ -156,8 +158,7 @@ check going (this is the hub check rule):
 
 check going (this is the note boundaries rule):
 	if the room noun of location of player is nowhere:
-		say "[number of edged directions].";
-		say "You're at the [list of edged directions] edge[if number of edged directions > 1]s[end if], so you can only go away from, or along, [if number of edged directions > 1]this edge[else]those edges[end if]." instead;
+		say "You're at the [list of edged directions] edge[if number of edged directions > 1]s[end if], so you can only go away from, or along, [if number of edged directions is 1]this edge[else]those edges[end if]." instead;
 
 definition: a direction (called d) is edged:
 	unless d is cardinal, no;
@@ -801,7 +802,7 @@ understand "verb" as verbsing.
 understand "v" as verbsing.
 
 carry out verbsing:
-	say "In [this-game] you have some pared-down commands. The big ones are that you can move in any of the eight basic directions: N, S, E, W, NW, NE, SW, SE.[paragraph break]You can also go to a square when you're not in the Ministry of Unity. So typing a1 sends you to a1, etc.[paragraph break]You can also (C)all or (P)lace a piece, enemy or friendly.[paragraph break]Meta-verbs and options are discussed in (M)eta.";
+	say "In [this-game] you have some pared-down commands. The big ones are that you can move in any of the eight basic directions, abbreviated as follows: N, S, E, W, NW, NE, SW, SE.[paragraph break]You can also go to a square when you're not in the Ministry of Unity. So typing [b]a1[r] sends you to a1, etc.[paragraph break]You will also (C)all or (P)lace piece, enemy or friendly.[paragraph break]Meta-verbs and options are discussed in (M)eta.";
 	the rule succeeds;
 
 volume parser rules and errors
@@ -934,6 +935,13 @@ when play begins:
 			if rn is not offsite and re is not offsite:
 				now rn is mapped northwest of re;
 				now re is mapped southeast of rn;
+	process the check-skip-intro rule;
+	let skip-stuff be whether or not the rule succeeded;
+	if skip-stuff is false:
+		print-intro;
+	say "[b]ABOUT[r] will give [if skip-stuff is false]general information[else]a refresher[end if] about [this-game]. [b]VERBS[r] will show common verbs."
+
+to print-intro:
 	say "The treaty was signed at the first Council of Sensibly Bordered Nations. After [12b] annexed [5b], you, who had risen to the office of Cheap Diplomat, assured the seven [4b]n ministates that of COURSE there would be no further conquests. While swooping up the seven of them would increase [12b]'s size almost doubly, why, you'd have to rename yourself Sixteenbysixteenia in the process, and that was just too awkward a name.";
 	say "[wfak]";
 	say "That was good enough for them, but not really. They established border patrols. They improved their spying. You brought up their paranoia, their spying, at future Councils, mentioning how [12b] has more landmass than the [4b]s combined, but who got seven times the votes? Not this guy! If there was anyone not to trust, it was those rinky-dink kingdoms whispering among each other. And with each year that passed, you expected to gain trust you wouldn't attack and gobble them up, but they only seemed to suspect you more. Even as you built up armies in the northwest frontier, against bigger, tougher countries!";
