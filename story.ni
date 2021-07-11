@@ -118,7 +118,21 @@ definition: a room (called r) is cornery:
 
 chapter central
 
-the Ministry of Unity is a room. xval is 8. yval is 8. "Conquests await [list of to-solve directions] from here[if number of solved directions > 0]. You've already taken care of business to the [list of solved directions][end if][if number of tried unsolved directions > 0] You've been [list of tried unsolved directions] before[end if].".
+the Ministry of Unity is a room. xval is 8. yval is 8. "Conquests await [list of solve-now directions] from here[if number of not-yet directions > 0]. You can't quite go [list of not-yet directions] yet[end if][if number of solved directions > 0]. You've already taken care of business to the [list of solved directions][end if][if number of tried unsolved directions > 0] You've been [list of tried unsolved directions] before[end if].".
+
+definition: a direction (called d) is solve-now:
+	if d is solved, no;
+	if d is unquestable, no;
+	process the can-visit of d;
+	if the rule failed, no;
+	yes;
+
+definition: a direction (called d) is not-yet:
+	if d is solved, no;
+	if d is unquestable, no;
+	process the can-visit of d;
+	if the rule failed, yes;
+	no;
 
 the hub check rule is listed first in the check going rulebook.
 
@@ -152,7 +166,7 @@ check going (this is the hub check rule):
 		if noun is northwest, say "Alas, the vast lands northwest of [12b] are inhospitable and forbidding to would-be conquerors." instead;
 		if noun is unquestable, say "You can't go [noun] from the Ministry." instead;
 		if noun is solved, say "You already conquered [noun] [4b]." instead;
-		abide by can-visit of noun;
+		abide by visit-text of noun;
 		now quest-dir is noun;
 		say "You head to [conquest of noun]. Your allies for this quest are [summary-text of noun].";
 		new-quest;
@@ -361,6 +375,8 @@ a direction has a piece called first-piece.
 
 a direction has a piece called second-piece.
 
+a direction has a rule called visit-text. visit-text of a direction is usually the trivially ignorable rule.
+
 a direction has a rule called can-visit. can-visit of a direction is usually the trivially ignorable rule.
 
 a direction has a rule called king-place. king-place of a direction is usually the trivially ignorable rule.
@@ -404,11 +420,11 @@ first-piece of northeast is friendly knight. second-piece of northeast is enemy 
 
 first-piece of west is friendly bishop. second-piece of west is enemy traitor knight. west is primary. quick-text of west is "B vs. N". misc-checks of west is knight blocks bishop rule. summary-text of west is "a bishop and a traitorous knight".
 
-first-piece of south is friendly knight. second-piece of south is second knight. king-place of south is no-corner-no-close rule. can-visit of south is two-cleared rule. south is secondary. quest-details of south is "The bishop and knight checkmate is a tricky one. It took me a while to figure. I walked away saying, 'Hey, look, here's proof that the two bishops are better than a bishop and knight if pawns aren't in the way.' But one night I was able to put it together: you have to push the enemy king to the corner your bishop can't cover, then push the king to the other corner. Having the bishop two squares from your knight puts a lock on critical escape squares, and the checkmate taught me a lot about square control.". hint-text of south is "[piece-cooperation]". quick-text of south is "2 N's". summary-text of south is "two knights".
+first-piece of south is friendly knight. second-piece of south is second knight. king-place of south is no-corner-no-close rule. visit-text of south is two-cleared rule. can-visit of south is two-cleared-bare rule. south is secondary. quest-details of south is "The bishop and knight checkmate is a tricky one. It took me a while to figure. I walked away saying, 'Hey, look, here's proof that the two bishops are better than a bishop and knight if pawns aren't in the way.' But one night I was able to put it together: you have to push the enemy king to the corner your bishop can't cover, then push the king to the other corner. Having the bishop two squares from your knight puts a lock on critical escape squares, and the checkmate taught me a lot about square control.". hint-text of south is "[piece-cooperation]". quick-text of south is "2 N's". summary-text of south is "two knights".
 
-first-piece of east is friendly bishop. second-piece of east is second bishop. king-place of east is no-corner-no-close rule. can-visit of east is two-cleared rule. east is secondary. quest-details of east is "Checkmate with two bishops and nothing else isn't too bad to figure out. You push the enemy king to the side of the board, where he has only two moves. Then you lose a move with one of the bishop as you roll him into the corner. However, I was shocked to learn one Chicago area master I respected greatly (I had a Learning Experience against him) was unable to convert the advantage in a tournament with long time controls.". hint-text of east is "[piece-cooperation]". quick-text of east is "2 B's". summary-text of east is "two bishops".
+first-piece of east is friendly bishop. second-piece of east is second bishop. king-place of east is no-corner-no-close rule. visit-text of east is two-cleared rule. can-visit of east is two-cleared-bare rule. east is secondary. quest-details of east is "Checkmate with two bishops and nothing else isn't too bad to figure out. You push the enemy king to the side of the board, where he has only two moves. Then you lose a move with one of the bishop as you roll him into the corner. However, I was shocked to learn one Chicago area master I respected greatly (I had a Learning Experience against him) was unable to convert the advantage in a tournament with long time controls.". hint-text of east is "[piece-cooperation]". quick-text of east is "2 B's". summary-text of east is "two bishops".
 
-first-piece of southeast is friendly bishop. second-piece of southeast is friendly knight. king-place of southeast is no-corner-no-close rule. can-visit of southeast is corner-cleared rule. southeast is secondary. quest-details of southeast is "Checkmate with two knights against a king is impossible unless the opponent cooperates. However, two knights against a pawn may be very possible indeed, depending on where the pawn is. You can Google Troitsky Line for more on that. I remember reading an article about the endgame at math camp in high school. We were all pretty smart, but we didn't get far with it. Years later I read a blog post describing the strategies in an actual tournament game and remembered math camp. I felt pretty smart understanding the concept. Then I found out the person with the two knights ... wasn't in high school yet. I felt less smart.". hint-text of southeast is "[piece-cooperation]". quick-text of southeast is "B & N". summary-text of southeast is "a bishop and a knight".
+first-piece of southeast is friendly bishop. second-piece of southeast is friendly knight. king-place of southeast is no-corner-no-close rule. visit-text of southeast is corner-cleared rule. can-visit of southeast is corner-cleared-bare rule. southeast is secondary. quest-details of southeast is "Checkmate with two knights against a king is impossible unless the opponent cooperates. However, two knights against a pawn may be very possible indeed, depending on where the pawn is. You can Google Troitsky Line for more on that. I remember reading an article about the endgame at math camp in high school. We were all pretty smart, but we didn't get far with it. Years later I read a blog post describing the strategies in an actual tournament game and remembered math camp. I felt pretty smart understanding the concept. Then I found out the person with the two knights ... wasn't in high school yet. I felt less smart.". hint-text of southeast is "[piece-cooperation]". quick-text of southeast is "B & N". summary-text of southeast is "a bishop and a knight".
 
 to say hint-minor-vs of (d - a direction):
 	say "You'll need to restrict the squares the enemy king can run to. Also, your [if friendly bishop is irrelevant]knight can check but not cover escape squares[else]bishop can check and cover an escape square, but your king can't cover the rest[end if]. How can you cover that final square?"
@@ -435,11 +451,16 @@ section quest start rules
 fourth-wall-warn is a truth state that varies.
 
 this is the corner-cleared rule:
-	if east is unsolved and south is unsolved:
-		say "You will need to conquer [q of south] or [q of east] to gain passage to [q of southeast]." instead;
+	consider the corner-cleared-bare rule;
+	if the rule failed, say "You will need to conquer [q of south] or [q of east] to gain passage to [q of southeast]." instead;
+
+this is the corner-cleared-bare rule:
+	if east is unsolved and south is unsolved, the rule fails;
+	the rule succeeds;
 
 this is the two-cleared rule:
-	if number of solved directions < 1: [?? EZ - TOUGH >= 2]
+	consider the two-cleared-bare rule;
+	if the rule failed:
 		say "Tackling [q of noun] seems tactically unwise at the moment. You'll have two allies, not a traitor close to the enemy king, but a big show of strength that soon might tip your hand. Maybe [list of primary unsolved directions] seem better to start.";
 		if fourth-wall-warn is false:
 			now fourth-wall-warn is true;
@@ -448,6 +469,10 @@ this is the two-cleared rule:
 			say "[line break]But since you enabled jumping-over as a beta tester, I'll let you by.[paragraph break]";
 			continue the action;
 		the rule fails;
+
+this is the two-cleared-bare rule:
+	if number of solved directions < 1, the rule fails;
+	the rule succeeds;
 
 volume verbs
 
@@ -782,7 +807,7 @@ understand "h" as hinting.
 carry out hinting:
 	if player is in Ministry of Unity, say "You have nothing to do in the [unity], but you can hint a direction if you want, for specific [4b]s." instead;
 	if debug-state is false:
-		abide by the can-visit of noun;
+		abide by the visit-text of noun;
 	try hintdiring quest-dir;
 	the rule succeeds;
 
