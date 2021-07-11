@@ -802,6 +802,26 @@ carry out hintdiring:
 		say "[piece-cooperation]";
 	the rule succeeds;
 
+chapter metaing
+
+metaing is an action out of world.
+
+understand the command "meta" as something new.
+understand the command "met" as something new.
+understand the command "me" as something new.
+
+understand "meta" as metaing.
+understand "met" as metaing.
+understand "me" as metaing.
+
+carry out metaing:
+	say "Here is a list of meta-verbs and options you can use. None are necessary to complete the game, but they can all be useful.[paragraph break]";
+	say "[line break][b]ABOUT[r] or [b]A[r] tells about the game. [b]CREDITS[r] or [b]C[r] tells more technical details and thanks testers.";
+	say "[line break][b]MAP[r] or [b]M[r] or [b]BOARD[r] or [b]B[r] shows the current map. [b]TOGGLE[r] or [b]T[r] toggles the map.";
+	say "[line break][b]HINT[r] or [b]H[r] hints your current area or, if you give a direction, an area you've tried but haven't beaten yet.";
+	if number of solved directions > 0, say "[line break][b]R[r] or [b]RECAP[r] is available to recap areas you've solved. By default, it goes to the last one, but you can specify a direction.";
+	the rule succeeds;
+
 chapter recaping
 
 recaping is an action applying to one visible thing.
@@ -838,7 +858,7 @@ understand "verb" as verbsing.
 understand "v" as verbsing.
 
 carry out verbsing:
-	say "In [this-game] you have some pared-down commands. The big ones are that you can move in any of the eight basic directions, abbreviated as follows: N, S, E, W, NW, NE, SW, SE.[paragraph break]You can also go to a square when you're not in the Ministry of Unity. So typing [b]a1[r] sends you to a1, etc.[paragraph break]You will also (C)all or (P)lace piece, enemy or friendly.[paragraph break]Meta-verbs and options are discussed in (M)eta.";
+	say "In [this-game] you have some pared-down commands. The big ones are that you can move in any of the eight basic directions, abbreviated as follows: N, S, E, W, NW, NE, SW, SE.[paragraph break]You can also go to a square when you're not in the Ministry of Unity. So typing [b]a1[r] sends you to a1, etc.[paragraph break]You will also (C)all or (P)lace piece, enemy or friendly.[paragraph break]Meta-verbs and options are discussed in META (MET/ME).";
 	the rule succeeds;
 
 volume amusing post-game
