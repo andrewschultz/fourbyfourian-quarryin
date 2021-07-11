@@ -117,6 +117,8 @@ the Ministry of Unity is a room. xval is 8. yval is 8. "Conquests await [list of
 
 the hub check rule is listed first in the check going rulebook.
 
+the note boundaries rule is listed before the can't go that way rule in the check going rulebook.
+
 to decide what indexed text is conquest of (d - a direction):
 	let temp be "[d]" in title case;
 	decide on "[temp] [4b]"
@@ -152,6 +154,16 @@ check going (this is the hub check rule):
 		move player to c3 instead;
 	if noun is inside:
 		say "You need to go a planar direction.";
+
+check going (this is the note boundaries rule):
+	if the room noun of location of player is nowhere:
+		say "[number of edged directions].";
+		say "You're at the [list of edged directions] edge[if number of edged directions > 1]s[end if], so you can only go away from, or along, [if number of edged directions > 1]this edge[else]those edges[end if]." instead;
+
+definition: a direction (called d) is edged:
+	unless d is cardinal, no;
+	if the room d of the location of the player is nowhere, yes;
+	no;
 
 chapter the grid
 
