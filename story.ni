@@ -399,13 +399,14 @@ to say piece-cooperation:
 section quest solve rules
 
 this is the knight blocks bishop rule:
+	if enemy king is not placed, continue the action;
 	let Q be diag-dist of friendly bishop and enemy knight;
 	if Q < 2, continue the action;
-	say "The enemy knight, who wants to cooperate, unfortunately has no choice. The king being in danger, and the knight in obvious position to prevent it, jumps to action![paragraph break]";
+	say "The enemy knight, who wants to cooperate with your cunning plan, unfortunately has no choice. The king being in danger, and the knight in obvious position to prevent it, jumps to action![paragraph break]";
 	if Q is 2:
 		say "A big fight ensues! A fake one, to impress the enemy king and not really raise suspicions.[paragraph break]Eh well. There's more bishops where THEY came from.";
 	else:
-		say "The knight throws itself in front of the bishop. You have no choice but to dismiss the bishop in disgrace and assure the enemy king you had nothing to do with it, and if you can help yourself, it won't happen again.";
+		say "The knight throws itself in front of the bishop. You have no choice but to dismiss the bishop in disgrace and assure the enemy king you had nothing to do with it, and if you can help yourself, it won't happen again. The bishop looks ... less than happy. But you mention it is divine will, which the bishop can't argue with. After all, he's used that argument on some unlucky doomed unfortunates, himself.";
 	the rule succeeds;
 
 section quest start rules
@@ -530,7 +531,7 @@ carry out calling:
 	if noun is enemy king:
 		if number of reserved pieces > 1:
 			say "You'll want to place the enemy king last." instead;
-		if diag-dist of friendly king and enemy king > 1, say "You can't really place the enemy kings that close to each other. Oh, sure, they'll perform all the proper diplomacy ... but they really don't WANT to. At least, your king doesn't want to. He doesn't want his fingerprints on any ... disappearances." instead;
+		if diag-dist of friendly king and enemy king <= 1, say "You can't really place the enemy kings that close to each other. Oh, sure, they'll perform all the proper diplomacy ... but they really don't WANT to. At least, your king doesn't want to. He doesn't want his fingerprints on any ... disappearances." instead;
 		consider the excessive beatdown rule;
 		abide by the king-place of quest-dir;
 		unless enemy king is checked:
