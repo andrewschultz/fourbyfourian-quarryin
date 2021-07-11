@@ -39,9 +39,8 @@ rule for supplying a missing noun when examining:
 
 The tricky endgame manual is a thing. The player carries the tricky endgame manual. description of tricky endgame manual is "[if player is in Ministry of Unity]You read up on the basics of taking down an enemy king with two relatively inauspicious allies or, perhaps, one ally and one equally-strong traitor. No specifics apply right here. Not until you leave the Ministry of Unity[else if quest-dir is primary]You read about how a traitorous confidant may be able to elbow out their king just enough to trap them. However, the traitorous confidant cannot expose themselves by refusing to attack you, if you are in their sight[else if quest-dir is secondary]You read about how an enemy king isn't going to just back himself into a corner if faced with another king and two allies. Maybe on the edges, but not the corner[else]You read about how two knights shouldn't be able to force an enemy king into the corner to trap him, much less the sides, but stranger things have happened if you call him in at the right moment, on the right square[end if]. Sadly, the section on cornering an enemy king with [summary-text of quest-dir] is high on flowery writing and low on further details. You'll have to figure things out for yourself."
 
-instead of doing something with tricky endgame manual:
-	if current action is not examining:
-		say "You can really only examine the [manual].";
+instead of doing something other than examining tricky endgame manual:
+	say "You can really only [b]X[r] or [b]EXAMINE[r] the [manual]." instead;
 
 check taking inventory:
 	say "All you have on you, besides various expensive rings and medals designating your position as a prominent [12b]n, is a tricky endgame manual. You can [b]X[r] it at any time to see what needs to be done [if player is in ministry]outside the ministry[else]here or in other [4b]s[end if]." instead;
@@ -935,3 +934,13 @@ when play begins:
 			if rn is not offsite and re is not offsite:
 				now rn is mapped northwest of re;
 				now re is mapped southeast of rn;
+	say "The treaty was signed at the first Council of Sensibly Bordered Nations. After [12b] annexed [5b], you, who had risen to the office of Cheap Diplomat, assured the seven [4b]n ministates that of COURSE there would be no further conquests. While swooping up the seven of them would increase [12b]'s size almost doubly, why, you'd have to rename yourself Sixteenbysixteenia in the process, and that was just too awkward a name.";
+	say "[wfak]";
+	say "That was good enough for them, but not really. They established border patrols. They improved their spying. You brought up their paranoia, their spying, at future Councils, mentioning how [12b] has more landmass than the [4b]s combined, but who got seven times the votes? Not this guy! If there was anyone not to trust, it was those rinky-dink kingdoms whispering among each other. And with each year that passed, you expected to gain trust you wouldn't attack and gobble them up, but they only seemed to suspect you more. Even as you built up armies in the northwest frontier, against bigger, tougher countries!";
+	say "You'd let them bait you long enough. You see, after the first council, a courtier suggested in private that, perhaps, Sixteenbysixteenia wasn't the only possible name if the [4b] ministates were vacuumed up. Largeboxica! Doubleboardistan! Foursquaresquareland! Even Twofiftysixia! Obviously a much more level-headed fellow than that nutcase who claimed the sun and moon didn't follow [12b] ... or whatever [12b]'s real name should be. Well, until he expected an advanced title. He should have just let you buy his silence. It would have been more than generous. And the ex-nations newly in the fold? Well, they could vote on their favorite name!";
+	say "[wfak]";
+	say "And if those full-square-worldists wanted to oppose your forging a bit of unity that actually made sense, well, you would expose their inconsistencies! But ... there was the matter of diplomacy. No all-out wars. A mission, between high-ranking officers of each state. At least, the outer ones. The inner ones had gotten a bit lazy. ";
+	say "[wfak]";
+	say "You've gotten too old and fat, I mean distinguished, to ride your super-speedy horse. It's slowed down quicker than you did. But no matter. Business is now conducted in castles -- five-by-five affairs, proof the [4b]s are a bit too big for their britches.";
+	say "[wfak]";
+	say "In the Ministry of Unity, the final touches are laid on the plans. Four of the satellite nations have traitors, waiting for power, who will help you. The others--well, you will need to strike quickly and not be too obvious. You flip an ocataroon towards the scribe who applies the finishing touches of an odd script, made just for you, called 'BASIC ENDGAME MANUAL.'";
