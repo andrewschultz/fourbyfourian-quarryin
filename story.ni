@@ -347,6 +347,8 @@ volume directions
 
 quest-dir is a direction that varies. quest-dir is inside.
 
+last-solved is a direction that varies. last-solved is inside.
+
 chapter properties for quests
 
 a direction can be unquestable, primary, secondary or tertiary. a direction is usually unquestable. [okay, number crunchers will note it's usually primary, but we want to set questable directions explicitly.]
@@ -374,6 +376,8 @@ a direction has text called hint-text.
 a direction has text called quick-text.
 
 a direction has text called summary-text.
+
+a direction has text called recap-text.
 
 section direction definitions
 
@@ -561,6 +565,7 @@ carry out calling:
 			abide by right-checkmate of quest-dir;
 			say "Bang! Got him.";
 			now quest-dir is solved;
+			now last-solved is quest-dir;
 			if number of to-solve directions is 0:
 				say "You win, yay!";
 				end the story finally;
@@ -795,6 +800,29 @@ carry out hintdiring:
 		say "[hint-text of noun]";
 	else:
 		say "[piece-cooperation]";
+	the rule succeeds;
+
+chapter recaping
+
+recaping is an action applying to one visible thing.
+
+understand the command "recap" as something new.
+understand the command "r" as something new.
+
+understand "recap [direction]" as recaping.
+understand "r [direction]" as recaping.
+understand "recap" as recaping.
+understand "r " as recaping.
+
+rule for supplying a missing noun when recaping:
+	now the noun is last-solved;
+
+carry out recaping:
+	if number of solved directions is 0, say "You have no conquers to recap. Yet." instead;
+	if noun is not questable, say "That's not a [4b] to conquer." instead;
+	if noun is not solved, say "You haven't taken over [q of noun] yet." instead;
+	if recap-text of noun is empty, say "[q of noun] needs recap text." instead;
+	say "[recap-text of noun]." instead;
 	the rule succeeds;
 
 chapter verbs
