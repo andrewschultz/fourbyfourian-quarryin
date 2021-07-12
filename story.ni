@@ -52,7 +52,7 @@ understand the command "no" as something new. [these are to reject the "That was
 section scoring
 
 check requesting the score:
-	say "This game doesn't keep track of scores, but to give you an idea of your progress, you've helped conquer [number of solved directions] of [number of questable directions] [4b]s so far[one of].[paragraph break]This is tracked in the upper-right status bar[or][stopping]." instead;
+	say "This game doesn't keep track of scores, but to give you an idea of your progress, you've helped conquer [number of solved directions] of [number of questable directions] [4b]s so far[if half-final]. You've conquered half of [q of southeast], as well[end if][one of].[paragraph break]This is tracked in the upper-right status bar[or][stopping]." instead;
 
 The print final score rule is not listed in the for printing the player's obituary rulebook.
 
@@ -160,6 +160,9 @@ to decide what indexed text is conquest of (d - a direction):
 	let temp be "[d]" in title case;
 	decide on "[temp] [4b]"
 
+check going outside:
+	try exiting instead;
+
 check exiting (this is the blanket exit rule):
 	if location of player is Ministry of Unity:
 		if number of unsolved directions is 1:
@@ -186,7 +189,7 @@ check going (this is the hub check rule):
 		if noun is solved, say "You already conquered [noun] [4b]." instead;
 		abide by visit-text of noun;
 		now quest-dir is noun;
-		say "You head to [conquest of noun]. Your allies for this quest are [summary-text of noun].";
+		say "You head to [conquest of noun]. Your allies for this quest are [summary-text of noun][if quest-dir is southeast and quest-dir is not tried]. A courtier whispers to you at the last moment: [q of southeast] has been split in two! There are rival kings fighting for supremacy. That means more to do. Well, this is the last land to conquer[end if].";
 		new-quest;
 		move player to c3 instead;
 	if noun is inside:
@@ -443,9 +446,9 @@ first-piece of west is friendly bishop. second-piece of west is enemy traitor kn
 
 first-piece of south is friendly knight. second-piece of south is second knight. king-place of south is no-corner-no-close rule. visit-text of south is two-cleared rule. can-visit of south is two-cleared-bare rule. south is secondary. quest-details of south is "The bishop and knight checkmate is a tricky one. It took me a while to figure. I walked away saying, 'Hey, look, here's proof that the two bishops are better than a bishop and knight if pawns aren't in the way.' But one night I was able to put it together: you have to push the enemy king to the corner your bishop can't cover, then push the king to the other corner. Having the bishop two squares from your knight puts a lock on critical escape squares, and the checkmate taught me a lot about square control.". hint-text of south is "[piece-cooperation]". quick-text of south is "2 N's". summary-text of south is "two knights".
 
-first-piece of east is friendly bishop. second-piece of east is second bishop. king-place of east is no-corner-no-close rule. visit-text of east is two-cleared rule. can-visit of east is two-cleared-bare rule. east is secondary. quest-details of east is "Checkmate with two bishops and nothing else isn't too bad to figure out. You push the enemy king to the side of the board, where he has only two moves. Then you lose a move with one of the bishop as you roll him into the corner. However, I was shocked to learn one Chicago area master I respected greatly (I had a Learning Experience against him) was unable to convert the advantage in a tournament with long time controls.". hint-text of east is "[piece-cooperation]". quick-text of east is "2 B's". summary-text of east is "two bishops".
+first-piece of east is friendly bishop. second-piece of east is second bishop. king-place of east is no-corner-no-close rule. visit-text of east is two-cleared rule. can-visit of east is two-cleared-bare rule. east is secondary. quest-details of east is "Checkmate with two bishops and nothing else isn't too bad to figure out. You push the enemy king to the side of the board, where he has only two moves. Then you lose a move with one of the bishop as you roll him into the corner. However, I was shocked to learn one Chicago area master I respected greatly (I had a Learning Experience against him) was unable to convert the advantage in a tournament with long time controls.". hint-text of east is "[piece-cooperation]". quick-text of east is "2 B's". summary-text of east is "two bishops". right-checkmate of east is two-bishops-formation rule.
 
-first-piece of southeast is friendly bishop. second-piece of southeast is friendly knight. king-place of southeast is no-corner-no-close rule. visit-text of southeast is corner-cleared rule. can-visit of southeast is corner-cleared-bare rule. southeast is secondary. quest-details of southeast is "Checkmate with two knights against a king is impossible unless the opponent cooperates. However, two knights against a pawn may be very possible indeed, depending on where the pawn is. You can Google Troitsky Line for more on that. I remember reading an article about the endgame at math camp in high school. We were all pretty smart, but we didn't get far with it. Years later I read a blog post describing the strategies in an actual tournament game and remembered math camp. I felt pretty smart understanding the concept. Then I found out the person with the two knights ... wasn't in high school yet. I felt less smart.". hint-text of southeast is "[piece-cooperation]". quick-text of southeast is "B & N". summary-text of southeast is "a bishop and a knight".
+first-piece of southeast is friendly bishop. second-piece of southeast is friendly knight. king-place of southeast is no-corner-no-close rule. visit-text of southeast is corner-cleared rule. can-visit of southeast is corner-cleared-bare rule. southeast is secondary. quest-details of southeast is "Checkmate with two knights against a king is impossible unless the opponent cooperates. However, two knights against a pawn may be very possible indeed, depending on where the pawn is. You can Google Troitsky Line for more on that. I remember reading an article about the endgame at math camp in high school. We were all pretty smart, but we didn't get far with it. Years later I read a blog post describing the strategies in an actual tournament game and remembered math camp. I felt pretty smart understanding the concept. Then I found out the person with the two knights ... wasn't in high school yet. I felt less smart.". hint-text of southeast is "[piece-cooperation]". quick-text of southeast is "B & N". summary-text of southeast is "a bishop and a knight". right-checkmate of southeast is bishop-knight-formation rule.
 
 to say hint-minor-vs of (d - a direction):
 	say "You'll need to restrict the squares the enemy king can run to. Also, your [if friendly bishop is irrelevant]knight can check but not cover escape squares[else]bishop can check and cover an escape square, but your king can't cover the rest[end if]. How can you cover that final square?"
@@ -454,6 +457,45 @@ to say piece-cooperation:
 	say "You want your king to cover two escape squares, with one minor piece checking and covering an escape square, and another covering two escape squares."
 
 section quest solve rules
+
+to decide whether half-final:
+	if boolval of bn-close + boolval of bn-far is 1, yes;
+	no;
+
+bn-close is a truth state that varies. [NKBK all crowded together]
+
+bn-far is a truth state that varies. [BKN on top row, K on bottom]
+
+dupe-noted-yet is a truth state that varies. [ if you found, say, the same BB and NN mates ]
+
+to poss-dupe-note:
+	if dupe-noted-yet is false:
+		now dupe-noted-yet is true;
+		say "(NOTE: your solution was fully valid, but I'm being a bit of a stickler about finding different ways for the south and east [4b]s. Hope it's not too much inconvenience, or maybe that you find the additional challenge interesting.)";
+
+definition: a piece (called p) is double-adjacent:
+	if diag-dist of p and enemy king is 1 and diag-dist of p and friendly king is 1:
+		yes;
+	no;
+
+this is the two-bishops-formation rule:
+	if diag-dist of friendly bishop and second bishop is 3 and basic-dist of friendly bishop and second bishop is 3:
+		say "[if south is solved]The enemy king notices something is up. You remember that you had everyone in roughly the same place over in [q of south] with the two knights.  Perhaps you need to find a new way to corner the enemy king. Too many similar moves may lead to proof of your activities[else]Something's up. The bishops look at you, a bit confused. Perhaps ... perhaps this specific maneuver may be more useful somewhere else[end if].";
+		poss-dupe-note instead;
+	if friendly bishop is not double-adjacent and second bishop is not double-adjacent:
+		say "The enemy king feels a bit squished in by your two bishops being THAT close--and, well, your king, for that matter, no offense. He makes an excuse to wriggle out just before you can close the net.";
+		poss-dupe-note instead;
+
+this is the bishop-knight-formation rule:
+	if friendly bishop is double-adjacent:
+		if bn-close is true, say "That's how you did things last time. You need to mix things up a bit." instead;
+		now bn-close is true;
+	else if diag-dist of enemy king and friendly king is 2 and basic-dist of enemy king and friendly king is 3:
+		if bn-far is true, say "That's how you did things last time. You need to mix things up a bit." instead;
+		now bn-far is true;
+	if bn-close is true and bn-far is true, continue the action;
+	say "That does it for one of the Kings. But now for the other.";
+	try going outside instead;
 
 this is the knight blocks bishop rule:
 	if enemy king is not placed, continue the action;
@@ -473,7 +515,12 @@ fourth-wall-warn is a truth state that varies.
 
 this is the corner-cleared rule:
 	consider the corner-cleared-bare rule;
-	if the rule failed, say "You will need to conquer [q of south] or [q of east] to gain passage to [q of southeast]." instead;
+	if the rule failed:
+		say "You will need to conquer [q of south] or [q of east] to gain passage to [q of southeast].";
+		if jump-over is true:
+			say "[line break]But since you enabled jumping-over as a beta tester, I'll let you by.[paragraph break]";
+			continue the action;
+		the rule fails;
 
 this is the corner-cleared-bare rule:
 	if east is unsolved and south is unsolved, the rule fails;
@@ -530,9 +577,7 @@ carry out gotoing:
 
 chapter calling
 
-does the player mean calling the enemy king when number of reserved pieces > 1: it is unlikely.
-
-does the player mean calling a reserved piece: it is likely.
+does the player mean calling a reserved piece which is not the enemy king: it is very likely.
 
 does the player mean calling a placed piece: it is unlikely.
 
@@ -594,7 +639,6 @@ rule for supplying a missing noun when calling:
 		the rule succeeds;
 	say "I'll need a noun, since there are more than 2 pieces left to place, and I can't decide which one.";
 	reject the player's command;
-
 
 carry out calling:
 	if location of player is Ministry of Unity, say "You don't need to call allies until you're away from the Ministry." instead;
@@ -1075,8 +1119,9 @@ test qe with "test bb".
 test nn with "s/e/place n/w/w/w/place n/se/se/e/e/place k/w/w/place k". [KNNvK]
 test qs with "test nn".
 
-test bn with "se/place n/w/place k/e/e/e/place b/sw/sw/place k". [KBNvK]
-test qse with "test bn".
+test bn1 with "se/place n/w/place k/e/e/e/place b/sw/sw/place k". [KBNvK far]
+test bn2 with "se/place k/w/place n/se/place b/s/place k". [KBNvK close]
+test qse with "test bn1/test bn2".
 
 test a14 with "test bvb/test nvb/test nvn/test bvn".
 
