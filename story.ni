@@ -509,15 +509,17 @@ carry out gotoing:
 
 chapter calling
 
-does the player mean calling the friendly bishop when friendly bishop is reserved: it is likely.
+does the player mean calling the enemy king when number of reserved pieces > 1: it is unlikely.
 
-does the player mean calling the friendly knight when friendly knight is reserved: it is likely.
+does the player mean calling a reserved piece: it is likely.
 
-does the player mean calling the enemy king when friendly king is reserved: it is unlikely.
-
-does the player mean calling a reserved piece: it is very likely.
+does the player mean calling a placed piece: it is unlikely.
 
 does the player mean calling an irrelevant piece: it is very unlikely.
+
+does the player mean calling friendly bishop when number of placed bishops is 0 and second bishop is reserved: it is very likely.
+
+does the player mean calling friendly knight when number of placed knights is 0 and second knight is reserved: it is very likely.
 
 calling is an action applying to one visible thing.
 
@@ -556,6 +558,22 @@ this is the excessive beatdown rule:
 	if temp is 2:
 		note-amusing-stuff "beatdown";
 		say "The pieces under your command look over at you questioningly. While they recognize what fun it is to both be attacking the enemy king at once, they also consider such fun is not strategically sound. Still, you're the boss...";
+
+rule for supplying a missing noun when calling:
+	if location of player is Ministry of Unity:
+		now noun is friendly king;
+		the rule succeeds; [doesn't matter. Same reaction for them all!]
+	if enemy king is reserved and number of reserved pieces is 1:
+		say "(the enemy king is last)[line break]";
+		now noun is enemy king;
+		the rule succeeds;
+	if enemy king is reserved and number of reserved pieces is 2: [ maybe redundant but let's make sure ]
+		now noun is a random reserved piece that is not the enemy king;
+		say "([the noun] before the enemy king)[line break]";
+		the rule succeeds;
+	say "I'll need a noun, since there are more than 2 pieces left to place, and I can't decide which one.";
+	reject the player's command;
+
 
 carry out calling:
 	if location of player is Ministry of Unity, say "You don't need to call allies until you're away from the Ministry." instead;
