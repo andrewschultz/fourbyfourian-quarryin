@@ -33,6 +33,14 @@ to say email: say "blurglecruncheon@gmail.com"
 
 to say github: say "https://github.com/andrewschultz/fourbyfourian-intrigue"
 
+section meta/option booleans
+
+screen-reader is a truth state that varies.
+
+map-view is a truth state that varies.
+
+instructions-given is a truth state that varies.
+
 section no rhetorical questions
 
 understand the command "y" as something new.
@@ -742,6 +750,7 @@ understand "m" as boarding.
 
 carry out boarding:
 	if location of player is ministry of unity, say "There is no map to look at right now." instead;
+	if screen-reader is true, say "Since you are using a screen reader, text maps are disabled. You'll need to restart if you want to use them." instead;
 	say "STRATEGIC MAP OF FIVEBYFIVIA SO FAR:[line break]";
 	show-the-board;
 	the rule succeeds.
@@ -901,8 +910,6 @@ carry out recaping:
 
 chapter toggleing
 
-map-view is a truth state that varies.
-
 toggleing is an action out of world.
 
 understand the command "toggle" as something new.
@@ -912,6 +919,7 @@ understand "toggle" as toggleing.
 understand "t" as toggleing.
 
 carry out toggleing:
+	if screen-reader is true, say "Since you are using a screen reader, text maps are disabled. You'll need to restart if you want to use them or change their options." instead;
 	now map-view is whether or not map-view is false;
 	say "Map view toggled to [on-off of map-view].";
 	if map-view is false, the rule succeeds;
@@ -1078,7 +1086,7 @@ volume when play begins
 
 the player is in Ministry of Unity. description of player is "You're ... distinguished. A distinguished spy. Or people say you are."
 
-when play begins:
+when play begins (this is the assign variables and check for skips rule):
 	now left hand status line is "[if player is in Ministry of Unity][location of player][else][q of quest-dir], [location of player] ([quick-text of quest-dir])";
 	now right hand status line is "[number of solved directions]/[number of questable directions]";
 	repeat with xval running from 0 to 4:
@@ -1100,19 +1108,29 @@ when play begins:
 				now rn is mapped northwest of re;
 				now re is mapped southeast of rn;
 	process the check-skip-intro rule;
-	let skip-stuff be whether or not the rule succeeded;
-	if skip-stuff is false:
-		print-intro;
-	say "[b]ABOUT[r] will give [if skip-stuff is false]general information[else]a refresher[end if] about [this-game]. [b]VERBS[r] will show common verbs."
+	unless the rule succeeded, print-intro;
+
+when play begins (this is the screen read check rule):
+	if debug-state is true, continue the action;
+	say "[this-game] has an option to use text maps in some places. This may cause problems with a screen reader. Are you using a screen reader?";
+	if the player consents:
+		now screen-reader is true;
+
+after printing the locale description when instructions-given is false:
+	say "[bracket]NOTE: to get you started, [b]ABOUT[r] will give general information about [this-game]. [b]VERBS[r] will show common verbs.[close bracket][line break]";
+	now instructions-given is true;
+	continue the action;
 
 to print-intro:
 	say "The treaty was signed at the first Council of Sensibly Bordered Nations. After [12b] annexed [5b], you, who had risen to the office of Cheap Diplomat, assured the seven [4b]n ministates that of COURSE there would be no further conquests. While swooping up the seven of them would increase [12b]'s size almost doubly, why, you'd have to rename yourself Sixteenbysixteenia in the process, and that was just too awkward a name.";
-	say "[wfak]";
+	wfak;
 	say "That was good enough for them, but not really. They established border patrols. They improved their spying. You brought up their paranoia, their spying, at future Councils, mentioning how [12b] has more landmass than the [4b]s combined, but who got seven times the votes? Not this guy! If there was anyone not to trust, it was those rinky-dink kingdoms whispering among each other. And with each year that passed, you expected to gain trust you wouldn't attack and gobble them up, but they only seemed to suspect you more. Even as you built up armies in the northwest frontier, against bigger, tougher countries!";
-	say "You'd let them bait you long enough. You see, after the first council, a courtier suggested in private that, perhaps, Sixteenbysixteenia wasn't the only possible name if the [4b] ministates were vacuumed up. Largeboxica! Doubleboardistan! Foursquaresquareland! Even Twofiftysixia! Obviously a much more level-headed fellow than that nutcase who claimed the sun and moon didn't follow [12b] ... or whatever [12b]'s real name should be. Well, until he expected an advanced title. He should have just let you buy his silence. It would have been more than generous. And the ex-nations newly in the fold? Well, they could vote on their favorite name!";
-	say "[wfak]";
-	say "And if those full-square-worldists wanted to oppose your forging a bit of unity that actually made sense, well, you would expose their inconsistencies! But ... there was the matter of diplomacy. No all-out wars. A mission, between high-ranking officers of each state. At least, the outer ones. The inner ones had gotten a bit lazy. ";
-	say "[wfak]";
-	say "You've gotten too old and fat, I mean distinguished, to ride your super-speedy horse. It's slowed down quicker than you did. But no matter. Business is now conducted in castles -- five-by-five affairs, proof the [4b]s are a bit too big for their britches.";
-	say "[wfak]";
-	say "In the Ministry of Unity, the final touches are laid on the plans. Four of the satellite nations have traitors, waiting for power, who will help you. The others--well, you will need to strike quickly and not be too obvious. You flip an ocataroon towards the scribe who applies the finishing touches of an odd script, made just for you, called 'BASIC ENDGAME MANUAL.'";
+	say "You'd let them bait you long enough. You see, after the first council, a courtier suggested in private that, perhaps, Sixteenbysixteenia wasn't the only possible name if the [4b] ministates were vacuumed up. Largeboxica! Doubleboardistan! Foursquaresquareland! Even Twofiftysixia!";
+	wfak;
+	say "Obviously a much more level-headed fellow than that nutcase who claimed the sun and moon didn't follow [12b] ... or whatever [12b]'s real name should be. Well, level-headed until he expected an advanced title. He should have just let you buy his silence. It would have been more than generous. And the ex-nations newly in the fold? Why, they could vote on the favorite name!";
+	wfak;
+	say "And if those full-square-worldists wanted to oppose your forging a bit of unity that actually made [i]sense[r], well, you would expose their inconsistencies! Still, there is a matter of diplomacy. No all-out wars. A mission, between high-ranking officers of each state. You've had time to culivate some allies in the ranks of some of the outer realms. Not quite the inner ones, yet.";
+	wfak;
+	say "You've gotten too old and fat, I mean distinguished, to ride your super-speedy horse that served so well annexing [5b]. It's slowed down quicker than you did. But no matter. Business can be conducted in castles -- five-by-five affairs, proof the [4b]s are a bit too big for their britches.";
+	wfak;
+	say "In the Ministry of Unity, the final touches are laid on the plans. Four of the satellite nations have traitors, waiting for power, who will help you. The others--well, you will need to strike quickly and not be too obvious. You flip an ocataroon towards the scribe who applies the finishing touches of an odd script, made just for you, called 'BASIC ENDGAME MANUAL.' And off you go!";
