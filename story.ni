@@ -6,6 +6,8 @@ the story description is "Less impossible than beating Stockfish".
 
 volume basics and definitions
 
+include Old School Verb Total Carnage by Andrew Schultz.
+
 include Trivial Niceties by Andrew Schultz.
 
 include Bypass Disambiguation by Climbing Stars.
@@ -30,6 +32,12 @@ to say q of (d - a direction):
 to say email: say "blurglecruncheon@gmail.com"
 
 to say github: say "https://github.com/andrewschultz/fourbyfourian-intrigue"
+
+section no rhetorical questions
+
+understand the command "y" as something new.
+understand the command "yes" as something new.
+understand the command "no" as something new. [these are to reject the "That was a rhetorical question" error, which can annoy players. ]
 
 section scoring
 
