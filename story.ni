@@ -39,6 +39,8 @@ screen-reader is a truth state that varies.
 
 map-view is a truth state that varies.
 
+map-notes-flag is a truth state that varies.
+
 instructions-given is a truth state that varies.
 
 section no rhetorical questions
@@ -547,10 +549,10 @@ understand the command "c" as something new.
 understand the command "place" as something new.
 understand the command "p" as something new.
 
-understand "call [any thing]" as calling.
-understand "c [any thing]" as calling.
-understand "place [any thing]" as calling.
-understand "p [any thing]" as calling.
+understand "call [any not irrelevant piece]" as calling.
+understand "c [any not irrelevant piece]" as calling.
+understand "place [any not irrelevant piece]" as calling.
+understand "p [any not irrelevant piece]" as calling.
 
 understand "call" as calling.
 understand "c" as calling.
@@ -636,6 +638,11 @@ carry out calling:
 		else:
 			say "Oh no! The enemy king escapes.";
 			new-quest;
+	if screen-reader is false, continue the action;
+	show-the-board;
+	if map-notes-flag is false:
+		now map-notes-flag is true;
+		say "Now that you've placed a piece, you can toggle seeing maps in the room description with MT or TM.";
 	the rule succeeds;
 
 to new-quest:
@@ -756,6 +763,10 @@ carry out boarding:
 	the rule succeeds.
 
 to show-the-board:
+	if screen-reader is true:
+		repeat with Q running through placed pieces:
+			say "[Q] is at [location of Q].";
+		continue the action;
 	say "[fixed letter spacing]  a b c d e[line break]";
 	say "5[pie of a5][pie of b5][pie of c5][pie of d5][pie of e5] 5[line break]";
 	say "4[pie of a4][pie of b4][pie of c4][pie of d4][pie of e4] 4[line break]";
@@ -1107,8 +1118,9 @@ when play begins (this is the assign variables and check for skips rule):
 			if rn is not offsite and re is not offsite:
 				now rn is mapped northwest of re;
 				now re is mapped southeast of rn;
-	process the check-skip-intro rule;
-	unless the rule succeeded, print-intro;
+	if debug-state is false:
+		process the check-skip-intro rule;
+		unless the rule succeeded, print-intro;
 
 when play begins (this is the screen read check rule):
 	if debug-state is true, continue the action;
@@ -1117,7 +1129,7 @@ when play begins (this is the screen read check rule):
 		now screen-reader is true;
 
 after printing the locale description when instructions-given is false:
-	say "[bracket]NOTE: to get you started, [b]ABOUT[r] will give general information about [this-game]. [b]VERBS[r] will show common verbs.[close bracket][line break]";
+	say "[bracket][b]NOTE[r]: to get you started, [b]ABOUT[r] will give general information about [this-game]. [b]VERBS[r] will show common verbs.[close bracket][line break]";
 	now instructions-given is true;
 	continue the action;
 
