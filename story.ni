@@ -269,6 +269,9 @@ to decide which number is diag-dist of (r1 - a room) and (r2 - a room):
 to decide which number is diag-dist of (t1 - a thing) and (t2 - a thing):
 	decide on diag-dist of location of t1 and location of t2;
 
+rule for printing the locale description when map-view is true and player is not in ministry of unity:
+	show-the-board;
+
 volume pieces
 
 team is a kind of value. the teams are black and white.
@@ -739,11 +742,11 @@ understand "m" as boarding.
 
 carry out boarding:
 	if location of player is ministry of unity, say "There is no map to look at right now." instead;
+	say "STRATEGIC MAP OF FIVEBYFIVIA SO FAR:[line break]";
 	show-the-board;
 	the rule succeeds.
 
 to show-the-board:
-	say "STRATEGIC MAP OF FIVEBYFIVIA SO FAR:[line break]";
 	say "[fixed letter spacing]  a b c d e[line break]";
 	say "5[pie of a5][pie of b5][pie of c5][pie of d5][pie of e5] 5[line break]";
 	say "4[pie of a4][pie of b4][pie of c4][pie of d4][pie of e4] 4[line break]";
@@ -894,6 +897,28 @@ carry out recaping:
 	if noun is not solved, say "You haven't taken over [q of noun] yet." instead;
 	if recap-text of noun is empty, say "[q of noun] needs recap text." instead;
 	say "[recap-text of noun]." instead;
+	the rule succeeds;
+
+chapter toggleing
+
+map-view is a truth state that varies.
+
+toggleing is an action out of world.
+
+understand the command "toggle" as something new.
+understand the command "t" as something new.
+
+understand "toggle" as toggleing.
+understand "t" as toggleing.
+
+carry out toggleing:
+	now map-view is whether or not map-view is false;
+	say "Map view toggled to [on-off of map-view].";
+	if map-view is false, the rule succeeds;
+	say "[line break]";
+	if player is in ministry of unity, say "Maps won't be shown until you leave the [Ministry]." instead;
+	say "Showing the map.";
+	show-the-board;
 	the rule succeeds;
 
 chapter verbs
