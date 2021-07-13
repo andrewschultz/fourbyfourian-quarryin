@@ -14,6 +14,8 @@ include Bypass Disambiguation by Climbing Stars.
 
 include Intro Restore Skip by Andrew Schultz.
 
+include Undo Output Control by Erik Temple.
+
 jump-over is a truth state that varies.
 
 debug-state is a truth state that varies.
@@ -68,6 +70,11 @@ instead of doing something other than examining tricky endgame manual:
 
 check taking inventory:
 	say "All you have on you, besides various expensive rings and medals designating your position as a prominent [12b]n, is a tricky endgame manual. You can [b]X[r] it at any time to see what needs to be done [if player is in ministry]outside the ministry[else]here or in other [4b]s[end if]." instead;
+
+section undoing
+
+report undoing an action:
+	say "Undone[if number of placed pieces is 0 and player is not in Ministry of Unity], though until you've placed a piece, there's nothing worth undoing[end if]. Note you can always undo everything by going [b]OUT[r][if player is in Ministry of Unity] once you're in a [4b][end if].";
 
 book i6 modification(s)
 
@@ -1004,7 +1011,7 @@ understand "verb" as verbsing.
 understand "v" as verbsing.
 
 carry out verbsing:
-	say "In [this-game] you have some pared-down commands. The big ones are that you can move in any of the eight basic directions, abbreviated as follows: N, S, E, W, NW, NE, SW, SE.[paragraph break]You can also go to a square when you're not in the Ministry of Unity. So typing [b]a1[r] sends you to a1, etc.[paragraph break]You will also (C)all or (P)lace piece, enemy or friendly.[paragraph break]Meta-verbs and options are discussed in META (MET/ME).";
+	say "In [this-game] you have some pared-down commands. The big ones are that you can move in any of the eight basic directions, abbreviated as follows: N, S, E, W, NW, NE, SW, SE. OUT anywhere but the [ministry] returns you to the [ministry].[paragraph break]You can also go to a square when you're not in the Ministry of Unity. So typing [b]a1[r] sends you to a1, etc.[paragraph break]You can also (C)all or (P)lace piece, enemy or friendly.[paragraph break]Meta-verbs and options are discussed in [b]META[r] ([b]MET[r]/[b]ME[r]).";
 	the rule succeeds;
 
 volume amusing post-game
