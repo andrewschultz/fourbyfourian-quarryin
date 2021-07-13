@@ -45,6 +45,8 @@ map-notes-flag is a truth state that varies.
 
 instructions-given is a truth state that varies.
 
+walkthrough-hint is a truth state that varies.
+
 section no rhetorical questions
 
 understand the command "y" as something new.
@@ -910,6 +912,9 @@ understand "hint" as hinting.
 understand "h" as hinting.
 
 carry out hinting:
+	if walkthrough-hint is false:
+		now walkthrough-hint is true;
+		say "NOTE: if you want full hints, the walkthrough.txt file that came with this binary should have the details. This tries to give you hints without spoiling anything." instead;
 	if player is in Ministry of Unity, say "You have nothing to do in the [unity], but you can hint a direction if you want, for specific [4b]s." instead;
 	if debug-state is false:
 		abide by the visit-text of noun;
@@ -947,7 +952,7 @@ understand "met" as metaing.
 understand "me" as metaing.
 
 carry out metaing:
-	say "Here is a list of meta-verbs and options you can use. None are necessary to complete the game, but they can all be useful.[paragraph break]";
+	say "Here is a list of meta-verbs and options you can use. None are necessary to complete the game, but they can all be useful.";
 	say "[line break][b]ABOUT[r] or [b]A[r] tells about the game. [b]CREDITS[r] or [b]C[r] tells more technical details and thanks testers.";
 	say "[line break][b]MAP[r] or [b]M[r] or [b]BOARD[r] or [b]B[r] shows the current map. [b]TOGGLE[r] or [b]T[r] toggles the map.";
 	say "[line break][b]HINT[r] or [b]H[r] hints your current area or, if you give a direction, an area you've tried but haven't beaten yet.";
@@ -1011,7 +1016,7 @@ understand "verb" as verbsing.
 understand "v" as verbsing.
 
 carry out verbsing:
-	say "In [this-game] you have some pared-down commands. The big ones are that you can move in any of the eight basic directions, abbreviated as follows: N, S, E, W, NW, NE, SW, SE. OUT anywhere but the [ministry] returns you to the [ministry].[paragraph break]You can also go to a square when you're not in the Ministry of Unity. So typing [b]a1[r] sends you to a1, etc.[paragraph break]You can also (C)all or (P)lace piece, enemy or friendly.[paragraph break]Meta-verbs and options are discussed in [b]META[r] ([b]MET[r]/[b]ME[r]).";
+	say "In [this-game] you have some pared-down commands. The big ones are that you can move in any of the eight basic directions, abbreviated as follows: [b]N[r], [b]S[r], [b]E[r], [b]W[r], [b]NW[r], [b]NE[r], [b]SW[r], [b]SE[r]. [b]OUT[r] anywhere but the [ministry] returns you to the [ministry].[paragraph break]You can also go to a square when you're not in the Ministry of Unity. So typing [b]a1[r] sends you to a1, etc.[paragraph break]You can also [b]CALL[r]/[b]C[r] or [b]PLACE[r]/[b]P[r] a piece, enemy or friendly.[paragraph break]Meta-verbs and options are discussed in [b]META[r] ([b]MET[r]/[b]ME[r]).";
 	the rule succeeds;
 
 volume amusing post-game
