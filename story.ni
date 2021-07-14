@@ -1,10 +1,20 @@
 "Fourbyfourian Intrigue" by Andrew Schultz
 
-the story headline is "Flagrant Horsing Around".
+the story headline is "Expanding boundaries and stiff".
 
-the story description is "Less impossible than beating Stockfish".
+the story description is "Bringing about major peace without major pieces".
 
 volume basics and definitions
+
+section release instructions
+
+release along with a website.
+
+release along with the "Parchment" interpreter.
+
+[release along with cover art.]
+
+section modules
 
 include Old School Verb Total Carnage by Andrew Schultz.
 
@@ -16,9 +26,13 @@ include Intro Restore Skip by Andrew Schultz.
 
 include Undo Output Control by Erik Temple.
 
+section stuff only changed in debug mode
+
 jump-over is a truth state that varies.
 
 debug-state is a truth state that varies.
+
+section stubs I will use a lot
 
 to say 4b: say "Fourbyfouria"
 
