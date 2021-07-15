@@ -41,9 +41,7 @@ to say 5b: say "[i]Fivebyfivia Delenda Est[r]"
 to say 12b: say "Twelvebytwelvia"
 
 to say q of (d - a direction):
-	let t be indexed text;
-	now t is "[d]" in title case;
-	say "[t] [4b]";
+	say "[printed name of d in title case] [4b]";
 
 to say email: say "blurglecruncheon@gmail.com"
 
@@ -70,7 +68,15 @@ understand the command "no" as something new. [these are to reject the "That was
 section scoring
 
 check requesting the score:
-	say "This game doesn't keep track of scores, but to give you an idea of your progress, you've helped conquer [number of solved directions] of [number of questable directions] [4b]s so far[if half-final]. You've conquered half of [q of southeast], as well[end if][one of].[paragraph break]This is tracked in the upper-right status bar[or][stopping]." instead;
+	say "This game doesn't keep a score, but to track your progress, you've helped 'reunite' [number of solved directions] of [number of questable directions] [4b]s so far[if number of solved directions > 0]: [list of solved directions][end if][if number of stalemated directions > 0].[paragraph break]You've gained the trust of [trusted-kings], as well[end if][one of].[paragraph break]This is tracked in the upper-right status bar[or][stopping]." instead;
+
+for printing the name of a direction (called d) while requesting the score:
+	say "[q of d]";
+
+to say trusted-kings:
+	let SD be number of stalemated directions;
+	say "the king[if SD > 1]s[end if] of ";
+	say "[list of stalemated directions]";
 
 The print final score rule is not listed in the for printing the player's obituary rulebook.
 
@@ -407,11 +413,11 @@ last-solved is a direction that varies. last-solved is inside.
 
 chapter properties for quests
 
-a direction can be unquestable, primary, secondary or tertiary. a direction is usually unquestable. [okay, number crunchers will note it's usually primary, but we want to set questable directions explicitly.]
+a direction can be unquestable, primary, or secondary. a direction is usually unquestable. [okay, number crunchers will note it's usually primary, but we want to set questable directions explicitly.]
 
 a direction can be tried or untried. a direction is usually untried.
 
-a direction can be solved or unsolved. a direction is usually unsolved.
+a direction can be unsolved, solved or stalemated. a direction is usually unsolved.
 
 a direction has a piece called first-piece.
 
@@ -628,7 +634,10 @@ this is the same-colored-bishops rule:
 	unless location of Q and location of player are samecolored, continue the action;
 	note-amusing-stuff "bb-colors";
 	if enemy bishop is irrelevant:
-		say "But wait! You realize that you are about to place both your bishops on same-colored square. You may break a lot of stuffy old rules in [12b], but that's not one of them, especially since breaking that rule gives no practical benefit. Okay, it actually harms you.[paragraph break]Somewhere else, maybe.";
+		if quest-dir is not stalemated:
+			say "But wait! You realize that you are about to place both your bishops on the same-colored square. You may break a lot of stuffy old rules in [12b], but that's not one of them, especially since breaking that rule gives no practical benefit. Okay, it actually harms you.[paragraph break]Somewhere else, maybe.";
+		else:
+			say "One of your bishops looks confused. The other looks very impressed. Each doesn't like the other being on their turf, but your unconventional approach of putting them on the same color square just might work ... this time. Or it might fail spectacularly.";
 	else:
 		say "Your bishop and the enemy bishop look over at each other. They then both glare at you, as if in slight doubt of your leadership. They can't actually ... risk crossing paths, which might happen, since they're on the same color square.";
 	the rule succeeds;
@@ -658,6 +667,39 @@ rule for supplying a missing noun when calling:
 	say "I'll need a noun, since there are more than 2 pieces left to place, and I can't decide which one.";
 	reject the player's command;
 
+to decide whether you-stalemated:
+	if enemy king is checked, no;
+	if enemy king is immobile, yes;
+	no;
+
+to decide whether you-checkmated:
+	unless enemy king is checked, no;
+	unless enemy king is immobile, no;
+	yes;
+
+this is the stalemate dialogue rule:
+	if quest-dir is primary:
+		say "Oh no! You managed to trap the king but not attack him. I don't think there's a way to find this sort of stalemate, so it's impressive that you did.";
+	else if quest-dir is stalemated:
+		say "Again, you pretty much cornered the enemy king without attacking him. Awkward laughter resonates in this diplomatic meeting. It only sort of builds up his trust. You know how it is, when someone oversells something? You might be risking that here. The enemy king (fool) trusts you enough. Next time, you can go fully on offense.";
+	else:
+		now quest-dir is stalemated;
+		say "Oh my! The enemy king is trapped, but not too trapped. After a lot of verbal manipulation, you manage to convince him that this show of almost-force is just standard negotiating technique, and if he can't trust you, who can he trust?[paragraph break]The diplomatic maneuver is thus a success. After a few hours, you take leave, confident your little feint will keep the enemy king off-guard enough, you will get him next time.";
+	retreat-to-unity;
+	the rule succeeds;
+
+this is the checkmate dialogue rule:
+	if quest-dir is secondary and quest-dir is not stalemated:
+		say "But wait! The enemy king feels a LITTLE too under attack. He excuses himself for ... well, a family emergency, an important jousting tournament to judge, another one of those banquets, you know.[paragraph break]";
+		if number of unsolved secondary directions < number of secondary directions:
+			say "Drat! You were a bit too aggressive. Perhaps if there were a way to make him feel almost-trapped but let him off the hook ... then he could be suckered. But not now.";
+		else if number of solved secondary directions is 0:
+			say "Man! You felt like you had something there. But you didn't gain the king's trust as in [q of random stalemated secondary direction]. You'll need to do that.";
+		else:
+			say "Bummer. You mixed things up. You should have slow-walked it a bit more, as in [q of random solved secondary directions].";
+		retreat-to-unity;
+		the rule succeeds;
+
 carry out calling:
 	if location of player is Ministry of Unity, say "You don't need to call allies until you're away from the Ministry." instead;
 	if noun is irrelevant, say "You don't need to call [the noun]." instead;
@@ -683,12 +725,14 @@ carry out calling:
 		if diag-dist of friendly king and enemy king <= 1, say "You can't really place the enemy kings that close to each other. Oh, sure, they'll perform all the proper diplomacy ... but they really don't WANT to. At least, your king doesn't want to. He doesn't want his fingerprints on any ... disappearances." instead;
 		consider the excessive beatdown rule;
 		abide by the king-place of quest-dir;
+		if you-stalemated, abide by the stalemate dialogue rule;
 		unless enemy king is checked:
 			say "But the enemy king is not checked. So things fall apart. Perhaps ... perhaps that was not the best way. Fortunately, we're going to let you have another shot and pretend that never happened.";
 			if screen-reader is false, show-the-board;
 			move player to Ministry of Unity;
 			the rule succeeds;
-		if enemy king is immobile:
+		if you-checkmated:
+			abide by the checkmate dialogue rule;
 			abide by right-checkmate of quest-dir;
 			say "Bang! Got him.";
 			now quest-dir is solved;
@@ -697,16 +741,20 @@ carry out calling:
 				say "You win, yay!";
 				end the story finally;
 				the rule succeeds;
-			move player to Ministry of Unity;
 		else:
 			say "Oh no! The enemy king escapes.";
-			new-quest;
+		retreat-to-unity;
+		the rule succeeds;
 	if screen-reader is false, continue the action;
 	show-the-board;
 	if map-notes-flag is false:
 		now map-notes-flag is true;
-		say "Now that you've placed a piece, you can toggle seeing maps in the room description with MT or TM.";
+		say "Now that you've placed a piece, you can toggle seeing maps in the room description with [b]TOGGLE[r] or [b]T[r].";
 	the rule succeeds;
+
+to retreat-to-unity:
+	move player to Ministry of Unity;
+	new-quest;
 
 to new-quest:
 	now quest-dir is tried;
@@ -1184,9 +1232,13 @@ volume when play begins
 
 the player is in Ministry of Unity. description of player is "You're ... distinguished. A distinguished spy. Or people say you are."
 
+to say stalemate-stars:
+	repeat with Q running through secondary directions:
+		if Q is stalemated, say "+";
+
 when play begins (this is the assign variables and check for skips rule):
 	now left hand status line is "[if player is in Ministry of Unity][location of player][else][q of quest-dir], [location of player] ([quick-text of quest-dir])";
-	now right hand status line is "[number of solved directions]/[number of questable directions]";
+	now right hand status line is "[number of solved directions][stalemate-stars]/[number of questable directions]";
 	repeat with xval running from 0 to 4:
 		repeat with yval running from 0 to 4:
 			let r be reverse-room of xval and yval;
