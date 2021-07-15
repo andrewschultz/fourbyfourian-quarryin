@@ -139,9 +139,26 @@ def get_mates(knight_1, knight_2, wanted_mate = BOTH_MATES):
                 break
         if duplicate_yet:
             continue
+            
+        p2 = [(4 - x, y) for (x, y) in p]
+        if p2[2] < p2[1] and knight_1 == knight_2:
+            (p2[2], p2[1]) = (p2[1], p2[2])
+        p2 = tuple(p2)
+
+        for x in current_solutions:
+            if shifted(p2, x):
+                duplicate_yet = True
+                break
+        if duplicate_yet:
+            continue
         current_solutions.append(p)
         count += 1
-        print("BAM! Solution # {} for {}.".format(count, this_mate))
+        same_color_bishop = ''
+        if knight_1 == knight_2 and knight_2 == 0:
+            cheap_sum = p[1][0] + p[1][1] + p[2][0] + p[2][1]
+            if not cheap_sum % 2:
+                same_color_bishop = " (SAME COLORED BISHOPS)"
+        print("BAM! Solution # {} for {}{}.".format(count, this_mate, same_color_bishop))
         print_board(p, blocked, knight_1, knight_2)
     return "Total # for {} = {}\n".format(this_mate, count)
 
