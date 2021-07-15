@@ -21,6 +21,7 @@ count = 0
 
 mate_type = [ 'both', 'stalemate', 'checkmate' ]
 pieces = [ 'bishop', 'knight' ]
+pshort = [ 'b', 'n' ]
 
 BOTH_MATES = 0
 STALEMATE = 1
@@ -59,6 +60,34 @@ def on_board(a, b):
     if a < 0 or a > 4: return False
     if b < 0 or b > 4: return False
     return True
+
+def loc(a):
+    return chr(a[0] + 97) + chr(49 + a[1])
+
+def print_moves(placements, knight_1, knight_2, count):
+    placements = (placements[3], placements[1], placements[2], placements[0])
+    test_string = 'test g{}{}{} with "'.format(pshort[knight_1], pshort[knight_2], count)
+    num_knights = knight_1 + knight_2
+    if num_knights == 1:
+        test_string += "s"
+    elif num_knights == 2:
+        test_string += "se"
+    else:
+        test_string += "e"
+    count = 0
+    for a in placements:
+        test_string += "/" + loc(a) + "/place "
+        if count == 0 or count == 3:
+            test_string += "king"
+        elif num_knights == 2:
+            test_string += "friendly bishop" if count == 1 else "second bishop"
+        elif num_knights == 0:
+            test_string += "friendly knight" if count == 1 else "second knight"
+        else:
+            test_string += "n" if ((count == 1) == knight_1) else "b"
+        count += 1
+    test_string += '". [auto-generated]'
+    print(test_string)
 
 def print_board(my_perm, blocked, knight_1, knight_2):
     for y in range(4, -1, -1):
@@ -139,7 +168,7 @@ def get_mates(knight_1, knight_2, wanted_mate = BOTH_MATES):
                 break
         if duplicate_yet:
             continue
-            
+
         p2 = [(4 - x, y) for (x, y) in p]
         if p2[2] < p2[1] and knight_1 == knight_2:
             (p2[2], p2[1]) = (p2[1], p2[2])
@@ -160,6 +189,7 @@ def get_mates(knight_1, knight_2, wanted_mate = BOTH_MATES):
                 same_color_bishop = " (SAME COLORED BISHOPS)"
         print("BAM! Solution # {} for {}{}.".format(count, this_mate, same_color_bishop))
         print_board(p, blocked, knight_1, knight_2)
+        print_moves(p, knight_1, knight_2, count)
     return "Total # for {} = {}\n".format(this_mate, count)
 
 end_string = ''
