@@ -19,6 +19,13 @@ lp = list(perms)
 
 count = 0
 
+mate_type = [ 'both', 'stalemate', 'checkmate' ]
+pieces = [ 'bishop', 'knight' ]
+
+BOTH_MATES = 0
+STALEMATE = 1
+CHECKMATE = 2
+
 def bishop_block(coord, blocks, p):
     for x in (-1, 1):
         for y in (-1, 1):
@@ -72,25 +79,24 @@ def print_board(my_perm, blocked, knight_1, knight_2):
 # 0 = enemy king
 # 3 = my king
 
-def get_mates(knight_1, knight_2):
-    print(knight_1, knight_2)
-    count = 0
-    b_n = [ 'bishop', 'knight' ]
+def get_mates(knight_1, knight_2, wanted_mate = BOTH_MATES):
+    print("=========================BEGINNING", mate_type[wanted_mate], "checking for {} and {}.".format(pieces[knight_1], pieces[knight_2]))
+    count = 0 # 0 = enemy king, 1 = 1st piece, 2 = 2nd piece, 3 = your king
     for p in lp:
-        if p[0][0] in (0, 4): continue
+        if p[0][0] in (0, 1, 4): continue
         if p[0][1] > 0: continue
         if p[1][1] > 2: continue
         if p[2][1] > 2: continue
         if p[3][1] > 2: continue
         if abs(p[3][1] - p[0][1]) <= 1 and abs(p[3][0] - p[0][0]) <= 1: continue
-        blocked = defaultdict(int)
+        blocked = defaultdict(bool)
         for r in rooms:
             blocked[r] = 0
         for i in range (-1, 2):
             for j in range (-1, 2):
                 if on_board(p[3][0] + i, p[3][1] + j):
                     # print("Blocking", p[3][0] + i, p[3][1] + j)
-                    blocked[(p[3][0] + i, p[3][1] + j)] = 1
+                    blocked[(p[3][0] + i, p[3][1] + j)] = True
         if knight_1:
             knight_block(p[1], blocked)
         else:
@@ -102,15 +108,23 @@ def get_mates(knight_1, knight_2):
         trapped = True
         for i in range (-1, 2):
             for j in range (0, 2):
-                if not blocked[(p[0][0] + i, p[0][1] + j)]:
+                temp = blocked[(p[0][0] + i, p[0][1] + j)]
+                if i == 0 and j == 0:
+                    if wanted_mate == BOTH_MATES:
+                        continue
+                    if wanted_mate == STALEMATE:
+                        temp = not temp
+                if not temp:
                     trapped = False
         if not trapped:
             continue
         count += 1
-        print("BAM! Solution # {} {} {}.".format(count, b_n[knight_1], b_n[knight_2]))
+        print("BAM! Solution # {} for {} {} {}.".format(count, pieces[knight_1], pieces[knight_2], mate_type[wanted_mate]))
         print_board(p, blocked, knight_1, knight_2)
+    print("Total # of mates =", count)
 
-get_mates(True, True)
-get_mates(True, False)
-get_mates(False, True)
-get_mates(False, False)
+for x in (STALEMATE, CHECKMATE):
+    get_mates(True, True, x)
+    get_mates(True, False, x)
+    get_mates(False, True, x)
+    get_mates(False, False, x)
