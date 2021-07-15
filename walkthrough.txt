@@ -10,9 +10,9 @@ A key thing to note is that the piece giving check may be able to block off a sq
 
 Your pieces are in capital letters. Your enemy's are in small letters. K = king, B = bishop, N = knight.
 
-Note that any solution should be okay: rotate the board, or flip it, to your heart's desire.
+Note that there are multiple solutions, rotating the board or flipping them. I went with the upper left corner.
 
-NORTH (knight vs. bishop):
+======================================== NORTH (knight vs. bishop):
 
 You may note that the king in the corner only has three squares to move to. Elsewhere he has at least five. So you want to put him there and then leave no escape squares. Your king can guard two squares, but your knight can't guard any if it is giving check. That means the bishop has to block a square. If the bishop is next to the king, that eliminates one square where the knight gives check. With the knight placed, there's only one square for your king that adequately blocks the opponent's king.
 
@@ -28,7 +28,9 @@ You may note that the king in the corner only has three squares to move to. Else
 | | | | | |
 +-+-+-+-+-+
 
-NORTHEAST (knight vs. knight):
+So one solution is c4/place n/n/place k/a4/place b/n/place k.
+
+======================================== NORTHEAST (knight vs. knight):
 
 You can again use process of elimination for this: the king in the corner has 3 squares. Your king can guard two. The knight can't guard any. So the enemy knight has to block one square. But when it does, it makes one of the squares for your king impossible. Since that square is a knight's move away, you need your knight on the other square.
 
@@ -44,7 +46,9 @@ You can again use process of elimination for this: the king in the corner has 3 
 | | | | | |
 +-+-+-+-+-+
 
-SOUTHWEST (bishop vs. bishop):
+So one solution is n/place k/sw/place friendly n/nw/place n/n/place k.
+
+======================================== SOUTHWEST (bishop vs. bishop):
 
 +-+-+-+-+-+
 |k| | | | |
@@ -60,7 +64,9 @@ SOUTHWEST (bishop vs. bishop):
 
 As before, you need to give check, and while the bishop can guard one flight square, it leaves two squares your king can't guard both of. So you still need help from the opposing bishop. Here, your king has a choice of two squares, since the bishop can't check it, and your bishop has a choice of four squares to give mate.
 
-WEST (bishop vs. knight):
+So one solution is place friendly b/n/place k/a4/place b/n/place k.
+
+======================================== WEST (bishop vs. knight):
 
 +-+-+-+-+-+
 |k| | | | |
@@ -74,13 +80,27 @@ WEST (bishop vs. knight):
 | | | | | |
 +-+-+-+-+-+
 
-The above seems like it should work, but it doesn't! The knight can block. Similarly if the bishop is in the center, though the knight then can take. The bishop needs to be one square southeast of the enemy king.
+The above seems like it should work, but it doesn't! The knight can block. Similarly if the bishop is in the center, though the knight then can take. The bishop needs to be kitty-corner from the enemy king.
 
-But now things may get a bit trickier. You have to find weirder mates.
++-+-+-+-+-+
+|k| | | | |
++-+-+-+-+-+
+|n|B|K| | |
++-+-+-+-+-+
+| | | | | |
++-+-+-+-+-+
+| | | | | |
++-+-+-+-+-+
+| | | | | |
++-+-+-+-+-+
 
-SOUTH (two knights):
+Everyone has to be packed in here, but that makes the solution a bit quicker. n/place k/w/place b/w/place n/n/place k.
 
-You may notice that the enemy king can't go to the corner. Bummer! So you need to think a bit more. If the enemy king is on the side, that's five squares you must stake out. The knight checking the king may see one square.
+But now things may get a bit trickier. You have to find weirder mates. The enemy king is too smart to be suckered into the corner. He's heard rumors.
+
+======================================== SOUTH (two knights):
+
+Here's some general logic: if the enemy king is on the side, that's five escape squares you must stake out, including the check square. Each knight can stake out at most two squares, kitty-corner from each other, in the 3x2 rectangle you need to cover. That leaves at least two squares for your king. A solution is below. Using square names makes things a bit quicker here.
 
 +-+-+-+-+-+
 | | | | | |
@@ -94,9 +114,9 @@ You may notice that the enemy king can't go to the corner. Bummer! So you need t
 | | |k| | |
 +-+-+-+-+-+
 
-EAST (two bishops):
+======================================== EAST (two bishops):
 
-Since again you can't force the enemy king into the corner, you need to find a way to take care of it when it is on the edge. Here's where it gets a bit complex. The game deliberately pokes you so you can't have a similar position for 2B as for 2N. Note you can just swap the knights for bishops above and get a checkmate. But this doesn't work: either it's done before, or it needs to be done later.
+Since again you can't force the enemy king into the corner, you need to find a way to take care of it when it is on the edge. Here's where it gets a bit complex. The game deliberately pokes you so you can't have a similar position for 2B as for 2N. Note you can just swap the knights for bishops above and get a checkmate. But this doesn't work: either it's done before, or doing it now might spoil the surprise for later when it's necessary.
 
 +-+-+-+-+-+
 | | | | | |
@@ -110,7 +130,21 @@ Since again you can't force the enemy king into the corner, you need to find a w
 | | |k| | |
 +-+-+-+-+-+
 
-SOUTHEAST (bishop and knight):
+Also notice the following gets rejected. The king is too claustrophobic!
+
++-+-+-+-+-+
+| | | | | |
++-+-+-+-+-+
+| | | | | |
++-+-+-+-+-+
+| | |K| | |
++-+-+-+-+-+
+| | |B|B| |
++-+-+-+-+-+
+| | |k| | |
++-+-+-+-+-+
+
+======================================== SOUTHEAST (bishop and knight):
 
 +-+-+-+-+-+
 | | | | | |
@@ -138,3 +172,4 @@ Then you have to do things another way. The king had an heir who suspected what 
 | | |k| | |
 +-+-+-+-+-+
 
+Once you've done this, congratulations! You have won!
