@@ -68,7 +68,7 @@ understand the command "no" as something new. [these are to reject the "That was
 section scoring
 
 check requesting the score:
-	say "This game doesn't keep a score, but to track your progress, you've helped 'reunite' [number of solved directions] of [number of questable directions] [4b]s so far[if number of solved directions > 0]: [list of solved directions][end if][if number of stalemated directions > 0].[paragraph break]You've gained the trust of [trusted-kings], as well[end if][one of].[paragraph break]This is tracked in the upper-right status bar[or][stopping]." instead;
+	say "This game doesn't keep a score, but to track your progress, you've helped 'reunite' [number of solved directions] of [number of questable directions] [4b]s so far[if number of solved directions > 0]: [list of solved directions][end if][if number of stalemated directions > 0].[paragraph break]You've gained the trust of [trusted-kings], as well[end if][one of].[paragraph break]This is all tracked in the upper-right status bar[or][stopping]." instead;
 
 for printing the name of a direction (called d) while requesting the score:
 	say "[q of d]";
@@ -215,7 +215,10 @@ check going (this is the hub check rule):
 		now quest-dir is noun;
 		say "You head to [conquest of noun]. Your allies for this quest are [summary-text of noun][if quest-dir is southeast and quest-dir is not tried]. A courtier whispers to you at the last moment: [q of southeast] has been split in two! There are rival kings fighting for supremacy. That means more to do. Well, this is the last land to conquer[end if].";
 		new-quest;
-		move player to c3 instead;
+		move player to c3;
+		if quest-dir is stalemated and already-solved of quest-dir is not empty:
+			say "Okay. You make a note of what you tried earlier, before you gained the enemy king's trust. It almost worked. It should work now.[paragraph break]Your king, [entry 1 of already-solved of quest-dir]. The [first-piece of quest-dir], [entry 2 of already-solved of quest-dir]. The [second-piece of quest-dir], [entry 3 of already-solved of quest-dir]. The king of [q of quest-dir], [entry 4 of already-solved of quest-dir].";
+		the rule succeeds;
 	if noun is inside:
 		say "You need to go a planar direction.";
 
@@ -313,7 +316,7 @@ volume pieces
 
 team is a kind of value. the teams are black and white.
 
-a piece is a kind of person. a piece can be reserved, irrelevant or placed. a piece is usually irrelevant. a piece has a list of truth state called summon-list. a piece has text called short-text. description is usually "When it is time, you will make eye contact. Until then, just focus on positioning, positioning, positioning.".
+a piece is a kind of person. a piece can be reserved, irrelevant or placed. a piece is usually irrelevant. a piece has text called short-text. description is usually "When it is time, you will make eye contact. Until then, just focus on positioning, positioning, positioning.".
 
 a piece has a team called the color.
 
@@ -432,6 +435,8 @@ a direction has a rule called king-place. king-place of a direction is usually t
 a direction has a rule called right-checkmate. right-checkmate of a direction is usually the trivially ignorable rule.
 
 a direction has a rule called misc-checks. misc-checks of a direction is usually the trivially ignorable rule.
+
+a direction has a list of rooms called already-solved.
 
 a direction has text called quest-details.
 
@@ -681,7 +686,7 @@ this is the stalemate dialogue rule:
 	if quest-dir is primary:
 		say "Oh no! You managed to trap the king but not attack him. I don't think there's a way to find this sort of stalemate, so it's impressive that you did.";
 	else if quest-dir is stalemated:
-		say "Again, you pretty much cornered the enemy king without attacking him. Awkward laughter resonates in this diplomatic meeting. It only sort of builds up his trust. You know how it is, when someone oversells something? You might be risking that here. The enemy king (fool) trusts you enough. Next time, you can go fully on offense.";
+		say "Again, you pretty much cornered the enemy king without attacking him. Awkward laughter resonates in this diplomatic meeting. It only sort of builds up his trust. You know how it is, when someone oversells something? You might be risking that here. The enemy king (fool) already trusts you enough. Next time, you can go fully on offense.";
 	else:
 		now quest-dir is stalemated;
 		say "Oh my! The enemy king is trapped, but not too trapped. After a lot of verbal manipulation, you manage to convince him that this show of almost-force is just standard negotiating technique, and if he can't trust you, who can he trust?[paragraph break]The diplomatic maneuver is thus a success. After a few hours, you take leave, confident your little feint will keep the enemy king off-guard enough, you will get him next time.";
@@ -691,12 +696,20 @@ this is the stalemate dialogue rule:
 this is the checkmate dialogue rule:
 	if quest-dir is secondary and quest-dir is not stalemated:
 		say "But wait! The enemy king feels a LITTLE too under attack. He excuses himself for ... well, a family emergency, an important jousting tournament to judge, another one of those banquets, you know.[paragraph break]";
-		if number of unsolved secondary directions < number of secondary directions:
-			say "Drat! You were a bit too aggressive. Perhaps if there were a way to make him feel almost-trapped but let him off the hook ... then he could be suckered. But not now.";
-		else if number of solved secondary directions is 0:
+		if number of solved secondary directions > 0:
+			say "Ye Olde Bummeur. You mixed things up. You should have slow-walked it a bit more, as in [q of random solved secondary direction].";
+		else if number of stalemated secondary directions > 0:
 			say "Man! You felt like you had something there. But you didn't gain the king's trust as in [q of random stalemated secondary direction]. You'll need to do that.";
 		else:
-			say "Bummer. You mixed things up. You should have slow-walked it a bit more, as in [q of random solved secondary directions].";
+			say "Drat! You were a bit too aggressive. Perhaps if there were a way to make the enemy king feel almost-trapped but let him off the hook ... then he could be suckered. But not now.";
+		if already-solved of quest-dir is empty:
+			say "Perhaps this will work later. You note the position in your head. Some scribe will write it down. Perhaps once you've gained the enemy king's trust you won't attack him. Then, you can even say 'Ha, if I were going to fool you, I wouldn't use this exact same formation you'd been suspicious of, earlier.' People fall for that, even when they should know better.";
+			add location of friendly king to already-solved of quest-dir;
+			add location of first-piece of quest-dir to already-solved of quest-dir;
+			add location of second-piece of quest-dir to already-solved of quest-dir;
+			add location of enemy king to already-solved of quest-dir;
+		else:
+			say "So that's another way to take down [q of quest-dir] when the time is right. Nice, though you only need one.";
 		retreat-to-unity;
 		the rule succeeds;
 
@@ -1055,7 +1068,7 @@ carry out toggleing:
 	say "Map view toggled to [on-off of map-view].";
 	if map-view is false, the rule succeeds;
 	say "[line break]";
-	if player is in ministry of unity, say "Maps won't be shown until you leave the [Ministry]." instead;
+	if player is in ministry of unity, say "Maps won't be shown until you leave the [Ministry], however." instead;
 	say "Showing the map.";
 	show-the-board;
 	the rule succeeds;
@@ -1207,8 +1220,8 @@ test bb1 with "e/place friendly bishop/w/place k/se/place bishop/s/place king". 
 test bb2 with "e/place friendly bishop/w/w/w/place k/se/place bishop/s/place king". [KBBvK checkmate]
 test qe with "test bb1/test bb2".
 
-test nn1 with "s/e/place n/w/w/w/place n/se/se/e/e/place k/w/w/place k". [KNNvK stalemate]
-test nn2 with "s/place k/sw/place friendly knight/e/e/place n/sw/place k". [KNNvK checkmate]
+test nn1 with "s/place k/sw/place friendly knight/e/e/place second n/sw/place k". [KNNvK stalemate]
+test nn2 with "s/e/place friendly knight/w/w/w/place n/se/se/e/e/place k/w/w/place k". [KNNvK checkmate]
 test qs with "test nn1/test nn2".
 
 test bn1 with "se/place k/w/place b/w/place n/se/se/place k". [KBNvK stalemate]
@@ -1222,6 +1235,8 @@ test a56 with "test nn/test bb".
 test a7 with "test qse".
 
 test all with "test a14/test a56/test a7".
+
+test roomlist with "test a14/test nn2/test nn1/s". [make sure a list of rooms pops up]
 
 section amusing / special cases
 
