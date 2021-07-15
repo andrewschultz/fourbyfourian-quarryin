@@ -1,8 +1,8 @@
 "Fourbyfourian Quarryin'" by Andrew Schultz
 
-the story headline is "Expanding boundaries and stiff".
+the story headline is "Greed now has no need for speed. Indeed.".
 
-the story description is "Bringing about major peace without major pieces".
+the story description is "A sequel to Fivebyfivia, because queens and rooks shouldn't have all the fun.".
 
 volume basics and definitions
 
@@ -32,7 +32,7 @@ jump-over is a truth state that varies.
 
 debug-state is a truth state that varies.
 
-section stubs I will use a lot
+section text shortcuts
 
 to say 4b: say "Fourbyfouria"
 
@@ -86,11 +86,6 @@ instead of doing something other than examining tricky endgame manual:
 
 check taking inventory:
 	say "All you have on you, besides various expensive rings and medals designating your position as a prominent [12b]n, is a tricky endgame manual. You can [b]X[r] it at any time to see what needs to be done [if player is in ministry]outside the ministry[else]here or in other [4b]s[end if]." instead;
-
-section undoing
-
-report undoing an action:
-	say "Undone[if number of placed pieces is 0 and player is not in Ministry of Unity], though until you've placed a piece, there's nothing worth undoing[end if]. Note you can always undo everything by going [b]OUT[r][if player is in Ministry of Unity] once you're in a [4b][end if].";
 
 book i6 modification(s)
 
@@ -1029,6 +1024,8 @@ understand "verbs" as verbsing.
 understand "verb" as verbsing.
 understand "v" as verbsing.
 
+to say verbs: say "[b]VERBS[r] or [b]VERB[r] or [b]V[r]"
+
 carry out verbsing:
 	say "In [this-game] you have some pared-down commands. The big ones are that you can move in any of the eight basic directions, abbreviated as follows: [b]N[r], [b]S[r], [b]E[r], [b]W[r], [b]NW[r], [b]NE[r], [b]SW[r], [b]SE[r]. [b]OUT[r] anywhere but the [ministry] returns you to the [ministry].[paragraph break]You can also go to a square when you're not in the Ministry of Unity. So typing [b]a1[r] sends you to a1, etc.[paragraph break]You can also [b]CALL[r]/[b]C[r] or [b]PLACE[r]/[b]P[r] a piece, enemy or friendly.[paragraph break]Meta-verbs and options are discussed in [b]META[r] ([b]MET[r]/[b]ME[r]).";
 	the rule succeeds;
@@ -1091,10 +1088,22 @@ carry out jumpovering:
 	say "Jumping over is now toggled to [on-off of jump-over].";
 	the rule succeeds;
 
-volume parser errors
+volume meta
+
+rule for printing a parser error:
+	say "I didn't recognize that command. Type [verbs] to see the full list of commands. If you're confused what to do, [b]X[r] your manual again[if player is not in ministry of unity], or refer to the current [b]MAP[r][end if]."
+
+rule for printing a parser error when the latest parser error is the noun did not make sense in that context error:
+	say "The verb was okay, but I didn't understand the noun in that sentence. You can type [verbs] to see how to use verbs with a subject."
+
+rule for printing a parser error when the latest parser error is the only understood as far as error:
+	say "You only needed the first word of that command. You can use the up arrow and backspace so you don't have to retype."
+
+report undoing an action:
+	say "Undone[if number of placed pieces is 0 and player is not in Ministry of Unity], though until you've placed a piece, there's nothing worth undoing[end if]. Note you can always undo everything by going [b]OUT[r][if player is in Ministry of Unity] once you're in a [4b][end if].";
 
 rule for printing a parser error when the latest parser error is the didn't understand error or the latest parser error is the not a verb I recognise error:
-	say "That wasn't a verb I recognized. You may wish to type [b]V[r] or [b]VERBS[r] to see the list of pared-down verbs in this game."
+	say "That wasn't a verb I recognized. You may wish to type [verbs] to see the list of pared-down verbs in this game."
 
 volume testing - not for release
 
@@ -1207,7 +1216,7 @@ when play begins (this is the screen read check rule):
 		now screen-reader is true;
 
 after printing the locale description when instructions-given is false:
-	say "[bracket][b]NOTE[r]: to get you started, [b]ABOUT[r] will give general information about [this-game]. [b]VERBS[r] will show common verbs.[close bracket][line break]";
+	say "[bracket][b]NOTE[r]: to get you started, [b]ABOUT[r] will give general information about [this-game]. [verbs] will show common verbs, which usually have abbreviations.[close bracket][line break]";
 	now instructions-given is true;
 	continue the action;
 
