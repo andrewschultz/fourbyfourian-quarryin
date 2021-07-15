@@ -26,6 +26,16 @@ BOTH_MATES = 0
 STALEMATE = 1
 CHECKMATE = 2
 
+def tuple_difference(tuple1, tuple2):
+    return tuple(x - y for x, y in zip(tuple1, tuple2))
+
+def shifted(perm1, perm2):
+    tuple_to_compare = tuple_difference(perm1[0], perm2[0])
+    for x in range(1, len(perm1)):
+        if tuple_difference(perm1[x], perm2[x]) != tuple_to_compare:
+            return False
+    return True
+
 def bishop_block(coord, blocks, p):
     for x in (-1, 1):
         for y in (-1, 1):
@@ -80,6 +90,7 @@ def print_board(my_perm, blocked, knight_1, knight_2):
 # 3 = my king
 
 def get_mates(knight_1, knight_2, wanted_mate = BOTH_MATES):
+    current_solutions = []
     this_mate = "{} / {} {}".format(pieces[knight_1], pieces[knight_2], mate_type[wanted_mate])
     print("=========================BEGINNING check for {}.".format(this_mate))
     count = 0 # 0 = enemy king, 1 = 1st piece, 2 = 2nd piece, 3 = your king
@@ -121,6 +132,14 @@ def get_mates(knight_1, knight_2, wanted_mate = BOTH_MATES):
                     trapped = False
         if not trapped:
             continue
+        duplicate_yet = False
+        for x in current_solutions:
+            if shifted(p, x):
+                duplicate_yet = True
+                break
+        if duplicate_yet:
+            continue
+        current_solutions.append(p)
         count += 1
         print("BAM! Solution # {} for {}.".format(count, this_mate))
         print_board(p, blocked, knight_1, knight_2)
@@ -129,9 +148,10 @@ def get_mates(knight_1, knight_2, wanted_mate = BOTH_MATES):
 end_string = ''
 
 for x in (STALEMATE, CHECKMATE):
-    end_string += get_mates(True, True, x)
-    end_string += get_mates(True, False, x)
-    end_string += get_mates(False, True, x)
-    end_string += get_mates(False, False, x)
+    for y in (False, True):
+        for z in (False, True):
+            if z > y:
+                continue
+            end_string += get_mates(y, z, x)
 
 print(end_string)
