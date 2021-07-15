@@ -169,6 +169,14 @@ def get_mates(knight_1, knight_2, wanted_mate = BOTH_MATES):
         if duplicate_yet:
             continue
 
+        if not knight_1 and not knight_2 and p[3][0] == p[0][0] and p[3][1] == 2: # don't get too close to the enemy king with B&B! That is an automatic stalemate even without the other bishop.
+            #print("Maybe bishop lined up!")
+            #print_board(p, blocked, knight_1, knight_2)
+            #print("Maybe not!")
+            #print(p, p[2][1], p[2][0], p[0][0], not knight_2)
+            if (p[2][1] == 1 and p[2][0] == p[0][0]) or (p[1][1] == 1 and p[1][0] == p[0][0] and not knight_1):
+                continue
+
         p2 = [(4 - x, y) for (x, y) in p]
         if p2[2] < p2[1] and knight_1 == knight_2:
             (p2[2], p2[1]) = (p2[1], p2[2])

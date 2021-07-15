@@ -477,7 +477,7 @@ first-piece of south is friendly knight. second-piece of south is second knight.
 
 first-piece of east is friendly bishop. second-piece of east is second bishop. king-place of east is no-corner-no-close rule. visit-text of east is two-cleared rule. can-visit of east is two-cleared-bare rule. east is secondary. quest-details of east is "Checkmate with two bishops and nothing else isn't too bad to figure out. You push the enemy king to the side of the board, where he has only two moves. Then you lose a move with one of the bishop as you roll him into the corner. However, I was shocked to learn one Chicago area master I respected greatly (I had a Learning Experience against him) was unable to convert the advantage in a tournament with long time controls.". hint-text of east is "[piece-cooperation]". quick-text of east is "2 B's". summary-text of east is "two bishops". right-checkmate of east is two-bishops-formation rule. recap-text of east is "In [q of east], you placed one bishop next to the king and the other on a diagonal. The king guarded the bishop close by."
 
-first-piece of southeast is friendly bishop. second-piece of southeast is friendly knight. king-place of southeast is no-corner-no-close rule. visit-text of southeast is corner-cleared rule. can-visit of southeast is corner-cleared-bare rule. southeast is secondary. quest-details of southeast is "Checkmate with two knights against a king is impossible unless the opponent cooperates. However, two knights against a pawn may be very possible indeed, depending on where the pawn is. You can Google Troitsky Line for more on that. I remember reading an article about the endgame at math camp in high school. We were all pretty smart, but we didn't get far with it. Years later I read a blog post describing the strategies in an actual tournament game and remembered math camp. I felt pretty smart understanding the concept. Then I found out the person with the two knights ... wasn't in high school yet. I felt less smart.". hint-text of southeast is "[piece-cooperation]". quick-text of southeast is "B & N". summary-text of southeast is "a bishop and a knight". right-checkmate of southeast is bishop-knight-formation rule. recap-text of southeast is "In [q of southeast], you positioned everyone in an L with the knight giving check, and you also positioned the king between his bishop and knight, to block out the enemy king on the edge."
+first-piece of southeast is friendly bishop. second-piece of southeast is friendly knight. king-place of southeast is no-corner-no-close rule. visit-text of southeast is corner-cleared rule. can-visit of southeast is corner-cleared-bare rule. southeast is secondary. quest-details of southeast is "Checkmate with two knights against a king is impossible unless the opponent cooperates. However, two knights against a pawn may be very possible indeed, depending on where the pawn is. You can Google Troitsky Line for more on that. I remember reading an article about the endgame at math camp in high school. We were all pretty smart, but we didn't get far with it. Years later I read a blog post describing the strategies in an actual tournament game and remembered math camp. I felt pretty smart understanding the concept. Then I found out the person with the two knights ... wasn't in high school yet. I felt less smart.". hint-text of southeast is "[piece-cooperation]". quick-text of southeast is "B & N". summary-text of southeast is "a bishop and a knight". recap-text of southeast is "In [q of southeast], you positioned everyone in an L with the knight giving check, and you also positioned the king between his bishop and knight, to block out the enemy king on the edge."
 
 to say hint-minor-vs of (d - a direction):
 	say "You'll need to restrict the squares the enemy king can run to. Also, your [if friendly bishop is irrelevant]knight can check but not cover escape squares[else]bishop can check and cover an escape square, but your king can't cover the rest[end if]. How can you cover that final square?"
@@ -503,28 +503,18 @@ to poss-dupe-note:
 		say "(NOTE: your solution was fully valid, but I'm being a bit of a stickler about finding different ways for the south and east [4b]s. Hope it's not too much inconvenience, or maybe that you find the additional challenge interesting.)";
 
 definition: a piece (called p) is double-adjacent:
-	if diag-dist of p and enemy king is 1 and diag-dist of p and friendly king is 1:
+	if basic-dist of p and enemy king is 1 and basic-dist of p and friendly king is 1:
 		yes;
 	no;
 
 this is the two-bishops-formation rule:
 	if diag-dist of friendly bishop and second bishop is 3 and basic-dist of friendly bishop and second bishop is 3:
-		say "[if south is solved]The enemy king notices something is up. You remember that you had everyone in roughly the same place over in [q of south] with the two knights.  Perhaps you need to find a new way to corner the enemy king. Too many similar moves may lead to proof of your activities[else]Something's up. The bishops cough at you, a bit confused. You shake your head, but they both shake their heads back. They wouldn't do this to you unless something was up.  So after the diplomatic meeting, you ask. They mention perhaps ... perhaps this specific maneuver may be more useful somewhere else.[paragraph break]They almost look satisified with that bit of thoughtful dialogue. So much of their work is just intimidating people into what to believe that a bit of logical futzing is refreshing[end if].";
+		say "[if south is solved]The enemy king notices something is up. You remember that you had everyone in roughly the same place over in [q of south] with the two knights.  Perhaps you need to find a new way to corner the enemy king. Too many similar moves may lead to proof of your activities[else]Something's up. The bishops cough at you, a bit confused. You shake your head, but they both shake their heads back. They wouldn't do this to you unless something was up.  So after the diplomatic meeting, you ask. They mention perhaps ... perhaps this specific maneuver may be more useful somewhere else.[paragraph break]They almost look satisified with that bit of thoughtful dialogue. So much of their work is just intimidating people into what to believe that a bit of logical futzing is refreshing. They seem to be thinking back wistfully to the good old days of dreaming about gaining vast power--so different from having to wield it constantly[end if].";
 		poss-dupe-note instead;
-	if friendly bishop is not double-adjacent and second bishop is not double-adjacent:
-		say "The enemy king feels a bit squished in by your two bishops being THAT close--and, well, your king, for that matter, no offense. He makes an excuse to wriggle out just before you can close the net.";
+	let temp be boolval of (whether or not friendly bishop is double-adjacent) + boolval of (whether or not second bishop is double-adjacent);
+	if temp > 0:
+		say "The enemy king feels a bit squished in by [if temp is 2]your two bishops[else]one of your bishops being THAT close--and, well, your king, for that matter, no offense. He makes an excuse to wriggle out just before you can close the net.";
 		poss-dupe-note instead;
-
-this is the bishop-knight-formation rule:
-	if friendly bishop is double-adjacent:
-		if bn-close is true, say "That's how you did things last time. You need to mix things up a bit." instead;
-		now bn-close is true;
-	else if diag-dist of enemy king and friendly king is 2 and basic-dist of enemy king and friendly king is 3:
-		if bn-far is true, say "That's how you did things last time. You need to mix things up a bit." instead;
-		now bn-far is true;
-	if bn-close is true and bn-far is true, continue the action;
-	say "That does it for one of the Kings. But now for the other.";
-	try going outside instead;
 
 this is the knight blocks bishop rule:
 	if enemy king is not placed, continue the action;
