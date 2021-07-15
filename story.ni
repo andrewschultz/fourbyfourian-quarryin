@@ -1,4 +1,4 @@
-"Fourbyfourian Intrigue" by Andrew Schultz
+"Fourbyfourian Quarryin'" by Andrew Schultz
 
 the story headline is "Expanding boundaries and stiff".
 
@@ -47,7 +47,7 @@ to say q of (d - a direction):
 
 to say email: say "blurglecruncheon@gmail.com"
 
-to say github: say "https://github.com/andrewschultz/fourbyfourian-intrigue"
+to say github: say "https://github.com/andrewschultz/fourbyfourian-quarryin"
 
 section meta/option booleans
 
