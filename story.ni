@@ -504,7 +504,7 @@ definition: a piece (called p) is double-adjacent:
 
 this is the two-bishops-formation rule:
 	if diag-dist of friendly bishop and second bishop is 3 and basic-dist of friendly bishop and second bishop is 3:
-		say "[if south is solved]The enemy king notices something is up. You remember that you had everyone in roughly the same place over in [q of south] with the two knights.  Perhaps you need to find a new way to corner the enemy king. Too many similar moves may lead to proof of your activities[else]Something's up. The bishops look at you, a bit confused. Perhaps ... perhaps this specific maneuver may be more useful somewhere else[end if].";
+		say "[if south is solved]The enemy king notices something is up. You remember that you had everyone in roughly the same place over in [q of south] with the two knights.  Perhaps you need to find a new way to corner the enemy king. Too many similar moves may lead to proof of your activities[else]Something's up. The bishops cough at you, a bit confused. You shake your head, but they both shake their heads back. They wouldn't do this to you unless something was up.  So after the diplomatic meeting, you ask. They mention perhaps ... perhaps this specific maneuver may be more useful somewhere else.[paragraph break]They almost look satisified with that bit of thoughtful dialogue. So much of their work is just intimidating people into what to believe that a bit of logical futzing is refreshing[end if].";
 		poss-dupe-note instead;
 	if friendly bishop is not double-adjacent and second bishop is not double-adjacent:
 		say "The enemy king feels a bit squished in by your two bishops being THAT close--and, well, your king, for that matter, no offense. He makes an excuse to wriggle out just before you can close the net.";
@@ -1203,14 +1203,16 @@ test qne with "test nvn".
 test bvn with "w/w/place friendly king/n/place friendly bishop/n/place enemy knight/w/place enemy king". [BvN]
 test qw with "test bvn".
 
-test bb with "e/e/place bishop/w/w/w/place k/se/place b/s/place k". [KBBvK]
-test qe with "test bb".
+test bb1 with "e/place friendly bishop/w/place k/se/place bishop/s/place king". [KBBvK stalemate]
+test bb2 with "e/place friendly bishop/w/w/w/place k/se/place bishop/s/place king". [KBBvK checkmate]
+test qe with "test bb1/test bb2".
 
-test nn with "s/e/place n/w/w/w/place n/se/se/e/e/place k/w/w/place k". [KNNvK]
-test qs with "test nn".
+test nn1 with "s/e/place n/w/w/w/place n/se/se/e/e/place k/w/w/place k". [KNNvK stalemate]
+test nn2 with "s/place k/sw/place friendly knight/e/e/place n/sw/place k". [KNNvK checkmate]
+test qs with "test nn1/test nn2".
 
-test bn1 with "se/place n/w/place k/e/e/e/place b/sw/sw/place k". [KBNvK far]
-test bn2 with "se/place k/w/place n/se/place b/s/place k". [KBNvK close]
+test bn1 with "se/place k/w/place b/w/place n/se/se/place k". [KBNvK stalemate]
+test bn2 with "se/place k/w/place n/se/place b/s/place k". [KBNvK checkmate]
 test qse with "test bn1/test bn2".
 
 test a14 with "test bvb/test nvb/test nvn/test bvn".
@@ -1232,13 +1234,13 @@ volume when play begins
 
 the player is in Ministry of Unity. description of player is "You're ... distinguished. A distinguished spy. Or people say you are."
 
-to say stalemate-stars:
+to say stalemate-ticks:
 	repeat with Q running through secondary directions:
 		if Q is stalemated, say "+";
 
 when play begins (this is the assign variables and check for skips rule):
 	now left hand status line is "[if player is in Ministry of Unity][location of player][else][q of quest-dir], [location of player] ([quick-text of quest-dir])";
-	now right hand status line is "[number of solved directions][stalemate-stars]/[number of questable directions]";
+	now right hand status line is "[number of solved directions][stalemate-ticks]/[number of questable directions]";
 	repeat with xval running from 0 to 4:
 		repeat with yval running from 0 to 4:
 			let r be reverse-room of xval and yval;
