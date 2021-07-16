@@ -17,8 +17,6 @@ perms = permutations(rooms, 4)
 
 lp = list(perms)
 
-count = 0
-
 mate_type = [ 'both', 'stalemate', 'checkmate' ]
 pieces = [ 'bishop', 'knight' ]
 pshort = [ 'b', 'n' ]
@@ -26,6 +24,20 @@ pshort = [ 'b', 'n' ]
 BOTH_MATES = 0
 STALEMATE = 1
 CHECKMATE = 2
+
+add_to_testfile = False
+
+cmd_count = 1
+
+while cmd_count < len(sys.argv):
+    arg = sys.argv[cmd_count].lower()
+    if arg[0] == '-':
+        arg = arg[1:]
+    if arg == 'a':
+        add_to_testfile = True
+    else:
+        sys.exit("Bad argument {}".format(sys.argv[count]))
+    cmd_count += 1
 
 def tuple_difference(tuple1, tuple2):
     return tuple(x - y for x, y in zip(tuple1, tuple2))
@@ -89,16 +101,17 @@ def print_moves(placements, knight_1, knight_2, count, checkmate):
         move_array.append(test_string)
         count += 1
     print(prefix + '/'.join(move_array) + '". [auto-generated]')
-    print()
-    # print("#test case {}".format(test_case))
-    print("> ; TEST CASE {}".format(test_case.upper()))
+    if not add_to_testfile:
+        return
+    f = open("testfile.txt", "a")
+    f.write("> ; TEST CASE {}\n".format(test_case.upper()))
     for x in move_array:
-        print("> " + x.upper())
-    print("> WIPE {}".format(loc(a).upper()))
-    print("DEBUG: Bang! Got him.")
-    print("> OUT")
-    print("You need to specify a compass direction to go out from the Ministry of Unity.")
-    print()
+        f.write("> " + x.upper() + "\n")
+    f.write("> WIPE {}\n".format(loc(a).upper()))
+    f.write("DEBUG: Bang! Got him.\n")
+    f.write("> PF\n")
+    f.write("SUCCESS\n\n")
+    f.close()
 
 def print_board(my_perm, blocked, knight_1, knight_2):
     for y in range(4, -1, -1):
@@ -214,6 +227,10 @@ def get_mates(knight_1, knight_2, wanted_mate = BOTH_MATES):
     return "Total # for {} = {}\n".format(this_mate, count)
 
 end_string = ''
+
+if add_to_testfile:
+    f = open("testfile.txt", "w")
+    f.close()
 
 for x in (STALEMATE, CHECKMATE):
     for y in (False, True):
