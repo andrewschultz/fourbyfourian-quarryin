@@ -927,8 +927,8 @@ understand "m" as boarding.
 
 carry out boarding:
 	if location of player is ministry of unity, say "There is no map to look at right now." instead;
+	say "STRATEGIC MAP OF [printed name of quest-dir in upper case] FOURBYFOURIA SO FAR:[line break]";
 	if screen-reader is true, say "Since you are using a screen reader, text maps are disabled. You'll need to restart if you want to use them." instead;
-	say "STRATEGIC MAP OF FIVEBYFIVIA SO FAR:[line break]";
 	show-the-board;
 	the rule succeeds.
 
@@ -967,6 +967,21 @@ to say pie of (rm - a room):
 		say "-";
 
 volume meta-verbs
+
+chapter abbing
+
+abbing is an action out of world.
+
+understand the command "abb" as something new.
+
+understand "abb" as abbing.
+
+carry out abbing:
+	say "You can use abbreviations while placing pieces. They were meant to be relatively intuitive. [4b]n traitor pieces are always grey. Your [12b]n allies can be either yellow or purple.";
+	say "[line break]You can also abbreviate pieces with K for king, N for knight, and B for bishop. Combining these with the piece color abbreviations Y for yellow and P for purple ([12b]n,) and G for grey ([4b]n,) you can refer to any piece in two characters, you can refer to a piece specifically. In addition, if you have the same type of yellow and purple piece on the board, and you just say B, the game picks one, because they are functionally equivalent.";
+	say "[line break]So this means you can type something short like [b]P YB[r] or [b]P BY[r] to place a yellow bishop. Combined with being able to type a square to visit it, this hopefully reduces the need to fight with the parser.";
+	say "[line break]While kings don't have colors, the enemy king is always the final one to call, so the game knows what you mean if you type K.";
+	the rule succeeds;
 
 chapter about
 
@@ -1134,7 +1149,7 @@ understand "v" as verbsing.
 to say verbs: say "[b]VERBS[r] or [b]VERB[r] or [b]V[r]"
 
 carry out verbsing:
-	say "In [this-game] you have some pared-down commands. The big ones are that you can move in any of the eight basic directions, abbreviated as follows: [b]N[r], [b]S[r], [b]E[r], [b]W[r], [b]NW[r], [b]NE[r], [b]SW[r], [b]SE[r]. [b]OUT[r] anywhere but the [ministry] returns you to the [ministry].[paragraph break]You can also go to a square when you're not in the Ministry of Unity. So typing [b]a1[r] sends you to a1, etc.[paragraph break]You can also [b]CALL[r]/[b]C[r] or [b]PLACE[r]/[b]P[r] a piece, enemy or friendly.[paragraph break]Meta-verbs and options are discussed in [b]META[r] ([b]MET[r]/[b]ME[r]).";
+	say "In [this-game] you have some pared-down commands. The big ones are that you can move in any of the eight basic directions, abbreviated as follows: [b]N[r], [b]S[r], [b]E[r], [b]W[r], [b]NW[r], [b]NE[r], [b]SW[r], [b]SE[r]. [b]OUT[r] anywhere but the [ministry] returns you to the [ministry].[paragraph break]You can also go to a square when you're not in the Ministry of Unity. So typing [b]a1[r] sends you to a1, etc.[paragraph break]You can also [b]CALL[r]/[b]C[r] or [b]PLACE[r]/[b]P[r] a piece, enemy or friendly. These have abbreviations, too: [b]ABB[r] finds them.[paragraph break]Meta-verbs and options are discussed in [b]META[r] ([b]MET[r]/[b]ME[r]).";
 	the rule succeeds;
 
 volume amusing post-game
