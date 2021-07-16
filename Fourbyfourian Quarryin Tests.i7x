@@ -155,24 +155,24 @@ carry out pieing:
 
 chapter tests
 
-test bvb with "sw/place friendly bishop/ne/n/place enemy bishop/se/s/place friendly king/n/n/place enemy king/pf". [BvB]
+test bvb with "sw/place fb/e/place k/n/n/place eb/e/place k/pf". [BvB]
 test qsw with "test qsw".
 
-test nvb with "n/n/place friendly knight/n/place friendly king/sw/w/place enemy bishop/n/place enemy king/pf". [NvB]
+test nvb with "n/n/place fn/n/place k/sw/w/place eb/n/place k/pf". [NvB]
 test qn with "test nvb".
 
-test nvn with "ne/w/place friendly knight/ne/place friendly king/w/w/place enemy knight/n/place enemy king/pf". [NvN]
+test nvn with "ne/w/place fn/ne/place k/w/w/place en/n/place k/pf". [NvN]
 test qne with "test nvn".
 
-test bvn with "w/w/place friendly king/n/place friendly bishop/n/place enemy knight/w/place enemy king/pf". [BvN]
+test bvn with "w/w/place k/n/place fb/n/place gn/w/place k/pf". [BvN]
 test qw with "test bvn".
 
-test bb1 with "e/place friendly bishop/w/place k/se/place bishop/s/place king/pf". [KBBvK stalemate]
-test bb2 with "e/e/place friendly bishop/w/w/w/place k/se/place bishop/s/place king/pf". [KBBvK checkmate]
+test bb1 with "e/place b/w/place k/se/place b/s/place king/pf". [KBBvK stalemate]
+test bb2 with "e/e/place b/w/w/w/place k/se/place b/s/place king/pf". [KBBvK checkmate]
 test qe with "test bb1/test bb2".
 
-test nn1 with "s/place k/sw/place friendly knight/e/e/place second n/sw/place k/pf". [KNNvK stalemate]
-test nn2 with "s/e/place friendly knight/w/w/w/place n/se/se/e/e/place k/w/w/place k/pf". [KNNvK checkmate]
+test nn1 with "s/place k/sw/place n/e/e/place n/sw/place k/pf". [KNNvK stalemate]
+test nn2 with "s/e/place n/w/w/w/place n/se/se/e/e/place k/w/w/place k/pf". [KNNvK checkmate]
 test qs with "test nn1/test nn2".
 
 test bn1 with "se/place k/w/place b/w/place n/se/se/place k/pf". [KBNvK stalemate]
