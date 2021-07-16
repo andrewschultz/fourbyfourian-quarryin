@@ -6,11 +6,11 @@ volume testing - not for release
 
 report metaing:
 	say "DEBUG-ONLY NOTES:[line break]";
-	say "[b]TL[b] lists the tests for the different directions.";
-	say "[b]PIE[b] shows where all the pieces are.";
-	say "[b]WIPE[b] wipes a direction, or all, with no arguments.";
-	say "[b]SOL[b] solves a direction. No arguments chooses a random one.";
-	say "[b]STA[b] stalemates a direction. No arguments chooses a random unstalemated one. Unstalemated includes solved.";
+	say "[b]TL[r] lists the tests for the different directions.";
+	say "[b]PIE[r] shows where all the pieces are.";
+	say "[b]WIPE[r] wipes a direction, or all, with no arguments.";
+	say "[b]SOL[r] solves a direction. No arguments chooses a random one.";
+	say "[b]STA[r] stalemates a direction. No arguments chooses a random unstalemated one. Unstalemated includes solved.";
 
 chapter when play begins
 

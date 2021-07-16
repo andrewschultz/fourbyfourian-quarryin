@@ -12,6 +12,10 @@ Your pieces are in capital letters. Your enemy's are in small letters. K = king,
 
 Note that there are multiple solutions, rotating the board or flipping them. I went with the upper left corner.
 
+Also note that this walkthrough uses abbreviations a lot, since the game allows them. The game parser will be able to disambiguate most of the time. It favors reserved pieces over placed ones over irrelevant ones. But you may just find some shortcuts easier: n is knight, b is bishop, k is king. E is enemy and F is friendly, but you can also use the colors. Yellow and purple are randomly chosen for the first for quests--there are two of each--but enemies are always grey. So you can say yb or by for, say the yellow bishop, or pn or np or fn or nf for the purple knight, or gk or kg or eg or ge for the enemy king.
+
+You can even risk one-letter abbreviations, and you can still force disambiguation questions, but hopefully that's only if you're trying to.
+
 ======================================== NORTH (knight vs. bishop):
 
 You may note that the king in the corner only has three squares to move to. Elsewhere he has at least five. So you want to put him there and then leave no escape squares. Your king can guard two squares, but your knight can't guard any if it is giving check. That means the bishop has to block a square. If the bishop is next to the king, that eliminates one square where the knight gives check. With the knight placed, there's only one square for your king that adequately blocks the opponent's king.
@@ -28,7 +32,7 @@ You may note that the king in the corner only has three squares to move to. Else
 | | | | | |
 +-+-+-+-+-+
 
-So one solution is c4/place n/n/place k/a4/place b/n/place k.
+So one solution is n/place n/n/place k/a4/place b/n/place k.
 
 ======================================== NORTHEAST (knight vs. knight):
 
@@ -46,7 +50,7 @@ You can again use process of elimination for this: the king in the corner has 3 
 | | | | | |
 +-+-+-+-+-+
 
-So one solution is n/place k/sw/place friendly n/nw/place n/n/place k.
+So one solution is n/place k/sw/place fn/nw/place n/n/place k.
 
 ======================================== SOUTHWEST (bishop vs. bishop):
 
@@ -64,7 +68,7 @@ So one solution is n/place k/sw/place friendly n/nw/place n/n/place k.
 
 As before, you need to give check, and while the bishop can guard one flight square, it leaves two squares your king can't guard both of. So you still need help from the opposing bishop. Here, your king has a choice of two squares, since the bishop can't check it, and your bishop has a choice of four squares to give mate.
 
-So one solution is place friendly b/n/place k/a4/place b/n/place k.
+So one solution is place fb/n/place k/a4/place b/n/place k.
 
 ======================================== WEST (bishop vs. knight):
 
@@ -94,13 +98,15 @@ The above seems like it should work, but it doesn't! The knight can block. Simil
 | | | | | |
 +-+-+-+-+-+
 
-Everyone has to be packed in here, but that makes the solution a bit quicker. n/place k/w/place b/w/place n/n/place k.
+Everyone has to be packed in here, but that makes the solution a bit quicker.
 
-But now things may get a bit trickier. You have to find weirder mates. The enemy king is too smart to be suckered into the corner. He's heard rumors.
+So one solution is n/place k/w/place b/w/place n/n/place k.
+
+But now things may get a bit trickier. The enemy king is too smart to be suckered into the corner. He's heard rumors. In fact, checkmate won't work at first! You have to sucker him by trapping him with stalemate--where he has no legal moves, and he doesn't have any subjects who can move legally.
 
 ======================================== SOUTH (two knights):
 
-Here's some general logic: if the enemy king is on the side, that's five escape squares you must stake out, including the check square. Each knight can stake out at most two squares, kitty-corner from each other, in the 3x2 rectangle you need to cover. That leaves at least two squares for your king. A solution is below. Using square names makes things a bit quicker here.
+Here's some general logic: if the enemy king is on the side, that's five escape squares you must stake out, including the check square. Each knight can stake out at most two squares, kitty-corner from each other, in the 3x2 rectangle you need to cover. That leaves at least two squares for your king. A solution is below. Using square names to jump around makes things a bit quicker here.
 
 +-+-+-+-+-+
 | | | | | |
@@ -114,23 +120,31 @@ Here's some general logic: if the enemy king is on the side, that's five escape 
 | | |k| | |
 +-+-+-+-+-+
 
+w/place friendly n/sw/place k/e3/place n/c1/place k
+
+This is the only solution--apart from moving your king to a1, which is only trivially different.
+
 ======================================== EAST (two bishops):
 
-Since again you can't force the enemy king into the corner, you need to find a way to take care of it when it is on the edge. Here's where it gets a bit complex. The game deliberately pokes you so you can't have a similar position for 2B as for 2N. Note you can just swap the knights for bishops above and get a checkmate. But this doesn't work: either it's done before, or doing it now might spoil the surprise for later when it's necessary.
+Since again you can't force the enemy king into the corner, you need to find a way to take care of it when it is on the edge. Here's where it gets a bit complex. The enemy king is claustrophobic enough that having a bishop in front of him and a king behind the bishop makes him suspicious. But diagonal? That's okay.
+
+Also, the game deliberately pokes you so you can't have a similar position for 2B as for 2N. Note you can just swap the knights for bishops above and get a checkmate. But this doesn't work: either it's done before, or doing it now might spoil the surprise for later when it's necessary.
 
 +-+-+-+-+-+
 | | | | | |
 +-+-+-+-+-+
 | | | | | |
 +-+-+-+-+-+
-| |K| | |B|
+|K| | |B| |
 +-+-+-+-+-+
-| | |B| | |
+| |B| | | |
 +-+-+-+-+-+
-| | |k| | |
+| |k| | | |
 +-+-+-+-+-+
 
-Also notice the following gets rejected. The king is too claustrophobic!
+e/place b/a3/place k/se/place b/s/place k
+
+The following proper checkmates are thus rejected:
 
 +-+-+-+-+-+
 | | | | | |
@@ -144,7 +158,23 @@ Also notice the following gets rejected. The king is too claustrophobic!
 | | |k| | |
 +-+-+-+-+-+
 
+This is too much like the two-knights' mate, so it was a judgement call on my part. I wanted to have you find alternate solutions.
+
++-+-+-+-+-+
+| |+|+| | |
++-+-+-+-+-+
+| |+|+| |+|
++-+-+-+-+-+
+|B| | |B| |
++-+-+-+-+-+
+| |+|+|+|+|
++-+-+-+-+-+
+| |+|k|+|K|
++-+-+-+-+-+
+
 ======================================== SOUTHEAST (bishop and knight):
+
+There are two ways to do things, since you are not restricted by the claustrophobia with the two bishops.
 
 +-+-+-+-+-+
 | | | | | |
@@ -158,7 +188,7 @@ Also notice the following gets rejected. The king is too claustrophobic!
 | | |k| | |
 +-+-+-+-+-+
 
-Then you have to do things another way. The king had an heir who suspected what you did.
+place n/w/e3/place b/c1/place k
 
 +-+-+-+-+-+
 | | | | | |
@@ -171,5 +201,7 @@ Then you have to do things another way. The king had an heir who suspected what 
 +-+-+-+-+-+
 | | |k| | |
 +-+-+-+-+-+
+
+place k/e/place n/sw/place b/s/place k
 
 Once you've done this, congratulations! You have won!

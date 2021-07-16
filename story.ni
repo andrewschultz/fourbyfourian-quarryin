@@ -105,7 +105,7 @@ The tricky endgame manual is a thing. The player carries the tricky endgame manu
 
 after examining tricky endgame manual when player is not in Ministry:
 	if quest-dir is secondary:
-		say "Oh, wait. There is some note about how the [4n] king here is suspcious of being cornered these days, what with his neighbors disappearing mysteriously[if number of not irrelevant bishops is 2]. Also, he's a bit scared of being right next to a bishop who's right next to another monarch. People have weird social phobias![else].[end if]";
+		say "Oh, wait. There is some note about how the [4n] king here is suspcious of being cornered these days, what with his neighbors disappearing mysteriously[if number of not irrelevant bishops is 2]. Also, he's a bit scared of being right next to a bishop who's right next to another monarch. He can't see the other king that way, but if the other king's even slightly off to the side, like on a diagonal, that's okay. Man, people have weird social phobias![else].[end if]";
 		say "[line break]Also, there's a note about how you probably can't trap the [4n] king violently right away. Find a way to fake him out. Make him feel surrounded, not attacked, at the first meeting. Then go in for the kill[if quest-dir is stalemated]. Hey, first part completed[end if].";
 	else:
 		say "Oh, wait. There is some note about how you won't be able to trap the [4n] king without your traitorous accomplice.  And you probably can't trap him way out in the center of the board!";
@@ -453,7 +453,7 @@ to decide whether (p1 - a piece) is immobile:
 				next;
 			if p2 attacks R2, now this-attack is true;
 		if this-attack is false:
-			if debug-state is true, say "[R2] [q] of [location of p1] is an escapable square.";
+			[if debug-state is true, say "DEBUG:[R2] [q] of [location of p1] is an escapable square.";]
 			no;
 	yes;
 
@@ -821,7 +821,12 @@ carry out calling:
 		abide by the king-place of quest-dir;
 		if you-stalemated, abide by the stalemate dialogue rule;
 		unless Fourbyfourian king is checked:
-			say "But the Fourbyfourian king is not checked. So things fall apart. Perhaps ... perhaps that was not the best way. Fortunately, we're going to let you have another shot and pretend that never happened.";
+			say "But the [4n] king is not checked. So nothing really happens.";
+			if quest-dir is secondary:
+				say "[line break]And unfortunately this [if quest-dir is stalemated]doesn't put the enemy king any more at ease[else]is not enough to put the enemy king at ease. You'll need to get them into a seemingly tougher situation, then let them slip out[end if].";
+			say "[line break]You're able to blow it off as the sort of diplomatic meeting people have to have. You even put some backhanded blame on the enemy monarch for wasting YOUR king's time and not providing the sort of hospitality you expect. It doesn't really hurt them, but it does cover up your far more serious intent. So there'll be another chance. Just got to plan a bit better, next time.";
+			if quest-dir is secondary:
+				say "";
 			if screen-reader is false, show-the-board;
 			move player to Ministry of Unity;
 			the rule succeeds;
