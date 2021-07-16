@@ -26,6 +26,8 @@ include Intro Restore Skip by Andrew Schultz.
 
 include Undo Output Control by Erik Temple.
 
+include Fourbyfourian Quarryin Tests by Andrew Schultz.
+
 section stuff only changed in debug mode
 
 jump-over is a truth state that varies.
@@ -793,7 +795,7 @@ carry out calling:
 		if you-checkmated:
 			abide by the checkmate dialogue rule;
 			abide by right-checkmate of quest-dir;
-			say "Bang! Got him.";
+			if debug-state is true, say "DEBUG: Bang! Got him.";
 			now quest-dir is solved;
 			now last-solved is quest-dir;
 			if number of to-solve directions is 0:

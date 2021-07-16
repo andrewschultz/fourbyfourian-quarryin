@@ -4,12 +4,41 @@ Version 1/210716 of Fourbyfourian Quarryin Tests by Andrew Schultz begins here.
 
 volume testing - not for release
 
+report metaing:
+	say "DEBUG-ONLY NOTES:[line break]";
+	say "[b]TL[b] lists the tests for the different directions.";
+	say "[b]PIE[b] shows where all the pieces are.";
+	say "[b]WIPE[b] wipes a direction, or all, with no arguments.";
+
 chapter when play begins
 
 when play begins (this is the set debug state rule):
 	now debug-state is true;
 
 the set debug state rule is listed first in the when play begins rulebook.
+
+chapter wipeing
+
+rule for supplying a missing noun when wipeing:
+	if number of not unsolved directions is 0:
+		say "Nothing to wipe.";
+	else:
+		say "Wiping your progress for [list of not unsolved directions].";
+		now all directions are unsolved;
+	reject the player's command;
+
+wipeing is an action applying to one visible thing.
+
+understand the command "wipe [directions]" as something new.
+
+understand "wipe" as wipeing.
+understand "wipe [direction]" as wipeing.
+
+carry out wipeing:
+	if noun is not questable, say "You can't wipe [q of noun], since it doesn't exist." instead;
+	say "[if noun is unsolved](Wiping anyway, even though [noun] wasn't solved.)[else]Wiped defeating [q of noun] from the record.[end if]";
+	now noun is unsolved;
+	the rule succeeds;
 
 chapter testlisting
 
