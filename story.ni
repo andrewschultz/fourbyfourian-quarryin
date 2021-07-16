@@ -42,6 +42,10 @@ to say 5b: say "[i]Fivebyfivia Delenda Est[r]"
 
 to say 12b: say "Twelvebytwelvia"
 
+to say 4n: say "[4b]n"
+
+to say 12n: say "[12b]n"
+
 to say q of (d - a direction):
 	say "[printed name of d in title case] [4b]";
 
@@ -101,10 +105,10 @@ The tricky endgame manual is a thing. The player carries the tricky endgame manu
 
 after examining tricky endgame manual when player is not in Ministry:
 	if quest-dir is secondary:
-		say "Oh, wait. There is some note about how the [4b]n king here is suspcious of being cornered these days, what with his neighbors disappearing mysteriously[if number of not irrelevant bishops is 2]. Also, he's a bit scared of being right next to a bishop who's right next to another monarch. People have weird social phobias![else].[end if]";
-		say "[line break]Also, there's a note about how you probably can't trap the [4b]n king violently right away. Find a way to fake him out. Make him feel surrounded, not attacked, at the first meeting. Then go in for the kill[if quest-dir is stalemated]. Hey, first part completed[end if].";
+		say "Oh, wait. There is some note about how the [4n] king here is suspcious of being cornered these days, what with his neighbors disappearing mysteriously[if number of not irrelevant bishops is 2]. Also, he's a bit scared of being right next to a bishop who's right next to another monarch. People have weird social phobias![else].[end if]";
+		say "[line break]Also, there's a note about how you probably can't trap the [4n] king violently right away. Find a way to fake him out. Make him feel surrounded, not attacked, at the first meeting. Then go in for the kill[if quest-dir is stalemated]. Hey, first part completed[end if].";
 	else:
-		say "Oh, wait. There is some note about how you won't be able to trap the [4b]n king without your traitorous accomplice.  And you probably can't trap him way out in the center of the board!";
+		say "Oh, wait. There is some note about how you won't be able to trap the [4n] king without your traitorous accomplice.  And you probably can't trap him way out in the center of the board!";
 
 to say your-pals:
 	if quest-dir is primary:
@@ -119,7 +123,7 @@ instead of doing something other than examining tricky endgame manual:
 	say "You can really only [b]X[r] or [b]EXAMINE[r] the [manual]." instead;
 
 check taking inventory:
-	say "All you have on you, besides various expensive rings and medals designating your position as a prominent [12b]n, is a tricky endgame manual. You can type [b]X[r] at any time outside the Ministry to see what needs to be done. Inside, [b]X[r] will examine the map." instead;
+	say "All you have on you, besides various expensive rings and medals designating your position as a prominent [12n], is a tricky endgame manual. You can type [b]X[r] at any time outside the Ministry to see what needs to be done. Inside, [b]X[r] will examine the map." instead;
 
 book i6 modification(s)
 
@@ -1027,8 +1031,8 @@ understand "ab" as abbing.
 ironic-ab is a truth state that varies.
 
 carry out abbing:
-	say "You can use abbreviations while placing pieces. They were meant to be relatively intuitive. [4b]n traitor pieces are always grey. Your [12b]n allies can be either yellow or purple.";
-	say "[line break]You can also abbreviate pieces with K for king, N for knight, and B for bishop. Combining these with the piece color abbreviations Y for yellow and P for purple ([12b]n,) and G for grey ([4b]n,) you can refer to any piece in two characters, you can refer to a piece specifically. In addition, if you have the same type of yellow and purple piece on the board, and you just say B, the game picks one, because they are functionally equivalent.";
+	say "You can use abbreviations while placing pieces. They were meant to be relatively intuitive. [4n] traitor pieces are always grey. Your [12n] allies can be either yellow or purple.";
+	say "[line break]You can also abbreviate pieces with K for king, N for knight, and B for bishop. Combining these with the piece color abbreviations Y for yellow and P for purple ([12n],) and G for grey ([4n],) you can refer to any piece in two characters, you can refer to a piece specifically. In addition, if you have the same type of yellow and purple piece on the board, and you just say B, the game picks one, because they are functionally equivalent.";
 	say "[line break]So this means you can type something short like [b]P YB[r] or [b]P BY[r] to place a yellow bishop. Combined with being able to type a square to visit it, this hopefully reduces the need to fight with the parser.";
 	say "[line break]While kings don't have colors, the enemy king is always the final one to call, so the game knows what you mean if you type K. But you can also say [b]FK[r], [b]KF[r], [b]12K[r], [b]K12[r] for the friendly king explicitly, or [b]EK[r], [b]KF[r], [b]4K[r], [b]K4[r] for the enemy king.";
 	say "[line break]You can also use spaces in these abbreviations, if you don't like the weird nonsense words or whatever.";
@@ -1346,7 +1350,7 @@ after printing the locale description when instructions-given is false:
 	continue the action;
 
 to print-intro:
-	say "The treaty was signed at the first Council of Sensibly Bordered Nations. After [12b] annexed [5b], you, who had risen to the office of Cheap Diplomat, assured the seven [4b]n ministates that of COURSE there would be no further conquests. While swooping up the seven of them would increase [12b]'s size almost doubly, why, you'd have to rename yourself Sixteenbysixteenia in the process, and that was just too awkward a name.";
+	say "The treaty was signed at the first Council of Sensibly Bordered Nations. After [12b] annexed [5b], you, who had risen to the office of Cheap Diplomat, assured the seven [4n] ministates that of COURSE there would be no further conquests. While swooping up the seven of them would increase [12b]'s size almost doubly, why, you'd have to rename yourself Sixteenbysixteenia in the process, and that was just too awkward a name.";
 	wfak;
 	say "That was good enough for them, but not really. They established border patrols. They improved their spying. You brought up their paranoia, their spying, at future Councils, mentioning how [12b] has more landmass than the [4b]s combined, but who got seven times the votes? Not this guy! If there was anyone not to trust, it was those rinky-dink kingdoms whispering among each other. And with each year that passed, you expected to gain trust you wouldn't attack and gobble them up, but they only seemed to suspect you more. Even as you built up armies in the northwest frontier, against bigger, tougher countries!";
 	say "You'd let them bait you long enough. You see, after the first council, a courtier suggested in private that, perhaps, Sixteenbysixteenia wasn't the only possible name if the [4b] ministates were vacuumed up. Largeboxica! Doubleboardistan! Foursquaresquareland! Even Twofiftysixia!";
