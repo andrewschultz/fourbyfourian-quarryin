@@ -19,6 +19,21 @@ when play begins (this is the set debug state rule):
 
 the set debug state rule is listed first in the when play begins rulebook.
 
+chapter pfing
+
+pfing is an action out of world.
+
+understand the command "pf" as something new.
+
+understand "pf" as pfing.
+
+carry out pfing:
+	say "[if player is in ministry of unity]PASSED[else]FAILED--going back to Ministry[end if].";
+	if player is not in ministry of unity:
+		move player to ministry of unity, without printing a room description;
+	new-quest;
+	the rule succeeds;
+
 chapter solveing
 
 to say by-force of (n - a number):
@@ -140,28 +155,28 @@ carry out pieing:
 
 chapter tests
 
-test bvb with "sw/place friendly bishop/ne/n/place enemy bishop/se/s/place friendly king/n/n/place enemy king". [BvB]
+test bvb with "sw/place friendly bishop/ne/n/place enemy bishop/se/s/place friendly king/n/n/place enemy king/pf". [BvB]
 test qsw with "test qsw".
 
-test nvb with "n/n/place friendly knight/n/place friendly king/sw/w/place enemy bishop/n/place enemy king". [NvB]
+test nvb with "n/n/place friendly knight/n/place friendly king/sw/w/place enemy bishop/n/place enemy king/pf". [NvB]
 test qn with "test nvb".
 
-test nvn with "ne/w/place friendly knight/ne/place friendly king/w/w/place enemy knight/n/place enemy king". [NvN]
+test nvn with "ne/w/place friendly knight/ne/place friendly king/w/w/place enemy knight/n/place enemy king/pf". [NvN]
 test qne with "test nvn".
 
-test bvn with "w/w/place friendly king/n/place friendly bishop/n/place enemy knight/w/place enemy king". [BvN]
+test bvn with "w/w/place friendly king/n/place friendly bishop/n/place enemy knight/w/place enemy king/pf". [BvN]
 test qw with "test bvn".
 
-test bb1 with "e/place friendly bishop/w/place k/se/place bishop/s/place king". [KBBvK stalemate]
-test bb2 with "e/place friendly bishop/w/w/w/place k/se/place bishop/s/place king". [KBBvK checkmate]
+test bb1 with "e/place friendly bishop/w/place k/se/place bishop/s/place king/pf". [KBBvK stalemate]
+test bb2 with "e/e/place friendly bishop/w/w/w/place k/se/place bishop/s/place king/pf". [KBBvK checkmate]
 test qe with "test bb1/test bb2".
 
-test nn1 with "s/place k/sw/place friendly knight/e/e/place second n/sw/place k". [KNNvK stalemate]
-test nn2 with "s/e/place friendly knight/w/w/w/place n/se/se/e/e/place k/w/w/place k". [KNNvK checkmate]
+test nn1 with "s/place k/sw/place friendly knight/e/e/place second n/sw/place k/pf". [KNNvK stalemate]
+test nn2 with "s/e/place friendly knight/w/w/w/place n/se/se/e/e/place k/w/w/place k/pf". [KNNvK checkmate]
 test qs with "test nn1/test nn2".
 
-test bn1 with "se/place k/w/place b/w/place n/se/se/place k". [KBNvK stalemate]
-test bn2 with "se/place k/w/place n/se/place b/s/place k". [KBNvK checkmate]
+test bn1 with "se/place k/w/place b/w/place n/se/se/place k/pf". [KBNvK stalemate]
+test bn2 with "se/place k/w/place n/se/place b/s/place k/pf". [KBNvK checkmate]
 test qse with "test bn1/test bn2".
 
 test a14 with "test bvb/test nvb/test nvn/test bvn".
