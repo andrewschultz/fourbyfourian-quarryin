@@ -97,16 +97,29 @@ rule for supplying a missing noun when examining:
 	else:
 		now noun is tricky endgame manual;
 
-The tricky endgame manual is a thing. The player carries the tricky endgame manual. description of tricky endgame manual is "[if quest-dir is primary]You read about how a traitorous confidant may be able to elbow out their king just enough to trap them. However, the traitorous confidant cannot expose themselves by refusing to attack you, if you are in their sight[else if quest-dir is secondary]You read about how an enemy king isn't going to just back himself into a corner if faced with another king and two allies. Maybe on the edges, but not the corner[else]You read about how two knights shouldn't be able to force an enemy king into the corner to trap him, much less the sides, but stranger things have happened if you call him in at the right moment, on the right square[end if]. Sadly, the section on cornering an enemy king with [summary-text of quest-dir] is high on flowery writing and low on further details. You'll have to figure things out for yourself."
+The tricky endgame manual is a thing. The player carries the tricky endgame manual. description of tricky endgame manual is "Sadly, it's filled with a lot of rah-rah general concepts about believing in yourself and trusting your intuition (well, duh. If you didn't, you wouldn't have come this far in life) yet checking your work and not moving too quickly or too slowly. There's also a note to make sure every ally is doing their part, because nobody can do too much. Duh, again.[paragraph break]The worst bit is the flowery writing (including [your-pals]) but low on useful details. Irrelevant rubbish. Plus there's nothing like that about you."
+
+after examining tricky endgame manual when player is not in Ministry:
+	if quest-dir is secondary:
+		say "Oh, wait. There is some note about how the [4b]n king here is suspcious of being cornered these days, what with his neighbors disappearing mysteriously[if number of not irrelevant bishops is 2]. Also, he's a bit scared of being right next to a bishop who's right next to another monarch. People have weird social phobias![else].[end if]";
+		say "[line break]Also, there's a note about how you probably can't trap the [4b]n king violently right away. Find a way to fake him out. Make him feel surrounded, not attacked, at the first meeting. Then go in for the kill[if quest-dir is stalemated]. Hey, first part completed[end if].";
+	else:
+		say "Oh, wait. There is some note about how you won't be able to trap the [4b]n king without your traitorous accomplice.  And you probably can't trap him way out in the center of the board!";
+
+to say your-pals:
+	if quest-dir is primary:
+		say "a gratuitous biography of the [first-piece of quest-dir] with no mention of your secret helper, the [second-piece of quest-dir]";
+	else:
+		say "gratuitous biographies of the [first-piece of quest-dir] and [second-piece of quest-dir] helping you here";
 
 check examining manual when player is in Ministry of Unity:
-	say "You read up on the basics of taking down an enemy king with [if number of solved directions > 4]one ally and one equally-strong traitor[else]two relatively inauspicious allies[end if]. No specifics apply right here. Not until you leave the Ministry of Unity." instead;
+	say "You read up on the basics of taking down an enemy king with [if number of solved directions > 4]one ally and one equally-strong traitor[else]two relatively inauspicious allies[end if]. But it's all a bit dry and technical, and you'll know what specifics apply better once you leave the Ministry of Unity." instead;
 
 instead of doing something other than examining tricky endgame manual:
 	say "You can really only [b]X[r] or [b]EXAMINE[r] the [manual]." instead;
 
 check taking inventory:
-	say "All you have on you, besides various expensive rings and medals designating your position as a prominent [12b]n, is a tricky endgame manual. You can [b]X[r] it at any time to see what needs to be done [if player is in ministry]outside the ministry[else]here or in other [4b]s[end if]." instead;
+	say "All you have on you, besides various expensive rings and medals designating your position as a prominent [12b]n, is a tricky endgame manual. You can type [b]X[r] at any time outside the Ministry to see what needs to be done. Inside, [b]X[r] will examine the map." instead;
 
 book i6 modification(s)
 
@@ -273,7 +286,7 @@ the map of the Fourbyfourias is scenery in Ministry of Unity. description is "Se
 check examining map of the Fourbyfourias:
 	if quests-left is 1:
 		say "The only part of the map not x-ed out is [random to-solve direction]. Not much choice." instead;
-	say "[if number of solved directions > 0]It's a 'before' map, not showing what you've annexed. [end if][12b] takes up most of the northwest--it's got more land mass than the seven tinier [4b]s combined. Clockwise from the upper right are [north], [northeast], [east], [southeast], [south], [southwest] and [west]. To the northwest are lands too big to conquer.[paragraph break]";
+	say "[if number of solved directions > 0]It's a 'before' map, not showing what you've annexed. [end if][12b] takes up most of the northwest--it's got more land mass than the seven tinier [4b]s combined. It's striped gold and yellow, the colors of each half of Fivebyfivia, and your allies['] colors.[paragraph break]Clockwise in varying shades of grey from the upper right are [north], [northeast], [east], [southeast], [south], [southwest] and [west]. To the northwest are lands too big to conquer.[paragraph break]";
 	if number of solved directions > 0:
 		say "Some titles are x-ed out, because you already unified them: [list of solved directions].";
 	else:
@@ -372,9 +385,11 @@ rule for printing the locale description when map-view is true and player is not
 
 volume pieces
 
+a thing can be examined. a thing is usually not examined.
+
 team is a kind of value. the teams are black and white.
 
-a piece is a kind of person. a piece can be reserved, irrelevant or placed. a piece is usually irrelevant. a piece has text called short-text. description is usually "When it is time, you will make eye contact. Until then, just focus on positioning, positioning, positioning.".
+a piece is a kind of person. a piece can be reserved, irrelevant or placed. a piece is usually irrelevant. a piece has text called short-text. description is usually "You don't really want to make eye contact. You might give the game away.".
 
 a piece has a team called the color.
 
@@ -442,29 +457,45 @@ chapter bishop
 
 a bishop is a kind of piece.
 
-the yellow bishop is a bishop. color of yellow bishop is white. understand "b" and "yb" and "by" and "y" and "fb" and "bf" as yellow bishop.
+the yellow bishop is a bishop. color of yellow bishop is white. understand "b" and "yb" and "by" and "y b" and "b y" and "y" and "fb" and "bf" and "b f" and "f b" as yellow bishop. description is "[minor-color]."
 
-the purple bishop is a bishop. color of purple bishop is white. understand "b" and "pb" and "bp" and "p" and "fb" and "bf" as purple bishop.
+the purple bishop is a bishop. color of purple bishop is white. understand "b" and "pb" and "bp" and "p b" and "b p" and "p" and "fb" and "bf" and "b f" and "f b" as purple bishop. description is "[minor-color]."
 
-the grey bishop is a bishop. color of grey bishop is black. understand "b" and "gb" and "bg" and "g" and "eb" and "be" as grey bishop.
+the grey bishop is a bishop. color of grey bishop is black. understand "b" and "g" and "gb" and "bg" and "g b" and "b g" and "eb" and "be" and "b e" and "e b" as grey bishop. description is "[minor-color]."
+
+to say minor-color: say "The yellow and purple [if noun is a bishop]bishops[else]knights[end if] that will help you on your quest -- well, their outfits aren't VERY yellow, or VERY purple, but enough to tell them apart, which will help this whole operation quicker. Despite the yellow vs. purple squabbles that plague [12b], they're both equally effective.[paragraph break]It'd take a long time to describe the yellow vs. purple beefs and why things are the way they are. But if you're wondering why I chose these colors, type [b]YVP[r] or [b]PVY[r]."
+
+check examining a piece:
+	if the noun is examined, continue the action;
+	now noun is examined;
+	if the noun is the Twelvebytwelvian king:
+		say "You and the [twelvebytwelvian] have a good working relationship that is not blemished by anything like friendship. You have nothing to say to each other, besides the obligatory flattery. He would nod pointedly at you to get back to work if you stared too long.";
+	else:
+		say "The [noun] avoids eye contact. That's probably for the best. You don't want to tip off any suspicions. When the time comes, you will nod, and your allies will act[if quest-dir is primary]--or not act, in the case of [the relevant traitor][end if].[paragraph break]";
+
+to decide which piece is the relevant traitor:
+	if grey knight is not irrelevant, decide on grey knight;
+	decide on Fourbyfourian king;
+
+to say waits-here: say "waits here, seemingly relaxed, but ready to spring to action"
 
 chapter knight
 
 a knight is a kind of piece.
 
-the yellow knight is a knight. color of yellow knight is white. understand "n" and "yn" and "y" and "ny" and "fn" and "nf" as yellow knight.
+the yellow knight is a knight. color of yellow knight is white. understand "n" and "yn" and "ny" and "n y" and "y n" and "y" and "fn" and "nf" and "f n" and "n f" as yellow knight. "The yellow knight [waits-here]."
 
-the purple knight is a knight. color of purple knight is white. understand "n" and "pn" and "np" and "p" and "fn" and "nf" as purple knight.
+the purple knight is a knight. color of purple knight is white. understand "n" and "pn" and "np" and "p n" and "n p" and "p" and "fn" and "nf" and "n f" and "f n" as purple knight. "The purple knight [waits-here]."
 
-the grey knight is a knight. color of grey knight is black. understand "n" and "gn" and "g" and "ng" and "gn" and "ng" and "en" and "ne" as grey knight.
+the grey knight is a knight. color of grey knight is black. understand "n" and "g" and "gn" and "ng" and "g n" and "n g" and "en" and "ne" and "e n" and "n e" as grey knight. "The traitorous grey knight waits here, expressionless."
 
 chapter king
 
 a king is a kind of piece.
 
-the Twelvebytwelvian King is a king. color of Twelvebytwelvian king is white. understand "k" and "k12" and "12k" and "12" and "fk" and "kf" as twelvebytwelvian king.
+the Twelvebytwelvian King is a king. color of Twelvebytwelvian king is white. understand "k" and "k12" and "12k" and "12" and "fk" and "kf" as twelvebytwelvian king. "Your king waits here for you to set everything just so."
 
-the Fourbyfourian King is a king. color of Fourbyfourian king is black. understand "k" and "4k" and "k4" and "ke" and "ek" as fourbyfourian king.
+the Fourbyfourian King is a king. color of Fourbyfourian king is black. understand "k" and "4k" and "k4" and "ke" and "ek" and "4" and "k e" and "e k" and "k 4" and "4 k" as fourbyfourian king. description is "Any sort of eye contact might cause the [fourbyfourian] to get suspicious. You can't have that.". "You shouldn't be able to see the Fourbyfourian king."
 
 volume directions
 
@@ -968,19 +999,42 @@ to say pie of (rm - a room):
 
 volume meta-verbs
 
+chapter colorchating
+
+colorchating is an action out of world.
+
+understand the command "pvy" as something new.
+understand the command "yvp" as something new.
+
+understand "pvy" as colorchating.
+understand "yvp" as colorchating.
+
+carry out colorchating:
+	say "I wanted to choose 'opposite' colors from the red/yellow/blue primary and secondary colors. Blue and orange is only nice if you're a Chicago Bears fan or, worse, you actually enjoyed going to the high school I attended, you utter bum, you. Red and green is for, well, Red Green or Santa Claus, both of whom are cool and all, but not for this game. I considered brown and tan, to underscore that there wasn't any difference, but it didn't work. But I wanted to avoid the white/black seen in chess.[paragraph break]I also wanted to avoid words that started with N, B or K, because I wanted the color abbreviations to make things clearer, not confuse people.";
+	the rule succeeds;
+
+
 chapter abbing
 
 abbing is an action out of world.
 
 understand the command "abb" as something new.
+understand the command "ab" as something new.
 
 understand "abb" as abbing.
+understand "ab" as abbing.
+
+ironic-ab is a truth state that varies.
 
 carry out abbing:
 	say "You can use abbreviations while placing pieces. They were meant to be relatively intuitive. [4b]n traitor pieces are always grey. Your [12b]n allies can be either yellow or purple.";
 	say "[line break]You can also abbreviate pieces with K for king, N for knight, and B for bishop. Combining these with the piece color abbreviations Y for yellow and P for purple ([12b]n,) and G for grey ([4b]n,) you can refer to any piece in two characters, you can refer to a piece specifically. In addition, if you have the same type of yellow and purple piece on the board, and you just say B, the game picks one, because they are functionally equivalent.";
 	say "[line break]So this means you can type something short like [b]P YB[r] or [b]P BY[r] to place a yellow bishop. Combined with being able to type a square to visit it, this hopefully reduces the need to fight with the parser.";
-	say "[line break]While kings don't have colors, the enemy king is always the final one to call, so the game knows what you mean if you type K.";
+	say "[line break]While kings don't have colors, the enemy king is always the final one to call, so the game knows what you mean if you type K. But you can also say [b]FK[r], [b]KF[r], [b]12K[r], [b]K12[r] for the friendly king explicitly, or [b]EK[r], [b]KF[r], [b]4K[r], [b]K4[r] for the enemy king.";
+	say "[line break]You can also use spaces in these abbreviations, if you don't like the weird nonsense words or whatever.";
+	if ironic-ab is false:
+		now ironic-ab is true;
+		say "[line break]And yes, it's also worth noting and snickering at, if you wish, how [b]ABB[r] is not as abbreviated as [b]A[r] for about. But I figure people will see [b]ABOUT[r] first.";
 	the rule succeeds;
 
 chapter about
@@ -1207,7 +1261,7 @@ understand "j" as jumpovering.
 
 carry out jumpovering:
 	now jump-over is whether or not jump-over is false;
-	say "Jumping over is now toggled to [on-off of jump-over].";
+	say "Jumping over boundary conditions so you can visit anywhere is now toggled to [on-off of jump-over].";
 	the rule succeeds;
 
 volume meta
@@ -1229,7 +1283,7 @@ rule for printing a parser error when the latest parser error is the didn't unde
 
 volume when play begins
 
-the player is in Ministry of Unity. description of player is "You're ... distinguished. A distinguished spy. Or people say you are."
+the player is in Ministry of Unity. description of player is "You're ... distinguished. A distinguished spy. Or people say you are. Distinguished, that is. Anyone saying you were a spy, even as a joke ... no. No. They would not."
 
 to say stalemate-ticks:
 	repeat with Q running through secondary directions:
