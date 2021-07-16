@@ -70,8 +70,12 @@ section scoring
 check requesting the score:
 	say "This game doesn't keep a score, but to track your progress, you've helped 'reunite' [number of solved directions] of [number of questable directions] [4b]s so far[if number of solved directions > 0]: [list of solved directions][end if][if number of stalemated directions > 0].[paragraph break]You've gained the trust of [trusted-kings], as well[end if][one of].[paragraph break]This is all tracked in the upper-right status bar[or][stopping]." instead;
 
-for printing the name of a direction (called d) while requesting the score:
+for printing the name of a direction (called d) while requesting-detail:
 	say "[q of d]";
+
+to decide whether requesting-detail:
+	if current action is requesting the score, yes;
+	if current action is examining map of the Fourbyfourias, yes;
 
 to say trusted-kings:
 	let SD be number of stalemated directions;
@@ -82,10 +86,19 @@ The print final score rule is not listed in the for printing the player's obitua
 
 section tricky endgame manual
 
-rule for supplying a missing noun when examining:
-	now noun is tricky endgame manual;
+does the player mean examining manual when player is not in ministry of unity: it is very likely.
+does the player mean examining map when player is in ministry of unity: it is very likely.
 
-The tricky endgame manual is a thing. The player carries the tricky endgame manual. description of tricky endgame manual is "[if player is in Ministry of Unity]You read up on the basics of taking down an enemy king with two relatively inauspicious allies or, perhaps, one ally and one equally-strong traitor. No specifics apply right here. Not until you leave the Ministry of Unity[else if quest-dir is primary]You read about how a traitorous confidant may be able to elbow out their king just enough to trap them. However, the traitorous confidant cannot expose themselves by refusing to attack you, if you are in their sight[else if quest-dir is secondary]You read about how an enemy king isn't going to just back himself into a corner if faced with another king and two allies. Maybe on the edges, but not the corner[else]You read about how two knights shouldn't be able to force an enemy king into the corner to trap him, much less the sides, but stranger things have happened if you call him in at the right moment, on the right square[end if]. Sadly, the section on cornering an enemy king with [summary-text of quest-dir] is high on flowery writing and low on further details. You'll have to figure things out for yourself."
+rule for supplying a missing noun when examining:
+	if player is in ministry of unity:
+		now noun is map;
+	else:
+		now noun is tricky endgame manual;
+
+The tricky endgame manual is a thing. The player carries the tricky endgame manual. description of tricky endgame manual is "[if quest-dir is primary]You read about how a traitorous confidant may be able to elbow out their king just enough to trap them. However, the traitorous confidant cannot expose themselves by refusing to attack you, if you are in their sight[else if quest-dir is secondary]You read about how an enemy king isn't going to just back himself into a corner if faced with another king and two allies. Maybe on the edges, but not the corner[else]You read about how two knights shouldn't be able to force an enemy king into the corner to trap him, much less the sides, but stranger things have happened if you call him in at the right moment, on the right square[end if]. Sadly, the section on cornering an enemy king with [summary-text of quest-dir] is high on flowery writing and low on further details. You'll have to figure things out for yourself."
+
+check examining manual when player is in Ministry of Unity:
+	say "You read up on the basics of taking down an enemy king with [if number of solved directions > 4]one ally and one equally-strong traitor[else]two relatively inauspicious allies[end if]. No specifics apply right here. Not until you leave the Ministry of Unity." instead;
 
 instead of doing something other than examining tricky endgame manual:
 	say "You can really only [b]X[r] or [b]EXAMINE[r] the [manual]." instead;
@@ -158,9 +171,29 @@ definition: a room (called r) is cornery:
 	if edge-count of r is 2, yes;
 	no;
 
+to decide which number is quests-left:
+	decide on number of questable directions - number of solved directions.
+
 chapter central
 
-the Ministry of Unity is a room. xval is 8. yval is 8. "Conquests await [list of solve-now directions] from here[if number of not-yet directions > 0]. You can't quite go [list of not-yet directions] yet[end if][if number of solved directions > 0]. You've already taken care of business to the [list of solved directions][end if][if number of tried unsolved directions > 0] You've been [list of tried unsolved directions] before[end if].".
+the Ministry of Unity is a room. xval is 8. yval is 8. "The planning has been done. [can-leave][tried].[paragraph break]A map of [12b] and the surrounding [4b]s adorns one wall. You can [b]X[r] or [b]EXAMINE[r] it for details, if you want.".
+
+to say can-leave:
+	if number of to-solve directions > 3:
+		say "While halls lead off in all directions, your main focus should be to the [list of primary not solved directions][if number of solved directions > 0]. There's no point in revisiting to the [list of solved directions][end if]";
+	else:
+		say "You've made good progress and only need to visit lands [list of to-solve directions] from here";
+
+definition: a direction (called d) is near-checkmate:
+	if d is solved, no;
+	if already-solved of d is empty, no;
+	yes;
+
+to say tried:
+	if number of tried not solved directions is 0, continue the action;
+	let tried-unsolved be number of tried unsolved directions;
+	let stalemates be number of stalemated directions;
+	say "You've[if  tried-unsolved > 0] been to [list of tried unsolved directions] before[end if][if tried-unsolved > 0 and stalemates > 0] and[end if][if stalemates > 0]made good progress to the [list of stalemated directions][end if]";
 
 definition: a direction (called d) is solve-now:
 	if d is solved, no;
@@ -230,6 +263,29 @@ definition: a direction (called d) is edged:
 	unless d is cardinal, no;
 	if the room d of the location of the player is nowhere, yes;
 	no;
+
+section map of the fourbyfourias
+
+the map of the Fourbyfourias is scenery in Ministry of Unity. description is "See the check-rule.";
+
+check examining map of the Fourbyfourias:
+	if quests-left is 1:
+		say "The only part of the map not x-ed out is [random to-solve direction]. Not much choice." instead;
+	say "[if number of solved directions > 0]It's a 'before' map, not showing what you've annexed. [end if][12b] takes up most of the northwest--it's got more land mass than the seven tinier [4b]s combined. Clockwise from the upper right are [north], [northeast], [east], [southeast], [south], [southwest] and [west]. To the northwest are lands too big to conquer.[paragraph break]";
+	if number of solved directions > 0:
+		say "Some titles are x-ed out, because you already unified them: [list of solved directions].";
+	else:
+		say "Nothing's x-ed out yet. You've unified nothing so far. That will change soon.";
+	if number of stalemated directions > 0:
+		say "[line break][list of stalemated directions] [if number of stalemated directions > 1]are[else]is[end if]half-crossed out, since you established trust there. But you still need to finish the job.";
+	if number of solved directions < 4:
+		say "[line break][if number of solved directions > 0]However, [end if]South and East and Southeast [4b] are greyed out a bit. It's not time, yet.";
+	else if number of solved directions is 4:
+		say "[line break]However, [southeast] is still greyed out. It only touches [12b] at a corner, so you need a path through [south] or [east] to get there.";
+	the rule succeeds;
+
+instead of doing something other than examining map of the fourbyfourias:
+	say "You can really only [b]X[r] or [b]EXAMINE[r] the [map of the]." instead;
 
 chapter the grid
 
@@ -473,9 +529,9 @@ first-piece of northeast is friendly knight. second-piece of northeast is enemy 
 
 first-piece of west is friendly bishop. second-piece of west is enemy traitor knight. west is primary. quick-text of west is "B vs. N". misc-checks of west is knight blocks bishop rule. summary-text of west is "a bishop and a traitorous knight". recap-text of west is "In [q of west], you had to put everyone in a Tetris L-shaped block, enemy king in the corner, to conquer him. If your bishop had been further away, the traitor knight would've had to save the king."
 
-first-piece of south is friendly knight. second-piece of south is second knight. king-place of south is no-corner-no-close rule. visit-text of south is two-cleared rule. can-visit of south is two-cleared-bare rule. south is secondary. quest-details of south is "The bishop and knight checkmate is a tricky one. It took me a while to figure. I walked away saying, 'Hey, look, here's proof that the two bishops are better than a bishop and knight if pawns aren't in the way.' But one night I was able to put it together: you have to push the enemy king to the corner your bishop can't cover, then push the king to the other corner. Having the bishop two squares from your knight puts a lock on critical escape squares, and the checkmate taught me a lot about square control.". hint-text of south is "[piece-cooperation]". quick-text of south is "2 N's". summary-text of south is "two knights". recap-text of south is "In [q of south], knights were three squares away from each other, and you were off to the side of them, enough to trap the enemy king."
+first-piece of south is friendly knight. second-piece of south is second knight. king-place of south is no-corner-no-close rule. visit-text of south is one-ally-cleared rule. can-visit of south is one-ally-cleared-bare rule. south is secondary. quest-details of south is "The bishop and knight checkmate is a tricky one. It took me a while to figure. I walked away saying, 'Hey, look, here's proof that the two bishops are better than a bishop and knight if pawns aren't in the way.' But one night I was able to put it together: you have to push the enemy king to the corner your bishop can't cover, then push the king to the other corner. Having the bishop two squares from your knight puts a lock on critical escape squares, and the checkmate taught me a lot about square control.". hint-text of south is "[piece-cooperation]". quick-text of south is "2 N's". summary-text of south is "two knights". recap-text of south is "In [q of south], knights were three squares away from each other, and you were off to the side of them, enough to trap the enemy king."
 
-first-piece of east is friendly bishop. second-piece of east is second bishop. king-place of east is no-corner-no-close rule. visit-text of east is two-cleared rule. can-visit of east is two-cleared-bare rule. east is secondary. quest-details of east is "Checkmate with two bishops and nothing else isn't too bad to figure out. You push the enemy king to the side of the board, where he has only two moves. Then you lose a move with one of the bishop as you roll him into the corner. However, I was shocked to learn one Chicago area master I respected greatly (I had a Learning Experience against him) was unable to convert the advantage in a tournament with long time controls.". hint-text of east is "[piece-cooperation]". quick-text of east is "2 B's". summary-text of east is "two bishops". right-checkmate of east is two-bishops-formation rule. recap-text of east is "In [q of east], you placed one bishop next to the king and the other on a diagonal. The king guarded the bishop close by."
+first-piece of east is friendly bishop. second-piece of east is second bishop. king-place of east is no-corner-no-close rule. visit-text of east is one-ally-cleared rule. can-visit of east is one-ally-cleared-bare rule. east is secondary. quest-details of east is "Checkmate with two bishops and nothing else isn't too bad to figure out. You push the enemy king to the side of the board, where he has only two moves. Then you lose a move with one of the bishop as you roll him into the corner. However, I was shocked to learn one Chicago area master I respected greatly (I had a Learning Experience against him) was unable to convert the advantage in a tournament with long time controls.". hint-text of east is "[piece-cooperation]". quick-text of east is "2 B's". summary-text of east is "two bishops". right-checkmate of east is two-bishops-formation rule. recap-text of east is "In [q of east], you placed one bishop next to the king and the other on a diagonal. The king guarded the bishop close by."
 
 first-piece of southeast is friendly bishop. second-piece of southeast is friendly knight. king-place of southeast is no-corner-no-close rule. visit-text of southeast is corner-cleared rule. can-visit of southeast is corner-cleared-bare rule. southeast is secondary. quest-details of southeast is "Checkmate with two knights against a king is impossible unless the opponent cooperates. However, two knights against a pawn may be very possible indeed, depending on where the pawn is. You can Google Troitsky Line for more on that. I remember reading an article about the endgame at math camp in high school. We were all pretty smart, but we didn't get far with it. Years later I read a blog post describing the strategies in an actual tournament game and remembered math camp. I felt pretty smart understanding the concept. Then I found out the person with the two knights ... wasn't in high school yet. I felt less smart.". hint-text of southeast is "[piece-cooperation]". quick-text of southeast is "B & N". summary-text of southeast is "a bishop and a knight". recap-text of southeast is "In [q of southeast], you positioned everyone in an L with the knight giving check, and you also positioned the king between his bishop and knight, to block out the enemy king on the edge."
 
@@ -535,7 +591,7 @@ fourth-wall-warn is a truth state that varies.
 this is the corner-cleared rule:
 	consider the corner-cleared-bare rule;
 	if the rule failed:
-		say "You will need to conquer [q of south] or [q of east] to gain passage to [q of southeast].";
+		say "You will need to conquer [q of south] or [q of east] to gain passage to [q of southeast][if number of primary not solved directions > 0], and for those, you'll need to ramp up with [q of random primary not solved direction][end if].";
 		if jump-over is true:
 			say "[line break]But since you enabled jumping-over as a beta tester, I'll let you by.[paragraph break]";
 			continue the action;
@@ -545,10 +601,10 @@ this is the corner-cleared-bare rule:
 	if east is unsolved and south is unsolved, the rule fails;
 	the rule succeeds;
 
-this is the two-cleared rule:
-	consider the two-cleared-bare rule;
+this is the one-ally-cleared rule:
+	consider the one-ally-cleared-bare rule;
 	if the rule failed:
-		say "Tackling [q of noun] seems tactically unwise at the moment. You'll have two allies, not a traitor close to the enemy king, but a big show of strength that soon might tip your hand. Maybe [list of primary unsolved directions] seem better to start.";
+		say "Tackling [q of noun] seems tactically unwise at the moment. You'll want to do as much as you can diplomatically. You still have [if number of solved directions is 3]a traitor[else]traitors[end if] willing to aid you elsewhere. Once the traitors helped you, [i]then[r] you can conquer the south and east with a bit more force. So you'll wan to take care of things to the [list of primary unsolved directions] first.";
 		if fourth-wall-warn is false:
 			now fourth-wall-warn is true;
 			say "[line break]And, yes, this is totally not me saying that I believe certain [4b]s are easier to conquer than others, or at least, they have more similar themes, so you'll get off to a quicker start.";
@@ -557,8 +613,8 @@ this is the two-cleared rule:
 			continue the action;
 		the rule fails;
 
-this is the two-cleared-bare rule:
-	if number of solved directions < 1, the rule fails;
+this is the one-ally-cleared-bare rule:
+	if number of solved directions < 4, the rule fails;
 	the rule succeeds;
 
 volume verbs
@@ -1220,7 +1276,7 @@ test qse with "test bn1/test bn2".
 
 test a14 with "test bvb/test nvb/test nvn/test bvn".
 
-test a56 with "test nn/test bb".
+test a56 with "test qe/test qs".
 
 test a7 with "test qse".
 
