@@ -442,29 +442,29 @@ chapter bishop
 
 a bishop is a kind of piece.
 
-the friendly bishop is a bishop. color of friendly bishop is white. understand "b" and "fb" as friendly bishop.
+the yellow bishop is a bishop. color of yellow bishop is white. understand "b" and "yb" and "by" and "y" and "fb" and "bf" as yellow bishop.
 
-the enemy traitor bishop is a bishop. color of enemy traitor bishop is black. understand "b" and "eb" as enemy bishop.
+the purple bishop is a bishop. color of purple bishop is white. understand "b" and "pb" and "bp" and "p" and "fb" and "bf" as purple bishop.
 
-the second bishop is a bishop. color of second bishop is white. understand "b" and "sb" as second bishop.
+the grey bishop is a bishop. color of grey bishop is black. understand "b" and "gb" and "bg" and "g" and "eb" and "be" as grey bishop.
 
 chapter knight
 
 a knight is a kind of piece.
 
-the friendly knight is a knight. color of friendly knight is white. understand "n" and "fn" as friendly knight.
+the yellow knight is a knight. color of yellow knight is white. understand "n" and "yn" and "y" and "ny" and "fn" and "nf" as yellow knight.
 
-the enemy traitor knight is a knight. color of enemy traitor knight is black. understand "n" and "en" as enemy knight.
+the purple knight is a knight. color of purple knight is white. understand "n" and "pn" and "np" and "p" and "fn" and "nf" as purple knight.
 
-the second knight is a knight. color of second knight is white. understand "n" and "sn" as second knight.
+the grey knight is a knight. color of grey knight is black. understand "n" and "gn" and "g" and "ng" and "gn" and "ng" and "en" and "ne" as grey knight.
 
 chapter king
 
 a king is a kind of piece.
 
-the friendly king is a king. color of friendly king is white. understand "k" and "fk" as friendly king.
+the Twelvebytwelvian King is a king. color of Twelvebytwelvian king is white. understand "k" and "k12" and "12k" and "12" and "fk" and "kf" as twelvebytwelvian king.
 
-the enemy king is a king. color of enemy king is black. understand "k" and "ek" as enemy king.
+the Fourbyfourian King is a king. color of Fourbyfourian king is black. understand "k" and "4k" and "k4" and "ke" and "ek" as fourbyfourian king.
 
 volume directions
 
@@ -523,22 +523,22 @@ definition: a direction (called d) is to-solve:
 
 section individual quest properties
 
-first-piece of southwest is friendly bishop. second-piece of southwest is enemy traitor bishop. southwest is primary. quick-text of southwest is "B vs. B". summary-text of southwest is "two bishops, one traitorous". recap-text of southwest is "In [q of southwest], you used the enemy bishop and your own king to wall in the enemy king.".
+first-piece of southwest is yellow bishop. second-piece of southwest is grey bishop. southwest is primary. quick-text of southwest is "B vs. B". summary-text of southwest is "two bishops, one traitorous". recap-text of southwest is "In [q of southwest], you used the enemy bishop and your own king to wall in the enemy king.".
 
-first-piece of north is friendly knight. second-piece of north is enemy traitor bishop. north is primary. quick-text of north is "N vs. B". summary-text of north is "a knight and a traitorous bishop". recap-text of north is "In [q of north], your king and knight faced the enemy king and bishop, each two squares away."
+first-piece of north is yellow knight. second-piece of north is grey bishop. north is primary. quick-text of north is "N vs. B". summary-text of north is "a knight and a traitorous bishop". recap-text of north is "In [q of north], your king and knight faced the enemy king and bishop, each two squares away."
 
-first-piece of northeast is friendly knight. second-piece of northeast is enemy traitor knight. northeast is primary. quick-text of northeast is "N vs. N". summary-text of northeast is "two knights, one traitorous". recap-text of northeast is "In [q of northeast], you linked everyone in a sort of fish-hook to trap the enemy king, with the friendly king farthest away. You couldn't keep the king two squares from the enemy king, as the enemy knight would be attacking."
+first-piece of northeast is yellow knight. second-piece of northeast is grey knight. northeast is primary. quick-text of northeast is "N vs. N". summary-text of northeast is "two knights, one traitorous". recap-text of northeast is "In [q of northeast], you linked everyone in a sort of fish-hook to trap the enemy king, with the [twelvebytwelvian] farthest away. You couldn't keep the king two squares from the enemy king, as the enemy knight would be attacking."
 
-first-piece of west is friendly bishop. second-piece of west is enemy traitor knight. west is primary. quick-text of west is "B vs. N". misc-checks of west is knight blocks bishop rule. summary-text of west is "a bishop and a traitorous knight". recap-text of west is "In [q of west], you had to put everyone in a Tetris L-shaped block, enemy king in the corner, to conquer him. If your bishop had been further away, the traitor knight would've had to save the king."
+first-piece of west is yellow bishop. second-piece of west is grey knight. west is primary. quick-text of west is "B vs. N". misc-checks of west is knight blocks bishop rule. summary-text of west is "a bishop and a traitorous knight". recap-text of west is "In [q of west], you had to put everyone in a Tetris L-shaped block, enemy king in the corner, to conquer him. If your bishop had been further away, the traitor knight would've had to save the king."
 
-first-piece of south is friendly knight. second-piece of south is second knight. king-place of south is no-corner-no-close rule. visit-text of south is one-ally-cleared rule. can-visit of south is one-ally-cleared-bare rule. south is secondary. quest-details of south is "The bishop and knight checkmate is a tricky one. It took me a while to figure. I walked away saying, 'Hey, look, here's proof that the two bishops are better than a bishop and knight if pawns aren't in the way.' But one night I was able to put it together: you have to push the enemy king to the corner your bishop can't cover, then push the king to the other corner. Having the bishop two squares from your knight puts a lock on critical escape squares, and the checkmate taught me a lot about square control.". hint-text of south is "[piece-cooperation]". quick-text of south is "2 N's". summary-text of south is "two knights". recap-text of south is "In [q of south], knights were three squares away from each other, and you were off to the side of them, enough to trap the enemy king."
+first-piece of south is yellow knight. second-piece of south is purple knight. king-place of south is no-corner-no-close rule. visit-text of south is one-ally-cleared rule. can-visit of south is one-ally-cleared-bare rule. south is secondary. quest-details of south is "The bishop and knight checkmate is a tricky one. It took me a while to figure. I walked away saying, 'Hey, look, here's proof that the two bishops are better than a bishop and knight if pawns aren't in the way.' But one night I was able to put it together: you have to push the enemy king to the corner your bishop can't cover, then push the king to the other corner. Having the bishop two squares from your knight puts a lock on critical escape squares, and the checkmate taught me a lot about square control.". hint-text of south is "[piece-cooperation]". quick-text of south is "2 N's". summary-text of south is "two knights". recap-text of south is "In [q of south], knights were three squares away from each other, and you were off to the side of them, enough to trap the enemy king."
 
-first-piece of east is friendly bishop. second-piece of east is second bishop. king-place of east is no-corner-no-close rule. visit-text of east is one-ally-cleared rule. can-visit of east is one-ally-cleared-bare rule. east is secondary. quest-details of east is "Checkmate with two bishops and nothing else isn't too bad to figure out. You push the enemy king to the side of the board, where he has only two moves. Then you lose a move with one of the bishop as you roll him into the corner. However, I was shocked to learn one Chicago area master I respected greatly (I had a Learning Experience against him) was unable to convert the advantage in a tournament with long time controls.". hint-text of east is "[piece-cooperation]". quick-text of east is "2 B's". summary-text of east is "two bishops". right-checkmate of east is two-bishops-formation rule. recap-text of east is "In [q of east], you placed one bishop next to the king and the other on a diagonal. The king guarded the bishop close by."
+first-piece of east is yellow bishop. second-piece of east is purple bishop. king-place of east is no-corner-no-close rule. visit-text of east is one-ally-cleared rule. can-visit of east is one-ally-cleared-bare rule. east is secondary. quest-details of east is "Checkmate with two bishops and nothing else isn't too bad to figure out. You push the enemy king to the side of the board, where he has only two moves. Then you lose a move with one of the bishop as you roll him into the corner. However, I was shocked to learn one Chicago area master I respected greatly (I had a Learning Experience against him) was unable to convert the advantage in a tournament with long time controls.". hint-text of east is "[piece-cooperation]". quick-text of east is "2 B's". summary-text of east is "two bishops". right-checkmate of east is two-bishops-formation rule. recap-text of east is "In [q of east], you placed one bishop next to the king and the other on a diagonal. The king guarded the bishop close by."
 
-first-piece of southeast is friendly bishop. second-piece of southeast is friendly knight. king-place of southeast is no-corner-no-close rule. visit-text of southeast is corner-cleared rule. can-visit of southeast is corner-cleared-bare rule. southeast is secondary. quest-details of southeast is "Checkmate with two knights against a king is impossible unless the opponent cooperates. However, two knights against a pawn may be very possible indeed, depending on where the pawn is. You can Google Troitsky Line for more on that. I remember reading an article about the endgame at math camp in high school. We were all pretty smart, but we didn't get far with it. Years later I read a blog post describing the strategies in an actual tournament game and remembered math camp. I felt pretty smart understanding the concept. Then I found out the person with the two knights ... wasn't in high school yet. I felt less smart.". hint-text of southeast is "[piece-cooperation]". quick-text of southeast is "B & N". summary-text of southeast is "a bishop and a knight". recap-text of southeast is "In [q of southeast], you positioned everyone in an L with the knight giving check, and you also positioned the king between his bishop and knight, to block out the enemy king on the edge."
+first-piece of southeast is yellow bishop. second-piece of southeast is yellow knight. king-place of southeast is no-corner-no-close rule. visit-text of southeast is corner-cleared rule. can-visit of southeast is corner-cleared-bare rule. southeast is secondary. quest-details of southeast is "Checkmate with two knights against a king is impossible unless the opponent cooperates. However, two knights against a pawn may be very possible indeed, depending on where the pawn is. You can Google Troitsky Line for more on that. I remember reading an article about the endgame at math camp in high school. We were all pretty smart, but we didn't get far with it. Years later I read a blog post describing the strategies in an actual tournament game and remembered math camp. I felt pretty smart understanding the concept. Then I found out the person with the two knights ... wasn't in high school yet. I felt less smart.". hint-text of southeast is "[piece-cooperation]". quick-text of southeast is "B & N". summary-text of southeast is "a bishop and a knight". recap-text of southeast is "In [q of southeast], you positioned everyone in an L with the knight giving check, and you also positioned the king between his bishop and knight, to block out the enemy king on the edge."
 
 to say hint-minor-vs of (d - a direction):
-	say "You'll need to restrict the squares the enemy king can run to. Also, your [if friendly bishop is irrelevant]knight can check but not cover escape squares[else]bishop can check and cover an escape square, but your king can't cover the rest[end if]. How can you cover that final square?"
+	say "You'll need to restrict the squares the enemy king can run to. Also, your [if yellow bishop is irrelevant]knight can check but not cover escape squares[else]bishop can check and cover an escape square, but your king can't cover the rest[end if]. How can you cover that final square?"
 
 to say piece-cooperation:
 	say "You want your king to cover two escape squares, with one minor piece checking and covering an escape square, and another covering two escape squares. There may be multiple solutions. If one fails you, it is probably used somewhere else. I just didn't want to let the player get through with too-similar solutions."
@@ -561,29 +561,29 @@ to poss-dupe-note:
 		say "(NOTE: your solution was fully valid, but I'm being a bit of a stickler about finding different ways for the south and east [4b]s. Hope it's not too much inconvenience, or maybe that you find the additional challenge interesting.)";
 
 definition: a piece (called p) is double-adjacent:
-	if basic-dist of p and enemy king is 1 and basic-dist of p and friendly king is 1:
+	if basic-dist of p and Fourbyfourian king is 1 and basic-dist of p and Twelvebytwelvian king is 1:
 		yes;
 	no;
 
 this is the two-bishops-formation rule:
-	if diag-dist of friendly bishop and second bishop is 3 and basic-dist of friendly bishop and second bishop is 3:
-		say "[if south is solved]The enemy king notices something is up. You remember that you had everyone in roughly the same place over in [q of south] with the two knights.  Perhaps you need to find a new way to corner the enemy king. Too many similar moves may lead to proof of your activities[else]Something's up. The bishops cough at you, a bit confused. You shake your head, but they both shake their heads back. They wouldn't do this to you unless something was up.  So after the diplomatic meeting, you ask. They mention perhaps ... perhaps this specific maneuver may be more useful somewhere else.[paragraph break]They almost look satisified with that bit of thoughtful dialogue. So much of their work is just intimidating people into what to believe that a bit of logical futzing is refreshing. They seem to be thinking back wistfully to the good old days of dreaming about gaining vast power--so different from having to wield it constantly[end if].";
+	if diag-dist of yellow bishop and purple bishop is 3 and basic-dist of yellow bishop and purple bishop is 3:
+		say "[if south is solved]The Fourbyfourian king notices something is up. You remember that you had everyone in roughly the same place over in [q of south] with the two knights.  Perhaps you need to find a new way to corner the Fourbyfourian king. Too many similar moves may lead to proof of your activities[else]Something's up. The bishops cough at you, a bit confused. You shake your head, but they both shake their heads back. They wouldn't do this to you unless something was up.  So after the diplomatic meeting, you ask. They mention perhaps ... perhaps this specific maneuver may be more useful somewhere else.[paragraph break]They almost look satisified with that bit of thoughtful dialogue. So much of their work is just intimidating people into what to believe that a bit of logical futzing is refreshing. They seem to be thinking back wistfully to the good old days of dreaming about gaining vast power--so different from having to wield it constantly[end if].";
 		poss-dupe-note instead;
-	let temp be boolval of (whether or not friendly bishop is double-adjacent) + boolval of (whether or not second bishop is double-adjacent);
+	let temp be boolval of (whether or not yellow bishop is double-adjacent) + boolval of (whether or not purple bishop is double-adjacent);
 	if temp > 0:
-		say "The enemy king feels a bit squished in by [if temp is 2]your two bishops[else]one of your bishops being THAT close--and, well, your king, for that matter, no offense. He makes an excuse to wriggle out just before you can close the net.";
+		say "The Fourbyfourian king feels a bit squished in by [if temp is 2]your two bishops[else]one of your bishops being THAT close--and, well, your king, for that matter, no offense. He makes an excuse to wriggle out just before you can close the net.";
 		poss-dupe-note instead;
 
 this is the knight blocks bishop rule:
-	if enemy king is not placed, continue the action;
-	let Q be diag-dist of friendly bishop and enemy knight;
+	if Fourbyfourian king is not placed, continue the action;
+	let Q be diag-dist of first-piece of quest-dir and grey knight;
 	if Q < 2, continue the action;
 	note-amusing-stuff "bvn-miss";
 	say "The enemy knight, who wants to cooperate with your cunning plan, unfortunately has no choice. The king being in danger, and the knight in obvious position to prevent it, jumps to action![paragraph break]";
 	if Q is 2:
-		say "A big fight ensues! A fake one, to impress the enemy king and not really raise suspicions.[paragraph break]Eh well. There's more bishops where THEY came from.";
+		say "A big fight ensues! A fake one, to impress the Fourbyfourian king and not really raise suspicions.[paragraph break]Eh well. There's more bishops where THEY came from.";
 	else:
-		say "The knight throws itself in front of the bishop. You have no choice but to dismiss the bishop in disgrace and assure the enemy king you had nothing to do with it, and if you can help yourself, it won't happen again. The bishop looks ... less than happy. But you mention it is divine will, which the bishop can't argue with. After all, he's used that argument on some unlucky doomed unfortunates, himself.";
+		say "The knight throws itself in front of the bishop. You have no choice but to dismiss the bishop in disgrace and assure the Fourbyfourian king you had nothing to do with it, and if you can help yourself, it won't happen again. The bishop looks ... less than happy. But you mention it is divine will, which the bishop can't argue with. After all, he's used that argument on some unlucky doomed unfortunates, himself.";
 	the rule succeeds;
 
 section quest start rules
@@ -654,15 +654,13 @@ carry out gotoing:
 
 chapter calling
 
-does the player mean calling a reserved piece which is not the enemy king: it is very likely.
+does the player mean calling a reserved piece which is not the Fourbyfourian king: it is very likely.
+
+does the player mean calling first-piece of quest-dir when first-piece of quest-dir is reserved and second-piece of quest-dir is reserved: it is likely.
 
 does the player mean calling a placed piece: it is unlikely.
 
 does the player mean calling an irrelevant piece: it is very unlikely.
-
-does the player mean calling friendly bishop when number of placed bishops is 0 and second bishop is reserved: it is very likely.
-
-does the player mean calling friendly knight when number of placed knights is 0 and second knight is reserved: it is very likely.
 
 calling is an action applying to one visible thing.
 
@@ -686,7 +684,7 @@ this is the same-colored-bishops rule:
 	let Q be a random placed bishop;
 	unless location of Q and location of player are samecolored, continue the action;
 	note-amusing-stuff "bb-colors";
-	if enemy bishop is irrelevant:
+	if grey bishop is irrelevant:
 		if quest-dir is not stalemated:
 			say "But wait! You realize that you are about to place both your bishops on the same-colored square. You may break a lot of stuffy old rules in [12b], but that's not one of them, especially since breaking that rule gives no practical benefit. Okay, it actually harms you.[paragraph break]Somewhere else, maybe.";
 		else:
@@ -698,64 +696,64 @@ this is the same-colored-bishops rule:
 this is the excessive beatdown rule:
 	let temp be 0;
 	repeat with Q running through placed pieces:
-		if Q is friendly king, continue the action;
+		if Q is Twelvebytwelvian king, continue the action;
 		if color of Q is black, continue the action;
-		if Q attacks the enemy king, increment temp;
+		if Q attacks the Fourbyfourian king, increment temp;
 	if temp is 2:
 		note-amusing-stuff "beatdown";
-		say "The pieces under your command look over at you questioningly. While they recognize what fun it is to both be attacking the enemy king at once, they also consider such fun is not strategically sound. Still, you're the boss...";
+		say "The pieces under your command look over at you questioningly. While they recognize what fun it is to both be attacking the Fourbyfourian king at once, they also consider such fun is not strategically sound. Still, you're the boss...";
 
 rule for supplying a missing noun when calling:
 	if location of player is Ministry of Unity:
-		now noun is friendly king;
+		now noun is Twelvebytwelvian king;
 		the rule succeeds; [doesn't matter. Same reaction for them all!]
-	if enemy king is reserved and number of reserved pieces is 1:
-		say "(the enemy king is last)[line break]";
-		now noun is enemy king;
+	if Fourbyfourian king is reserved and number of reserved pieces is 1:
+		say "(the Fourbyfourian king is last)[line break]";
+		now noun is Fourbyfourian king;
 		the rule succeeds;
-	if enemy king is reserved and number of reserved pieces is 2: [ maybe redundant but let's make sure ]
-		now noun is a random reserved piece that is not the enemy king;
-		say "([the noun] before the enemy king)[line break]";
+	if Fourbyfourian king is reserved and number of reserved pieces is 2: [ maybe redundant but let's make sure ]
+		now noun is a random reserved piece that is not the Fourbyfourian king;
+		say "([the noun] before the Fourbyfourian king)[line break]";
 		the rule succeeds;
 	say "I'll need a noun, since there are more than 2 pieces left to place, and I can't decide which one.";
 	reject the player's command;
 
 to decide whether you-stalemated:
-	if enemy king is checked, no;
-	if enemy king is immobile, yes;
+	if Fourbyfourian king is checked, no;
+	if Fourbyfourian king is immobile, yes;
 	no;
 
 to decide whether you-checkmated:
-	unless enemy king is checked, no;
-	unless enemy king is immobile, no;
+	unless Fourbyfourian king is checked, no;
+	unless Fourbyfourian king is immobile, no;
 	yes;
 
 this is the stalemate dialogue rule:
 	if quest-dir is primary:
 		say "Oh no! You managed to trap the king but not attack him. I don't think there's a way to find this sort of stalemate, so it's impressive that you did.";
 	else if quest-dir is stalemated:
-		say "Again, you pretty much cornered the enemy king without attacking him. Awkward laughter resonates in this diplomatic meeting. It only sort of builds up his trust. You know how it is, when someone oversells something? You might be risking that here. The enemy king (fool) already trusts you enough. Next time, you can go fully on offense.";
+		say "Again, you pretty much cornered the Fourbyfourian king without attacking him. Awkward laughter resonates in this diplomatic meeting. It only sort of builds up his trust. You know how it is, when someone oversells something? You might be risking that here. The Fourbyfourian king (fool) already trusts you enough. Next time, you can go fully on offense.";
 	else:
 		now quest-dir is stalemated;
-		say "Oh my! The enemy king is trapped, but not too trapped. After a lot of verbal manipulation, you manage to convince him that this show of almost-force is just standard negotiating technique, and if he can't trust you, who can he trust?[paragraph break]The diplomatic maneuver is thus a success. After a few hours, you take leave, confident your little feint will keep the enemy king off-guard enough, you will get him next time.";
+		say "Oh my! The Fourbyfourian king is trapped, but not too trapped. After a lot of verbal manipulation, you manage to convince him that this show of almost-force is just standard negotiating technique, and if he can't trust you, who can he trust?[paragraph break]The diplomatic maneuver is thus a success. After a few hours, you take leave, confident your little feint will keep the Fourbyfourian king off-guard enough, you will get him next time.";
 	retreat-to-unity;
 	the rule succeeds;
 
 this is the checkmate dialogue rule:
 	if quest-dir is secondary and quest-dir is not stalemated:
-		say "But wait! The enemy king feels a LITTLE too under attack. He excuses himself for ... well, a family emergency, an important jousting tournament to judge, another one of those banquets, you know.[paragraph break]";
+		say "But wait! The Fourbyfourian king feels a LITTLE too under attack. He excuses himself for ... well, a family emergency, an important jousting tournament to judge, another one of those banquets, you know.[paragraph break]";
 		if number of solved secondary directions > 0:
 			say "Ye Olde Bummeur. You mixed things up. You should have slow-walked it a bit more, as in [q of random solved secondary direction].";
 		else if number of stalemated secondary directions > 0:
 			say "Man! You felt like you had something there. But you didn't gain the king's trust as in [q of random stalemated secondary direction]. You'll need to do that.";
 		else:
-			say "Drat! You were a bit too aggressive. Perhaps if there were a way to make the enemy king feel almost-trapped but let him off the hook ... then he could be suckered. But not now.";
+			say "Drat! You were a bit too aggressive. Perhaps if there were a way to make the Fourbyfourian king feel almost-trapped but let him off the hook ... then he could be suckered. But not now.";
 		if already-solved of quest-dir is empty:
-			say "Perhaps this will work later. You note the position in your head. Some scribe will write it down. Perhaps once you've gained the enemy king's trust you won't attack him. Then, you can even say 'Ha, if I were going to fool you, I wouldn't use this exact same formation you'd been suspicious of, earlier.' People fall for that, even when they should know better.";
-			add location of friendly king to already-solved of quest-dir;
+			say "Perhaps this will work later. You note the position in your head. Some scribe will write it down. Perhaps once you've gained the Fourbyfourian king's trust you won't attack him. Then, you can even say 'Ha, if I were going to fool you, I wouldn't use this exact same formation you'd been suspicious of, earlier.' People fall for that, even when they should know better.";
+			add location of Twelvebytwelvian king to already-solved of quest-dir;
 			add location of first-piece of quest-dir to already-solved of quest-dir;
 			add location of second-piece of quest-dir to already-solved of quest-dir;
-			add location of enemy king to already-solved of quest-dir;
+			add location of Fourbyfourian king to already-solved of quest-dir;
 		else:
 			say "So that's another way to take down [q of quest-dir] when the time is right. Nice, though you only need one.";
 		retreat-to-unity;
@@ -764,7 +762,7 @@ this is the checkmate dialogue rule:
 carry out calling:
 	if location of player is Ministry of Unity, say "You don't need to call allies until you're away from the Ministry." instead;
 	if noun is irrelevant, say "You don't need to call [the noun]." instead;
-	if noun is enemy king and number of reserved pieces > 1, say "You will want to call [the noun] last." instead;
+	if noun is Fourbyfourian king and number of reserved pieces > 1, say "You will want to call [the noun] last." instead;
 	if number of pieces in location of player is 1, say "But [the random piece in location of player] is already there." instead;
 	if noun is placed, say "But [the noun] is already at [location of the noun]." instead;
 	say "You place [the noun] at [location of player].";
@@ -773,22 +771,22 @@ carry out calling:
 		abide by the same-colored-bishops rule;
 	now noun is placed;
 	abide by misc-checks of quest-dir;
-	if friendly king is placed:
-		if friendly king is checked:
+	if Twelvebytwelvian king is placed:
+		if Twelvebytwelvian king is checked:
 			say "But wait. Your king would be under attack from the enemy there. You'll need to try again.";
 			move noun to offsite;
 			now noun is reserved;
 			the rule succeeds;
 	update-guarded;
-	if noun is enemy king:
+	if noun is Fourbyfourian king:
 		if number of reserved pieces > 1:
-			say "You'll want to place the enemy king last." instead;
-		if diag-dist of friendly king and enemy king <= 1, say "You can't really place the enemy kings that close to each other. Oh, sure, they'll perform all the proper diplomacy ... but they really don't WANT to. At least, your king doesn't want to. He doesn't want his fingerprints on any ... disappearances." instead;
+			say "You'll want to place the Fourbyfourian king last." instead;
+		if diag-dist of Twelvebytwelvian king and Fourbyfourian king <= 1, say "You can't really place the enemy kings that close to each other. Oh, sure, they'll perform all the proper diplomacy ... but they really don't WANT to. At least, your king doesn't want to. He doesn't want his fingerprints on any ... disappearances." instead;
 		consider the excessive beatdown rule;
 		abide by the king-place of quest-dir;
 		if you-stalemated, abide by the stalemate dialogue rule;
-		unless enemy king is checked:
-			say "But the enemy king is not checked. So things fall apart. Perhaps ... perhaps that was not the best way. Fortunately, we're going to let you have another shot and pretend that never happened.";
+		unless Fourbyfourian king is checked:
+			say "But the Fourbyfourian king is not checked. So things fall apart. Perhaps ... perhaps that was not the best way. Fortunately, we're going to let you have another shot and pretend that never happened.";
 			if screen-reader is false, show-the-board;
 			move player to Ministry of Unity;
 			the rule succeeds;
@@ -803,7 +801,7 @@ carry out calling:
 				end the story finally;
 				the rule succeeds;
 		else:
-			say "Oh no! The enemy king escapes.";
+			say "Oh no! The Fourbyfourian king escapes.";
 		retreat-to-unity;
 		the rule succeeds;
 	if screen-reader is false, continue the action;
@@ -833,7 +831,7 @@ to reset-board:
 		now P is reserved;
 
 definition: a piece (called p) is not-last:
-	if p is enemy king, no;
+	if p is Fourbyfourian king, no;
 	if p is reserved, yes;
 
 section rules for what's guarded
@@ -877,7 +875,7 @@ section rules for placing
 
 this is the no-corner rule:
 	if location of player is cornery:
-		say "The enemy king, alas, knows your tricks. He won't be snuck into some corner, at least not without any allies. You'll have to find somewhere else to 'invite' him.";
+		say "The Fourbyfourian king, alas, knows your tricks. He won't be snuck into some corner, at least not without any allies. You'll have to find somewhere else to 'invite' him.";
 		the rule fails;
 
 this is the no-corner-no-close rule:
@@ -949,17 +947,17 @@ to show-the-board:
 
 to say pie of (rm - a room):
 	say " ";
-	if enemy bishop is in rm:
+	if grey bishop is in rm:
 		say "b";
-	else if friendly bishop is in rm or second bishop is in rm:
+	else if yellow bishop is in rm or purple bishop is in rm:
 		say "B";
-	else if enemy knight is in rm:
+	else if grey knight is in rm:
 		say "n";
-	else if friendly knight is in rm or second knight is in rm:
+	else if yellow knight is in rm or purple knight is in rm:
 		say "N";
-	else if friendly king is in rm:
+	else if twelvebytwelvian king is in rm:
 		say "K";
-	else if enemy king is in rm:
+	else if Fourbyfourian king is in rm:
 		say "k";
 	else if rm is guarded:
 		say "+";
@@ -1165,7 +1163,7 @@ to note-amusing-stuff (t - text):
 
 table of stuff worth trying
 code	done-yet	amuse-list
-"beatdown"	false	"Constructing a double check (both allies, no traitors, attacking the enemy king)"
+"beatdown"	false	"Constructing a double check (both allies, no traitors, attacking the Fourbyfourian king)"
 "bvn-miss"	false	"Placing the bishop too far from the king when you have the traitor knight"
 "bb-colors"	false	"Placing two bishops on the same color tile"
 
@@ -1252,6 +1250,26 @@ when play begins (this is the screen read check rule):
 	say "[this-game] has an option to use text maps in some places. This may cause problems with a screen reader. Are you using a screen reader?";
 	if the player consents:
 		now screen-reader is true;
+
+when play begins (this is the randomizing colors rule):
+	if a random chance of 1 in 2 succeeds:
+		now first-piece of southwest is purple bishop;
+	else::
+		now first-piece of west is purple bishop;
+	if a random chance of 1 in 2 succeeds:
+		now first-piece of northeast is purple knight;
+	else::
+		now first-piece of east is purple knight;
+	if a random chance of 1 in 2 succeeds:
+		now first-piece of southeast is purple bishop;
+	else:
+		now second-piece of southeast is purple knight;
+	if a random chance of 1 in 2 succeeds:
+		now first-piece of south is purple knight;
+		now second-piece of south is yellow knight;
+	if a random chance of 1 in 2 succeeds:
+		now first-piece of east is purple bishop;
+		now second-piece of east is yellow bishop;
 
 after printing the locale description when instructions-given is false:
 	say "[bracket][b]NOTE[r]: to get you started, [b]ABOUT[r] will give general information about [this-game]. [verbs] will show common verbs, which usually have abbreviations.[close bracket][line break]";
