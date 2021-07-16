@@ -91,7 +91,7 @@ def print_moves(placements, knight_1, knight_2, count, checkmate):
     print(prefix + '/'.join(move_array) + '". [auto-generated]')
     print()
     # print("#test case {}".format(test_case))
-    print("> ; TEST CASE {}".format(test_case))
+    print("> ; TEST CASE {}".format(test_case.upper()))
     for x in move_array:
         print("> " + x.upper())
     print("> WIPE {}".format(loc(a).upper()))

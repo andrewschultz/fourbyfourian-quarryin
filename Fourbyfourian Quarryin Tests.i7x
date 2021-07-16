@@ -17,6 +17,36 @@ when play begins (this is the set debug state rule):
 
 the set debug state rule is listed first in the when play begins rulebook.
 
+chapter staing
+
+this is the impractical game state check rule:
+	if number of unsolved primary directions > 0 and number of not unsolved secondary directions > 0:
+		say "NOTE: this produces a nonviable game state, because you have made progress on the secondary directions while not all the primary directions are solved.";
+
+rule for supplying a missing noun when staing:
+	if number of secondary not stalemated directions is 0:
+		say "Nothing to change to stalemated.";
+	else:
+		say "Converting all secondary directions to stalemated.";
+		now all secondary directions are stalemated;
+	abide by the impractical game state check rule;
+	reject the player's command;
+
+staing is an action applying to one visible thing.
+
+understand the command "sta" as something new.
+
+understand "sta [direction]" as staing.
+understand "sta" as staing.
+
+carry out staing:
+	if noun is stalemated, say "But [noun] is already stalemated." instead;
+	if noun is not secondary, say "You can only set the secondary directions [list of secondary directions] to stalemated." instead;
+	say "Setting [noun] to stalemated.";
+	now noun is stalemated;
+	abide by the impractical game state check rule;
+	the rule succeeds;
+
 chapter wipeing
 
 rule for supplying a missing noun when wipeing:
@@ -38,6 +68,7 @@ carry out wipeing:
 	if noun is not questable, say "You can't wipe [q of noun], since it doesn't exist." instead;
 	say "[if noun is unsolved](Wiping anyway, even though [noun] wasn't solved.)[else]Wiped defeating [q of noun] from the record.[end if]";
 	now noun is unsolved;
+	abide by the impractical game state check rule;
 	the rule succeeds;
 
 chapter testlisting
