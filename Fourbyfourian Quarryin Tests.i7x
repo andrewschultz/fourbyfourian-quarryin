@@ -9,6 +9,8 @@ report metaing:
 	say "[b]TL[b] lists the tests for the different directions.";
 	say "[b]PIE[b] shows where all the pieces are.";
 	say "[b]WIPE[b] wipes a direction, or all, with no arguments.";
+	say "[b]SOL[b] solves a direction. No arguments chooses a random one.";
+	say "[b]STA[b] stalemates a direction. No arguments chooses a random unstalemated one. Unstalemated includes solved.";
 
 chapter when play begins
 
@@ -17,11 +19,49 @@ when play begins (this is the set debug state rule):
 
 the set debug state rule is listed first in the when play begins rulebook.
 
+chapter solveing
+
+to say by-force of (n - a number):
+	say "[if n > 1]at random[else]by force[end if]"
+
+rule for supplying a missing noun when solveing:
+	if number of primary not solved directions > 0:
+		now noun is a random primary not solved direction;
+		say "Picking [noun] [by-force of number of primary not solved directions].";
+	else if number of secondary not solved directions > 1:
+		let X be the list of secondary not solved directions;
+		if number of secondary solved directions is 0:
+			remove southeast from X, if present;
+		let Y be a random number from 1 to number of entries in X;
+		now noun is entry Y in X;
+		say "Picking [noun][by-force of number of entries in X].";
+	else if number of secondary not solved directions is 1:
+		say "That might break things. You only have one direction left: [a random secondary not solved direction].";
+		reject the player's command;
+	else:
+		say "You should have won the game.";
+		reject the player's command;
+	reject the player's command;
+
+solveing is an action applying to one visible thing.
+
+understand the command "sol" as something new.
+
+understand "sol [direction]" as solveing.
+understand "sol" as solveing.
+
+carry out solveing:
+	if noun is solved, say "You've already solved [noun]." instead;
+	say "Setting [noun] to solved.";
+	now noun is solved;
+	abide by the impractical game state check rule;
+	the rule succeeds;
+
 chapter staing
 
 this is the impractical game state check rule:
 	if number of unsolved primary directions > 0 and number of not unsolved secondary directions > 0:
-		say "NOTE: this produces a nonviable game state, because you have made progress on the secondary directions while not all the primary directions are solved.";
+		say "NOTE: you're currently in a nonviable game state, because you have made progress on the secondary directions while not all the primary directions are solved.";
 
 rule for supplying a missing noun when staing:
 	if number of secondary not stalemated directions is 0:
