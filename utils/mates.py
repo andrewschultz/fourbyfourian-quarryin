@@ -64,19 +64,20 @@ def on_board(a, b):
 def loc(a):
     return chr(a[0] + 97) + chr(49 + a[1])
 
-def print_moves(placements, knight_1, knight_2, count):
+def print_moves(placements, knight_1, knight_2, count, checkmate):
     placements = (placements[3], placements[1], placements[2], placements[0])
-    test_string = 'test g{}{}{} with "'.format(pshort[knight_1], pshort[knight_2], count)
+    test_case = "{}{}{}{}".format('c' if checkmate else 's', pshort[knight_1], pshort[knight_2], count)
+    prefix = 'test {} with "'.format(test_case)
     num_knights = knight_1 + knight_2
-    if num_knights == 1:
-        test_string += "s"
-    elif num_knights == 2:
-        test_string += "se"
-    else:
-        test_string += "e"
+    dir_from_kt = ['e', 's', 'se']
+    move_array = [ dir_from_kt[num_knights] ]
     count = 0
     for a in placements:
-        test_string += "/" + loc(a) + "/place "
+        if a == (2, 2) and count == 0:
+            pass
+        else:
+            move_array.append(loc(a))
+        test_string = "place "
         if count == 0 or count == 3:
             test_string += "king"
         elif num_knights == 2:
@@ -85,9 +86,19 @@ def print_moves(placements, knight_1, knight_2, count):
             test_string += "friendly knight" if count == 1 else "second knight"
         else:
             test_string += "n" if ((count == 1) == knight_1) else "b"
+        move_array.append(test_string)
         count += 1
-    test_string += '". [auto-generated]'
-    print(test_string)
+    print(prefix + '/'.join(move_array) + '". [auto-generated]')
+    print()
+    # print("#test case {}".format(test_case))
+    print("> ; TEST CASE {}".format(test_case))
+    for x in move_array:
+        print("> " + x.upper())
+    print("> WIPE {}".format(loc(a).upper()))
+    print("DEBUG: Bang! Got him.")
+    print("> OUT")
+    print("You need to specify a compass direction to go out from the Ministry of Unity.")
+    print()
 
 def print_board(my_perm, blocked, knight_1, knight_2):
     for y in range(4, -1, -1):
@@ -149,10 +160,12 @@ def get_mates(knight_1, knight_2, wanted_mate = BOTH_MATES):
         else:
             bishop_block(p[2], blocked, p)
         trapped = True
+        checkmate = False
         for i in range (-1, 2):
             for j in range (0, 2):
                 temp = blocked[(p[0][0] + i, p[0][1] + j)]
                 if i == 0 and j == 0:
+                    checkmate = temp
                     if wanted_mate == BOTH_MATES:
                         continue
                     if wanted_mate == STALEMATE:
@@ -197,7 +210,7 @@ def get_mates(knight_1, knight_2, wanted_mate = BOTH_MATES):
                 same_color_bishop = " (SAME COLORED BISHOPS)"
         print("BAM! Solution # {} for {}{}.".format(count, this_mate, same_color_bishop))
         print_board(p, blocked, knight_1, knight_2)
-        print_moves(p, knight_1, knight_2, count)
+        print_moves(p, knight_1, knight_2, count, checkmate)
     return "Total # for {} = {}\n".format(this_mate, count)
 
 end_string = ''
