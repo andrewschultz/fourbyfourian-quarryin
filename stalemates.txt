@@ -1,10 +1,12 @@
-The legend here is K=your king, k=enemy king, B=bishop, N=knight.
+This document is strictly for entertainment. It won't help you much with the walkthrough, though it does give solutions to the three later stalemate puzzles. It should show all possible ways to stalemate the kings in the south, east and southeast.
 
-Also note that there are rotations and reflections and also situations where you can shift everyone over one square on the board. These are ignored. Anything you find should (SHOULD) have been swept up by the Python program I wrote.
+Note that there are rotations and reflections and also situations where you can shift everyone over one square on the board. These are ignored for brevity. I wrote a Python program and then double-checked it, though there's a possibility of bugs. It will be at http://github.com/andrewschultz/fourbyfourian-quarryin/utils/mates.py.
+
+The legend here is K=your king, k=enemy king, B=bishop, N=knight.
 
 =========================Summary of possible bishop / bishop stalemates, opposite color.
 
-Note that this ignores cases where you have a king-bishop-king battery, as they game rejects them.
+Note that this ignores cases where you have a king-bishop-king battery vertically or horizontally, because the game disallows them for checkmates.
 
 +-+-+-+-+-+
 | | | | |+|
@@ -92,7 +94,7 @@ Note that this ignores cases where you have a king-bishop-king battery, as they 
 
 =========================Summary of possible bishop / bishop stalemates, same color.
 
-These are a bit tougher, because you can't cover quite as many squares at once. But they're still possible.
+These are a bit tougher, because two bishops of the same color can cover only about half the board (12 or 13 of 25.) But stalemate is still possible.
 
 +-+-+-+-+-+
 | | | |+| |
