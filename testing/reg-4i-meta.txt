@@ -1,0 +1,40 @@
+# reg-4i-meta.txt
+## generated manually looking through verbs
+
+** game: /home/andrew/prt/debug-fourbyfourian-quarryin.z8
+** interpreter: /home/andrew/prt/dfrotz -m -w 5000
+
+* main-thru
+
+> VERBS
+Meta-verbs and options are discussed in
+> VERB
+Meta-verbs and options are discussed in
+> V
+!Meta-verbs and options are discussed in
+
+> ABB
+You can also use spaces in these abbreviations, if you don't like the weird nonsense words or whatever.
+And yes, it's also worth noting and snickering at, if you wish, how ABB is not as abbreviated as A for about. But I figure people will see ABOUT first.
+
+> AB
+You can also use spaces in these abbreviations, if you don't like the weird nonsense words or whatever.
+!And yes, it's also worth noting and snickering at, if you wish, how ABB is not as abbreviated as A for about. But I figure people will see ABOUT first.
+
+> CREDITS
+Thanks to chess.com, lichess.org, chessgames.com, and everyone
+
+> CREDIT
+Thanks to chess.com, lichess.org, chessgames.com, and everyone
+
+> CR
+Thanks to chess.com, lichess.org, chessgames.com, and everyone
+
+> C
+Thanks to chess.com, lichess.org, chessgames.com, and everyone
+
+> ABOUT
+Fourbyfourian Quarryin' is a sequel to Fivebyfivia Delenda Est, my entry in the 2021 ParserComp.
+
+> A
+Fourbyfourian Quarryin' is a sequel to Fivebyfivia Delenda Est, my entry in the 2021 ParserComp.

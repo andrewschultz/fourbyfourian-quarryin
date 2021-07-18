@@ -764,6 +764,7 @@ to decide whether you-checkmated:
 	yes;
 
 this is the stalemate dialogue rule:
+	if debug-state is true, say "DEBUG: Stalemate achieved!";
 	if quest-dir is primary:
 		say "Oh no! You managed to trap the king but not attack him. I don't think there's a way to find this sort of stalemate, so it's impressive that you did.";
 	else if quest-dir is stalemated:
@@ -833,7 +834,7 @@ carry out calling:
 		if you-checkmated:
 			abide by the checkmate dialogue rule;
 			abide by right-checkmate of quest-dir;
-			if debug-state is true, say "DEBUG: Bang! Got him.";
+			if debug-state is true, say "DEBUG: Checkmate achieved.";
 			now quest-dir is solved;
 			now last-solved is quest-dir;
 			if number of to-solve directions is 0:
@@ -1051,8 +1052,10 @@ chapter about
 abouting is an action out of world.
 
 understand the command "about" as something new.
+understand the command "a" as something new.
 
 understand "about" as abouting.
+understand "a" as abouting.
 
 carry out abouting:
 	say "[this-game] is a sequel to [5b], my entry in the 2021 ParserComp. I first had the idea for [this-game] a week or so before the deadline. Obviously, I couldn't do much with it besides write out the basic stuff. Most of the puzzles revolve around checkmates with very few pieces left on the board. I wondered how many I could find. I had some problems with solutions being too similar. But it seemed there was enough for a challenging game.";
@@ -1063,8 +1066,14 @@ chapter credits
 creditsing is an action out of world.
 
 understand the command "credits" as something new.
+understand the command "credit" as something new.
+understand the command "cr" as something new.
+understand the command "c" as something new.
 
 understand "credits" as creditsing.
+understand "credit" as creditsing.
+understand "cr" as creditsing.
+understand "c" as creditsing.
 
 carry out creditsing:
 	say "Thanks to chess.com, lichess.org, chessgames.com, and everyone who helped chess streaming become popular during the pandemic. It saved my sanity enough to write [this-game], which will hopefully not take too much of yours. Thanks to Adam Sommerfield for ParserComp, which led to this game.";
@@ -1089,6 +1098,7 @@ understand "d [direction]" as detailing.
 
 carry out detailing:
 	if noun is primary, say "I remember discovering a minor piece vs. minor piece checkmate many years ago. Then I discovered a couple others. It always amused me. A post on chess.stackexchange brought old memories of this. You may be amused to note that, because of the possibility of checkmate even with cooperative play, professional blitz-chess play may allow participants to claim a forfeit with minor piece vs. minor piece, but they could not with minor piece vs. king." instead;
+	if noun is not questable, say "There are no quests [noun]." instead;
 	if quest-details of noun is empty, say "There are no details for this, but there should be." instead;
 	say "[quest-details of noun]";
 	the rule succeeds;
