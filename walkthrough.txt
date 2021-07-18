@@ -108,6 +108,8 @@ But now things may get a bit trickier. The enemy king is too smart to be suckere
 
 Here's some general logic: if the enemy king is on the side, that's five escape squares you must stake out, including the check square. Each knight can stake out at most two squares, kitty-corner from each other, in the 3x2 rectangle you need to cover. That leaves at least two squares for your king. A solution is below. Using square names to jump around makes things a bit quicker here.
 
+But first the stalemate. Here is one I found particularly entertaining:
+
 +-+-+-+-+-+
 | | | | | |
 +-+-+-+-+-+
@@ -126,7 +128,39 @@ This is the only solution--apart from moving your king to a1, which is only triv
 
 ======================================== EAST (two bishops):
 
-Since again you can't force the enemy king into the corner, you need to find a way to take care of it when it is on the edge. Here's where it gets a bit complex. The enemy king is claustrophobic enough that having a bishop in front of him and a king behind the bishop makes him suspicious. But diagonal? That's okay.
+Since again you can't force the enemy king into the corner, you need to find a way to take care of it when it is on the edge. Here's where it gets a bit complex. The enemy king is claustrophobic enough that having a bishop in front of him and a king behind the bishop makes him suspicious. But diagonal? That's okay. He can see your king from there.
+
+I included two of my favorite stalemates. The first could happen in a real game. The player with the bishops wants to push the lone king against the side of the board, but they need to make a waiting move with their bishop, not come in with their king, to push the lone king into the corner. The first example shows what happens if the player with the bishops doesn't know how to roll the king up.
+
++-+-+-+-+-+
+| | | | | |
++-+-+-+-+-+
+| | | | | |
++-+-+-+-+-+
+| |B|B| | |
++-+-+-+-+-+
+| | | | | |
++-+-+-+-+-+
+|K| |k| | |
++-+-+-+-+-+
+
+place b/w/place b/a1/place k/c1/place k
+
+Below is an alternate stalemate. Note the bishops are on same-colored squares, which never happens unless you deliberately underpromote one, which is very rare indeed. But it's still a tidy, compact solution.
+
++-+-+-+-+-+
+| | | | | |
++-+-+-+-+-+
+| | | | | |
++-+-+-+-+-+
+| |B|K|B| |
++-+-+-+-+-+
+| | | | | |
++-+-+-+-+-+
+| | |k| | |
++-+-+-+-+-+
+
+place k/w/place b/d3/place b/c1/place k
 
 Also, the game deliberately pokes you so you can't have a similar position for 2B as for 2N. Note you can just swap the knights for bishops above and get a checkmate. But this doesn't work: either it's done before, or doing it now might spoil the surprise for later when it's necessary.
 
@@ -144,7 +178,7 @@ Also, the game deliberately pokes you so you can't have a similar position for 2
 
 e/place b/a3/place k/se/place b/s/place k
 
-The following proper checkmates are thus rejected:
+The following legal (if unusual in practical play) checkmates are thus rejected:
 
 +-+-+-+-+-+
 | | | | | |
@@ -158,23 +192,39 @@ The following proper checkmates are thus rejected:
 | | |k| | |
 +-+-+-+-+-+
 
-This is too much like the two-knights' mate, so it was a judgement call on my part. I wanted to have you find alternate solutions.
+This is too much like the two-knights' mate, so it was a judgement call on my part to discourage it. I wanted to have you find solutions where you didn't drop the minor pieces on the same squares each time.
 
 +-+-+-+-+-+
-| |+|+| | |
+| | | | | |
 +-+-+-+-+-+
-| |+|+| |+|
+| | | | | |
 +-+-+-+-+-+
 |B| | |B| |
 +-+-+-+-+-+
-| |+|+|+|+|
+| | | | | |
 +-+-+-+-+-+
-| |+|k|+|K|
+| | |k| |K|
 +-+-+-+-+-+
 
 ======================================== SOUTHEAST (bishop and knight):
 
-There are two ways to do things, since you are not restricted by the claustrophobia with the two bishops.
+Stalemate has many options here. The simplest is to make a king-bishop-king battery, but one I like is below. It is not the most convenient or efficient.
+
++-+-+-+-+-+
+| | | | | |
++-+-+-+-+-+
+| | | | | |
++-+-+-+-+-+
+|N| | | | |
++-+-+-+-+-+
+| | | | | |
++-+-+-+-+-+
+|B| |k| |K|
++-+-+-+-+-+
+
+a3/place n/a1/place b/e1/place k/c1/place k
+
+There are two ways to checkmate, since you are not restricted by the claustrophobia with the two bishops.
 
 +-+-+-+-+-+
 | | | | | |
