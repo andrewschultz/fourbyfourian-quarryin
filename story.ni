@@ -49,6 +49,9 @@ to say 12n: say "[12b]n"
 to say q of (d - a direction):
 	say "[printed name of d in title case] [4b]";
 
+to say cq:
+	say "[q of quest-dir]"
+
 to say email: say "blurglecruncheon@gmail.com"
 
 to say github: say "https://github.com/andrewschultz/fourbyfourian-quarryin"
@@ -234,10 +237,6 @@ the hub check rule is listed first in the check going rulebook.
 
 the note boundaries rule is listed before the can't go that way rule in the check going rulebook.
 
-to decide what indexed text is conquest of (d - a direction):
-	let temp be "[d]" in title case;
-	decide on "[temp] [4b]"
-
 check going outside:
 	try exiting instead;
 
@@ -267,7 +266,7 @@ check going (this is the hub check rule):
 		if noun is solved, say "You already conquered [noun] [4b]." instead;
 		abide by visit-text of noun;
 		now quest-dir is noun;
-		say "You head to [conquest of noun]. Your allies for this quest are [summary-text of noun][if quest-dir is southeast and quest-dir is not tried]. A courtier whispers to you at the last moment: [q of southeast] has been split in two! There are rival kings fighting for supremacy. That means more to do. Well, this is the last land to conquer[end if].";
+		say "You head to [cq]. Your allies for this quest are [summary-text of noun][if quest-dir is southeast and quest-dir is not tried]. A courtier whispers to you at the last moment: [q of southeast] has been split in two! There are rival kings fighting for supremacy. That means more to do. Well, this is the last land to conquer[end if].";
 		new-quest;
 		move player to c3;
 		if quest-dir is stalemated and already-solved of quest-dir is not empty:
@@ -310,23 +309,23 @@ instead of doing something other than examining map of the fourbyfourias:
 
 chapter the grid
 
-a room has a number called xval. a room has a number called yval. a room has text called room-edge-text. the description of a room is usually "You are [room-edge-text of the item described]. You can go [if number of viable directions is 8]any which way[else][list of viable directions][end if]."
+a room has a number called xval. a room has a number called yval. a room has text called room-edge-text. the description of a room is usually "You are [room-edge-text of the item described] of the main hall of the royal [cq]n castle. You can go [if number of viable directions is 8]any which way[else][list of viable directions][end if]."
 
 a room can be guarded. A room is usually not guarded.
 
 offsite is a room. xval of offsite is -3. yval of offsite is -3.
 
-a1 is a room. xval of a1 is 0. yval of a1 is 0. room-edge-text is "at the relatively inaccessible southwest corner".
+a1 is a room. xval of a1 is 0. yval of a1 is 0. room-edge-text is "at the dangerously remote southwest corner".
 
-b1 is a room. xval of b1 is 1. yval of b1 is 0. room-edge-text is "on the south edge and near the west edge".
+b1 is a room. xval of b1 is 1. yval of b1 is 0. room-edge-text is "west a bit on the south edge".
 
 c1 is a room. xval of c1 is 2. yval of c1 is 0. room-edge-text is "in the center of the south edge".
 
-d1 is a room. xval of d1 is 3. yval of d1 is 0. room-edge-text is "on the south edge and near the east edge".
+d1 is a room. xval of d1 is 3. yval of d1 is 0. room-edge-text is "east a bit on the south edge".
 
-e1 is a room. xval of e1 is 4. yval of e1 is 0. room-edge-text is "at the relatively inaccessible southeast corner".
+e1 is a room. xval of e1 is 4. yval of e1 is 0. room-edge-text is "at the dangerously remote southeast corner".
 
-a2 is a room. xval of a2 is 0. yval of a2 is 1. room-edge-text is "on the west edge and near the south edge".
+a2 is a room. xval of a2 is 0. yval of a2 is 1. room-edge-text is "south a bit on the west edge".
 
 b2 is a room. xval of b2 is 1. yval of b2 is 1. room-edge-text is "in a southwest-ish area".
 
@@ -334,7 +333,7 @@ c2 is a room. xval of c2 is 2. yval of c2 is 1. room-edge-text is "just south of
 
 d2 is a room. xval of d2 is 3. yval of d2 is 1. room-edge-text is "in a southeast-ish area".
 
-e2 is a room. xval of e2 is 4. yval of e2 is 1. room-edge-text is "on the east edge and near the south edge".
+e2 is a room. xval of e2 is 4. yval of e2 is 1. room-edge-text is "south a bit on the east edge".
 
 a3 is a room. xval of a3 is 0. yval of a3 is 2. room-edge-text is "at the center of the west edge".
 
@@ -346,7 +345,7 @@ d3 is a room. xval of d3 is 3. yval of d3 is 2. room-edge-text is "just east of 
 
 e3 is a room. xval of e3 is 4. yval of e3 is 2. room-edge-text is "at the center of the east edge".
 
-a4 is a room. xval of a4 is 0. yval of a4 is 3. room-edge-text is "on the west edge and near the north edge".
+a4 is a room. xval of a4 is 0. yval of a4 is 3. room-edge-text is "north a bit on the west edge".
 
 b4 is a room. xval of b4 is 1. yval of b4 is 3. room-edge-text is "in a northwest-ish area".
 
@@ -354,17 +353,17 @@ c4 is a room. xval of c4 is 2. yval of c4 is 3. room-edge-text is "just north of
 
 d4 is a room. xval of d4 is 3. yval of d4 is 3. room-edge-text is "in a northeast-ish area".
 
-e4 is a room. xval of e4 is 4. yval of e4 is 3. room-edge-text is "on the east edge and near the north edge".
+e4 is a room. xval of e4 is 4. yval of e4 is 3. room-edge-text is "north a bit on the east edge".
 
-a5 is a room. xval of a5 is 0. yval of a5 is 4. room-edge-text is "at the relatively inaccessible northwest corner".
+a5 is a room. xval of a5 is 0. yval of a5 is 4. room-edge-text is "at the dangerously remote northwest corner".
 
-b5 is a room. xval of b5 is 1. yval of b5 is 4. room-edge-text is "on the north edge and near the west edge".
+b5 is a room. xval of b5 is 1. yval of b5 is 4. room-edge-text is "west a bit on the north edge".
 
 c5 is a room. xval of c5 is 2. yval of c5 is 4. room-edge-text is "in the center of the north edge".
 
-d5 is a room. xval of d5 is 3. yval of d5 is 4. room-edge-text is "on the north edge and near the east edge".
+d5 is a room. xval of d5 is 3. yval of d5 is 4. room-edge-text is "east a bit on the south edge".
 
-e5 is a room. xval of e5 is 4. yval of e5 is 4. room-edge-text is "at the relatively inaccessible northeast corner".
+e5 is a room. xval of e5 is 4. yval of e5 is 4. room-edge-text is "at the dangerously remote northeast corner".
 
 to decide which room is reverse-room of (x - a number) and (y - a number):
 	repeat with Q running through rooms:
