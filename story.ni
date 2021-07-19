@@ -167,6 +167,8 @@ include Debug Levels and Checks by Andrew Schultz.
 
 volume starting
 
+current-quest-snapshot is a list of rooms variable.
+
 volume rooms
 
 to decide which number is the parity of (r - a room):
@@ -531,6 +533,10 @@ a direction has a rule called misc-checks. misc-checks of a direction is usually
 
 a direction has a list of rooms called already-solved.
 
+a direction has a list of rooms called stalemate-recap.
+
+a direction has a list of rooms called checkmate-recap.
+
 a direction has text called quest-details.
 
 a direction has text called hint-text.
@@ -691,7 +697,9 @@ chapter calling
 
 does the player mean calling a reserved piece which is not the Fourbyfourian king: it is very likely.
 
-does the player mean calling first-piece of quest-dir when first-piece of quest-dir is reserved and second-piece of quest-dir is reserved: it is likely.
+does the player mean calling first-piece of quest-dir when first-piece of quest-dir is reserved: it is likely.
+
+does the player mean calling second-piece of quest-dir when first-piece of quest-dir is placed and second-piece of quest-dir is reserved: it is likely.
 
 does the player mean calling a placed piece: it is unlikely.
 
@@ -772,6 +780,7 @@ this is the stalemate dialogue rule:
 	else:
 		now quest-dir is stalemated;
 		say "Oh my! The Fourbyfourian king is trapped, but not too trapped. After a lot of verbal manipulation, you manage to convince him that this show of almost-force is just standard negotiating technique, and if he can't trust you, who can he trust?[paragraph break]The diplomatic maneuver is thus a success. After a few hours, you take leave, confident your little feint will keep the Fourbyfourian king off-guard enough, you will get him next time.";
+		now stalemate-recap of quest-dir is current-quest-snapshot;
 	retreat-to-unity;
 	the rule succeeds;
 
@@ -786,14 +795,17 @@ this is the checkmate dialogue rule:
 			say "Drat! You were a bit too aggressive. Perhaps if there were a way to make the Fourbyfourian king feel almost-trapped but let him off the hook ... then he could be suckered. But not now.";
 		if already-solved of quest-dir is empty:
 			say "Perhaps this will work later. You note the position in your head. Some scribe will write it down. Perhaps once you've gained the Fourbyfourian king's trust you won't attack him. Then, you can even say 'Ha, if I were going to fool you, I wouldn't use this exact same formation you'd been suspicious of, earlier.' People fall for that, even when they should know better.";
-			add location of Twelvebytwelvian king to already-solved of quest-dir;
-			add location of first-piece of quest-dir to already-solved of quest-dir;
-			add location of second-piece of quest-dir to already-solved of quest-dir;
-			add location of Fourbyfourian king to already-solved of quest-dir;
+			now checkmate-recap of quest-dir is current-quest-snapshot;
 		else:
 			say "So that's another way to take down [q of quest-dir] when the time is right. Nice, though you only need one.";
 		retreat-to-unity;
 		the rule succeeds;
+
+to decide which number is status-index of noun:
+	if noun is Twelvebytwelvian king, decide on 1;
+	if noun is first-piece of quest-dir, decide on 2;
+	if noun is second-piece of quest-dir, decide on 3;
+	decide on 4;
 
 carry out calling:
 	if location of player is Ministry of Unity, say "You don't need to call allies until you're away from the Ministry." instead;
@@ -813,6 +825,8 @@ carry out calling:
 			move noun to offsite;
 			now noun is reserved;
 			the rule succeeds;
+	now entry (status-index of noun) of current-quest-snapshot is location of player;
+	say "[current-quest-snapshot].";
 	update-guarded;
 	if noun is Fourbyfourian king:
 		if number of reserved pieces > 1:
@@ -836,6 +850,7 @@ carry out calling:
 			abide by right-checkmate of quest-dir;
 			if debug-state is true, say "DEBUG: Checkmate achieved.";
 			now quest-dir is solved;
+			now checkmate-recap of quest-dir is current-quest-snapshot;
 			now last-solved is quest-dir;
 			if number of to-solve directions is 0:
 				say "You win, yay!";
@@ -863,6 +878,7 @@ to new-quest:
 	now all kings are reserved;
 	now first-piece of quest-dir is reserved;
 	now second-piece of quest-dir is reserved;
+	now current-quest-snapshot is { Ministry, Ministry, Ministry, Ministry };
 	reset-board;
 
 to reset-board:
@@ -1178,12 +1194,19 @@ understand "r " as recaping.
 rule for supplying a missing noun when recaping:
 	now the noun is last-solved;
 
+to say list-out of (L - a list of rooms) and (d - a direction):
+	say "[the Twelvebytwelvian king] at [entry 1 of L], [the first-piece of D] at [entry 2 of L], [the second-piece of D] at [entry 3 of L], and [the Fourbyfourian king] at [entry 4 of L]";
+
 carry out recaping:
 	if number of solved directions is 0, say "You have no conquers to recap. Yet." instead;
 	if noun is not questable, say "That's not a [4b] to conquer." instead;
 	if noun is not solved, say "You haven't taken over [q of noun] yet." instead;
 	if recap-text of noun is empty, say "[q of noun] needs recap text." instead;
-	say "[recap-text of noun]." instead;
+	say "[recap-text of noun]";
+	say "[line break]Here are specifics of conquering [q of noun]:[line break]";
+	if noun is secondary:
+		say "[line break][if noun is solved]Y[else]So far, y[end if]ou gained the enemy king's trust (stalemated) with [list-out of stalemate-recap of noun and noun].";
+	say "[line break]You [if noun is secondary]then [end if]captured the enemy king (checkmated) with [list-out of checkmate-recap of noun and noun].";
 	the rule succeeds;
 
 chapter toggleing
@@ -1222,7 +1245,7 @@ understand "v" as verbsing.
 to say verbs: say "[b]VERBS[r] or [b]VERB[r] or [b]V[r]"
 
 carry out verbsing:
-	say "In [this-game] you have some pared-down commands. The big ones are that you can move in any of the eight basic directions, abbreviated as follows: [b]N[r], [b]S[r], [b]E[r], [b]W[r], [b]NW[r], [b]NE[r], [b]SW[r], [b]SE[r]. [b]OUT[r] anywhere but the [ministry] returns you to the [ministry].[paragraph break]You can also go to a square when you're not in the Ministry of Unity. So typing [b]a1[r] sends you to a1, etc.[paragraph break]You can also [b]CALL[r]/[b]C[r] or [b]PLACE[r]/[b]P[r] a piece, enemy or friendly. These have abbreviations, too: [b]ABB[r] finds them.[paragraph break]Meta-verbs and options are discussed in [b]META[r] ([b]MET[r]/[b]ME[r]).";
+	say "[this-game] uses a simplified parser. The main commands are the planar directions: [b]N[r], [b]S[r], [b]E[r], [b]W[r], [b]NW[r], [b]NE[r], [b]SW[r], [b]SE[r]. [b]U[r] and [b]D[r], for up and down, aren't used. [b]OUT[r] anywhere but the [ministry] returns you to the [ministry].[paragraph break]You can also ignore directions to jump to a square when you're not in the Ministry of Unity. So typing [b]a1[r] sends you to a1, etc.[paragraph break]You can also [b]CALL[r]/[b]C[r] or [b]PLACE[r]/[b]P[r] a piece, enemy or friendly. These have abbreviations, too: [b]ABB[r] finds them.[paragraph break]Meta-verbs and options are discussed in [b]META[r] ([b]MET[r]/[b]ME[r]).";
 	the rule succeeds;
 
 volume amusing post-game
