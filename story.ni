@@ -361,7 +361,7 @@ b5 is a room. xval of b5 is 1. yval of b5 is 4. room-edge-text is "west a bit on
 
 c5 is a room. xval of c5 is 2. yval of c5 is 4. room-edge-text is "in the center of the north edge".
 
-d5 is a room. xval of d5 is 3. yval of d5 is 4. room-edge-text is "east a bit on the south edge".
+d5 is a room. xval of d5 is 3. yval of d5 is 4. room-edge-text is "east a bit on the north edge".
 
 e5 is a room. xval of e5 is 4. yval of e5 is 4. room-edge-text is "at the dangerously remote northeast corner".
 
@@ -1038,7 +1038,6 @@ carry out colorchating:
 	say "I wanted to choose 'opposite' colors from the red/yellow/blue primary and secondary colors. Blue and orange is only nice if you're a Chicago Bears fan or, worse, you actually enjoyed going to the high school I attended, you utter bum, you. Red and green is for, well, Red Green or Santa Claus, both of whom are cool and all, but not for this game. I considered brown and tan, to underscore that there wasn't any difference, but it didn't work. But I wanted to avoid the white/black seen in chess.[paragraph break]I also wanted to avoid words that started with N, B or K, because I wanted the color abbreviations to make things clearer, not confuse people.";
 	the rule succeeds;
 
-
 chapter abbing
 
 abbing is an action out of world.
@@ -1074,6 +1073,25 @@ understand "a" as abouting.
 
 carry out abouting:
 	say "[this-game] is a sequel to [5b], my entry in the 2021 ParserComp. I first had the idea for [this-game] a week or so before the deadline. Obviously, I couldn't do much with it besides write out the basic stuff. Most of the puzzles revolve around checkmates with very few pieces left on the board. I wondered how many I could find. I had some problems with solutions being too similar. But it seemed there was enough for a challenging game.";
+	the rule succeeds;
+
+chapter ching
+
+ching is an action out of world.
+
+understand the command "chess" as something new.
+understand the command "ch" as something new.
+
+understand "chess" as ching.
+understand "ch" as ching.
+
+carry out ching:
+	say "The rules of chess are that each player gets alternate turns, but here, you get to move as much as you want.";
+	say "[line break]The only pieces you need to worry about are the knight, bishop and king.";
+	say "[line break]The king can move one square in any direction, straight or diagonally. While you'll probably want to put the [4n] king in check (a bishop or knight can attack it,) you don't want the [12n] king in check. You also can't place opposing kings next to each other.";
+	say "[line break]Bishops can move diagonally across the length of the board, but they can't jump over other pieces. You'll usually want bishops on the same color squares, to maximize the total squares they cover.";
+	say "[line break]Knights move one square vertically and two squares horizontally, or two horizontally and one vertically. Even if other pieces, enemy or friendly, are in the way.";
+	say "[line break]After placing a friendly piece, you should be able to use [b]MAP[r] to see what squares are attacked.";
 	the rule succeeds;
 
 chapter credits
@@ -1133,7 +1151,7 @@ understand "h" as hinting.
 carry out hinting:
 	if walkthrough-hint is false:
 		now walkthrough-hint is true;
-		say "NOTE: if you want full hints, the walkthrough.txt file that came with this binary should have the details. This tries to give you hints without spoiling anything." instead;
+		say "NOTE: if you want full hints, the walkthrough.txt file that came with this binary should have the details. This command tries to give you hints without spoiling anything." instead;
 	if player is in Ministry of Unity, say "You have nothing to do in the [unity], but you can hint a direction if you want, for specific [4b]s." instead;
 	if debug-state is false:
 		abide by the visit-text of noun;
@@ -1172,7 +1190,7 @@ understand "me" as metaing.
 
 carry out metaing:
 	say "Here is a list of meta-verbs and options you can use. None are necessary to complete the game, but they can all be useful.";
-	say "[line break][b]ABOUT[r] or [b]A[r] tells about the game. [b]CREDITS[r] or [b]C[r] tells more technical details and thanks testers.";
+	say "[line break][b]ABOUT[r] or [b]A[r] tells about the game. [b]CREDITS[r] or [b]C[r] tells more technical details and thanks testers. [b]CHESS[r] or [b]CH[r] gives the relevant rules of chess.";
 	say "[line break][b]MAP[r] or [b]M[r] or [b]BOARD[r] or [b]B[r] shows the current map. [b]TOGGLE[r] or [b]T[r] toggles the map.";
 	say "[line break][b]HINT[r] or [b]H[r] hints your current area or, if you give a direction, an area you've tried but haven't beaten yet.";
 	if number of solved directions > 0, say "[line break][b]R[r] or [b]RECAP[r] is available to recap areas you've solved. By default, it goes to the last one, but you can specify a direction.";
@@ -1382,7 +1400,7 @@ when play begins (this is the randomizing colors rule):
 		now second-piece of east is yellow bishop;
 
 after printing the locale description when instructions-given is false:
-	say "[bracket][b]NOTE[r]: to get you started, [b]ABOUT[r] will give general information about [this-game]. [verbs] will show common verbs, which usually have abbreviations.[close bracket][line break]";
+	say "[bracket][b]NOTE[r]: to get you started, [b]ABOUT[r] or [b]A[r] will give general information about [this-game]. [verbs] will show common verbs, which usually have abbreviations, and [b]CHESS[r] or [b]CH[r] will give the relevant rules of chess.[close bracket][line break]";
 	now instructions-given is true;
 	continue the action;
 
