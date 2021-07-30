@@ -1,4 +1,22 @@
-Fourbyfourian Intrigue is divided into seven quest zones: four where you have an enemy ally and three where you have two allies. The third and final quest zone may seem arbitrary, but ... people who've seen the basics of chess endgames know that forcing checkmate with two knights is impossible without cooperation. So I considered it the toughest.
+Fourbyfourian Quarryin' is divided into seven quest zones: four where you have an enemy ally and three where you have two allies. The third and final quest zone may seem arbitrary, but ... people who've seen the basics of chess endgames know that forcing checkmate with two knights is impossible without cooperation. So I considered it the toughest.
+
++-----------+---+
+|           | N |
+|           |4b4|
+|           |   |
+|           +---+
+|           | NE|
+|           |4b4|
+|           |   |
+|           +---+
+|           | E |
+|           |4b4|
+|           |   |
++---+---+---+---+
+| W | SW| S | SE|
+|4b4|4b4|4b4|4b4|
+|   |   |   |   |
++---+---+---+---+
 
 The checkmate patterns for the bishop-and-(bishop or knight) areas are not forceable, but I found them interesting, and I hope you do too. Anyone who can checkmate with two bishops or bishop and knight is likely more than pretty good at chess.
 
