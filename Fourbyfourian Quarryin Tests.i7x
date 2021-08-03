@@ -19,6 +19,18 @@ when play begins (this is the set debug state rule):
 
 the set debug state rule is listed first in the when play begins rulebook.
 
+chapter amuing
+
+amuing is an action applying to nothing.
+
+understand the command "amu" as something new.
+
+understand "amu" as amuing.
+
+carry out amuing:
+	look-for-amuse false;
+	the rule succeeds.
+
 chapter pfing
 
 pfing is an action out of world.
@@ -108,9 +120,9 @@ tsring is an action out of world.
 
 understand the command "tsr" as something new.
 
-understand "tsr" as sring.
+understand "tsr" as tsring.
 
-carry out sring:
+carry out tsring:
 	now screen-reader is whether or not screen-reader is false;
 	say "Screen reader mode is now [on-off of screen-reader].";
 	the rule succeeds;
