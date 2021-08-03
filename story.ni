@@ -6,6 +6,18 @@ the story description is "A sequel to Fivebyfivia, because queens and rooks shou
 
 volume basics and definitions
 
+section project settings
+
+[cannot go into the common header]
+
+release along with a website.
+
+release along with the "Parchment" interpreter.
+
+release along with cover art.
+
+the release number is 1.
+
 section modules
 
 include Bypass Disambiguation by Climbing Stars.
@@ -912,7 +924,7 @@ carry out abouting:
 
 chapter ching
 
-carry out ching:
+carry out chessing:
 	say "The rules of chess are that each player gets alternate turns, but here, you get to move as much as you want.";
 	say "[line break]The only pieces you need to worry about are the knight, bishop and king.";
 	say "[line break]The king can move one square in any direction, straight or diagonally. While you'll probably want to put the [4n] king in check (a bishop or knight can attack it,) you don't want the [12n] king in check. You also can't place opposing kings next to each other.";
@@ -953,7 +965,7 @@ carry out detailing:
 
 chapter hinting
 
-carry out hinting:
+carry out helping:
 	if walkthrough-hint is false:
 		now walkthrough-hint is true;
 		say "NOTE: if you want full hints, the walkthrough.txt file that came with this binary should have the details. This command tries to give you hints without spoiling anything." instead;
