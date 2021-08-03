@@ -6,25 +6,11 @@ the story description is "A sequel to Fivebyfivia, because queens and rooks shou
 
 volume basics and definitions
 
-section release instructions
-
-release along with a website.
-
-release along with the "Parchment" interpreter.
-
-[release along with cover art.]
-
 section modules
-
-include Old School Verb Total Carnage by Andrew Schultz.
-
-include Trivial Niceties by Andrew Schultz.
 
 include Bypass Disambiguation by Climbing Stars.
 
-include Intro Restore Skip by Andrew Schultz.
-
-include Undo Output Control by Erik Temple.
+include Chess Common Functions by Andrew Schultz.
 
 include Fourbyfourian Quarryin Tests by Andrew Schultz.
 
@@ -32,19 +18,7 @@ section stuff only changed in debug mode
 
 jump-over is a truth state that varies.
 
-debug-state is a truth state that varies.
-
 section text shortcuts
-
-to say 4b: say "Fourbyfouria"
-
-to say 5b: say "[i]Fivebyfivia Delenda Est[r]"
-
-to say 12b: say "Twelvebytwelvia"
-
-to say 4n: say "[4b]n"
-
-to say 12n: say "[12b]n"
 
 to say q of (d - a direction):
 	say "[printed name of d in title case] [4b]";
@@ -52,13 +26,9 @@ to say q of (d - a direction):
 to say cq:
 	say "[q of quest-dir]"
 
-to say email: say "blurglecruncheon@gmail.com"
-
 to say github: say "https://github.com/andrewschultz/fourbyfourian-quarryin"
 
 section meta/option booleans
-
-screen-reader is a truth state that varies.
 
 map-view is a truth state that varies.
 
@@ -67,12 +37,6 @@ map-notes-flag is a truth state that varies.
 instructions-given is a truth state that varies.
 
 walkthrough-hint is a truth state that varies.
-
-section no rhetorical questions
-
-understand the command "y" as something new.
-understand the command "yes" as something new.
-understand the command "no" as something new. [these are to reject the "That was a rhetorical question" error, which can annoy players. ]
 
 section scoring
 
@@ -90,8 +54,6 @@ to say trusted-kings:
 	let SD be number of stalemated directions;
 	say "the king[if SD > 1]s[end if] of ";
 	say "[list of stalemated directions]";
-
-The print final score rule is not listed in the for printing the player's obituary rulebook.
 
 section tricky endgame manual
 
@@ -128,40 +90,6 @@ instead of doing something other than examining tricky endgame manual:
 check taking inventory:
 	say "All you have on you, besides various expensive rings and medals designating your position as a prominent [12n], is a tricky endgame manual. You can type [b]X[r] at any time outside the Ministry to see what needs to be done. Inside, [b]X[r] will examine the map." instead;
 
-book i6 modification(s)
-
-section Command-Line Verb Expansion
-
-Include (-
-Replace LanguageVerb;
--) after "Definitions.i6t".
-
-Include (-
-[ LanguageVerb i;
-	switch (i) {
-	'i//','inv','inventory': print "take inventory";
-	'l//':   print "look";
-	'x//':   print "examine";
-	'z//':   print "wait";
-	'about':  print "see info about the game";
-	'credit', 'credits': print "see the credits";
-	'c//', 'p//', 'call', 'place': print "(P)lace or (C)all";
-	'g//', 'gt//': print "go to";
-	'd//', 'detail': print "print details about";
-	default: rfalse;
-	}
-	rtrue;
-];
--) after "Language.i6t".
-
-
-Include (-
-
-#Undef AGAIN2__WD;
-Constant AGAIN2__WD = 'again';
-
--) after "Language.i6t".
-
 chapter modules not for release
 
 [add hyphen above to really Git Tuff on debug code]
@@ -181,26 +109,12 @@ to decide if (r1 - a room) and (r2 - a room) are samecolored:
 	if parity of r1 is parity of r2, yes;
 	no;
 
-to decide which number is edge-count of (r - a room):
-	let temp be 0;
-	if xval of r is 4 or yval of r is 4, increment temp;
-	if xval of r is 0 or yval of r is 0, increment temp;
-	decide on temp;
-
-definition: a room (called r) is edgy:
-	if edge-count of r > 0, yes;
-	no;
-
-definition: a room (called r) is cornery:
-	if edge-count of r is 2, yes;
-	no;
-
 to decide which number is quests-left:
 	decide on number of questable directions - number of solved directions.
 
 chapter central
 
-the Ministry of Unity is a room. xval is 8. yval is 8. "The planning has been done. [can-leave][tried].[paragraph break]A map of [12b] and the surrounding [4b]s adorns one wall. You can [b]X[r] or [b]EXAMINE[r] it for details, if you want.".
+the Ministry of Unity is a not puzzly room. xval is 8. yval is 8. "The planning has been done. [can-leave][tried].[paragraph break]A map of [12b] and the surrounding [4b]s adorns one wall. You can [b]X[r] or [b]EXAMINE[r] it for details, if you want.".
 
 to say can-leave:
 	if number of to-solve directions > 3:
@@ -311,74 +225,65 @@ chapter the grid
 
 a room has a number called xval. a room has a number called yval. a room has text called room-edge-text. the description of a room is usually "You are [room-edge-text of the item described] of the main hall of the royal [cq]n castle. You can go [if number of viable directions is 8]any which way[else][list of viable directions][end if]."
 
-a room can be guarded. A room is usually not guarded.
+room-edge-text of a1 is "at the dangerously remote southwest corner".
 
-offsite is a room. xval of offsite is -3. yval of offsite is -3.
+room-edge-text of b1 is "west a bit on the south edge".
 
-a1 is a room. xval of a1 is 0. yval of a1 is 0. room-edge-text is "at the dangerously remote southwest corner".
+room-edge-text of c1 is "in the center of the south edge".
 
-b1 is a room. xval of b1 is 1. yval of b1 is 0. room-edge-text is "west a bit on the south edge".
+room-edge-text of d1 is "east a bit on the south edge".
 
-c1 is a room. xval of c1 is 2. yval of c1 is 0. room-edge-text is "in the center of the south edge".
+room-edge-text of e1 is "at the dangerously remote southeast corner".
 
-d1 is a room. xval of d1 is 3. yval of d1 is 0. room-edge-text is "east a bit on the south edge".
+room-edge-text of a2 is "south a bit on the west edge".
 
-e1 is a room. xval of e1 is 4. yval of e1 is 0. room-edge-text is "at the dangerously remote southeast corner".
+room-edge-text of b2 is "in a southwest-ish area".
 
-a2 is a room. xval of a2 is 0. yval of a2 is 1. room-edge-text is "south a bit on the west edge".
+room-edge-text of c2 is "just south of the center".
 
-b2 is a room. xval of b2 is 1. yval of b2 is 1. room-edge-text is "in a southwest-ish area".
+room-edge-text of d2 is "in a southeast-ish area".
 
-c2 is a room. xval of c2 is 2. yval of c2 is 1. room-edge-text is "just south of the center".
+room-edge-text of e2 is "south a bit on the east edge".
 
-d2 is a room. xval of d2 is 3. yval of d2 is 1. room-edge-text is "in a southeast-ish area".
+room-edge-text of a3 is "at the center of the west edge".
 
-e2 is a room. xval of e2 is 4. yval of e2 is 1. room-edge-text is "south a bit on the east edge".
+room-edge-text of b3 is "just west of the center".
 
-a3 is a room. xval of a3 is 0. yval of a3 is 2. room-edge-text is "at the center of the west edge".
+room-edge-text of c3 is "smack in the center".
 
-b3 is a room. xval of b3 is 1. yval of b3 is 2. room-edge-text is "just west of the center".
+room-edge-text of d3 is "just east of the center".
 
-c3 is a room. xval of c3 is 2. yval of c3 is 2. room-edge-text is "smack in the center".
+room-edge-text of e3 is "at the center of the east edge".
 
-d3 is a room. xval of d3 is 3. yval of d3 is 2. room-edge-text is "just east of the center".
+room-edge-text of a4 is "north a bit on the west edge".
 
-e3 is a room. xval of e3 is 4. yval of e3 is 2. room-edge-text is "at the center of the east edge".
+room-edge-text of b4 is "in a northwest-ish area".
 
-a4 is a room. xval of a4 is 0. yval of a4 is 3. room-edge-text is "north a bit on the west edge".
+room-edge-text of c4 is "just north of the center".
 
-b4 is a room. xval of b4 is 1. yval of b4 is 3. room-edge-text is "in a northwest-ish area".
+room-edge-text of d4 is "in a northeast-ish area".
 
-c4 is a room. xval of c4 is 2. yval of c4 is 3. room-edge-text is "just north of the center".
+room-edge-text of e4 is "north a bit on the east edge".
 
-d4 is a room. xval of d4 is 3. yval of d4 is 3. room-edge-text is "in a northeast-ish area".
+room-edge-text of a5 is "at the dangerously remote northwest corner".
 
-e4 is a room. xval of e4 is 4. yval of e4 is 3. room-edge-text is "north a bit on the east edge".
+room-edge-text of b5 is "west a bit on the north edge".
 
-a5 is a room. xval of a5 is 0. yval of a5 is 4. room-edge-text is "at the dangerously remote northwest corner".
+room-edge-text of c5 is "in the center of the north edge".
 
-b5 is a room. xval of b5 is 1. yval of b5 is 4. room-edge-text is "west a bit on the north edge".
+room-edge-text of d5 is "east a bit on the north edge".
 
-c5 is a room. xval of c5 is 2. yval of c5 is 4. room-edge-text is "in the center of the north edge".
-
-d5 is a room. xval of d5 is 3. yval of d5 is 4. room-edge-text is "east a bit on the north edge".
-
-e5 is a room. xval of e5 is 4. yval of e5 is 4. room-edge-text is "at the dangerously remote northeast corner".
-
-to decide which room is reverse-room of (x - a number) and (y - a number):
-	repeat with Q running through rooms:
-		if xval of Q is x and yval of Q is y, decide on Q;
-	decide on offsite;
+room-edge-text of e5 is "at the dangerously remote northeast corner".
 
 to decide which number is basic-dist of (r1 - a room) and (r2 - a room):
-	decide on abs of (xval of r1 - xval of r2) + abs of (yval of r1 - yval of r2)
+	decide on absval of (xval of r1 - xval of r2) + absval of (yval of r1 - yval of r2)
 
 to decide which number is basic-dist of (t1 - a thing) and (t2 - a thing):
 	decide on basic-dist of location of t1 and location of t2;
 
 to decide which number is diag-dist of (r1 - a room) and (r2 - a room):
-	let x be abs of (xval of r1 - xval of r2);
-	let y be abs of (yval of r1 - yval of r2);
+	let x be absval of (xval of r1 - xval of r2);
+	let y be absval of (yval of r1 - yval of r2);
 	if x > y, decide on x;
 	decide on y;
 
@@ -390,8 +295,6 @@ rule for printing the locale description when map-view is true and player is not
 
 volume pieces
 
-a thing can be examined. a thing is usually not examined.
-
 team is a kind of value. the teams are black and white.
 
 a piece is a kind of person. a piece can be reserved, irrelevant or placed. a piece is usually irrelevant. a piece has text called short-text. description is usually "You don't really want to make eye contact. You might give the game away.".
@@ -399,10 +302,6 @@ a piece is a kind of person. a piece can be reserved, irrelevant or placed. a pi
 a piece has a team called the color.
 
 chapter whether attacks
-
-to decide which number is abs of (n - a number):
-	if n > 0, decide on n;
-	decide on 0 - n;
 
 to decide whether (p1 - a piece) attacks (p2 - a piece):
 	if p1 attacks location of p2, yes;
@@ -415,14 +314,14 @@ to decide whether (p1 - a piece) attacks (r - a room):
 	let x2 be xval of r;
 	let y1 be yval of location of p1;
 	let y2 be yval of r;
-	let dx be abs of (x1 - x2);
-	let dy be abs of (y1 - y2);
+	let dx be absval of (x1 - x2);
+	let dy be absval of (y1 - y2);
 	if p1 is a king:
 		if dx > 1, no;
 		if dy > 1, no;
 		yes;
 	if p1 is a bishop:
-		if abs of (x1 - x2) is not abs of (y1 - y2), no;
+		if absval of (x1 - x2) is not absval of (y1 - y2), no;
 		let temp-room be location of p1;
 		let the way be the best route from temp-room to r;
 		while 1 is 1:
@@ -548,10 +447,6 @@ a direction has text called recap-text.
 
 section direction definitions
 
-definition: a direction (called d) is viable:
-	if the room d from the location of player is nowhere, no;
-	yes;
-
 definition: a direction (called d) is questable: [ We can say "not unquestable" but I'd like to make clear code when necessary. ]
 	if d is unquestable, no;
 	yes;
@@ -666,23 +561,8 @@ chapter going to
 rule for supplying a missing noun when gotoing:
 	if player is in Ministry of Unity, now noun is c3;
 
-definition: a room (called r) is legitimate:
-	if r is offsite or r is ministry of unity, no;
-	yes;
-
-gotoing is an action applying to one visible thing.
-
-understand the command "g" as something new.
-understand the command "gt" as something new.
-understand the command "go to" as something new.
-
-understand "g [any legitimate room]" as gotoing.
-understand "gt [any legitimate room]" as gotoing.
-understand "go to [any legitimate room]" as gotoing.
-
 carry out gotoing:
-	if noun is location of player:
-		say "You're already here." instead;
+	abide by the already-here rule;
 	if player is in Ministry:
 		say "You need to depart from the Ministry before going anywhere." instead;
 	if noun is Ministry:
@@ -703,23 +583,6 @@ does the player mean calling second-piece of quest-dir when first-piece of quest
 does the player mean calling a placed piece: it is unlikely.
 
 does the player mean calling an irrelevant piece: it is very unlikely.
-
-calling is an action applying to one visible thing.
-
-understand the command "call" as something new.
-understand the command "c" as something new.
-understand the command "place" as something new.
-understand the command "p" as something new.
-
-understand "call [any not irrelevant piece]" as calling.
-understand "c [any not irrelevant piece]" as calling.
-understand "place [any not irrelevant piece]" as calling.
-understand "p [any not irrelevant piece]" as calling.
-
-understand "call" as calling.
-understand "c" as calling.
-understand "place" as calling.
-understand "p" as calling.
 
 this is the same-colored-bishops rule:
 	unless number of placed bishops is 1, continue the action;
@@ -872,7 +735,7 @@ to retreat-to-unity:
 
 to new-quest:
 	now quest-dir is tried;
-	now all rooms are not guarded;
+	reset-guard;
 	now all pieces are irrelevant;
 	now all kings are reserved;
 	now first-piece of quest-dir is reserved;
@@ -898,7 +761,7 @@ to knight-mark (p - a piece):
 	repeat through table of knight offsets:
 		let newx be myx + the-x entry;
 		let newy be myy + the-y entry;
-		let RR be reverse-room of newx and newy;
+		let RR be room-from-nums of newx and newy;
 		if RR is offsite, next;
 		now RR is guarded;
 
@@ -969,18 +832,6 @@ rule for asking which do you mean when everything matched is not reserved (this 
 
 chapter maps
 
-boarding is an action applying to nothing.
-
-understand the command "board" as something new.
-understand the command "b" as something new.
-understand the command "map" as something new.
-understand the command "m" as something new.
-
-understand "board" as boarding.
-understand "b" as boarding.
-understand "map" as boarding.
-understand "m" as boarding.
-
 carry out boarding:
 	if location of player is ministry of unity, say "There is no map to look at right now." instead;
 	say "STRATEGIC MAP OF [printed name of quest-dir in upper case] FOURBYFOURIA SO FAR:[line break]";
@@ -1040,14 +891,6 @@ carry out colorchating:
 
 chapter abbing
 
-abbing is an action out of world.
-
-understand the command "abb" as something new.
-understand the command "ab" as something new.
-
-understand "abb" as abbing.
-understand "ab" as abbing.
-
 ironic-ab is a truth state that varies.
 
 carry out abbing:
@@ -1061,29 +904,13 @@ carry out abbing:
 		say "[line break]And yes, it's also worth noting and snickering at, if you wish, how [b]ABB[r] is not as abbreviated as [b]A[r] for about. But I figure people will see [b]ABOUT[r] first.";
 	the rule succeeds;
 
-chapter about
-
-abouting is an action out of world.
-
-understand the command "about" as something new.
-understand the command "a" as something new.
-
-understand "about" as abouting.
-understand "a" as abouting.
+chapter abouting
 
 carry out abouting:
 	say "[this-game] is a sequel to [5b], my entry in the 2021 ParserComp. I first had the idea for [this-game] a week or so before the deadline. Obviously, I couldn't do much with it besides write out the basic stuff. Most of the puzzles revolve around checkmates with very few pieces left on the board. I wondered how many I could find. I had some problems with solutions being too similar. But it seemed there was enough for a challenging game.";
 	the rule succeeds;
 
 chapter ching
-
-ching is an action out of world.
-
-understand the command "chess" as something new.
-understand the command "ch" as something new.
-
-understand "chess" as ching.
-understand "ch" as ching.
 
 carry out ching:
 	say "The rules of chess are that each player gets alternate turns, but here, you get to move as much as you want.";
@@ -1094,19 +921,7 @@ carry out ching:
 	say "[line break]After placing a friendly piece, you should be able to use [b]MAP[r] to see what squares are attacked.";
 	the rule succeeds;
 
-chapter credits
-
-creditsing is an action out of world.
-
-understand the command "credits" as something new.
-understand the command "credit" as something new.
-understand the command "cr" as something new.
-understand the command "c" as something new.
-
-understand "credits" as creditsing.
-understand "credit" as creditsing.
-understand "cr" as creditsing.
-understand "c" as creditsing.
+chapter creditsing
 
 carry out creditsing:
 	say "Thanks to chess.com, lichess.org, chessgames.com, and everyone who helped chess streaming become popular during the pandemic. It saved my sanity enough to write [this-game], which will hopefully not take too much of yours. Thanks to Adam Sommerfield for ParserComp, which led to this game.";
@@ -1137,16 +952,6 @@ carry out detailing:
 	the rule succeeds;
 
 chapter hinting
-
-hinting is an action out of world.
-
-understand the command "help" as something new.
-understand the command "hint" as something new.
-understand the command "h" as something new.
-
-understand "help" as hinting.
-understand "hint" as hinting.
-understand "h" as hinting.
 
 carry out hinting:
 	if walkthrough-hint is false:
@@ -1228,14 +1033,6 @@ carry out recaping:
 
 chapter toggleing
 
-toggleing is an action out of world.
-
-understand the command "toggle" as something new.
-understand the command "t" as something new.
-
-understand "toggle" as toggleing.
-understand "t" as toggleing.
-
 carry out toggleing:
 	if screen-reader is true, say "Since you are using a screen reader, text maps are disabled. You'll need to restart if you want to use them or change their options." instead;
 	now map-view is whether or not map-view is false;
@@ -1248,18 +1045,6 @@ carry out toggleing:
 	the rule succeeds;
 
 chapter verbs
-
-verbsing is an action out of world.
-
-understand the command "verbs" as something new.
-understand the command "verb" as something new.
-understand the command "v" as something new.
-
-understand "verbs" as verbsing.
-understand "verb" as verbsing.
-understand "v" as verbsing.
-
-to say verbs: say "[b]VERBS[r] or [b]VERB[r] or [b]V[r]"
 
 carry out verbsing:
 	say "[this-game] uses a simplified parser. The main commands are the planar directions: [b]N[r], [b]S[r], [b]E[r], [b]W[r], [b]NW[r], [b]NE[r], [b]SW[r], [b]SE[r]. [b]U[r] and [b]D[r], for up and down, aren't used. [b]OUT[r] anywhere but the [ministry] returns you to the [ministry].[paragraph break]You can also ignore directions to jump to a square when you're not in the Ministry of Unity. So typing [b]a1[r] sends you to a1, etc.[paragraph break]You can also [b]CALL[r]/[b]C[r] or [b]PLACE[r]/[b]P[r] a piece, enemy or friendly. These have abbreviations, too: [b]ABB[r] finds them.[paragraph break]Meta-verbs and options are discussed in [b]META[r] ([b]MET[r]/[b]ME[r]).";
@@ -1297,11 +1082,8 @@ code	done-yet	amuse-list
 
 volume parser rules and errors
 
-after reading a command:
-	if the player's command matches the regular expression "^<a-e><1-5>$":
-		let n be indexed text;
-		now n is "gt [the player's command]";
-		change the text of the player's command to n;
+rule for printing a parser error:
+	say "I didn't recognize that command. Type [verbs] to see the full list of commands. If you're confused what to do, [b]X[r] your manual again[if player is not in ministry of unity], or refer to the current [b]MAP[r][end if]."
 
 volume beta testing - not for release
 
@@ -1325,20 +1107,8 @@ carry out jumpovering:
 
 volume meta
 
-rule for printing a parser error:
-	say "I didn't recognize that command. Type [verbs] to see the full list of commands. If you're confused what to do, [b]X[r] your manual again[if player is not in ministry of unity], or refer to the current [b]MAP[r][end if]."
-
-rule for printing a parser error when the latest parser error is the noun did not make sense in that context error:
-	say "The verb was okay, but I didn't understand the noun in that sentence. You can type [verbs] to see how to use verbs with a subject."
-
-rule for printing a parser error when the latest parser error is the only understood as far as error:
-	say "You only needed the first word of that command. You can use the up arrow and backspace so you don't have to retype."
-
 report undoing an action:
 	say "Undone[if number of placed pieces is 0 and player is not in Ministry of Unity], though until you've placed a piece, there's nothing worth undoing[end if]. Note you can always undo everything by going [b]OUT[r][if player is in Ministry of Unity] once you're in a [4b][end if].";
-
-rule for printing a parser error when the latest parser error is the didn't understand error or the latest parser error is the not a verb I recognise error:
-	say "That wasn't a verb I recognized. You may wish to type [verbs] to see the list of pared-down verbs in this game."
 
 volume when play begins
 
@@ -1353,10 +1123,10 @@ when play begins (this is the assign variables and check for skips rule):
 	now right hand status line is "[number of solved directions][stalemate-ticks]/[number of questable directions]";
 	repeat with xval running from 0 to 4:
 		repeat with yval running from 0 to 4:
-			let r be reverse-room of xval and yval;
-			let rn be reverse-room of xval and yval + 1;
-			let re be reverse-room of xval + 1 and yval;
-			let rne be reverse-room of xval + 1 and yval + 1;
+			let r be room-from-nums of xval and yval;
+			let rn be room-from-nums of xval and yval + 1;
+			let re be room-from-nums of xval + 1 and yval;
+			let rne be room-from-nums of xval + 1 and yval + 1;
 			if rn is not offsite:
 				now rn is mapped north of r;
 				now r is mapped south of rn;
