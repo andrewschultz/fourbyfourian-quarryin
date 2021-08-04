@@ -22,7 +22,7 @@ section modules
 
 include Bypass Disambiguation by Climbing Stars.
 
-include Chess Common Functions by Andrew Schultz.
+include Chess Common by Andrew Schultz.
 
 include Fourbyfourian Quarryin Tests by Andrew Schultz.
 
@@ -602,13 +602,14 @@ this is the same-colored-bishops rule:
 	unless number of placed bishops is 1, continue the action;
 	let Q be a random placed bishop;
 	unless location of Q and location of player are samecolored, continue the action;
-	note-amusing-stuff "bb-colors";
 	if grey bishop is irrelevant:
+		note-amusing-stuff "bb-colors-second";
 		if quest-dir is not stalemated:
 			say "But wait! You realize that you are about to place both your bishops on the same-colored square. You may break a lot of stuffy old rules in [12b], but that's not one of them, especially since breaking that rule gives no practical benefit. Okay, it actually harms you.[paragraph break]Somewhere else, maybe.";
 		else:
 			say "One of your bishops looks confused. The other looks very impressed. Each doesn't like the other being on their turf, but your unconventional approach of putting them on the same color square just might work ... this time. Or it might fail spectacularly.";
 	else:
+		note-amusing-stuff "bb-colors-first";
 		say "Your bishop and the enemy bishop look over at each other. They then both glare at you, as if in slight doubt of your leadership. They can't actually ... risk crossing paths, which might happen, since they're on the same color square.";
 	the rule succeeds;
 
@@ -808,11 +809,17 @@ section rules for placing
 
 this is the no-corner rule:
 	if location of player is cornery:
-		say "The Fourbyfourian king, alas, knows your tricks. He won't be snuck into some corner, at least not without any allies. You'll have to find somewhere else to 'invite' him.";
+		say "The [fourbyfourian], alas, knows your tricks. He won't be snuck into some corner, at least not without any allies. You'll have to find somewhere else to 'invite' him.";
 		the rule fails;
 
 this is the no-corner-no-close rule:
 	abide by the no-corner rule;
+
+this is the two-knights-silly rule:
+	if location of player is cornery and you-checkmated:
+		say "While the [fourbyfourian] sees what's up and booms 'You can't force me there,' you have an idea. You technically ... really ... couldn't, even if everyone alternated moves. But if you could make someone, or a whole society, think that way ... what power you would have! Perhaps you could tie it up with some 2+2=5 motivational nonsense as well.[paragraph break]Also, you recall some egghead advisor rambling on about how a traitorous pawn or page could help you conquer [cq] effortlessly, but it seemed too nonsensically far out for you. Easier just to tackle the [fourbyfourian] on the edge.";
+		note-amusing-stuff "orwell";
+		the rule fails;
 
 section disambiguating when nothing is relevant
 
@@ -1072,7 +1079,7 @@ Rule for amusing a victorious player:
 
 to look-for-amuse (t - a truth state):
 	let any-done-yet be false;
-	repeat through table of stuff worth trying:
+	repeat through table of amusing stuff:
 		if done-yet entry is t:
 			if any-done-yet is false:
 				now any-done-yet is true;
@@ -1082,17 +1089,19 @@ to look-for-amuse (t - a truth state):
 		say "Impressive! You found all my cheap jokes. Thanks for exploring so diligently."
 
 to note-amusing-stuff (t - text):
-	repeat through table of stuff worth trying:
+	repeat through table of amusing stuff:
 		if t is code entry:
 			now done-yet entry is true;
 			continue the action;
 	say "WARNING: tried to note you already did amusing stuff with code [t] but couldn't find it in the table. Let me know at [email].";
 
-table of stuff worth trying
+table of amusing stuff
 code	done-yet	amuse-list
 "beatdown"	false	"Constructing a double check (both allies, no traitors, attacking the Fourbyfourian king)"
 "bvn-miss"	false	"Placing the bishop too far from the king when you have the traitor knight"
-"bb-colors"	false	"Placing two bishops on the same color tile"
+"bb-colors-first"	false	"Placing two opposing bishops on the same color tile"
+"bb-colors-second"	false	"Placing your two bishops on the same color tile"
+"orwell"	false	"Checkmating with two knights and a king in the corner"
 
 volume parser rules and errors
 
