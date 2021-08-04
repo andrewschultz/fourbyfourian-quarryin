@@ -143,7 +143,7 @@ to say tried:
 	if number of tried not solved directions is 0, continue the action;
 	let tried-unsolved be number of tried unsolved directions;
 	let stalemates be number of stalemated directions;
-	say "You've[if  tried-unsolved > 0] been to [list of tried unsolved directions] before[end if][if tried-unsolved > 0 and stalemates > 0] and[end if][if stalemates > 0]made good progress to the [list of stalemated directions][end if]";
+	say ". You've[if  tried-unsolved > 0] been to [list of tried unsolved directions] before[end if][if tried-unsolved > 0 and stalemates > 0] and[end if][if stalemates > 0]made good progress to the [list of stalemated directions][end if]";
 
 definition: a direction (called d) is solve-now:
 	if d is solved, no;
@@ -187,7 +187,7 @@ check going (this is the hub check rule):
 		say "Flying machines are a century or more away." instead;
 	if player is in Ministry of Unity:
 		let cur-row be 0;
-		if noun is northwest, say "Alas, the vast lands northwest of [12b] are inhospitable and forbidding to would-be conquerors." instead;
+		if noun is northwest, say "Alas, the vast lands northwest of [12b] are so unruly as to feature nonlinear borders. Some such borders are not even defined by rivers![paragraph break]Plus, they're vast enough, it'd take too long to get to their capitals. Oh, and the whole painful winters and large armies things, too." instead;
 		if noun is unquestable, say "You can't go [noun] from the Ministry." instead;
 		if noun is solved, say "You already conquered [noun] [4b]." instead;
 		abide by visit-text of noun;
@@ -470,19 +470,22 @@ definition: a direction (called d) is to-solve:
 
 section individual quest properties -- initial directions first
 
-first-piece of north is yellow bishop. second-piece of north is grey bishop. north is primary. quick-text of north is "B vs. B". summary-text of north is "two bishops, one traitorous". recap-text of north is "In [q of north], you used the enemy bishop and your own king to wall in the enemy king.".
+to say first-hints:
+	say "You probably need [the second-piece of the item described] to block the enemy king's fleeing path"
 
-first-piece of northeast is yellow bishop. second-piece of northeast is grey knight. northeast is primary. quick-text of northeast is "B vs. N". misc-checks of northeast is knight blocks bishop rule. summary-text of northeast is "a bishop and a traitorous knight". recap-text of northeast is "In [q of northeast], you had to put everyone in a Tetris L-shaped block, enemy king in the corner, to conquer him. If your bishop had been further away, the traitor knight would've had to save the king."
+first-piece of north is yellow bishop. second-piece of north is grey bishop. north is primary. hint-text of north is "[first-hints].". quick-text of north is "B vs. B". summary-text of north is "two bishops, one traitorous". recap-text of north is "In [q of north], you used the enemy bishop and your own king to wall in the enemy king.".
 
-first-piece of west is yellow knight. second-piece of west is grey knight. west is primary. quick-text of west is "N vs. N". summary-text of west is "two knights, one traitorous". recap-text of west is "In [q of west], you linked everyone in a sort of fish-hook to trap the enemy king, with the [twelvebytwelvian] farthest away. You couldn't keep the king two squares from the enemy king, as the enemy knight would be attacking."
+first-piece of northeast is yellow bishop. second-piece of northeast is grey knight. northeast is primary. hint-text of northeast is "[first-hints]. But this one's a bit different from the other three--one more thing to look for.". quick-text of northeast is "B vs. N". misc-checks of northeast is knight blocks bishop rule. summary-text of northeast is "a bishop and a traitorous knight". recap-text of northeast is "In [q of northeast], you had to put everyone in a Tetris L-shaped block, enemy king in the corner, to conquer him. If your bishop had been further away, the traitor knight would've had to save the king."
 
-first-piece of southwest is yellow knight. second-piece of southwest is grey bishop. southwest is primary. quick-text of southwest is "N vs. B". summary-text of southwest is "a knight and a traitorous bishop". recap-text of southwest is "In [q of southwest], your king and knight faced the enemy king and bishop, each two squares away."
+first-piece of west is yellow knight. second-piece of west is grey knight. west is primary. hint-text of west is "[first-hints].". quick-text of west is "N vs. N". summary-text of west is "two knights, one traitorous". recap-text of west is "In [q of west], you linked everyone in a sort of fish-hook to trap the enemy king, with the [twelvebytwelvian] farthest away. You couldn't keep the king two squares from the enemy king, as the enemy knight would be attacking."
+
+first-piece of southwest is yellow knight. second-piece of southwest is grey bishop. southwest is primary. hint-text of southwest is "[first-hints].". quick-text of southwest is "N vs. B". summary-text of southwest is "a knight and a traitorous bishop". recap-text of southwest is "In [q of southwest], your king and knight faced the enemy king and bishop, each two squares away."
 
 section individual quest properties -- advanced directions next
 
-first-piece of south is yellow knight. second-piece of south is purple knight. king-place of south is no-corner-no-close rule. visit-text of south is one-ally-cleared rule. can-visit of south is one-ally-cleared-bare rule. south is secondary. quest-details of south is "The bishop and knight checkmate is a tricky one. It took me a while to figure. I walked away saying, 'Hey, look, here's proof that the two bishops are better than a bishop and knight if pawns aren't in the way.' But one night I was able to put it together: you have to push the enemy king to the corner your bishop can't cover, then push the king to the other corner. Having the bishop two squares from your knight puts a lock on critical escape squares, and the checkmate taught me a lot about square control.". hint-text of south is "[piece-cooperation]". quick-text of south is "2 N's". summary-text of south is "two knights". recap-text of south is "In [q of south], knights were three squares away from each other, and you were off to the side of them, enough to trap the enemy king."
+first-piece of south is yellow knight. second-piece of south is purple knight. king-place of south is no-corner-no-close rule. visit-text of south is traitors-all-used rule. can-visit of south is traitors-all-used-bare rule. south is secondary. quest-details of south is "The bishop and knight checkmate is a tricky one. It took me a while to figure. I walked away saying, 'Hey, look, here's proof that the two bishops are better than a bishop and knight if pawns aren't in the way.' But one night I was able to put it together: you have to push the enemy king to the corner your bishop can't cover, then push the king to the other corner. Having the bishop two squares from your knight puts a lock on critical escape squares, and the checkmate taught me a lot about square control.". hint-text of south is "[piece-cooperation]". quick-text of south is "2 N's". summary-text of south is "two knights". recap-text of south is "In [q of south], knights were three squares away from each other, and you were off to the side of them, enough to trap the enemy king."
 
-first-piece of east is yellow bishop. second-piece of east is purple bishop. king-place of east is no-corner-no-close rule. visit-text of east is one-ally-cleared rule. can-visit of east is one-ally-cleared-bare rule. east is secondary. quest-details of east is "Checkmate with two bishops and nothing else isn't too bad to figure out. You push the enemy king to the side of the board, where he has only two moves. Then you lose a move with one of the bishop as you roll him into the corner. However, I was shocked to learn one Chicago area master I respected greatly (I had a Learning Experience against him) was unable to convert the advantage in a tournament with long time controls.". hint-text of east is "[piece-cooperation]". quick-text of east is "2 B's". summary-text of east is "two bishops". right-checkmate of east is two-bishops-formation rule. recap-text of east is "In [q of east], you placed one bishop next to the king and the other on a diagonal. The king guarded the bishop close by."
+first-piece of east is yellow bishop. second-piece of east is purple bishop. king-place of east is no-corner-no-close rule. visit-text of east is traitors-all-used rule. can-visit of east is traitors-all-used-bare rule. east is secondary. quest-details of east is "Checkmate with two bishops and nothing else isn't too bad to figure out. You push the enemy king to the side of the board, where he has only two moves. Then you lose a move with one of the bishop as you roll him into the corner. However, I was shocked to learn one Chicago area master I respected greatly (I had a Learning Experience against him) was unable to convert the advantage in a tournament with long time controls.". hint-text of east is "[piece-cooperation]". quick-text of east is "2 B's". summary-text of east is "two bishops". right-checkmate of east is two-bishops-formation rule. recap-text of east is "In [q of east], you placed one bishop next to the king and the other on a diagonal. The king guarded the bishop close by."
 
 first-piece of southeast is yellow bishop. second-piece of southeast is yellow knight. king-place of southeast is no-corner-no-close rule. visit-text of southeast is corner-cleared rule. can-visit of southeast is corner-cleared-bare rule. southeast is secondary. quest-details of southeast is "Checkmate with two knights against a king is impossible unless the opponent cooperates. However, two knights against a pawn may be very possible indeed, depending on where the pawn is. You can Google Troitsky Line for more on that. I remember reading an article about the endgame at math camp in high school. We were all pretty smart, but we didn't get far with it. Years later I read a blog post describing the strategies in an actual tournament game and remembered math camp. I felt pretty smart understanding the concept. Then I found out the person with the two knights ... wasn't in high school yet. I felt less smart.". hint-text of southeast is "[piece-cooperation]". quick-text of southeast is "B & N". summary-text of southeast is "a bishop and a knight". recap-text of southeast is "In [q of southeast], you positioned everyone in an L with the knight giving check, and you also positioned the king between his bishop and knight, to block out the enemy king on the edge."
 
@@ -552,8 +555,8 @@ this is the corner-cleared-bare rule:
 	if east is unsolved and south is unsolved, the rule fails;
 	the rule succeeds;
 
-this is the one-ally-cleared rule:
-	consider the one-ally-cleared-bare rule;
+this is the traitors-all-used rule:
+	consider the traitors-all-used-bare rule;
 	if the rule failed:
 		say "Tackling [q of noun] seems tactically unwise at the moment. You'll want to do as much as you can diplomatically. You still have [if number of solved directions is 3]a traitor[else]traitors[end if] willing to aid you elsewhere. Once the traitors helped you, [i]then[r] you can conquer the south and east with a bit more force. So you'll wan to take care of things to the [list of primary unsolved directions] first.";
 		if fourth-wall-warn is false:
@@ -564,7 +567,7 @@ this is the one-ally-cleared rule:
 			continue the action;
 		the rule fails;
 
-this is the one-ally-cleared-bare rule:
+this is the traitors-all-used-bare rule:
 	if number of solved directions < 4, the rule fails;
 	the rule succeeds;
 
@@ -635,7 +638,12 @@ rule for supplying a missing noun when calling:
 		now noun is a random reserved piece that is not the Fourbyfourian king;
 		say "([the noun] before the Fourbyfourian king)[line break]";
 		the rule succeeds;
-	say "I'll need a noun, since there are more than 2 pieces left to place, and I can't decide which one.";
+	if Fourbyfourian king is placed and number of reserved pieces is 2: [ e.g. placed king, have BB or NN left so it doesn't matter ]
+		if quest-dir is east or quest-dir is south:
+			now noun is first-piece of quest-dir;
+			say "([the noun], since it is functionally equivalent to [the second-piece of quest-dir])[line break]";
+			the rule succeeds;
+	say "I'll need something more specific, since I can't decide which piece to place of the remaining ones.";
 	reject the player's command;
 
 to decide whether you-stalemated:
@@ -673,6 +681,7 @@ this is the checkmate dialogue rule:
 		if already-solved of quest-dir is empty:
 			say "Perhaps this will work later. You note the position in your head. Some scribe will write it down. Perhaps once you've gained the Fourbyfourian king's trust you won't attack him. Then, you can even say 'Ha, if I were going to fool you, I wouldn't use this exact same formation you'd been suspicious of, earlier.' People fall for that, even when they should know better.";
 			now checkmate-recap of quest-dir is current-quest-snapshot;
+			now already-solved of quest-dir is {};
 		else:
 			say "So that's another way to take down [q of quest-dir] when the time is right. Nice, though you only need one.";
 		retreat-to-unity;
@@ -954,23 +963,39 @@ chapter detailing
 
 rule for supplying a missing noun when detailing:
 	if player is in Ministry of Unity:
-		say "There are no specific technical details for the Ministry of Unity. You should go out in the field to see more.";
+		say "There are no specific fourth-wall technical details for the Ministry of Unity. You should specify a directional [4b] here or go out in the field to see more.";
 		reject the player's command;
 	now noun is quest-dir;
 
 detailing is an action applying to one visible thing.
 
+understand the command "details" as something new.
+understand the command "detail" as something new.
 understand the command "d" as something new.
 
+understand "details" as detailing.
+understand "details [direction]" as detailing.
+understand "detail" as detailing.
+understand "detail [direction]" as detailing.
 understand "d" as detailing.
 understand "d [direction]" as detailing.
 
 carry out detailing:
-	if noun is primary, say "I remember discovering a minor piece vs. minor piece checkmate many years ago. Then I discovered a couple others. It always amused me. A post on chess.stackexchange brought old memories of this. You may be amused to note that, because of the possibility of checkmate even with cooperative play, professional blitz-chess play may allow participants to claim a forfeit with minor piece vs. minor piece, but they could not with minor piece vs. king." instead;
+	if noun is primary:
+		say "I remember discovering a minor piece vs. minor piece checkmate many years ago. Then I discovered a couple others. It always amused me. A post on chess.stackexchange brought old memories of this. You may be amused to note that, because of the possibility of checkmate even with cooperative play, professional blitz-chess play may allow participants to claim a forfeit with minor piece vs. minor piece, but they could not with minor piece vs. king." instead;
+	if noun is secondary and number of solved directions < 4, say "You'll be able to see what's [noun] soon enough, but it's not open yet." instead;
+	if noun is southeast and number of solved directions < 5, say "You'll be able to see what's [noun] soon enough, but it's not open yet." instead;
 	if noun is not questable, say "There are no quests [noun]." instead;
-	if quest-details of noun is empty, say "There are no details for this, but there should be." instead;
-	say "[quest-details of noun]";
+	if quest-details of noun is empty, say "There are no details for [noun], but there should be." instead;
+	say "[quest-details of noun][line break]";
 	the rule succeeds;
+
+chapter failing
+
+carry out failing:
+	if player is in Ministry of Unity, say "Get ahold of yourself! Positive thinking and all that sort of thing! It won't do to admit failure." instead;
+	say "You walk away, feigning boredom, pretending to the [4n] King it was HIS fault the negotiations, or whatever ... failed. This gaslighting doesn't work often, but it's worth the (lack of) effort.";
+	try going outside instead;
 
 chapter hinting
 
@@ -995,9 +1020,9 @@ carry out hintdiring:
 	if noun is untried, say "You haven't been to [q of noun] yet, so I don't want to give any hints." instead;
 	if noun is solved, say "You've already conquered [q of noun], so I won't show these hints. You can restart the game or look at the source if you really want to see them, or you can [b]R[r] or [b]RECAP[r] to see details." instead;
 	if noun is primary:
-		say "[hint-text of noun]";
+		say "[hint-text of noun][line break]";
 	else if noun is secondary:
-		say "[piece-cooperation]";
+		say "[piece-cooperation][line break]";
 	else:
 		say "Note that since [q of southeast] is your final conquest, you need to solve it two ways.";
 	the rule succeeds;
@@ -1016,7 +1041,7 @@ understand "me" as metaing.
 
 carry out metaing:
 	say "Here is a list of meta-verbs and options you can use. None are necessary to complete the game, but they can all be useful.";
-	say "[line break][b]ABOUT[r] or [b]A[r] tells about the game. [b]CREDITS[r] or [b]C[r] tells more technical details and thanks testers. [b]CHESS[r] or [b]CH[r] gives the relevant rules of chess.";
+	say "[line break][b]ABOUT[r] or [b]A[r] tells about the game. [b]CREDITS[r] or [b]C[r] tells more technical details and thanks testers. [b]CHESS[r] or [b]CH[r] gives the relevant rules of chess. [b]DETAILS[r]/[b]DETAIL[r]/[b]D[r] gives some fourth-wall meta-details.";
 	say "[line break][b]MAP[r] or [b]M[r] or [b]BOARD[r] or [b]B[r] shows the current map. [b]TOGGLE[r] or [b]T[r] toggles the map.";
 	say "[line break][b]HINT[r] or [b]H[r] hints your current area or, if you give a direction, an area you've tried but haven't beaten yet.";
 	if number of solved directions > 0, say "[line break][b]R[r] or [b]RECAP[r] is available to recap areas you've solved. By default, it goes to the last one, but you can specify a direction.";
@@ -1032,7 +1057,7 @@ understand the command "r" as something new.
 understand "recap [direction]" as recaping.
 understand "r [direction]" as recaping.
 understand "recap" as recaping.
-understand "r " as recaping.
+understand "r" as recaping.
 
 rule for supplying a missing noun when recaping:
 	now the noun is last-solved;
@@ -1043,13 +1068,16 @@ to say list-out of (L - a list of rooms) and (d - a direction):
 carry out recaping:
 	if number of solved directions is 0, say "You have no conquers to recap. Yet." instead;
 	if noun is not questable, say "That's not a [4b] to conquer." instead;
-	if noun is not solved, say "You haven't taken over [q of noun] yet." instead;
+	if noun is not solved:
+		say "You haven't taken over [q of noun] yet[if noun is untried]. In fact, you haven't even been there[end if].";
+		if noun is primary, say "[line break]In [q of noun], you'll need the help of [the first-piece of noun] and [the second-piece of noun].";
+		the rule succeeds;
 	if recap-text of noun is empty, say "[q of noun] needs recap text." instead;
 	say "[recap-text of noun]";
-	say "[line break]Here are specifics of conquering [q of noun]:[line break]";
+	say "[paragraph break]Here are specifics of conquering [q of noun]:";
 	if noun is secondary:
-		say "[line break][if noun is solved]Y[else]So far, y[end if]ou gained the enemy king's trust (stalemated) with [list-out of stalemate-recap of noun and noun].";
-	say "[line break]You [if noun is secondary]then [end if]captured the enemy king (checkmated) with [list-out of checkmate-recap of noun and noun].";
+		say "[line break]  [if noun is solved]Y[else]So far, y[end if]ou gained the enemy king's trust (stalemated) with [list-out of stalemate-recap of noun and noun].";
+	say "[line break]  You [if noun is secondary]then [end if]captured the enemy king (checkmated) with [list-out of checkmate-recap of noun and noun].";
 	the rule succeeds;
 
 chapter toggleing
