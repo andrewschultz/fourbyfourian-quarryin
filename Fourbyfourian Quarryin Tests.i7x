@@ -180,29 +180,33 @@ carry out pieing:
 
 chapter tests
 
-test bvb with "sw/place fb/e/place k/n/n/place eb/e/place k/pf". [BvB]
-test qsw with "test qsw".
+section each area arranged clockwise
 
-test nvb with "n/n/place fn/n/place k/sw/w/place eb/n/place k/pf". [NvB]
-test qn with "test nvb".
+test bvb with "n/place fb/e/place k/n/n/place eb/e/place k/pf". [BvB]
+test qn with "test bvb".
 
-test nvn with "ne/w/place fn/ne/place k/w/w/place en/n/place k/pf". [NvN]
-test qne with "test nvn".
-
-test bvn with "w/w/place k/n/place fb/n/place gn/w/place k/pf". [BvN]
-test qw with "test bvn".
+test bvn with "ne/w/place k/n/place fb/n/place gn/w/place k/pf". [BvN]
+test qne with "test bvn".
 
 test bb1 with "e/place b/w/place k/se/place b/s/place king/pf". [KBBvK stalemate]
 test bb2 with "e/e/place b/w/w/w/place k/se/place b/s/place king/pf". [KBBvK checkmate]
 test qe with "test bb1/test bb2".
 
+test bn1 with "se/place k/w/place b/w/place n/se/se/place k/pf". [KBNvK stalemate]
+test bn2 with "se/place k/w/place n/se/place b/s/place k/pf". [KBNvK checkmate]
+test qse with "test bn1/test bn2".
+
 test nn1 with "s/place k/sw/place n/e/e/place n/sw/place k/pf". [KNNvK stalemate]
 test nn2 with "s/e/place n/w/w/w/place n/se/se/e/e/place k/w/w/place k/pf". [KNNvK checkmate]
 test qs with "test nn1/test nn2".
 
-test bn1 with "se/place k/w/place b/w/place n/se/se/place k/pf". [KBNvK stalemate]
-test bn2 with "se/place k/w/place n/se/place b/s/place k/pf". [KBNvK checkmate]
-test qse with "test bn1/test bn2".
+test nvb with "sw/n/place fn/n/place k/sw/w/place eb/n/place k/pf". [NvB]
+test qsw with "test nvb".
+
+test nvn with "w/w/place fn/ne/place k/w/w/place en/n/place k/pf". [NvN]
+test qw with "test nvn".
+
+section big picture tests
 
 test a14 with "test bvb/test nvb/test nvn/test bvn".
 

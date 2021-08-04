@@ -468,15 +468,17 @@ definition: a direction (called d) is to-solve:
 	if d is solved, no;
 	yes;
 
-section individual quest properties
+section individual quest properties -- initial directions first
 
-first-piece of southwest is yellow bishop. second-piece of southwest is grey bishop. southwest is primary. quick-text of southwest is "B vs. B". summary-text of southwest is "two bishops, one traitorous". recap-text of southwest is "In [q of southwest], you used the enemy bishop and your own king to wall in the enemy king.".
+first-piece of north is yellow bishop. second-piece of north is grey bishop. north is primary. quick-text of north is "B vs. B". summary-text of north is "two bishops, one traitorous". recap-text of north is "In [q of north], you used the enemy bishop and your own king to wall in the enemy king.".
 
-first-piece of north is yellow knight. second-piece of north is grey bishop. north is primary. quick-text of north is "N vs. B". summary-text of north is "a knight and a traitorous bishop". recap-text of north is "In [q of north], your king and knight faced the enemy king and bishop, each two squares away."
+first-piece of northeast is yellow bishop. second-piece of northeast is grey knight. northeast is primary. quick-text of northeast is "B vs. N". misc-checks of northeast is knight blocks bishop rule. summary-text of northeast is "a bishop and a traitorous knight". recap-text of northeast is "In [q of northeast], you had to put everyone in a Tetris L-shaped block, enemy king in the corner, to conquer him. If your bishop had been further away, the traitor knight would've had to save the king."
 
-first-piece of northeast is yellow knight. second-piece of northeast is grey knight. northeast is primary. quick-text of northeast is "N vs. N". summary-text of northeast is "two knights, one traitorous". recap-text of northeast is "In [q of northeast], you linked everyone in a sort of fish-hook to trap the enemy king, with the [twelvebytwelvian] farthest away. You couldn't keep the king two squares from the enemy king, as the enemy knight would be attacking."
+first-piece of west is yellow knight. second-piece of west is grey knight. west is primary. quick-text of west is "N vs. N". summary-text of west is "two knights, one traitorous". recap-text of west is "In [q of west], you linked everyone in a sort of fish-hook to trap the enemy king, with the [twelvebytwelvian] farthest away. You couldn't keep the king two squares from the enemy king, as the enemy knight would be attacking."
 
-first-piece of west is yellow bishop. second-piece of west is grey knight. west is primary. quick-text of west is "B vs. N". misc-checks of west is knight blocks bishop rule. summary-text of west is "a bishop and a traitorous knight". recap-text of west is "In [q of west], you had to put everyone in a Tetris L-shaped block, enemy king in the corner, to conquer him. If your bishop had been further away, the traitor knight would've had to save the king."
+first-piece of southwest is yellow knight. second-piece of southwest is grey bishop. southwest is primary. quick-text of southwest is "N vs. B". summary-text of southwest is "a knight and a traitorous bishop". recap-text of southwest is "In [q of southwest], your king and knight faced the enemy king and bishop, each two squares away."
+
+section individual quest properties -- advanced directions next
 
 first-piece of south is yellow knight. second-piece of south is purple knight. king-place of south is no-corner-no-close rule. visit-text of south is one-ally-cleared rule. can-visit of south is one-ally-cleared-bare rule. south is secondary. quest-details of south is "The bishop and knight checkmate is a tricky one. It took me a while to figure. I walked away saying, 'Hey, look, here's proof that the two bishops are better than a bishop and knight if pawns aren't in the way.' But one night I was able to put it together: you have to push the enemy king to the corner your bishop can't cover, then push the king to the other corner. Having the bishop two squares from your knight puts a lock on critical escape squares, and the checkmate taught me a lot about square control.". hint-text of south is "[piece-cooperation]". quick-text of south is "2 N's". summary-text of south is "two knights". recap-text of south is "In [q of south], knights were three squares away from each other, and you were off to the side of them, enough to trap the enemy king."
 
@@ -1163,13 +1165,13 @@ when play begins (this is the screen read check rule):
 
 when play begins (this is the randomizing colors rule):
 	if a random chance of 1 in 2 succeeds:
-		now first-piece of southwest is purple bishop;
+		now first-piece of north is purple bishop;
 	else::
-		now first-piece of west is purple bishop;
+		now first-piece of northeast is purple bishop;
 	if a random chance of 1 in 2 succeeds:
-		now first-piece of northeast is purple knight;
+		now first-piece of southwest is purple knight;
 	else::
-		now first-piece of east is purple knight;
+		now first-piece of west is purple knight;
 	if a random chance of 1 in 2 succeeds:
 		now first-piece of southeast is purple bishop;
 	else:
