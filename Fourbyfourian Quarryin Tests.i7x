@@ -81,6 +81,9 @@ carry out solveing:
 	if noun is solved, say "You've already solved [noun]." instead;
 	say "Setting [noun] to solved.";
 	now noun is solved;
+	now already-solved of noun is {};
+	if noun is secondary, now stalemate-recap of noun is {};
+	now checkmate-recap of noun is {a1, a1, a1, a1};
 	abide by the impractical game state check rule;
 	the rule succeeds;
 
@@ -134,7 +137,11 @@ rule for supplying a missing noun when wipeing:
 		say "Nothing to wipe.";
 	else:
 		say "Wiping your progress for [list of not unsolved directions].";
-		now all directions are unsolved;
+		repeat with D running through solved directions:
+			now already-solved of D is {};
+			now stalemate-recap of D is {};
+			now checkmate-recap of D is {};
+			now D is unsolved;
 	reject the player's command;
 
 wipeing is an action applying to one visible thing.
@@ -220,10 +227,18 @@ test roomlist with "test a14/test nn2/test nn1/s". [make sure a list of rooms po
 
 section amusing / special cases
 
-test bcolors with "jump/sw/place bishop/ne/place bishop/out/e/place bishop/ne/place bishop/out"
+[this tests BvB and B&B on both colored squares]
+test bcolors1 with "n/place bishop/ne/place bishop/out/n/w/place bishop/ne/place bishop/out".
+test bcolors2 with "jump/e/place bishop/ne/place bishop/out/e/w/place bishop/ne/place bishop/out"
 
-test bvn1 with "w/place bishop/w/place king/n/n/place knight/w/place king".
-test bvn2 with "w/se/place bishop/nw/w/place king/n/n/place knight/w/place king".
+test beatdown-bb with "jump/e/place k/a3/place b/e3/place b/c5/place k". [bb double check--note this must be done before stalemating]
+test beatdown-bn with "jump/se/place k/w/place n/e3/place b/c5/place k". [bn double check]
+test beatdown-nn with "jump/s/place k/w/place n/d3/place n/c5/place k". [nn double check]
+
+test bvn1 with "ne/place bishop/w/place king/b5/place knight/w/place king".
+test bvn2 with "ne/se/place bishop/b3/place king/b5/place knight/w/place king".
+
+test orwell with "jump/e/place n/e/place n/e/place k/e1/place k"
 
 Fourbyfourian Quarryin Tests ends here.
 
