@@ -1,0 +1,179 @@
+# reg-4i-meta.txt
+## generated manually looking through verbs
+
+** game: /home/andrew/prt/debug-fourbyfourian-quarryin.z8
+** interpreter: /home/andrew/prt/dfrotz -m -w 5000
+
+* main-thru
+
+# doesn't matter which area
+
+>c3
+You need to depart from the Ministry before going anywhere.
+
+>n
+>a0
+It looks like
+>b0
+It looks like
+>c0
+It looks like
+>d0
+It looks like
+>e0
+It looks like
+>f0
+It looks like
+>g0
+It looks like
+>h0
+It looks like
+>i0
+It looks like
+>j0
+It looks like
+>k0
+It looks like
+>l0
+It looks like
+>m0
+It looks like
+>n0
+It looks like
+>o0
+It looks like
+>p0
+It looks like
+>q0
+It looks like
+>r0
+It looks like
+>s0
+It looks like
+>t0
+It looks like
+>u0
+It looks like
+>v0
+It looks like
+>w0
+It looks like
+>x0
+It looks like
+>y0
+It looks like
+>z0
+It looks like
+>f1
+It looks like
+>f2
+It looks like
+>f3
+It looks like
+>f4
+It looks like
+>f5
+It looks like
+>f6
+It looks like
+>f7
+It looks like
+>f8
+It looks like
+>f9
+It looks like
+
+> g c3
+You're already here.
+> gt c3
+You're already here.
+> go to c3
+You're already here.
+
+# ok, let's try every (x, y) offset
+
+>g a1
+
+>g a2
+brief walk
+>undo
+>g a3
+moderate walk
+>undo
+>g a4
+nice long walk
+>undo
+>g a5
+serious walk
+>undo
+
+>g b1
+brief walk
+>undo
+>g b2
+brief walk
+>undo
+>g b3
+moderate walk
+>undo
+>g b4
+nice long walk
+>undo
+>g b5
+serious walk
+>undo
+
+>g c1
+moderate walk
+>undo
+>g c2
+moderate walk
+>undo
+>g c3
+moderate walk
+>undo
+>g c4
+nice long walk
+>undo
+>g c5
+serious walk
+>undo
+
+>g d1
+nice long walk
+>undo
+>g d2
+nice long walk
+>undo
+>g d3
+nice long walk
+>undo
+>g d4
+nice long walk
+>undo
+>g d5
+serious walk
+>undo
+
+>g e1
+serious walk
+>undo
+>g e2
+serious walk
+>undo
+>g e3
+serious walk
+>undo
+>g e4
+serious walk
+>undo
+>g e5
+serious walk
+>undo
+
+>g
+What do you want to go to?
+>go to
+What do you want to go to?
+>gt
+What do you want to go to?
