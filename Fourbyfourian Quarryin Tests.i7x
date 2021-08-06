@@ -231,14 +231,18 @@ section amusing / special cases
 test bcolors1 with "n/place bishop/ne/place bishop/out/n/w/place bishop/ne/place bishop/out".
 test bcolors2 with "jump/e/place bishop/ne/place bishop/out/e/w/place bishop/ne/place bishop/out"
 
-test beatdown-bb with "jump/e/place k/a3/place b/e3/place b/c5/place k". [bb double check--note this must be done before stalemating]
-test beatdown-bn with "jump/se/place k/w/place n/e3/place b/c5/place k". [bn double check]
-test beatdown-nn with "jump/s/place k/w/place n/d3/place n/c5/place k". [nn double check]
+test dc-bb with "jump/e/place k/a3/place b/e3/place b/c5/place k". [bb double check--note this must be done before stalemating]
+test dc-bn with "jump/se/place k/w/place n/e3/place b/c5/place k". [bn double check]
+test dc-nn with "jump/s/place k/w/place n/d3/place n/c5/place k". [nn double check]
 
 test bvn1 with "ne/place bishop/w/place king/b5/place knight/w/place king".
 test bvn2 with "ne/se/place bishop/b3/place king/b5/place knight/w/place king".
 
-test orwell with "jump/e/place n/e/place n/e/place k/e1/place k"
+test orwell with "jump/s/place n/e/place n/e/place k/e1/place k"
+
+test metas with "nw/xyzzy"
+
+test amuse with "test bcolors1/test bcolors2/test dc-bb/test bvn1/test bvn2/test orwell/test metas"
 
 Fourbyfourian Quarryin Tests ends here.
 
