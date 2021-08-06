@@ -485,7 +485,7 @@ first-piece of southwest is yellow knight. second-piece of southwest is grey bis
 
 section individual quest properties -- advanced directions next
 
-first-piece of south is yellow knight. second-piece of south is purple knight. king-place of south is no-corner-no-close rule. visit-text of south is traitors-all-used rule. can-visit of south is traitors-all-used-bare rule. south is secondary. quest-details of south is "The bishop and knight checkmate is a tricky one. It took me a while to figure. I walked away saying, 'Hey, look, here's proof that the two bishops are better than a bishop and knight if pawns aren't in the way.' But one night I was able to put it together: you have to push the enemy king to the corner your bishop can't cover, then push the king to the other corner. Having the bishop two squares from your knight puts a lock on critical escape squares, and the checkmate taught me a lot about square control.". hint-text of south is "[piece-cooperation]". quick-text of south is "2 N's". summary-text of south is "two knights". recap-text of south is "In [q of south], knights were three squares away from each other, and you were off to the side of them, enough to trap the enemy king."
+first-piece of south is yellow knight. second-piece of south is purple knight. king-place of south is two-knights-silly rule. visit-text of south is traitors-all-used rule. can-visit of south is traitors-all-used-bare rule. south is secondary. quest-details of south is "The bishop and knight checkmate is a tricky one. It took me a while to figure. I walked away saying, 'Hey, look, here's proof that the two bishops are better than a bishop and knight if pawns aren't in the way.' But one night I was able to put it together: you have to push the enemy king to the corner your bishop can't cover, then push the king to the other corner. Having the bishop two squares from your knight puts a lock on critical escape squares, and the checkmate taught me a lot about square control.". hint-text of south is "[piece-cooperation]". quick-text of south is "2 N's". summary-text of south is "two knights". recap-text of south is "In [q of south], knights were three squares away from each other, and you were off to the side of them, enough to trap the enemy king."
 
 first-piece of east is yellow bishop. second-piece of east is purple bishop. king-place of east is no-corner-no-close rule. visit-text of east is traitors-all-used rule. can-visit of east is traitors-all-used-bare rule. east is secondary. quest-details of east is "Checkmate with two bishops and nothing else isn't too bad to figure out. You push the enemy king to the side of the board, where he has only two moves. Then you lose a move with one of the bishop as you roll him into the corner. However, I was shocked to learn one Chicago area master I respected greatly (I had a Learning Experience against him) was unable to convert the advantage in a tournament with long time controls.". hint-text of east is "[piece-cooperation]". quick-text of east is "2 B's". summary-text of east is "two bishops". right-checkmate of east is two-bishops-formation rule. recap-text of east is "In [q of east], you placed one bishop next to the king and the other on a diagonal. The king guarded the bishop close by."
 
@@ -530,7 +530,8 @@ this is the two-bishops-formation rule:
 
 this is the knight blocks bishop rule:
 	if Fourbyfourian king is not placed, continue the action;
-	let Q be diag-dist of first-piece of quest-dir and grey knight;
+	let Q be diag-dist of first-piece of quest-dir and Fourbyfourian King;
+	say "[Q] diagonal distance.";
 	if Q < 2, continue the action;
 	note-amusing-stuff "bvn-miss";
 	say "The enemy knight, who wants to cooperate with your cunning plan, unfortunately has no choice. The king being in danger, and the knight in obvious position to prevent it, jumps to action![paragraph break]";
@@ -538,6 +539,7 @@ this is the knight blocks bishop rule:
 		say "A big fight ensues! A fake one, to impress the Fourbyfourian king and not really raise suspicions.[paragraph break]Eh well. There's more bishops where THEY came from.";
 	else:
 		say "The knight throws itself in front of the bishop. You have no choice but to dismiss the bishop in disgrace and assure the Fourbyfourian king you had nothing to do with it, and if you can help yourself, it won't happen again. The bishop looks ... less than happy. But you mention it is divine will, which the bishop can't argue with. After all, he's used that argument on some unlucky doomed unfortunates, himself.";
+	retreat-to-unity;
 	the rule succeeds;
 
 section quest start rules
@@ -578,7 +580,9 @@ volume verbs
 chapter going to
 
 rule for supplying a missing noun when gotoing:
-	if player is in Ministry of Unity, now noun is c3;
+	if player is in Ministry of Unity, try going outside instead;
+	say "There are twenty-four other squares, so you'll need to be more specific.";
+	reject the player's command;
 
 carry out gotoing:
 	abide by the already-here rule;
@@ -609,22 +613,27 @@ this is the same-colored-bishops rule:
 	unless location of Q and location of player are samecolored, continue the action;
 	if grey bishop is irrelevant:
 		note-amusing-stuff "bb-colors-second";
-		if quest-dir is not stalemated:
+		if quest-dir is stalemated:
 			say "But wait! You realize that you are about to place both your bishops on the same-colored square. You may break a lot of stuffy old rules in [12b], but that's not one of them, especially since breaking that rule gives no practical benefit. Okay, it actually harms you.[paragraph break]Somewhere else, maybe.";
 		else:
 			say "One of your bishops looks confused. The other looks very impressed. Each doesn't like the other being on their turf, but your unconventional approach of putting them on the same color square just might work ... this time. Or it might fail spectacularly.";
+			continue the action;
 	else:
 		note-amusing-stuff "bb-colors-first";
 		say "Your bishop and the enemy bishop look over at each other. They then both glare at you, as if in slight doubt of your leadership. They can't actually ... risk crossing paths, which might happen, since they're on the same color square.";
 	the rule succeeds;
 
-this is the excessive beatdown rule:
+to decide which number is check-total:
 	let temp be 0;
 	repeat with Q running through placed pieces:
-		if Q is Twelvebytwelvian king, continue the action;
-		if color of Q is black, continue the action;
+		if color of Q is black, next;
+		if Q is Twelvebytwelvian king, next;
 		if Q attacks the Fourbyfourian king, increment temp;
-	if temp is 2:
+	say "[list of placed pieces] [temp].";
+	decide on temp;
+
+this is the excessive beatdown rule:
+	if check-total is 2:
 		note-amusing-stuff "beatdown";
 		say "The pieces under your command look over at you questioningly. While they recognize what fun it is to both be attacking the Fourbyfourian king at once, they also consider such fun is not strategically sound. Still, you're the boss...";
 
@@ -706,7 +715,6 @@ carry out calling:
 	if noun is a bishop:
 		abide by the same-colored-bishops rule;
 	now noun is placed;
-	abide by misc-checks of quest-dir;
 	if Twelvebytwelvian king is placed:
 		if Twelvebytwelvian king is checked:
 			say "But wait. Your king would be under attack from the enemy there. You'll need to try again.";
@@ -714,7 +722,6 @@ carry out calling:
 			now noun is reserved;
 			the rule succeeds;
 	now entry (status-index of noun) of current-quest-snapshot is location of player;
-	say "[current-quest-snapshot].";
 	update-guarded;
 	if noun is Fourbyfourian king:
 		if number of reserved pieces > 1:
@@ -733,6 +740,7 @@ carry out calling:
 			if screen-reader is false, show-the-board;
 			move player to Ministry of Unity;
 			the rule succeeds;
+		abide by misc-checks of quest-dir;
 		if you-checkmated:
 			abide by the checkmate dialogue rule;
 			abide by right-checkmate of quest-dir;
@@ -830,6 +838,7 @@ this is the two-knights-silly rule:
 	if location of player is cornery and you-checkmated:
 		say "While the [fourbyfourian] sees what's up and booms 'You can't force me there,' you have an idea. You technically ... really ... couldn't, even if everyone alternated moves. But if you could make someone, or a whole society, think that way ... what power you would have! Perhaps you could tie it up with some 2+2=5 motivational nonsense as well.[paragraph break]Also, you recall some egghead advisor rambling on about how a traitorous pawn or page could help you conquer [cq] effortlessly, but it seemed too nonsensically far out for you. Easier just to tackle the [fourbyfourian] on the edge.";
 		note-amusing-stuff "orwell";
+		retreat-to-unity;
 		the rule fails;
 
 section disambiguating when nothing is relevant
@@ -853,12 +862,14 @@ definition: a thing is matched if it fits the parse list.
 rule for asking which do you mean when everything matched is irrelevant (this is the bypass disambiguation rule):
 	if the current action is calling:
 		say "Everyone matching that request isn't part of the current maneuvers, so I can't figure anyone to call.";
+		bypass disambiguation;
 		the rule succeeds;
 	continue the action;
 
 rule for asking which do you mean when everything matched is not reserved (this is the bypass disambiguation 2 rule):
 	if the current action is calling:
 		say "Everyone matching that request is either placed or not part of the current maneuvers, so I can't figure anyone to call.";
+		bypass disambiguation;
 		the rule succeeds;
 	continue the action;
 
