@@ -187,7 +187,9 @@ check going (this is the hub check rule):
 		say "Flying machines are a century or more away." instead;
 	if player is in Ministry of Unity:
 		let cur-row be 0;
-		if noun is northwest, say "Alas, the vast lands northwest of [12b] are so unruly as to feature nonlinear borders. Some such borders are not even defined by rivers![paragraph break]Plus, they're vast enough, it'd take too long to get to their capitals. Oh, and the whole painful winters and large armies things, too." instead;
+		if noun is northwest:
+			note-amusing-stuff "northwest";
+			say "Alas, the vast lands northwest of [12b] are so unruly as to feature nonlinear borders. Some such borders are not even defined by rivers![paragraph break]Plus, they're vast enough, it'd take too long to get to their capitals. Oh, and the whole painful winters and large armies things, too." instead;
 		if noun is unquestable, say "You can't go [noun] from the Ministry." instead;
 		if noun is solved, say "You already conquered [noun] [4b]." instead;
 		abide by visit-text of noun;
@@ -1099,6 +1101,15 @@ carry out verbsing:
 	say "[this-game] uses a simplified parser. The main commands are the planar directions: [b]N[r], [b]S[r], [b]E[r], [b]W[r], [b]NW[r], [b]NE[r], [b]SW[r], [b]SE[r]. [b]U[r] and [b]D[r], for up and down, aren't used. [b]OUT[r] anywhere but the [ministry] returns you to the [ministry].[paragraph break]You can also ignore directions to jump to a square when you're not in the Ministry of Unity. So typing [b]a1[r] sends you to a1, etc.[paragraph break]You can also [b]CALL[r]/[b]C[r] or [b]PLACE[r]/[b]P[r] a piece, enemy or friendly. These have abbreviations, too: [b]ABB[r] finds them.[paragraph break]Meta-verbs and options are discussed in [b]META[r] ([b]MET[r]/[b]ME[r]).";
 	the rule succeeds;
 
+chapter xyzzy
+
+carry out xyzzying:
+	note-amusing-stuff "xyzzy";
+	if player is in Ministry of Unity:
+		say "The x-y plane provides enough challenges, thank you very much. You don't want or need to deal with 3-d visualization. Maybe some younguns with fresher brains could figure it out. Oh, and tackle the toughies in the underworld.";
+	else:
+		say "You wouldn't want to pick a fight with any 26-wide country, that's for sure. Also, there are no secret doors on the west side of the castle."
+
 volume amusing post-game
 
 Rule for amusing a victorious player:
@@ -1129,7 +1140,9 @@ code	done-yet	amuse-list
 "bvn-miss"	false	"Placing the bishop too far from the king when you have the traitor knight"
 "bb-colors-first"	false	"Placing two opposing bishops on the same color tile"
 "bb-colors-second"	false	"Placing your two bishops on the same color tile"
+"northwest"	false	"Going northwest in the [ministry]"
 "orwell"	false	"Checkmating with two knights and a king in the corner"
+"xyzzy"	false	"Everyone's favorite* text-adventure in-joke, XYZZY"
 
 volume parser rules and errors
 
