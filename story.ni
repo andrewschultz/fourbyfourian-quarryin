@@ -1117,15 +1117,21 @@ Rule for amusing a victorious player:
 	look-for-amuse true;
 
 to look-for-amuse (t - a truth state):
-	let any-done-yet be false;
+	let any-flagged-yet be false;
+	let any-unflagged-yet be false;
 	repeat through table of amusing stuff:
 		if done-yet entry is t:
-			if any-done-yet is false:
-				now any-done-yet is true;
+			if any-flagged-yet is false:
+				now any-flagged-yet is true;
 				say "YOU [if t is true]ALREADY TRIED[else]COULD TRY[end if]:[line break]";
 			say "    ----[amuse-list entry][line break]";
-	if t is false and any-done-yet is false:
-		say "Impressive! You found all my cheap jokes. Thanks for exploring so diligently."
+		else:
+			now any-unflagged-yet is true;
+	if t is true and any-unflagged-yet is true, continue the action;
+	if debug-state is false, continue the action;
+	if t is false:
+		if any-flagged-yet is true or game-over, continue the action;
+	say "Impressive! You found all my cheap jokes. Thanks for exploring so diligently."
 
 to note-amusing-stuff (t - text):
 	repeat through table of amusing stuff:
@@ -1165,6 +1171,19 @@ understand "jump" as jumpovering.
 understand "j" as jumpovering.
 
 carry out jumpovering:
+	say "You can [if jump-over is true]already[else]now[end if] jump over boundary conditions to visit any quest.";
+	now jump-over is true;
+	the rule succeeds;
+
+chapter jumptoggleing
+
+jumptoggleing is an action out of world.
+
+understand the command "jt" as something new.
+
+understand "jt" as jumptoggleing.
+
+carry out jumptoggleing:
 	now jump-over is whether or not jump-over is false;
 	say "Jumping over boundary conditions so you can visit anywhere is now toggled to [on-off of jump-over].";
 	the rule succeeds;
