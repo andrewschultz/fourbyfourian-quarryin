@@ -6,739 +6,739 @@
 
 * main-thru
 
-> JUMP
+> jump
 
-> ; TEST CASE SBB1
-> E
-> D3
-> PLACE KING
-> A1
+> ; test case sbb1
+> e
+> d3
+> place king
+> a1
 > place bishop
-> C2
+> c2
 > place bishop
-> C1
-> PLACE KING
+> c1
+> place king
 DEBUG: Stalemate
-> PF
+> pf
 PASSED.
-> WIPE E
+> wipe e
 
-> ; TEST CASE SBB2
-> E
-> E1
-> PLACE KING
-> A1
+> ; test case sbb2
+> e
+> e1
+> place king
+> a1
 > place bishop
-> D3
+> d3
 > place bishop
-> C1
-> PLACE KING
+> c1
+> place king
 DEBUG: Stalemate
-> PF
+> pf
 PASSED.
-> WIPE E
+> wipe e
 
-> ; TEST CASE SBB3
-> E
-> E2
-> PLACE KING
-> A1
+> ; test case sbb3
+> e
+> e2
+> place king
+> a1
 > place bishop
-> D3
+> d3
 > place bishop
-> C1
-> PLACE KING
+> c1
+> place king
 DEBUG: Stalemate
-> PF
+> pf
 PASSED.
-> WIPE E
+> wipe e
 
-> ; TEST CASE SBB4
-> E
-> PLACE KING
-> A2
+> ; test case sbb4
+> e
+> place king
+> a2
 > place bishop
-> B3
+> b3
 > place bishop
-> C1
-> PLACE KING
+> c1
+> place king
 DEBUG: Stalemate
-> PF
+> pf
 PASSED.
-> WIPE E
+> wipe e
 
-> ; TEST CASE SBB5
-> E
-> PLACE KING
-> A2
+> ; test case sbb5
+> e
+> place king
+> a2
 > place bishop
-> E2
+> e2
 > place bishop
-> C1
-> PLACE KING
+> c1
+> place king
 DEBUG: Stalemate
-> PF
+> pf
 PASSED.
-> WIPE E
+> wipe e
 
-> ; TEST CASE SBB6
-> E
-> A1
-> PLACE KING
-> B3
+> ; test case sbb6
+> e
+> a1
+> place king
+> b3
 > place bishop
-> C3
+> c3
 > place bishop
-> C1
-> PLACE KING
+> c1
+> place king
 DEBUG: Stalemate
-> PF
+> pf
 PASSED.
-> WIPE E
+> wipe e
 
-> ; TEST CASE SBB7
-> E
-> A2
-> PLACE KING
-> B3
+> ; test case sbb7
+> e
+> a2
+> place king
+> b3
 > place bishop
-> C3
+> c3
 > place bishop
-> C1
-> PLACE KING
+> c1
+> place king
 DEBUG: Stalemate
-> PF
+> pf
 PASSED.
-> WIPE E
+> wipe e
 
-> ; TEST CASE SBB8
-> E
-> PLACE KING
-> B3
+> ; test case sbb8
+> e
+> place king
+> b3
 > place bishop
-> D3
+> d3
 > place bishop
-> C1
-> PLACE KING
+> c1
+> place king
 DEBUG: Stalemate
-> PF
+> pf
 PASSED.
-> WIPE E
+> wipe e
 
-> ; TEST CASE SBB9
-> E
-> B3
-> PLACE KING
-> C2
+> ; test case sbb9
+> e
+> b3
+> place king
+> c2
 > place bishop
-> C3
+> c3
 > place bishop
-> C1
-> PLACE KING
+> c1
+> place king
 DEBUG: Stalemate
-> PF
+> pf
 PASSED.
-> WIPE E
+> wipe e
 
-> ; TEST CASE SBB10
-> E
-> D3
-> PLACE KING
-> A3
+> ; test case sbb10
+> e
+> d3
+> place king
+> a3
 > place bishop
-> C3
+> c3
 > place bishop
-> D1
-> PLACE KING
+> d1
+> place king
 DEBUG: Stalemate
-> PF
+> pf
 PASSED.
-> WIPE E
+> wipe e
 
-> ; TEST CASE SNB1
+> ; test case snb1
 > se
-> PLACE KING
-> A1
+> place king
+> a1
 > place knight
-> C2
+> c2
 > place bishop
-> C1
-> PLACE KING
+> c1
+> place king
 DEBUG: Stalemate
-> PF
+> pf
 PASSED.
 > wipe se
 
-> ; TEST CASE SNB2
+> ; test case snb2
 > se
-> E1
-> PLACE KING
-> A3
+> e1
+> place king
+> a3
 > place knight
-> A1
+> a1
 > place bishop
-> C1
-> PLACE KING
+> c1
+> place king
 DEBUG: Stalemate
-> PF
+> pf
 PASSED.
 > wipe se
 
-> ; TEST CASE SNB3
+> ; test case snb3
 > se
-> E2
-> PLACE KING
-> A3
+> e2
+> place king
+> a3
 > place knight
-> A1
+> a1
 > place bishop
-> C1
-> PLACE KING
+> c1
+> place king
 DEBUG: Stalemate
-> PF
+> pf
 PASSED.
 > wipe se
 
-> ; TEST CASE SNB4
+> ; test case snb4
 > se
-> PLACE KING
-> A3
+> place king
+> a3
 > place knight
-> B3
+> b3
 > place bishop
-> C1
-> PLACE KING
+> c1
+> place king
 DEBUG: Stalemate
-> PF
+> pf
 PASSED.
 > wipe se
 
-> ; TEST CASE SNB5
+> ; test case snb5
 > se
-> PLACE KING
-> A3
+> place king
+> a3
 > place knight
-> C2
+> c2
 > place bishop
-> C1
-> PLACE KING
+> c1
+> place king
 DEBUG: Stalemate
-> PF
+> pf
 PASSED.
 > wipe se
 
-> ; TEST CASE SNB6
+> ; test case snb6
 > se
-> E1
-> PLACE KING
-> A3
+> e1
+> place king
+> a3
 > place knight
-> C3
+> c3
 > place bishop
-> C1
-> PLACE KING
+> c1
+> place king
 DEBUG: Stalemate
-> PF
+> pf
 PASSED.
 > wipe se
 
-> ; TEST CASE SNB7
+> ; test case snb7
 > se
-> E2
-> PLACE KING
-> A3
+> e2
+> place king
+> a3
 > place knight
-> C3
+> c3
 > place bishop
-> C1
-> PLACE KING
+> c1
+> place king
 DEBUG: Stalemate
-> PF
+> pf
 PASSED.
 > wipe se
 
-> ; TEST CASE SNB8
+> ; test case snb8
 > se
-> PLACE KING
-> A3
+> place king
+> a3
 > place knight
-> E2
+> e2
 > place bishop
-> C1
-> PLACE KING
+> c1
+> place king
 DEBUG: Stalemate
-> PF
+> pf
 PASSED.
 > wipe se
 
-> ; TEST CASE SNB9
+> ; test case snb9
 > se
-> A1
-> PLACE KING
-> B1
+> a1
+> place king
+> b1
 > place knight
-> B3
+> b3
 > place bishop
-> C1
-> PLACE KING
+> c1
+> place king
 DEBUG: Stalemate
-> PF
+> pf
 PASSED.
 > wipe se
 
-> ; TEST CASE SNB10
+> ; test case snb10
 > se
-> A2
-> PLACE KING
-> B1
+> a2
+> place king
+> b1
 > place knight
-> B3
+> b3
 > place bishop
-> C1
-> PLACE KING
+> c1
+> place king
 DEBUG: Stalemate
-> PF
+> pf
 PASSED.
 > wipe se
 
-> ; TEST CASE SNB11
+> ; test case snb11
 > se
-> B3
-> PLACE KING
-> B1
+> b3
+> place king
+> b1
 > place knight
-> C2
+> c2
 > place bishop
-> C1
-> PLACE KING
+> c1
+> place king
 DEBUG: Stalemate
-> PF
+> pf
 PASSED.
 > wipe se
 
-> ; TEST CASE SNB12
+> ; test case snb12
 > se
-> PLACE KING
-> B1
+> place king
+> b1
 > place knight
-> C2
+> c2
 > place bishop
-> C1
-> PLACE KING
+> c1
+> place king
 DEBUG: Stalemate
-> PF
+> pf
 PASSED.
 > wipe se
 
-> ; TEST CASE SNB13
+> ; test case snb13
 > se
-> PLACE KING
-> B2
+> place king
+> b2
 > place knight
-> A2
+> a2
 > place bishop
-> C1
-> PLACE KING
+> c1
+> place king
 DEBUG: Stalemate
-> PF
+> pf
 PASSED.
 > wipe se
 
-> ; TEST CASE SNB14
+> ; test case snb14
 > se
-> PLACE KING
-> B2
+> place king
+> b2
 > place knight
-> C2
+> c2
 > place bishop
-> C1
-> PLACE KING
+> c1
+> place king
 DEBUG: Stalemate
-> PF
+> pf
 PASSED.
 > wipe se
 
-> ; TEST CASE SNB15
+> ; test case snb15
 > se
-> PLACE KING
-> B2
+> place king
+> b2
 > place knight
-> D3
+> d3
 > place bishop
-> C1
-> PLACE KING
+> c1
+> place king
 DEBUG: Stalemate
-> PF
+> pf
 PASSED.
 > wipe se
 
-> ; TEST CASE SNB16
+> ; test case snb16
 > se
-> D3
-> PLACE KING
-> C3
+> d3
+> place king
+> c3
 > place knight
-> A1
+> a1
 > place bishop
-> C1
-> PLACE KING
+> c1
+> place king
 DEBUG: Stalemate
-> PF
+> pf
 PASSED.
 > wipe se
 
-> ; TEST CASE SNB17
+> ; test case snb17
 > se
-> D3
-> PLACE KING
-> A1
+> d3
+> place king
+> a1
 > place knight
-> D2
+> d2
 > place bishop
-> D1
-> PLACE KING
+> d1
+> place king
 DEBUG: Stalemate
-> PF
+> pf
 PASSED.
 > wipe se
 
-> ; TEST CASE SNB18
+> ; test case snb18
 > se
-> E3
-> PLACE KING
-> A1
+> e3
+> place king
+> a1
 > place knight
-> D2
+> d2
 > place bishop
-> D1
-> PLACE KING
+> d1
+> place king
 DEBUG: Stalemate
-> PF
+> pf
 PASSED.
 > wipe se
 
-> ; TEST CASE SNB19
+> ; test case snb19
 > se
-> D3
-> PLACE KING
-> A2
+> d3
+> place king
+> a2
 > place knight
-> C3
+> c3
 > place bishop
-> D1
-> PLACE KING
+> d1
+> place king
 DEBUG: Stalemate
-> PF
+> pf
 PASSED.
 > wipe se
 
-> ; TEST CASE SNB20
+> ; test case snb20
 > se
-> D3
-> PLACE KING
-> A2
+> d3
+> place king
+> a2
 > place knight
-> D2
+> d2
 > place bishop
-> D1
-> PLACE KING
+> d1
+> place king
 DEBUG: Stalemate
-> PF
+> pf
 PASSED.
 > wipe se
 
-> ; TEST CASE SNB21
+> ; test case snb21
 > se
-> D3
-> PLACE KING
-> A3
+> d3
+> place king
+> a3
 > place knight
-> D2
+> d2
 > place bishop
-> D1
-> PLACE KING
+> d1
+> place king
 DEBUG: Stalemate
-> PF
+> pf
 PASSED.
 > wipe se
 
-> ; TEST CASE SNB22
+> ; test case snb22
 > se
-> E3
-> PLACE KING
-> A3
+> e3
+> place king
+> a3
 > place knight
-> D2
+> d2
 > place bishop
-> D1
-> PLACE KING
+> d1
+> place king
 DEBUG: Stalemate
-> PF
+> pf
 PASSED.
 > wipe se
 
-> ; TEST CASE SNB23
+> ; test case snb23
 > se
-> D3
-> PLACE KING
-> C2
+> d3
+> place king
+> c2
 > place knight
-> A3
+> a3
 > place bishop
-> D1
-> PLACE KING
+> d1
+> place king
 DEBUG: Stalemate
-> PF
+> pf
 PASSED.
 > wipe se
 
-> ; TEST CASE SNN1
+> ; test case snn1
 > s
-> PLACE KING
-> A3
+> place king
+> a3
 > place knight
-> B2
+> b2
 > place knight
-> C1
-> PLACE KING
+> c1
+> place king
 DEBUG: Stalemate
-> PF
+> pf
 PASSED.
 > wipe s
 
-> ; TEST CASE SNN2
+> ; test case snn2
 > s
-> E1
-> PLACE KING
-> A3
+> e1
+> place king
+> a3
 > place knight
-> D1
+> d1
 > place knight
-> C1
-> PLACE KING
+> c1
+> place king
 DEBUG: Stalemate
-> PF
+> pf
 PASSED.
 > wipe s
 
-> ; TEST CASE SNN3
+> ; test case snn3
 > s
-> E2
-> PLACE KING
-> A3
+> e2
+> place king
+> a3
 > place knight
-> D1
+> d1
 > place knight
-> C1
-> PLACE KING
+> c1
+> place king
 DEBUG: Stalemate
-> PF
+> pf
 PASSED.
 > wipe s
 
-> ; TEST CASE SNN4
+> ; test case snn4
 > s
-> PLACE KING
-> A3
+> place king
+> a3
 > place knight
-> E3
+> e3
 > place knight
-> C1
-> PLACE KING
+> c1
+> place king
 DEBUG: Stalemate
-> PF
+> pf
 PASSED.
 > wipe s
 
-> ; TEST CASE SNN5
+> ; test case snn5
 > s
-> B3
-> PLACE KING
-> B1
+> b3
+> place king
+> b1
 > place knight
-> C3
+> c3
 > place knight
-> C1
-> PLACE KING
+> c1
+> place king
 DEBUG: Stalemate
-> PF
+> pf
 PASSED.
 > wipe s
 
-> ; TEST CASE SNN6
+> ; test case snn6
 > s
-> PLACE KING
-> B2
+> place king
+> b2
 > place knight
-> D2
+> d2
 > place knight
-> C1
-> PLACE KING
+> c1
+> place king
 DEBUG: Stalemate
-> PF
+> pf
 PASSED.
 > wipe s
 
-> ; TEST CASE SNN7
+> ; test case snn7
 > s
-> E3
-> PLACE KING
-> A1
+> e3
+> place king
+> a1
 > place knight
-> D3
+> d3
 > place knight
-> D1
-> PLACE KING
+> d1
+> place king
 DEBUG: Stalemate
-> PF
+> pf
 PASSED.
 > wipe s
 
-> ; TEST CASE SNN8
+> ; test case snn8
 > s
-> D3
-> PLACE KING
-> A2
+> d3
+> place king
+> a2
 > place knight
-> C2
+> c2
 > place knight
-> D1
-> PLACE KING
+> d1
+> place king
 DEBUG: Stalemate
-> PF
+> pf
 PASSED.
 > wipe s
 
-> ; TEST CASE SNN9
+> ; test case snn9
 > s
-> E3
-> PLACE KING
-> A3
+> e3
+> place king
+> a3
 > place knight
-> D3
+> d3
 > place knight
-> D1
-> PLACE KING
+> d1
+> place king
 DEBUG: Stalemate
-> PF
+> pf
 PASSED.
 > wipe s
 
-> ; TEST CASE CBB1
-> E
-> D3
-> PLACE KING
-> A3
+> ; test case cbb1
+> e
+> d3
+> place king
+> a3
 > place bishop
-> C2
+> c2
 > place bishop
-> C1
-> PLACE KING
+> c1
+> place king
 But wait! The Fourbyfourian king feels a LITTLE too under attack. He excuses himself for ... well, a family emergency, an important jousting tournament to judge, another one of those banquets, you know.
-> PF
+> pf
 PASSED.
-> WIPE E
+> wipe e
 
-> ; TEST CASE CBB2
-> E
-> E1
-> PLACE KING
-> A3
+> ; test case cbb2
+> e
+> e1
+> place king
+> a3
 > place bishop
-> D3
+> d3
 > place bishop
-> C1
-> PLACE KING
+> c1
+> place king
 But wait! The Fourbyfourian king feels a LITTLE too under attack. He excuses himself for ... well, a family emergency, an important jousting tournament to judge, another one of those banquets, you know.
-> PF
+> pf
 PASSED.
-> WIPE E
+> wipe e
 
-> ; TEST CASE CBB3
-> E
-> E2
-> PLACE KING
-> A3
+> ; test case cbb3
+> e
+> e2
+> place king
+> a3
 > place bishop
-> D3
+> d3
 > place bishop
-> C1
-> PLACE KING
+> c1
+> place king
 But wait! The Fourbyfourian king feels a LITTLE too under attack. He excuses himself for ... well, a family emergency, an important jousting tournament to judge, another one of those banquets, you know.
-> PF
+> pf
 PASSED.
-> WIPE E
+> wipe e
 
-> ; TEST CASE CNB1
+> ; test case cnb1
 > se
-> PLACE KING
-> A2
+> place king
+> a2
 > place knight
-> C2
+> c2
 > place bishop
-> C1
-> PLACE KING
+> c1
+> place king
 But wait! The Fourbyfourian king feels a LITTLE too under attack. He excuses himself for ... well, a family emergency, an important jousting tournament to judge, another one of those banquets, you know.
-> PF
+> pf
 PASSED.
 > wipe se
 
-> ; TEST CASE CNB2
+> ; test case cnb2
 > se
-> PLACE KING
-> B3
+> place king
+> b3
 > place knight
-> C2
+> c2
 > place bishop
-> C1
-> PLACE KING
+> c1
+> place king
 But wait! The Fourbyfourian king feels a LITTLE too under attack. He excuses himself for ... well, a family emergency, an important jousting tournament to judge, another one of those banquets, you know.
-> PF
+> pf
 PASSED.
 > wipe se
 
-> ; TEST CASE CNB3
+> ; test case cnb3
 > se
-> D3
-> PLACE KING
-> C3
+> d3
+> place king
+> c3
 > place knight
-> A3
+> a3
 > place bishop
-> C1
-> PLACE KING
+> c1
+> place king
 But wait! The Fourbyfourian king feels a LITTLE too under attack. He excuses himself for ... well, a family emergency, an important jousting tournament to judge, another one of those banquets, you know.
-> PF
+> pf
 PASSED.
 > wipe se
 
-> ; TEST CASE CNN1
+> ; test case cnn1
 > s
-> E1
-> PLACE KING
-> A3
+> e1
+> place king
+> a3
 > place knight
-> D3
+> d3
 > place knight
-> C1
-> PLACE KING
+> c1
+> place king
 But wait! The Fourbyfourian king feels a LITTLE too under attack. He excuses himself for ... well, a family emergency, an important jousting tournament to judge, another one of those banquets, you know.
-> PF
+> pf
 PASSED.
 > wipe s
 
-> ; TEST CASE CNN2
+> ; test case cnn2
 > s
-> E2
-> PLACE KING
-> A3
+> e2
+> place king
+> a3
 > place knight
-> D3
+> d3
 > place knight
-> C1
-> PLACE KING
+> c1
+> place king
 But wait! The Fourbyfourian king feels a LITTLE too under attack. He excuses himself for ... well, a family emergency, an important jousting tournament to judge, another one of those banquets, you know.
-> PF
+> pf
 PASSED.
 > wipe s
 
