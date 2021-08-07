@@ -11,7 +11,7 @@ Meta-verbs and options are discussed in
 > verb
 Meta-verbs and options are discussed in
 > v
-!Meta-verbs and options are discussed in
+Meta-verbs and options are discussed in
 
 > abbrev
 You can use abbreviations while placing pieces. They were meant to be relatively intuitive. Fourbyfourian traitor pieces are always grey. Your Twelvebytwelvian allies can be either yellow or purple.
@@ -34,7 +34,7 @@ The rules of chess are that each player gets alternate turns, but here, you get 
 
 > help
 NOTE: if you want full hints, the walkthrough.txt file that came with this binary should have the details. This command tries to give you hints without spoiling anything.
-You have nothing to do in the Ministry of Unity, but you can hint a direction if you want, for specific Fourbyfourias.
+!You have nothing to do in the Ministry of Unity, but you can hint a direction if you want, for specific Fourbyfourias.
 > hint
 !NOTE: if you want full hints, the walkthrough.txt file that came with this binary should have the details. This command tries to give you hints without spoiling anything.
 You have nothing to do in the Ministry of Unity, but you can hint a direction if you want, for specific Fourbyfourias.
@@ -42,7 +42,7 @@ You have nothing to do in the Ministry of Unity, but you can hint a direction if
 !NOTE: if you want full hints, the walkthrough.txt file that came with this binary should have the details. This command tries to give you hints without spoiling anything.
 You have nothing to do in the Ministry of Unity, but you can hint a direction if you want, for specific Fourbyfourias.
 > h ne
-You haven't been to East Fourbyfouria yet, so I don't want to give any hints.
+You haven't been to Northeast Fourbyfouria yet, so I don't want to give any hints.
 > ne
 > out
 > h ne
@@ -57,8 +57,6 @@ Here is a list of meta-verbs and options you can use. None are necessary to comp
 > met
 Here is a list of meta-verbs and options you can use. None are necessary to complete the game, but they can all be useful.
 > me
-Here is a list of meta-verbs and options you can use. None are necessary to complete the game, but they can all be useful.
-> m
 Here is a list of meta-verbs and options you can use. None are necessary to complete the game, but they can all be useful.
 
 > recap
@@ -110,17 +108,6 @@ Thanks to chess.com, lichess.org, chessgames.com, and everyone
 # this can only be seen after solving something
 > n
 
-#########################meta command
-> pie
-yellow bishop (irrelevant) offsite.
-purple bishop offsite.
-grey bishop offsite.
-yellow knight (irrelevant) offsite.
-purple knight (irrelevant) offsite.
-grey knight (irrelevant) offsite.
-Twelvebytwelvian King offsite.
-Fourbyfourian King offsite.
-
 > place fb
 > e
 > call k
@@ -150,11 +137,14 @@ DEBUG: Checkmate achieved.
 > recap n
 In North Fourbyfouria, you used the enemy bishop and your own king to wall in the enemy king.
 Here are specifics of conquering North Fourbyfouria:
-You captured the enemy king (checkmated) with the Twelvebytwelvian King at d3, the purple bishop at c3, the grey bishop at d5, and the Fourbyfourian King at e5.
+/You captured the enemy king \(checkmated\) with the Twelvebytwelvian King at d3, the (yellow|purple) bishop at c3, the grey bishop at d5, and the Fourbyfourian King at e5.
 > r n
 In North Fourbyfouria, you used the enemy bishop and your own king to wall in the enemy king.
+> r sw
+You haven't taken over Southwest Fourbyfouria yet. In fact, you haven't even been there.
 > r ne
-You haven't taken over Northeast Fourbyfouria yet. In fact, you haven't even been there.
+You haven't taken over Northeast Fourbyfouria yet.
+!In fact, you haven't even been there.
 > r
 In North Fourbyfouria, you used the enemy bishop and your own king to wall in the enemy king.
 > ne
@@ -174,7 +164,7 @@ I remember
 > d sw
 I remember
 > d s
-I remember
+You'll be able to see what's south soon enough, but it's not open yet.
 > d e
 You'll be able to see what's east soon enough, but it's not open yet.
 
@@ -185,6 +175,21 @@ You have no conquers to recap. Yet.
 
 > fail
 Get ahold of yourself! Positive thinking and all that sort of thing! It won't do to admit failure.
+
+>jump
+>e
+#########################meta command -- using east specifically since piece colors aren't randomized
+> pie
+yellow bishop offsite.
+purple bishop offsite.
+grey bishop (irrelevant) offsite.
+yellow knight (irrelevant) offsite.
+purple knight (irrelevant) offsite.
+grey knight (irrelevant) offsite.
+Twelvebytwelvian King offsite.
+Fourbyfourian King offsite.
+> fail
+
 > n
 > details
 I remember
@@ -193,10 +198,10 @@ I remember
 > d
 I remember
 > fail
-You walk away, feigning boredom, pretending to the [4n] King it was HIS fault the negotiations, or whatever ... failed. This gaslighting doesn't work often, but it's worth the (lack of) effort.
+You walk away, feigning boredom, pretending to the Fourbyfourian King it was HIS fault the negotiations, or whatever ... failed. This gaslighting doesn't work often, but it's worth the (lack of) effort.
 > n
 > f
-You walk away, feigning boredom, pretending to the [4n] King it was HIS fault the negotiations, or whatever ... failed. This gaslighting doesn't work often, but it's worth the (lack of) effort.
+You walk away, feigning boredom, pretending to the Fourbyfourian King it was HIS fault the negotiations, or whatever ... failed. This gaslighting doesn't work often, but it's worth the (lack of) effort.
 
 * screen-reader-tests
 > tsr

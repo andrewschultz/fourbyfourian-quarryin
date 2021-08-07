@@ -32,6 +32,9 @@ jump-over is a truth state that varies.
 
 section text shortcuts
 
+to say 5d:
+	say "[i]Fivebyfivia Delenda Est[r]"
+
 to say q of (d - a direction):
 	say "[printed name of d in title case] [4b]";
 
@@ -188,7 +191,7 @@ check going (this is the knight move check rule):
 	if noun is normal, continue the action;
 	say "You don't have your fast horse any more. It's been long moved to the great pasture in the sky.[paragraph break]";
 	if player is in Ministry of Unity:
-		note-amusing-stuff "knight-moves-2";
+		note-amusing-stuff "knight-moves-1";
 		say "Besides, seven [4b]s are enough to conquer. You can only take over so many before bigger countries consider an alliance against you." instead;
 	let to-room be room-from-nums of (xval of location of player + xness of noun) and (yval of location of player + yness of noun);
 	if to-room is offsite:
@@ -973,7 +976,7 @@ carry out abbing:
 chapter abouting
 
 carry out abouting:
-	say "[this-game] is a sequel to [5b], my entry in the 2021 ParserComp. I first had the idea for [this-game] a week or so before the deadline. Obviously, I couldn't do much with it besides write out the basic stuff. Most of the puzzles revolve around checkmates with very few pieces left on the board. I wondered how many I could find. I had some problems with solutions being too similar. But it seemed there was enough for a challenging game.";
+	say "[this-game] is a sequel to [5d], my entry in the 2021 ParserComp. I first had the idea for [this-game] a week or so before the deadline. Obviously, I couldn't do much with it besides write out the basic stuff. Most of the puzzles revolve around checkmates with very few pieces left on the board. I wondered how many I could find. I had some problems with solutions being too similar. But it seemed there was enough for a challenging game.";
 	the rule succeeds;
 
 chapter ching
@@ -1038,7 +1041,7 @@ chapter hinting
 carry out helping:
 	if walkthrough-hint is false:
 		now walkthrough-hint is true;
-		say "NOTE: if you want full hints, the walkthrough.txt file that came with this binary should have the details. This command tries to give you hints without spoiling anything." instead;
+		say "[line break]NOTE: if you want full hints, the walkthrough.txt file that came with this binary should have the details. This command tries to give you hints without spoiling anything. This nag will not appear again." instead;
 	if player is in Ministry of Unity, say "You have nothing to do in the [unity], but you can hint a direction if you want, for specific [4b]s." instead;
 	if debug-state is false:
 		abide by the visit-text of noun;
@@ -1170,6 +1173,8 @@ to look-for-amuse (t - a truth state):
 to note-amusing-stuff (t - text):
 	repeat through table of amusing stuff:
 		if t is code entry:
+			if debug-state is true:
+				say "DEBUG: [code entry] amusement entry [if done-yet entry is true]re[end if]done.";
 			now done-yet entry is true;
 			continue the action;
 	say "WARNING: tried to note you already did amusing stuff with code [t] but couldn't find it in the table. Let me know at [email].";

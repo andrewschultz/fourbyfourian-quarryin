@@ -84,11 +84,11 @@ It looks like
 It looks like
 
 > g c3
-You're already here.
+You're already at c3.
 > gt c3
-You're already here.
+You're already at c3.
 > go to c3
-You're already here.
+You're already at c3.
 
 # ok, let's try every (x, y) offset
 
@@ -172,8 +172,8 @@ serious walk
 >undo
 
 >g
-What do you want to go to?
+There are twenty-four other squares, so you'll need to be more specific.
 >go to
-What do you want to go to?
+There are twenty-four other squares, so you'll need to be more specific.
 >gt
-What do you want to go to?
+There are twenty-four other squares, so you'll need to be more specific.
