@@ -1,0 +1,146 @@
+# reg-4i-meta.txt
+## generated manually looking through verbs
+
+** game: /home/andrew/prt/debug-fourbyfourian-quarryin.z8
+** interpreter: /home/andrew/prt/dfrotz -m -w 5000
+
+* main-thru
+
+>amu
+ ----Constructing a double check (both allies, no traitors, attacking the Fourbyfourian king)
+ ----Placing the bishop too far from the king when you have the traitor knight
+ ----Placing two opposing bishops on the same color tile
+ ----Placing your two bishops on the same color tile
+ ----Checkmating with two knights and a king in the corner
+
+> n
+> place bishop
+> ne
+> place bishop
+DEBUG: bb-colors-first amusement entry done.
+> out
+
+>amu
+! ----Placing two opposing bishops on the same color tile
+! ----Placing your two bishops on the same color tile
+ ----Constructing a double check (both allies, no traitors, attacking the Fourbyfourian king)
+ ----Placing the bishop too far from the king when you have the traitor knight
+ ----Placing two opposing bishops on the same color tile
+ ----Checkmating with two knights and a king in the corner
+
+> n
+> w
+> place bishop
+> ne
+> place bishop
+DEBUG: bb-colors-first amusement entry redone.
+> out
+
+> jump
+> e
+> place bishop
+> ne
+> place bishop
+DEBUG: bb-colors-second amusement entry done.
+> out
+
+>amu
+! ----Placing two opposing bishops on the same color tile
+! ----Placing your two bishops on the same color tile
+ ----Constructing a double check (both allies, no traitors, attacking the Fourbyfourian king)
+ ----Placing the bishop too far from the king when you have the traitor knight
+ ----Checkmating with two knights and a king in the corner
+
+> e
+> w
+> place bishop
+> ne
+> place bishop
+DEBUG: bb-colors-second amusement entry redone.
+> out
+
+> jump
+> e
+> place k
+> a3
+> place b
+> e3
+> place b
+> c5
+> place k
+DEBUG: beatdown amusement entry done.
+
+>amu
+! ----Constructing a double check (both allies, no traitors, attacking the Fourbyfourian king)
+! ----Placing two opposing bishops on the same color tile
+! ----Placing your two bishops on the same color tile
+ ----Placing the bishop too far from the king when you have the traitor knight
+ ----Checkmating with two knights and a king in the corner
+
+> jump
+> se
+> place k
+> w
+> place n
+> e3
+> place b
+> c5
+> place k
+DEBUG: beatdown amusement entry redone.
+
+> jump
+> s
+> place k
+> w
+> place n
+> d3
+> place n
+> c5
+> place k
+DEBUG: beatdown amusement entry redone.
+
+> ne
+> place bishop
+> w
+> place king
+> b5
+> place knight
+> w
+> place king
+DEBUG: bvn-miss amusement entry done.
+
+> ne
+> se
+> place bishop
+> b3
+> place king
+> b5
+> place knight
+> w
+> place king
+DEBUG: bvn-miss amusement entry redone.
+
+>amu
+! ----Constructing a double check (both allies, no traitors, attacking the Fourbyfourian king)
+! ----Placing the bishop too far from the king when you have the traitor knight
+! ----Placing two opposing bishops on the same color tile
+! ----Placing your two bishops on the same color tile
+ ----Checkmating with two knights and a king in the corner
+
+jump
+> e
+> place n
+> e
+> place n
+> e
+> place k
+> e1
+> place k
+DEBUG: orwell amusement entry done.
+
+>amu
+! ----Constructing a double check (both allies, no traitors, attacking the Fourbyfourian king)
+! ----Placing the bishop too far from the king when you have the traitor knight
+! ----Placing two opposing bishops on the same color tile
+! ----Placing your two bishops on the same color tile
+! ----Checkmating with two knights and a king in the corner
