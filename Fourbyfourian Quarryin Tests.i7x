@@ -240,9 +240,9 @@ test bvn2 with "ne/se/place bishop/b3/place king/b5/place knight/w/place king".
 
 test orwell with "jump/s/place n/e/place n/e/place k/e1/place k"
 
-test metas with "nw/xyzzy"
+test oneoffs with "nw/xyzzy/nnw/e/nnw/fail"
 
-test amuse with "test bcolors1/test bcolors2/test dc-bb/test bvn1/test bvn2/test orwell/test metas"
+test amuse with "test bcolors1/test bcolors2/test dc-bb/test bvn1/test bvn2/test orwell/test oneoffs"
 
 Fourbyfourian Quarryin Tests ends here.
 

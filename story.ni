@@ -161,6 +161,8 @@ definition: a direction (called d) is not-yet:
 
 the hub check rule is listed first in the check going rulebook.
 
+the knight move check rule is listed first in the check going rulebook.
+
 the note boundaries rule is listed before the can't go that way rule in the check going rulebook.
 
 check going outside:
@@ -181,6 +183,20 @@ check exiting (this is the blanket exit rule):
 	the rule succeeds;
 
 the blanket exit rule is listed before the can't exit when not inside anything rule in the check exiting rulebook.
+
+check going (this is the knight move check rule):
+	if noun is normal, continue the action;
+	say "You don't have your fast horse any more. It's been long moved to the great pasture in the sky.[paragraph break]";
+	if player is in Ministry of Unity:
+		note-amusing-stuff "knight-moves-2";
+		say "Besides, seven [4b]s are enough to conquer. You can only take over so many before bigger countries consider an alliance against you." instead;
+	let to-room be room-from-nums of (xval of location of player + xness of noun) and (yval of location of player + yness of noun);
+	if to-room is offsite:
+		say "That's outside the castle bounds, and there are no secret doors to [square of noun]. As a youngster, you've had enjoyed imagining just [i]visiting[r] such a place, but now that you're grown up and responsible, such daydreams are an impractical extravagance that disrupt your duty to your country.";
+	else:
+		say "Besides, if you want to go to [to-room], you can just type [to-room] at the command prompt. You'll save 33% of keystrokes that way. Okay, 25% if you count the carriage return. But ... you don't need your horse, though you miss it, of course, of course.";
+	note-amusing-stuff "knight-moves-2";
+	the rule fails;
 
 check going (this is the hub check rule):
 	if noun is up or noun is down:
@@ -205,7 +221,14 @@ check going (this is the hub check rule):
 
 check going (this is the note boundaries rule):
 	if the room noun of location of player is nowhere:
-		say "You're at the [list of edged directions] edge[if number of edged directions > 1]s[end if], so you can only go away from, or along, [if number of edged directions is 1]this edge[else]those edges[end if]." instead;
+		say "You're at the [corner-or-edge], so you can only go away from, or along, [if number of edged directions is 1]this edge[else]those edges[end if]." instead;
+
+to say corner-or-edge:
+	if number of edged directions is 2:
+		let Q be a random viable diagonal direction; [ there can be only one, if you are in the corner]
+		say "[opposite of Q] corner";
+	else:
+		say "[list of edged directions] edge[if number of edged directions > 1]s[end if]";
 
 definition: a direction (called d) is edged:
 	unless d is cardinal, no;
@@ -1157,6 +1180,8 @@ code	done-yet	amuse-list
 "bvn-miss"	false	"Placing the bishop too far from the king when you have the traitor knight"
 "bb-colors-first"	false	"Placing two opposing bishops on the same color tile"
 "bb-colors-second"	false	"Placing your two bishops on the same color tile"
+"knight-moves-1"	false	"Moving one of the eight L-shaped directions from [5b] in the Ministry of Unity"
+"knight-moves-2"	false	"Moving one of the eight L-shaped directions from [5b] in a [4b]"
 "northwest"	false	"Going northwest in the [ministry]"
 "orwell"	false	"Checkmating with two knights and a king in the corner"
 "xyzzy"	false	"Everyone's favorite* text-adventure in-joke, XYZZY"
