@@ -107,6 +107,9 @@ def write_one_graphic(placements, test_case): # king = 0 bishop = 3 knight = 4
     #background.paste(foreground, (0, 0), foreground)
     out_file = "mate-{}.png".format(test_case)
     background = background.save(out_file)
+    f = open("mates.htm", "a")
+    f.write("<img src = {}>\n".format(out_file))
+    f.close()
 
 def print_moves(placements, knight_1, knight_2, sub_number, checkmate):
     placements = (placements[3], placements[1], placements[2], placements[0])
@@ -271,11 +274,21 @@ if add_to_testfile:
     f.write("* main-thru\n\n")
     f.close()
 
+if write_out_graphics:
+    f = open("mates.htm", "w")
+    f.write("<html>\n<body bgcolor=cccccc>\n")
+    f.close()
+
 for x in (STALEMATE, CHECKMATE):
     for y in (False, True):
         for z in (False, True):
             if z > y:
                 continue
             end_string += get_mates(y, z, x)
+
+if write_out_graphics:
+    f = open("mates.htm", "a")
+    f.write("</body>\n</html>\n")
+    f.close()
 
 print(end_string)
