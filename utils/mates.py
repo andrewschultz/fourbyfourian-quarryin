@@ -1,4 +1,12 @@
+# mates.py
+#
+# Fourbyfouria auxiliary script
+#
+# this determines all the ways two minor pieces can work together to checkmate or stalemate an enemy king
+#
+
 import sys
+import os
 from PIL import Image
 
 from collections import defaultdict
@@ -28,6 +36,9 @@ CHECKMATE = 2
 
 add_to_testfile = False
 write_out_graphics = False
+launch_graphics = False
+
+prev_sect = ''
 
 cmd_count = 1
 
@@ -39,8 +50,13 @@ while cmd_count < len(sys.argv):
         add_to_testfile = True
     elif arg == 'w':
         write_out_graphics = True
+    elif arg in ( 'wl', 'lw' ):
+        write_out_graphics = True
+        launch_graphics = True
+    elif arg == 'l':
+        launch_graphics = True
     else:
-        sys.exit("Bad argument {}. Currently only A for add to test file and W for writing out graphics are accepted.".format(sys.argv[count]))
+        sys.exit("Bad argument {}. Currently only A for add to test file and W for writing out graphics and L for launching are accepted.".format(sys.argv[count]))
     cmd_count += 1
 
 def tuple_difference(tuple1, tuple2):
@@ -110,6 +126,12 @@ def write_one_graphic(placements, test_case): # king = 0 bishop = 3 knight = 4
     out_file = "mate-{}.png".format(test_case)
     background = background.save(out_file)
     f = open("mates.htm", "a")
+    global prev_sect
+    if prev_sect not in out_file or not prev_sect:
+        if prev_sect:
+            f.write("<hr>\n")
+        prev_sect = out_file[5:8]
+        f.write("<center><font size=+2>{} {} {}</font></center>\n".format('Checkmate' if prev_sect[0] == 'c' else 'Stalemate', pieces[prev_sect[1] == 'n'], pieces[prev_sect[2] == 'n']))
     f.write("<img src = {}>\n".format(out_file))
     f.close()
 
@@ -278,7 +300,7 @@ if add_to_testfile:
 
 if write_out_graphics:
     f = open("mates.htm", "w")
-    f.write("<html>\n<body bgcolor=cccccc>\n")
+    f.write("<html>\n<body bgcolor=\"#cccccc\">\n")
     f.close()
 
 for x in (STALEMATE, CHECKMATE):
@@ -292,5 +314,7 @@ if write_out_graphics:
     f = open("mates.htm", "a")
     f.write("</body>\n</html>\n")
     f.close()
+    if launch_graphics:
+        os.system("mates.htm")
 
 print(end_string)
