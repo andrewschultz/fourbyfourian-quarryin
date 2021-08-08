@@ -8,7 +8,7 @@ from itertools import permutations
 
 rooms = []
 
-move_deltas = [ (1, 2), (1, -2), (-1, 2), (-1, -2), (2, 1), (2, -1), (-2, 1), (-2, -1) ]
+knight_move_deltas = [ (1, 2), (1, -2), (-1, 2), (-1, -2), (2, 1), (2, -1), (-2, 1), (-2, -1) ]
 
 for x in range(0, 5):
     for y in range(0, 5):
@@ -27,7 +27,7 @@ STALEMATE = 1
 CHECKMATE = 2
 
 add_to_testfile = False
-write_out_graphics = True
+write_out_graphics = False
 
 cmd_count = 1
 
@@ -37,8 +37,10 @@ while cmd_count < len(sys.argv):
         arg = arg[1:]
     if arg == 'a':
         add_to_testfile = True
+    elif arg == 'w':
+        write_out_graphics = True
     else:
-        sys.exit("Bad argument {}".format(sys.argv[count]))
+        sys.exit("Bad argument {}. Currently only A for add to test file and W for writing out graphics are accepted.".format(sys.argv[count]))
     cmd_count += 1
 
 def tuple_difference(tuple1, tuple2):
@@ -63,7 +65,7 @@ def bishop_block(coord, blocks, p):
     return
 
 def knight_block(coord, blocks):
-    for m in move_deltas:
+    for m in knight_move_deltas:
         new_pair = (m[0] + coord[0], m[1] + coord[1])
         if not on_board(m[0] + coord[0], m[1] + coord[1]):
             continue
