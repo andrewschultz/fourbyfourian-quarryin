@@ -1,4 +1,5 @@
 import sys
+from PIL import Image
 
 from collections import defaultdict
 from itertools import permutations
@@ -26,6 +27,7 @@ STALEMATE = 1
 CHECKMATE = 2
 
 add_to_testfile = False
+write_out_graphics = True
 
 cmd_count = 1
 
@@ -76,9 +78,39 @@ def on_board(a, b):
 def loc(a):
     return chr(a[0] + 97) + chr(49 + a[1])
 
-def print_moves(placements, knight_1, knight_2, count, checkmate):
+def write_one_graphic(placements, test_case): # king = 0 bishop = 3 knight = 4
+    background = Image.open("blank-board.png")
+    foreground = Image.open("freeserif.png")
+
+    h_delta = 58
+    v_delta = 82
+
+    h_size = 55
+    v_size = 54
+    print(test_case)
+    for x in range(0, 4):
+        y = placements[x]
+        print(y, placements)
+        hbuf = 0
+        if x == 0:
+            foreground_temp = foreground.crop((0, 0, 48, v_size)).convert("RGBA")
+            hbuf = 6
+        elif x == 3:
+            foreground_temp = foreground.crop((0, v_delta, 48, v_size + v_delta)).convert("RGBA")
+            hbuf = 6
+        else:
+            hbuf = 3
+            this_delta = 3 + (test_case[x] == 'n')
+            foreground_temp = foreground.crop((60 * this_delta, 0, 60 * (this_delta + 1), v_size)).convert("RGBA")
+        background.paste(foreground_temp, (hbuf + 60 * y[0], 60 * (4 - y[1])), foreground_temp)
+
+    #background.paste(foreground, (0, 0), foreground)
+    out_file = "mate-{}.png".format(test_case)
+    background = background.save(out_file)
+
+def print_moves(placements, knight_1, knight_2, sub_number, checkmate):
     placements = (placements[3], placements[1], placements[2], placements[0])
-    test_case = "{}{}{}{}".format('c' if checkmate else 's', pshort[knight_1], pshort[knight_2], count)
+    test_case = "{}{}{}{}".format('c' if checkmate else 's', pshort[knight_1], pshort[knight_2], sub_number)
     prefix = 'test {} with "'.format(test_case)
     num_knights = knight_1 + knight_2
     dir_from_kt = ['e', 's', 'se']
@@ -101,17 +133,18 @@ def print_moves(placements, knight_1, knight_2, count, checkmate):
         move_array.append(test_string)
         count += 1
     print(prefix + '/'.join(move_array) + '". [auto-generated]')
-    if not add_to_testfile:
-        return
-    f = open("testfile.txt", "a")
-    f.write("> ; TEST CASE {}\n".format(test_case.upper()))
-    for x in move_array:
-        f.write("> " + x.upper() + "\n")
-    f.write("DEBUG: {}\n".format('Checkmate' if checkmate else 'Stalemate'))
-    f.write("> PF\n")
-    f.write("SUCCESS\n")
-    f.write("> WIPE {}\n\n".format(dir_from_kt[knight_1 + knight_2].upper()))
-    f.close()
+    if add_to_testfile:
+        f = open("testfile.txt", "a")
+        f.write("> ; TEST CASE {}\n".format(test_case.upper()))
+        for x in move_array:
+            f.write("> " + x + "\n")
+        f.write("DEBUG: {}\n".format('Checkmate' if checkmate else 'Stalemate'))
+        f.write("> pf\n")
+        f.write("SUCCESS\n")
+        f.write("> wipe {}\n\n".format(dir_from_kt[knight_1 + knight_2]))
+        f.close()
+    if write_out_graphics:
+        write_one_graphic(placements, test_case)
 
 def print_board(my_perm, blocked, knight_1, knight_2):
     for y in range(4, -1, -1):
