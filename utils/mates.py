@@ -34,6 +34,8 @@ BOTH_MATES = 0
 STALEMATE = 1
 CHECKMATE = 2
 
+html_out = "html/mates.htm"
+
 add_to_testfile = False
 write_out_graphics = False
 launch_graphics = False
@@ -105,7 +107,7 @@ def write_one_graphic(placements, test_case): # king = 0 bishop = 3 knight = 4
 
     h_size = 55
     v_size = 54
-    print(test_case)
+
     for x in range(0, 4):
         y = placements[x]
         print(y, placements)
@@ -124,14 +126,17 @@ def write_one_graphic(placements, test_case): # king = 0 bishop = 3 knight = 4
 
     #background.paste(foreground, (0, 0), foreground)
     out_file = "mate-{}.png".format(test_case)
-    background = background.save(out_file)
-    f = open("mates.htm", "a")
+    background = background.save(os.path.join("html", out_file))
+    try:
+        f = open(html_out, "a")
+    except:
+        sys.exit("Could not create {}. Make sure the html directory exists.".format(out_file))
     global prev_sect
     if prev_sect not in out_file or not prev_sect:
         if prev_sect:
             f.write("<hr>\n")
         prev_sect = out_file[5:8]
-        f.write("<center><font size=+2>{} {} {}</font></center>\n".format('Checkmate' if prev_sect[0] == 'c' else 'Stalemate', pieces[prev_sect[1] == 'n'], pieces[prev_sect[2] == 'n']))
+        f.write("<center><font size=+2>{}, {} and {}</font></center>\n".format('Checkmate' if prev_sect[0] == 'c' else 'Stalemate', pieces[prev_sect[1] == 'n'], pieces[prev_sect[2] == 'n']))
     f.write("<img src = {}>\n".format(out_file))
     f.close()
 
@@ -299,7 +304,7 @@ if add_to_testfile:
     f.close()
 
 if write_out_graphics:
-    f = open("mates.htm", "w")
+    f = open(html_out, "w")
     f.write("<html>\n<body bgcolor=\"#cccccc\">\n")
     f.close()
 
@@ -310,11 +315,15 @@ for x in (STALEMATE, CHECKMATE):
                 continue
             end_string += get_mates(y, z, x)
 
+print(end_string)
+
 if write_out_graphics:
-    f = open("mates.htm", "a")
+    try:
+        f = open(html_out, "a")
+    except:
+        sys.exit("Could not create {}. Make sure the html directory exists.".format(html_out))
     f.write("</body>\n</html>\n")
     f.close()
     if launch_graphics:
-        os.system("mates.htm")
-
-print(end_string)
+        print("Launching", html_out)
+        os.system(os.path.normpath(html_out))
