@@ -12,8 +12,16 @@ from PIL import Image
 from collections import defaultdict
 from itertools import permutations
 
+sys.path.append("c:/users/andrew/documents/github/fivebyfivia/utils")
+
+try:
+    import chesshtmstubs as ch
+except:
+    sys.exit("You need chessmates.py from the fivebyfivia repo to run mates.py.")
+
 # KBN: ((1, 0), (1, 1), (2, 2), (1, 2))
 
+ch.html_out = "html/mates.htm"
 rooms = []
 
 knight_move_deltas = [ (1, 2), (1, -2), (-1, 2), (-1, -2), (2, 1), (2, -1), (-2, 1), (-2, -1) ]
@@ -33,8 +41,6 @@ pshort = [ 'b', 'n' ]
 BOTH_MATES = 0
 STALEMATE = 1
 CHECKMATE = 2
-
-html_out = "html/mates.htm"
 
 add_to_testfile = False
 write_out_graphics = False
@@ -99,8 +105,8 @@ def loc(a):
     return chr(a[0] + 97) + chr(49 + a[1])
 
 def write_one_graphic(placements, test_case): # king = 0 bishop = 3 knight = 4
-    background = Image.open("blank-board.png")
-    foreground = Image.open("newserif-bak.png")
+    background = Image.open(ch.blank_board)
+    foreground = Image.open(ch.chess_icons)
 
     h_delta = 60
     v_delta = 60
@@ -119,18 +125,7 @@ def write_one_graphic(placements, test_case): # king = 0 bishop = 3 knight = 4
 
     out_file = "mate-{}.png".format(test_case)
     background = background.save(os.path.join("html", out_file))
-    try:
-        f = open(html_out, "a")
-    except:
-        sys.exit("Could not create {}. Make sure the html directory exists.".format(out_file))
-    global prev_sect
-    if prev_sect not in out_file or not prev_sect:
-        if prev_sect:
-            f.write("<hr>\n")
-        prev_sect = out_file[5:8]
-        f.write("<center><font size=+2>{}, {} and {}</font></center>\n".format('Checkmate' if prev_sect[0] == 'c' else 'Stalemate', pieces[prev_sect[1] == 'n'], pieces[prev_sect[2] == 'n']))
-    f.write("<img src = {}>\n".format(out_file))
-    f.close()
+    ch.one_image_link(out_file, test_case[:3])
 
 def print_moves(placements, knight_1, knight_2, sub_number, checkmate):
     placements = (placements[3], placements[1], placements[2], placements[0])
@@ -296,7 +291,7 @@ if add_to_testfile:
     f.close()
 
 if write_out_graphics:
-    f = open(html_out, "w")
+    f = open(ch.html_out, "w")
     f.write("<html>\n<body bgcolor=\"#cccccc\">\n")
     f.close()
 
@@ -311,11 +306,11 @@ print(end_string)
 
 if write_out_graphics:
     try:
-        f = open(html_out, "a")
+        f = open(ch.html_out, "a")
     except:
-        sys.exit("Could not create {}. Make sure the html directory exists.".format(html_out))
+        sys.exit("Could not create {}. Make sure the html directory exists.".format(ch.html_out))
     f.write("</body>\n</html>\n")
     f.close()
     if launch_graphics:
-        print("Launching", html_out)
-        os.system(os.path.normpath(html_out))
+        print("Launching", ch.html_out)
+        os.system(os.path.normpath(ch.html_out))
