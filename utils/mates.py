@@ -100,31 +100,23 @@ def loc(a):
 
 def write_one_graphic(placements, test_case): # king = 0 bishop = 3 knight = 4
     background = Image.open("blank-board.png")
-    foreground = Image.open("freeserif.png")
+    foreground = Image.open("newserif-bak.png")
 
-    h_delta = 58
-    v_delta = 82
-
-    h_size = 55
-    v_size = 54
+    h_delta = 60
+    v_delta = 60
 
     for x in range(0, 4):
         y = placements[x]
         print(y, placements)
-        hbuf = 0
         if x == 0:
-            foreground_temp = foreground.crop((0, 0, 48, v_size)).convert("RGBA")
-            hbuf = 6
+            foreground_temp = foreground.crop((0, 0, h_delta, v_delta)).convert("RGBA")
         elif x == 3:
-            foreground_temp = foreground.crop((0, v_delta, 48, v_size + v_delta)).convert("RGBA")
-            hbuf = 6
+            foreground_temp = foreground.crop((0, v_delta, h_delta, 2 * v_delta)).convert("RGBA")
         else:
-            hbuf = 3
             this_delta = 3 + (test_case[x] == 'n')
-            foreground_temp = foreground.crop((60 * this_delta, 0, 60 * (this_delta + 1), v_size)).convert("RGBA")
-        background.paste(foreground_temp, (hbuf + 60 * y[0], 60 * (4 - y[1])), foreground_temp)
+            foreground_temp = foreground.crop((60 * this_delta, 0, 60 * (this_delta + 1), v_delta)).convert("RGBA")
+        background.paste(foreground_temp, (60 * y[0], 60 * (4 - y[1])), foreground_temp)
 
-    #background.paste(foreground, (0, 0), foreground)
     out_file = "mate-{}.png".format(test_case)
     background = background.save(os.path.join("html", out_file))
     try:
