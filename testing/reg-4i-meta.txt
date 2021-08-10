@@ -32,6 +32,12 @@ The rules of chess are that each player gets alternate turns, but here, you get 
 > ch
 The rules of chess are that each player gets alternate turns, but here, you get to move as much as you want.
 
+> mne
+You study the map to see how the Fourbyfourian conquests line up. You note you ally with bishops on the east edge (north down to southeast) and knights on the south edge (west over to southeast.) Also, diagonal directions feature one knight and one bishop.
+> mn
+You study the map to see how the Fourbyfourian conquests line up. You note you ally with bishops on the east edge (north down to southeast) and knights on the south edge (west over to southeast.) Also, diagonal directions feature one knight and one bishop.
+
+
 > help
 NOTE: if you want full hints, the walkthrough.txt file that came with this binary should have the details. This command tries to give you hints without spoiling anything.
 !You have nothing to do in the Ministry of Unity, but you can hint a direction if you want, for specific Fourbyfourias.

@@ -125,7 +125,9 @@ def write_one_graphic(placements, test_case): # king = 0 bishop = 3 knight = 4
 
     out_file = "mate-{}.png".format(test_case)
     background = background.save(os.path.join("html", out_file))
-    ch.one_image_link(out_file, test_case[:3])
+
+    full_name = "{} with {} and {}".format('Checkmate' if test_case[0] == 'c' else 'Stalemate', 'Knight' if test_case[1] == 'n' else 'Bishop', 'Knight' if test_case[2] == 'n' else 'Bishop')
+    ch.one_image_link(out_file, test_case[:3], full_name)
 
 def print_moves(placements, knight_1, knight_2, sub_number, checkmate):
     placements = (placements[3], placements[1], placements[2], placements[0])

@@ -85,7 +85,7 @@ The tricky endgame manual is a thing. The player carries the tricky endgame manu
 
 after examining tricky endgame manual when player is not in Ministry:
 	if quest-dir is secondary:
-		say "Oh, wait. There is some note about how the [4n] king here is suspcious of being cornered these days, what with his neighbors disappearing mysteriously[if number of not irrelevant bishops is 2]. Also, he's a bit scared of being right next to a bishop who's right next to another monarch. He can't see the other king that way, but if the other king's even slightly off to the side, like on a diagonal, that's okay. Man, people have weird social phobias![else].[end if]";
+		say "Oh, wait. There is some note about how the [4n] king here is suspicious of being cornered these days, what with his neighbors disappearing mysteriously[if number of not irrelevant bishops is 2]. Also, he's a bit scared of being right next to a bishop who's right next to another monarch. He can't see the other king that way, but if the other king's even slightly off to the side, like on a diagonal, that's okay. Man, people have weird social phobias![else].[end if]";
 		say "[line break]Also, there's a note about how you probably can't trap the [4n] king violently right away. Find a way to fake him out. Make him feel surrounded, not attacked, at the first meeting. Then go in for the kill[if quest-dir is stalemated]. Hey, first part completed[end if].";
 	else:
 		say "Oh, wait. There is some note about how you won't be able to trap the [4n] king without your traitorous accomplice.  And you probably can't trap him way out in the center of the board!";
@@ -242,10 +242,13 @@ section map of the fourbyfourias
 
 the map of the Fourbyfourias is scenery in Ministry of Unity. description is "See the check-rule.";
 
+understand "map of 12b/12b12/12" and "12 map/12b map/12b12 map" and "12/12b/12b12" as map of the fourbyfourias.
+understand "map of 4b/4b4/4" and "4 map/4b map/4b4 map" and "4/4b/4b4" as map of the fourbyfourias.
+
 check examining map of the Fourbyfourias:
 	if quests-left is 1:
 		say "The only part of the map not x-ed out is [random to-solve direction]. Not much choice." instead;
-	say "[if number of solved directions > 0]It's a 'before' map, not showing what you've annexed. [end if][12b] takes up most of the northwest--it's got more land mass than the seven tinier [4b]s combined. It's striped gold and yellow, the colors of each half of Fivebyfivia, and your allies['] colors.[paragraph break]Clockwise in varying shades of grey from the upper right are [north], [northeast], [east], [southeast], [south], [southwest] and [west]. To the northwest are lands too big to conquer.[paragraph break]";
+	say "[if number of solved directions > 0]It's a 'before' map, not showing what you've annexed. [end if][12b] takes up most of the northwest--it's got more land mass than the seven tinier [4b]s combined. It's striped gold and yellow, the colors of each half of Fivebyfivia, and your allies['] colors.[paragraph break]Clockwise in varying shades of grey from the upper right are [north], [northeast], [east], [southeast], [south], [southwest] and [west]. To the northwest are lands too big to conquer.[paragraph break]The map has some mnemonics you can study with [mne].";
 	if number of solved directions > 0:
 		say "Some titles are x-ed out, because you already unified them: [list of solved directions].";
 	else:
@@ -258,7 +261,8 @@ check examining map of the Fourbyfourias:
 		say "[line break]However, [southeast] is still greyed out. It only touches [12b] at a corner, so you need a path through [south] or [east] to get there.";
 	the rule succeeds;
 
-instead of doing something other than examining map of the fourbyfourias:
+instead of doing something with map of the fourbyfourias:
+	if current action is examining, continue the action;
 	say "You can really only [b]X[r] or [b]EXAMINE[r] the [map of the]." instead;
 
 chapter the grid
@@ -1078,12 +1082,34 @@ understand "meta" as metaing.
 understand "met" as metaing.
 understand "me" as metaing.
 
+to say mne: say "[b]MNE[r]/[b]MN[r]"
+
 carry out metaing:
 	say "Here is a list of meta-verbs and options you can use. None are necessary to complete the game, but they can all be useful.";
 	say "[line break][b]ABOUT[r] or [b]A[r] tells about the game. [b]CREDITS[r] or [b]C[r] tells more technical details and thanks testers. [b]CHESS[r] or [b]CH[r] gives the relevant rules of chess. [b]DETAILS[r]/[b]DETAIL[r]/[b]D[r] gives some fourth-wall meta-details.";
 	say "[line break][b]MAP[r] or [b]M[r] or [b]BOARD[r] or [b]B[r] shows the current map. [b]TOGGLE[r] or [b]T[r] toggles the map.";
 	say "[line break][b]HINT[r] or [b]H[r] hints your current area or, if you give a direction, an area you've tried but haven't beaten yet.";
 	if number of solved directions > 0, say "[line break][b]R[r] or [b]RECAP[r] is available to recap areas you've solved. By default, it goes to the last one, but you can specify a direction.";
+	if player is in Ministry of Unity:
+		if ever-mnemonic is true or map is examined:
+			say "[line break][mne] also lets you [if ever-mnemonic is true]review[else]learn[end if]process mnemonics for which allies go to which [4b].";
+	the rule succeeds;
+
+chapter mnemonicing
+
+ever-mnemonic is a truth state that varies.
+
+mnemonicing is an action out of world.
+
+understand the command "mne" as something new.
+understand the command "mn" as something new.
+
+understand "mne" as mnemonicing.
+understand "mn" as mnemonicing.
+
+carry out mnemonicing:
+	say "You study the map [if ever-mnemonic is true]some more [end if]to see how the [4n] conquests line up. You note you ally with bishops on the east edge (north down to southeast) and knights on the south edge (west over to southeast.) Also, diagonal directions feature one knight and one bishop.";
+	now ever-mnemonic is true;
 	the rule succeeds;
 
 chapter recaping
