@@ -511,7 +511,7 @@ first-piece of northeast is yellow bishop. second-piece of northeast is grey kni
 
 first-piece of west is yellow knight. second-piece of west is grey knight. west is primary. hint-text of west is "[first-hints].". quick-text of west is "N vs. N". summary-text of west is "two knights, one traitorous". recap-text of west is "In [q of west], you linked everyone in a sort of fish-hook to trap the enemy king, with the [twelvebytwelvian] farthest away. You couldn't keep the king two squares from the enemy king, as the enemy knight would be attacking."
 
-first-piece of southwest is yellow knight. second-piece of southwest is grey bishop. southwest is primary. hint-text of southwest is "[first-hints].". quick-text of southwest is "N vs. B". summary-text of southwest is "a knight and a traitorous bishop". recap-text of southwest is "In [q of southwest], your king and knight faced the enemy king and bishop, each two squares away."
+first-piece of southwest is yellow knight. second-piece of southwest is grey bishop. southwest is primary. hint-text of southwest is "[first-hints].". quick-text of southwest is "N vs. B". misc-checks of southwest is bishop takes knight rule. summary-text of southwest is "a knight and a traitorous bishop". recap-text of southwest is "In [q of southwest], your king and knight faced the enemy king and bishop, each two squares away."
 
 section individual quest properties -- advanced directions next
 
@@ -557,6 +557,14 @@ this is the two-bishops-formation rule:
 	if temp > 0:
 		say "The Fourbyfourian king feels a bit squished in by [if temp is 2]your two bishops[else]one of your bishops being THAT close--and, well, your king, for that matter, no offense. He makes an excuse to wriggle out just before you can close the net.";
 		poss-dupe-note instead;
+
+this is the bishop takes knight rule:
+	say "Checking if [second-piece of quest-dir] at [location of second-piece of quest-dir] attacks [first-piece of quest-dir] at [location of first-piece of quest-dir].";
+	if second-piece of quest-dir attacks first-piece of quest-dir:
+		say "Things seem perfect! Until ... until ... [the second-piece of quest-dir] nudges [the first-piece of quest-dir]. It's ... well, it had to be done. It would have been too obvious to let that slip. People might have asked questions. But [the first-piece of quest-dir] takes quite a few lumps before glaring at you. You smack [the second-piece of quest-dir] around a bit before apologizing for what must be a big giant misunderstanding. (They have to sit there and not blow their cover, after all!) You apologize profusely and hope there can be a less untoward diplomatic meeting in the future ... all the while suggesting it is the enemy king's fault.[paragraph break]On the ride home, [the first-piece of quest-dir] grumbles a bit. You mention it's all part of a greater plan. No details. That-all is top-secret!";
+		note-amusing-stuff "nvb-miss";
+		retreat-to-unity;
+		the rule succeeds;
 
 this is the knight blocks bishop rule:
 	if Fourbyfourian king is not placed, continue the action;
@@ -1208,6 +1216,7 @@ to note-amusing-stuff (t - text):
 table of amusing stuff
 code	done-yet	amuse-list
 "beatdown"	false	"Constructing a double check (both allies, no traitors, attacking the Fourbyfourian king)"
+"nvb-miss"	false	"Placing your knight where the traitor bishop can attack it"
 "bvn-miss"	false	"Placing the bishop too far from the king when you have the traitor knight"
 "bb-colors-first"	false	"Placing two opposing bishops on the same color tile"
 "bb-colors-second"	false	"Placing your two bishops on the same color tile"

@@ -15,6 +15,7 @@
  ----Everyone's favorite* text-adventure in-joke, XYZZY
  ----Moving one of the eight L-shaped directions from Fivebyfivia in the Ministry of Unity
  ----Moving one of the eight L-shaped directions from Fivebyfivia in a Fourbyfouria
+ ----Placing your knight where the traitor bishop can attack it
 
 > n
 > place bishop
@@ -32,6 +33,7 @@ DEBUG: bb-colors-first amusement entry done.
  ----Everyone's favorite* text-adventure in-joke, XYZZY
  ----Moving one of the eight L-shaped directions from Fivebyfivia in the Ministry of Unity
  ----Moving one of the eight L-shaped directions from Fivebyfivia in a Fourbyfouria
+ ----Placing your knight where the traitor bishop can attack it
 
 > n
 > w
@@ -58,6 +60,7 @@ DEBUG: bb-colors-second amusement entry done.
  ----Everyone's favorite* text-adventure in-joke, XYZZY
  ----Moving one of the eight L-shaped directions from Fivebyfivia in the Ministry of Unity
  ----Moving one of the eight L-shaped directions from Fivebyfivia in a Fourbyfouria
+ ----Placing your knight where the traitor bishop can attack it
 
 > e
 > w
@@ -87,6 +90,7 @@ DEBUG: beatdown amusement entry done.
  ----Everyone's favorite* text-adventure in-joke, XYZZY
  ----Moving one of the eight L-shaped directions from Fivebyfivia in the Ministry of Unity
  ----Moving one of the eight L-shaped directions from Fivebyfivia in a Fourbyfouria
+ ----Placing your knight where the traitor bishop can attack it
 
 > jump
 > se
@@ -138,6 +142,9 @@ DEBUG: bvn-miss amusement entry redone.
 ! ----Placing your two bishops on the same color tile
  ----Checkmating with two knights and a king in the corner
  ----Everyone's favorite* text-adventure in-joke, XYZZY
+ ----Moving one of the eight L-shaped directions from Fivebyfivia in the Ministry of Unity
+ ----Moving one of the eight L-shaped directions from Fivebyfivia in a Fourbyfouria
+ ----Placing your knight where the traitor bishop can attack it
 
 > jump
 > s
@@ -159,6 +166,7 @@ DEBUG: orwell amusement entry done.
  ----Everyone's favorite* text-adventure in-joke, XYZZY
  ----Moving one of the eight L-shaped directions from Fivebyfivia in the Ministry of Unity
  ----Moving one of the eight L-shaped directions from Fivebyfivia in a Fourbyfouria
+ ----Placing your knight where the traitor bishop can attack it
 
 >xyzzy
 The x-y plane provides enough challenges, thank you very much.
@@ -177,6 +185,7 @@ DEBUG: xyzzy amusement entry redone.
 ! ----Everyone's favorite* text-adventure in-joke, XYZZY
  ----Moving one of the eight L-shaped directions from Fivebyfivia in the Ministry of Unity
  ----Moving one of the eight L-shaped directions from Fivebyfivia in a Fourbyfouria
+ ----Placing your knight where the traitor bishop can attack it
 
 
 >fail
@@ -193,6 +202,7 @@ DEBUG: knight-moves-1 amusement entry done.
 ! ----Everyone's favorite* text-adventure in-joke, XYZZY
 ! ----Moving one of the eight L-shaped directions from Fivebyfivia in the Ministry of Unity
  ----Moving one of the eight L-shaped directions from Fivebyfivia in a Fourbyfouria
+ ----Placing your knight where the traitor bishop can attack it
 
 >n
 >nnw
@@ -208,8 +218,34 @@ DEBUG: knight-moves-2 amusement entry done.
 ! ----Everyone's favorite* text-adventure in-joke, XYZZY
 ! ----Moving one of the eight L-shaped directions from Fivebyfivia in the Ministry of Unity
 ! ----Moving one of the eight L-shaped directions from Fivebyfivia in a Fourbyfouria
+ ----Placing your knight where the traitor bishop can attack it
 
 >n
 >nnw
 That's outside the castle bounds, and there are no secret doors to b6. As a youngster, you've had enjoyed imagining just visiting such a place, but now that you're grown up and responsible, such daydreams are an impractical extravagance that disrupt your duty to your country.
 DEBUG: knight-moves-2 amusement entry redone.
+
+>f
+
+>sw
+>c4
+>place k
+>b3
+>place n
+>a4
+>place b
+>a5
+>place k
+Things seem perfect! Until ... until ...
+DEBUG: nvb-miss amusement entry done.
+
+>amu
+! ----Constructing a double check (both allies, no traitors, attacking the Fourbyfourian king)
+! ----Placing the bishop too far from the king when you have the traitor knight
+! ----Placing two opposing bishops on the same color tile
+! ----Placing your two bishops on the same color tile
+! ----Checkmating with two knights and a king in the corner
+! ----Everyone's favorite* text-adventure in-joke, XYZZY
+! ----Moving one of the eight L-shaped directions from Fivebyfivia in the Ministry of Unity
+! ----Moving one of the eight L-shaped directions from Fivebyfivia in a Fourbyfouria
+! ----Placing your knight where the traitor bishop can attack it

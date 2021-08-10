@@ -235,8 +235,10 @@ test dc-bb with "jump/e/place k/a3/place b/e3/place b/c5/place k". [bb double ch
 test dc-bn with "jump/se/place k/w/place n/e3/place b/c5/place k". [bn double check]
 test dc-nn with "jump/s/place k/w/place n/d3/place n/c5/place k". [nn double check]
 
-test bvn1 with "ne/place bishop/w/place king/b5/place knight/w/place king".
-test bvn2 with "ne/se/place bishop/b3/place king/b5/place knight/w/place king".
+test bvn-take with "ne/place bishop/w/place king/b5/place knight/w/place king".
+test bvn-block with "ne/se/place bishop/b3/place king/b5/place knight/w/place king".
+
+test nvb-take with "sw/n/place k/sw/place n/nw/place b/n/place k".
 
 test orwell with "jump/s/place n/e/place n/e/place k/e1/place k"
 
