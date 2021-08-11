@@ -1354,3 +1354,16 @@ to print-intro:
 	say "You've gotten too old and fat, I mean distinguished, to ride your super-speedy horse that served so well annexing [5b]. It's slowed down quicker than you did. But no matter. Business can be conducted in castles -- five-by-five affairs, proof the [4b]s are a bit too big for their britches.";
 	wfak;
 	say "In the Ministry of Unity, the final touches are laid on the plans. Four of the satellite nations have traitors, waiting for power, who will help you. The others--well, you will need to strike quickly and not be too obvious. You flip an ocataroon towards the scribe who applies the finishing touches of an odd script, made just for you, called 'BASIC ENDGAME MANUAL.' And off you go!";
+
+volume beta testing - not for release
+
+include Start With Transcripts by Andrew Schultz.
+
+when play begins (this is the fourbyfourian instruction rule):
+	say "For testers: do what you can. I'm mainly curious how the first four quests work out. My hope is that they get easier the more you do, so you're ready for the final three.";
+	say "[line break]Also, I am wondering about if you found the mnemonic for what quests are in which direction useful or sensible or not.";
+	say "[line break]I have general concerns about the text too. I hope the text when someone makes an errant try is funny, and I want it there for chess players. But I don't want to discourage nonplayers. I also suspect I have forgotten a few descriptions in my notes.";
+	say "[line break]The hinting can probably be adjusted, too.";
+	say "[wfak]";
+
+the fourbyfourian instruction rule is listed after the prompt transcript when starting rule in the when play begins rulebook.
