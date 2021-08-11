@@ -742,6 +742,18 @@ to decide which number is status-index of noun:
 	if noun is second-piece of quest-dir, decide on 3;
 	decide on 4;
 
+definition: a piece (called p) is check-warning:
+	if p is first-piece of quest-dir, no;
+	if p is placed, yes;
+	no;
+
+this is the check yourself and wreck yourself rule:
+	unless quest-dir is primary, continue the action;
+	if the second-piece of quest-dir attacks the Twelvebytwelvian King:
+		say "The [random placed piece] coughs. You realize that setup won't do. The Twelvebytwelvian King will feel more heat than necessary. The enemy king might start to question why [the second-piece of quest-dir] won't rush to his defense.[paragraph break]So, somewhere else, maybe. As much as you'd sometimes love an excuse to see your monarch get bopped for no reason, the price is too high. A failed conquest and, of course, blame for said conquest.";
+		note-amusing-stuff "self-check";
+		the rule succeeds;
+
 carry out calling:
 	if location of player is Ministry of Unity, say "You don't need to call allies until you're away from the Ministry." instead;
 	if noun is irrelevant, say "You don't need to call [the noun]." instead;
@@ -753,12 +765,7 @@ carry out calling:
 	if noun is a bishop:
 		abide by the same-colored-bishops rule;
 	now noun is placed;
-	if Twelvebytwelvian king is placed:
-		if Twelvebytwelvian king is checked:
-			say "But wait. Your king would be under attack from the enemy there. You'll need to try again.";
-			move noun to offsite;
-			now noun is reserved;
-			the rule succeeds;
+	abide by the check yourself and wreck yourself rule;
 	now entry (status-index of noun) of current-quest-snapshot is location of player;
 	update-guarded;
 	if noun is Fourbyfourian king:
@@ -1224,6 +1231,7 @@ code	done-yet	amuse-list
 "knight-moves-2"	false	"Moving one of the eight L-shaped directions from [5b] in a [4b]"
 "northwest"	false	"Going northwest in the [ministry]"
 "orwell"	false	"Checkmating with two knights and a king in the corner"
+"self-check"	false	"Putting your own king in check"
 "xyzzy"	false	"Everyone's favorite* text-adventure in-joke, XYZZY"
 
 volume parser rules and errors

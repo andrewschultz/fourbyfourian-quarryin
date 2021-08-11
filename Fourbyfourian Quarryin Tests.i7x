@@ -240,6 +240,9 @@ test bvn-block with "ne/se/place bishop/b3/place king/b5/place knight/w/place ki
 
 test nvb-take with "sw/n/place k/sw/place n/nw/place b/n/place k".
 
+test nn-check1 with "w/n/place fn/n/place k/a4/place n/fail".
+test nn-check2 with "w/n/place fn/a4/place n/c5/place k/fail".
+
 test orwell with "jump/s/place n/e/place n/e/place k/e1/place k"
 
 test oneoffs with "nw/xyzzy/nnw/e/nnw/fail"
