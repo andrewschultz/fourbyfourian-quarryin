@@ -136,11 +136,11 @@ def write_from_cfgs():
             if line.startswith(";"): break
             (prefix, data) = mt.cfg_data_split(line)
             ary = data.split('/')
-            background = Image.open(ch.blank_board)
+            background = Image.open(ch.blank_board) 
             foreground = Image.open(ch.chess_icons)
 
             delta = 60
-            
+
             for a in ary:
                 b = [int(x) for x in a.split(',') ]
                 foreground_temp = foreground.crop((delta * b[2], delta * b[3], delta * (b[2] + 1), delta * (b[3] + 1))).convert("RGBA")
