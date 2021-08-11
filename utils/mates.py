@@ -7,10 +7,12 @@
 
 import sys
 import os
-from PIL import Image
+from shutil import copy
 
+from PIL import Image
 from collections import defaultdict
 from itertools import permutations
+import mytools as mt
 
 sys.path.append("c:/users/andrew/documents/github/fivebyfivia/utils")
 
@@ -45,8 +47,6 @@ CHECKMATE = 2
 add_to_testfile = False
 write_out_graphics = False
 launch_graphics = False
-
-prev_sect = ''
 
 cmd_count = 1
 
@@ -128,6 +128,31 @@ def write_one_graphic(placements, test_case): # king = 0 bishop = 3 knight = 4
 
     full_name = "{} with {} and {}".format('Checkmate' if test_case[0] == 'c' else 'Stalemate', 'Knight' if test_case[1] == 'n' else 'Bishop', 'Knight' if test_case[2] == 'n' else 'Bishop')
     ch.one_image_link(out_file, test_case[:3], full_name)
+
+def write_from_cfgs():
+    with open("mate-manual.txt") as file:
+        for (line_count, line) in enumerate (file, 1):
+            if line.startswith("#"): continue
+            if line.startswith(";"): break
+            (prefix, data) = mt.cfg_data_split(line)
+            ary = data.split('/')
+            background = Image.open(ch.blank_board)
+            foreground = Image.open(ch.chess_icons)
+
+            delta = 60
+            
+            for a in ary:
+                b = [int(x) for x in a.split(',') ]
+                foreground_temp = foreground.crop((delta * b[2], delta * b[3], delta * (b[2] + 1), delta * (b[3] + 1))).convert("RGBA")
+                background.paste(foreground_temp, ( 60 * b[0], 60 * b[1] ), foreground_temp)
+
+            out_file = "{}.png".format(prefix)
+            background = background.save(os.path.join("html", out_file))
+
+            pary = prefix.split('-')
+
+            full_name = pary[0]
+            ch.one_image_link(out_file, pary[0], full_name)
 
 def print_moves(placements, knight_1, knight_2, sub_number, checkmate):
     placements = (placements[3], placements[1], placements[2], placements[0])
@@ -295,7 +320,18 @@ if add_to_testfile:
 if write_out_graphics:
     f = open(ch.html_out, "w")
     f.write("<html>\n<body bgcolor=\"#cccccc\">\n")
+    f.write("<center><font size = +2>Ministry of Unity Map</font><br />This is an approximate map of the Ministry of Unity map. I placed it here so nothing is spoiled immediately on opening the document.</center>\n")
+    f.write("<center><img src=unity-map.png></center>\n")
     f.close()
+
+    if not os.path.exists("html/unity-map.png"):
+        try:
+            copy("unity-map.png", "html/unity-map.png")
+        except:
+            sys.exit("Missing the unity map PNG File.")
+    ch.prev_sect="unity"
+
+    write_from_cfgs()
 
 for x in (STALEMATE, CHECKMATE):
     for y in (False, True):
