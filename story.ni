@@ -706,7 +706,7 @@ rule for supplying a missing noun when calling:
 	reject the player's command;
 
 to decide whether you-stalemated:
-	unless second-piece of quest-dir is irrelevant, no;
+	if quest-dir is primary and quest-dir is stalemated, no;
 	if Fourbyfourian king is checked, no;
 	if Fourbyfourian king is immobile, yes;
 	no;
@@ -722,10 +722,14 @@ this is the stalemate dialogue rule:
 		if quest-dir is stalemated:
 			say "You shouldn't be able to re-stalemate [the fourbyfourian king]. This is a BUG.";
 		else:
-			say "You and [the first-piece of quest-dir] corner [the fourbyfourian king] and manage to convince him that you're really all just about the diplomacy. It ... seems to work! Now is the time to uncork a more devious plan. There is a traitor in [q of quest-dir] who will help you dispose of the enemy king.";
+			let q2 be similar-early of quest-dir;
+			let other-guy be second-piece of q2;
+			say "You and [the first-piece of quest-dir] corner [the fourbyfourian king] and manage to convince him that you're really all just about the diplomacy. It ... seems to work![paragraph break]You sit and have a think back at the Ministry of Unity. Your plans for [q of similar-early of quest-dir] are similar enough to start. So you go there and pull the same trick, but this time with [the other-guy]. You note one contact in [q of q2] includes [the other-guy] who is not as loyal to their King as they should be. Their help should be just enough.";
 			now quest-dir is stalemated;
-			now similar-early of quest-dir is stalemated;
-			now similar-early of quest-dir is stalemate-bypassed;
+			if q2 is stalemated:
+				say "[line break]NOTE: you should not have been able to stalemate here, since you already did so in [q of q2]. This is a BUG.";
+			now q2 is stalemated;
+			now q2 is stalemate-bypassed;
 			now stalemate-recap of quest-dir is current-quest-snapshot;
 	else if quest-dir is stalemated:
 		say "Again, you pretty much cornered the Fourbyfourian king without attacking him. Awkward laughter resonates in this diplomatic meeting. It only sort of builds up his trust. You know how it is, when someone oversells something? You might be risking that here. The Fourbyfourian king (fool) already trusts you enough. Next time, you can go fully on offense.";
@@ -1308,11 +1312,11 @@ volume when play begins
 the player is in Ministry of Unity. description of player is "You're ... distinguished. A distinguished spy. Or people say you are. Distinguished, that is. Anyone saying you were a spy, even as a joke ... no. No. They would not."
 
 to say stalemate-ticks:
-	repeat with Q running through directions:
-		if Q is not stalemated, next;
-		if Q is north and northeast is stalemated, next;
-		if Q is south and southwest is stalemated, next;
-		if Q is stalemated, say "+";
+	repeat with D running through directions:
+		if D is not stalemated, next;
+		if D is north and northeast is stalemated, next;
+		if D is west and southwest is stalemated, next;
+		if D is stalemated, say "+";
 
 when play begins (this is the assign variables and check for skips rule):
 	now left hand status line is "[if player is in Ministry of Unity][location of player][else][q of quest-dir], [location of player] ([quick-text of quest-dir])";

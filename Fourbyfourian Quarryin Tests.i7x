@@ -46,6 +46,23 @@ carry out pfing:
 	new-quest;
 	the rule succeeds;
 
+chapter randdiring
+
+randdiring is an action applying to one visible thing.
+
+understand the command "rd" as something new.
+
+understand "rd [direction]" as randdiring.
+
+carry out randdiring:
+	if noun is similar-early of noun:
+		say "Since [noun] has no similar early direction, I'm just going [noun].";
+	else if a random chance of 1 in 2 succeeds:
+		now noun is similar-early of noun;
+		say "Going [noun].";
+	try going noun;
+	the rule succeeds;
+
 chapter solveing
 
 to say by-force of (n - a number):
@@ -189,6 +206,9 @@ chapter tests
 
 section each area arranged clockwise
 
+test bvk with "rd n/s/place b/nw/place k/a1/place k/pf". [random north or northeast]
+test nvk with "rd w/place n/n/place k/a5/place k". [random west or southwest]
+
 test bvb1 with "n/s/place b/nw/place k/a1/place k/pf". [KBvsK, stalemate]
 test bvb2 with "n/place fb/e/place k/n/n/place eb/e/place k/pf". [BvB]
 test qn with "test bvb1/test bvb2".
@@ -219,7 +239,7 @@ test qw with "test nvn1/test nvn2".
 
 section big picture tests
 
-test a14 with "test bvb/test nvb/test nvn/test bvn".
+test a14 with "test bvk/test nvk/test bvb2/test nvb2/test nvn2/test bvn2".
 
 test a56 with "test qe/test qs".
 
