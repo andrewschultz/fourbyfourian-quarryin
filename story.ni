@@ -59,10 +59,20 @@ instructions-given is a truth state that varies.
 
 walkthrough-hint is a truth state that varies.
 
+hard-mode is a truth state that varies.
+
 section scoring
 
 check requesting the score:
-	say "This game doesn't keep a score, but to track your progress, you've helped 'reunite' [number of solved directions] of [number of questable directions] [4b]s so far[if number of solved directions > 0]: [list of solved directions][end if][if number of stalemated directions > 0].[paragraph break]You've gained the trust of [trusted-kings], as well[end if][one of].[paragraph break]This is all tracked in the upper-right status bar[or][stopping]." instead;
+	say "This game doesn't keep a score, but to track your progress, you've helped 'reunite' [number of solved directions] of [number of questable directions] [4b]s so far[if number of solved directions > 0]: [list of solved directions][end if][if number of stalemated directions > 0].[paragraph break]You've gained the trust of [trusted-kings], as well[end if][one of].[paragraph break]This is all tracked in the upper-right status bar[or][stopping].";
+	if debug-state is true:
+		say "=============[line break]";
+		say "Easy checkmates: [list of easy-checkmated directions].";
+		say "Hard checkmates: [list of hard-checkmated directions].";
+		say "=============[line break]";
+		say "Easy stalemates: [list of easy-stalemated directions].";
+		say "Hard stalemates: [list of hard-stalemated directions].";
+	the rule succeeds;
 
 for printing the name of a direction (called d) while requesting-detail:
 	say "[q of d]";
@@ -468,6 +478,10 @@ a direction can be unsolved, solved or stalemated. a direction is usually unsolv
 
 a direction can be stalemate-bypassed. a direction is usually not stalemate-bypassed.
 
+a direction can be easy-stalemated, hard-stalemated or stalemate-neutral. a direction is usually stalemate-neutral.
+
+a direction can be easy-checkmated, hard-checkmated or checkmate-neutral. a direction is usually checkmate-neutral.
+
 a direction has a piece called first-piece.
 
 a direction has a piece called second-piece.
@@ -481,6 +495,10 @@ a direction has a rule called king-place. king-place of a direction is usually t
 a direction has a rule called right-checkmate. right-checkmate of a direction is usually the trivially ignorable rule.
 
 a direction has a rule called misc-checks. misc-checks of a direction is usually the trivially ignorable rule.
+
+a direction has a rule called hard-stalemate-check. hard-stalemate-check of a direction is usually the trivially ignorable rule.
+
+a direction has a rule called hard-checkmate-check. hard-checkmate-check of a direction is usually the trivially ignorable rule.
 
 a direction has a list of rooms called already-solved.
 
@@ -521,9 +539,9 @@ section individual quest properties -- initial directions first
 to say first-hints:
 	say "You probably need [the second-piece of the item described] to block the enemy king's fleeing path"
 
-first-piece of north is yellow bishop. second-piece of north is grey bishop. north is primary. hint-text of north is "[first-hints].". quick-text of north is "B vs. B". summary-text of north is "two bishops, one traitorous". recap-text of north is "In [q of north], you used the enemy bishop and your own king to wall in the enemy king.".
+first-piece of north is yellow bishop. second-piece of north is grey bishop. north is primary. hard-stalemate-check of north is the hard-bishop-stalemate rule. hint-text of north is "[first-hints].". quick-text of north is "B vs. B". summary-text of north is "two bishops, one traitorous". recap-text of north is "In [q of north], you used the enemy bishop and your own king to wall in the enemy king.".
 
-first-piece of northeast is yellow bishop. second-piece of northeast is grey knight. northeast is primary. hint-text of northeast is "[first-hints]. But this one's a bit different from the other three--one more thing to look for.". quick-text of northeast is "B vs. N". misc-checks of northeast is knight blocks bishop rule. summary-text of northeast is "a bishop and a traitorous knight". recap-text of northeast is "In [q of northeast], you had to put everyone in a Tetris L-shaped block, enemy king in the corner, to conquer him. If your bishop had been further away, the traitor knight would've had to save the king."
+first-piece of northeast is yellow bishop. second-piece of northeast is grey knight. northeast is primary. hard-stalemate-check of northeast is the hard-bishop-stalemate rule. hint-text of northeast is "[first-hints]. But this one's a bit different from the other three--one more thing to look for.". quick-text of northeast is "B vs. N". misc-checks of northeast is knight blocks bishop rule. summary-text of northeast is "a bishop and a traitorous knight". recap-text of northeast is "In [q of northeast], you had to put everyone in a Tetris L-shaped block, enemy king in the corner, to conquer him. If your bishop had been further away, the traitor knight would've had to save the king."
 
 first-piece of west is yellow knight. second-piece of west is grey knight. west is primary. hint-text of west is "[first-hints].". quick-text of west is "N vs. N". summary-text of west is "two knights, one traitorous". recap-text of west is "In [q of west], you linked everyone in a sort of fish-hook to trap the enemy king, with the [twelvebytwelvian] farthest away. You couldn't keep the king two squares from the enemy king, as the enemy knight would be attacking."
 
@@ -722,20 +740,26 @@ to decide whether you-checkmated:
 	unless Fourbyfourian king is immobile, no;
 	yes;
 
+this is the hard-bishop-stalemate rule:
+	if location of player is cornery:
+		if hard-mode is true:
+			say "The planning felt right there, but for whatever reason, the [ck] doesn't feel comfortable backed in the corner, at least not without an ally next to them. Maybe that idea will work later, but perhaps you need to do things a little differently now."; [?? for the next bit, mention they should go in a corner, if on hard mode] [?? also mention differently if you already solved KN vs K]
+			retreat-to-unity;
+			the rule succeeds;
+		now quest-dir is easy-stalemated;
+
 this is the stalemate dialogue rule:
 	if debug-state is true, say "DEBUG: Stalemate achieved!";
 	if quest-dir is primary:
 		if quest-dir is stalemated:
 			say "You shouldn't be able to re-stalemate [the fourbyfourian king]. This is a BUG.";
 		else:
-			if first-piece of quest-dir is yellow bishop or first-piece of quest-dir is purple bishop:
-				say "The planning felt right there, but For whatever reason, the [ck] doesn't feel comfortable there in the corner, at least not without an ally next to them. Perhaps there's another way."; [?? for the next bit, mention they should go in a corner, if on hard mode]
-				retreat-to-unity;
-				the rule succeeds;
+			abide by hard-stalemate-check of quest-dir;
 			let q2 be similar-early of quest-dir;
 			let other-guy be second-piece of q2;
 			say "You and [the first-piece of quest-dir] corner [the fourbyfourian king] and manage to convince him that you're really all just about the diplomacy these days, and they'd better trust you now and in the future. It ... seems to work![paragraph break]You sit and have a think back at the Ministry of Unity. Your plans for [q of similar-early of quest-dir] are similar enough to start. So you go there and pull the same trick, but this time with [the other-guy]. You note one contact in [q of q2] includes [the other-guy] who is not as loyal to their King as they should be. Their help should be just enough.";
 			now quest-dir is stalemated;
+			if quest-dir is not easy-stalemated, now quest-dir is hard-stalemated;
 			if q2 is stalemated:
 				say "[line break]NOTE: you should not have been able to stalemate here, since you already did so in [q of q2]. This is a BUG.";
 			now q2 is stalemated;
@@ -1201,9 +1225,12 @@ carry out recaping:
 	if recap-text of noun is empty, say "[q of noun] needs recap text." instead;
 	say "[recap-text of noun]";
 	say "[paragraph break]Here are specifics of conquering [q of noun]:";
-	if noun is secondary:
-		say "[line break]  [if noun is solved]Y[else]So far, y[end if]ou gained the enemy king's trust (stalemated) with [list-out of stalemate-recap of noun and noun].";
-	say "[line break]  You [if noun is secondary]then [end if]captured the enemy king (checkmated) with [list-out of checkmate-recap of noun and noun].";
+	if noun is stalemate-bypassed:
+		let dir2 be similar-early of noun;
+		say "[if noun is solved]Y[else]So far, y[end if]ou bypassed (in-game) gaining the [k of noun]'s trust (stalemating) because you did so in [q of dir2] with [list-out of stalemate-recap of dir2 and dir2].";
+	else:
+		say "[if noun is solved]Y[else]So far, y[end if]ou gained the enemy king's trust (stalemated) with [list-out of stalemate-recap of noun and noun].";
+	say "[line break]  You [if noun is not stalemate-bypassed]then [end if]captured the enemy king (checkmated) with [list-out of checkmate-recap of noun and noun].";
 	the rule succeeds;
 
 chapter toggleing
@@ -1359,8 +1386,17 @@ when play begins (this is the assign variables and check for skips rule):
 		process the check-skip-intro rule;
 		unless the rule succeeded, print-intro;
 
-when play begins (this is the screen read check rule):
+when play begins (this is the initial unchangeable options rule):
 	if debug-state is true, continue the action;
+	say "[this-game] can be played on hard or normal mode. In hard mode, some proper solutions will be rejected to force the player to try different approaches to different areas. Normal mode is recommended for newer chess players, and even strong chess players may wish to use normal mode the first time through. This cannot be changed, but if you find all hard-mode solutions in normal mode, you will get the 'better' ending.";
+	while 1 is 1:
+		say "H or N for hard or normal?";
+		let L be the chosen letter;
+		if L is 72 or L is 104:
+			now hard-mode is true;
+			the rule succeeds;
+		if L is 78 or L is 110:
+			the rule succeeds;
 	say "[this-game] has an option to use text maps in some places. This may cause problems with a screen reader. Are you using a screen reader?";
 	if the player consents:
 		now screen-reader is true;
