@@ -189,11 +189,13 @@ chapter tests
 
 section each area arranged clockwise
 
-test bvb with "n/place fb/e/place k/n/n/place eb/e/place k/pf". [BvB]
-test qn with "test bvb".
+test bvb1 with "n/s/place b/nw/place k/a1/place k/pf". [KBvsK, stalemate]
+test bvb2 with "n/place fb/e/place k/n/n/place eb/e/place k/pf". [BvB]
+test qn with "test bvb1/test bvb2".
 
-test bvn with "ne/w/place k/n/place fb/n/place gn/w/place k/pf". [BvN]
-test qne with "test bvn".
+test bvn1 with "ne/s/place b/nw/place k/a1/place k/pf". [KBvsK, stalemate]
+test bvn2 with "ne/w/place k/n/place fb/n/place gn/w/place k/pf". [BvN]
+test qne with "test bvn1/test bvn2".
 
 test bb1 with "e/place b/w/place k/se/place b/s/place king/pf". [KBBvK stalemate]
 test bb2 with "e/e/place b/w/w/w/place k/se/place b/s/place king/pf". [KBBvK checkmate]
@@ -207,11 +209,13 @@ test nn1 with "s/place k/sw/place n/e/e/place n/sw/place k/pf". [KNNvK stalemate
 test nn2 with "s/e/place n/w/w/w/place n/se/se/e/e/place k/w/w/place k/pf". [KNNvK checkmate]
 test qs with "test nn1/test nn2".
 
-test nvb with "sw/n/place fn/n/place k/sw/w/place eb/n/place k/pf". [NvB]
-test qsw with "test nvb".
+test nvb1 with "sw/place n/n/place k/a5/place k". [KNvsK, stalemate]
+test nvb2 with "sw/n/place fn/n/place k/sw/w/place eb/n/place k/pf". [NvB]
+test qsw with "test nvb1/test nvb2".
 
-test nvn with "w/w/place fn/ne/place k/w/w/place en/n/place k/pf". [NvN]
-test qw with "test nvn".
+test nvn1 with "w/place n/n/place k/a5/place k". [KNvsK, stalemate]
+test nvn2 with "w/w/place fn/ne/place k/w/w/place en/n/place k/pf". [NvN]
+test qw with "test nvn1/test nvn2".
 
 section big picture tests
 

@@ -213,7 +213,7 @@ check going (this is the hub check rule):
 		if noun is solved, say "You already conquered [noun] [4b]." instead;
 		abide by visit-text of noun;
 		now quest-dir is noun;
-		say "You head to [cq]. Your allies for this quest are [summary-text of noun][if quest-dir is southeast and quest-dir is not tried]. A courtier whispers to you at the last moment: [q of southeast] has been split in two! There are rival kings fighting for supremacy. That means more to do. Well, this is the last land to conquer[end if].";
+		say "You head to [cq]. [unless noun is primary and noun is unsolved]Your allies for this quest are [summary-text of noun][else]You only have [the twelvebytwelvian king] and [the first-piece of noun] with you[end if].";
 		new-quest;
 		move player to c3;
 		if quest-dir is stalemated and already-solved of quest-dir is not empty:
@@ -460,6 +460,8 @@ a direction can be tried or untried. a direction is usually untried.
 
 a direction can be unsolved, solved or stalemated. a direction is usually unsolved.
 
+a direction can be stalemate-bypassed. a direction is usually not stalemate-bypassed.
+
 a direction has a piece called first-piece.
 
 a direction has a piece called second-piece.
@@ -489,6 +491,13 @@ a direction has text called quick-text.
 a direction has text called summary-text.
 
 a direction has text called recap-text.
+
+to decide which direction is similar-early of (d - a direction):
+	if d is north, decide on northeast;
+	if d is northeast, decide on north;
+	if d is west, decide on southwest;
+	if d is southwest, decide on west;
+	decide on d;
 
 section direction definitions
 
@@ -697,6 +706,7 @@ rule for supplying a missing noun when calling:
 	reject the player's command;
 
 to decide whether you-stalemated:
+	unless second-piece of quest-dir is irrelevant, no;
 	if Fourbyfourian king is checked, no;
 	if Fourbyfourian king is immobile, yes;
 	no;
@@ -709,7 +719,14 @@ to decide whether you-checkmated:
 this is the stalemate dialogue rule:
 	if debug-state is true, say "DEBUG: Stalemate achieved!";
 	if quest-dir is primary:
-		say "Oh no! You managed to trap the king but not attack him. I don't think there's a way to find this sort of stalemate, so it's impressive that you did.";
+		if quest-dir is stalemated:
+			say "You shouldn't be able to re-stalemate [the fourbyfourian king]. This is a BUG.";
+		else:
+			say "You and [the first-piece of quest-dir] corner [the fourbyfourian king] and manage to convince him that you're really all just about the diplomacy. It ... seems to work! Now is the time to uncork a more devious plan. There is a traitor in [q of quest-dir] who will help you dispose of the enemy king.";
+			now quest-dir is stalemated;
+			now similar-early of quest-dir is stalemated;
+			now similar-early of quest-dir is stalemate-bypassed;
+			now stalemate-recap of quest-dir is current-quest-snapshot;
 	else if quest-dir is stalemated:
 		say "Again, you pretty much cornered the Fourbyfourian king without attacking him. Awkward laughter resonates in this diplomatic meeting. It only sort of builds up his trust. You know how it is, when someone oversells something? You might be risking that here. The Fourbyfourian king (fool) already trusts you enough. Next time, you can go fully on offense.";
 	else:
@@ -741,6 +758,8 @@ to decide which number is status-index of noun:
 	if noun is Twelvebytwelvian king, decide on 1;
 	if noun is first-piece of quest-dir, decide on 2;
 	if noun is second-piece of quest-dir, decide on 3;
+	if noun is Fourbyfourian King:
+		if quest-dir is primary and quest-dir is unsolved, decide on 3;
 	decide on 4;
 
 definition: a piece (called p) is check-warning:
@@ -819,8 +838,10 @@ to new-quest:
 	now all pieces are irrelevant;
 	now all kings are reserved;
 	now first-piece of quest-dir is reserved;
-	now second-piece of quest-dir is reserved;
-	now current-quest-snapshot is { Ministry, Ministry, Ministry, Ministry };
+	now current-quest-snapshot is { Ministry, Ministry, Ministry };
+	unless quest-dir is primary and quest-dir is unsolved:
+		now second-piece of quest-dir is reserved;
+		add Ministry of Unity to current-quest-snapshot;
 	reset-board;
 
 to reset-board:
@@ -1143,15 +1164,19 @@ understand "r" as recaping.
 rule for supplying a missing noun when recaping:
 	now the noun is last-solved;
 
+to say stale-list of (L - a list of rooms) and (d - a direction):
+	say "[the Twelvebytwelvian king] at [entry 1 of L], [the first-piece of D] at [entry 2 of L], and [the Fourbyfourian king] at [entry 3 of L]";
+
 to say list-out of (L - a list of rooms) and (d - a direction):
 	say "[the Twelvebytwelvian king] at [entry 1 of L], [the first-piece of D] at [entry 2 of L], [the second-piece of D] at [entry 3 of L], and [the Fourbyfourian king] at [entry 4 of L]";
 
 carry out recaping:
-	if number of solved directions is 0, say "You have no conquers to recap. Yet." instead;
+	if number of not unsolved directions is 0, say "You have no conquerings to recap. Yet." instead;
 	if noun is not questable, say "That's not a [4b] to conquer." instead;
 	if noun is not solved:
 		say "You haven't taken over [q of noun] yet[if noun is untried]. In fact, you haven't even been there[end if].";
-		if noun is primary, say "[line break]In [q of noun], you'll need the help of [the first-piece of noun] and [the second-piece of noun].";
+		if noun is primary:
+			say "[line break]In [q of noun], you'll need the help of [the first-piece of noun][if noun is unsolved] and [the second-piece of noun][end if].";
 		the rule succeeds;
 	if recap-text of noun is empty, say "[q of noun] needs recap text." instead;
 	say "[recap-text of noun]";
@@ -1283,7 +1308,10 @@ volume when play begins
 the player is in Ministry of Unity. description of player is "You're ... distinguished. A distinguished spy. Or people say you are. Distinguished, that is. Anyone saying you were a spy, even as a joke ... no. No. They would not."
 
 to say stalemate-ticks:
-	repeat with Q running through secondary directions:
+	repeat with Q running through directions:
+		if Q is not stalemated, next;
+		if Q is north and northeast is stalemated, next;
+		if Q is south and southwest is stalemated, next;
 		if Q is stalemated, say "+";
 
 when play begins (this is the assign variables and check for skips rule):
