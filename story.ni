@@ -41,6 +41,12 @@ to say q of (d - a direction):
 to say cq:
 	say "[q of quest-dir]"
 
+to say k of (d - a direction): [?? we can replace more text with this]
+	say "[printed name of d in title case][4n] King"
+
+to say ck:
+	say "[k of quest-dir]"
+
 to say github: say "https://github.com/andrewschultz/fourbyfourian-quarryin"
 
 section meta/option booleans
@@ -88,11 +94,11 @@ after examining tricky endgame manual when player is not in Ministry:
 		say "Oh, wait. There is some note about how the [4n] king here is suspicious of being cornered these days, what with his neighbors disappearing mysteriously[if number of not irrelevant bishops is 2]. Also, he's a bit scared of being right next to a bishop who's right next to another monarch. He can't see the other king that way, but if the other king's even slightly off to the side, like on a diagonal, that's okay. Man, people have weird social phobias![else].[end if]";
 		say "[line break]Also, there's a note about how you probably can't trap the [4n] king violently right away. Find a way to fake him out. Make him feel surrounded, not attacked, at the first meeting. Then go in for the kill[if quest-dir is stalemated]. Hey, first part completed[end if].";
 	else:
-		say "Oh, wait. There is some note about how you won't be able to trap the [4n] king without your traitorous accomplice.  And you probably can't trap him way out in the center of the board!";
+		say "Oh, wait. There is some note about general procedure: first, you will want to make the [4n] king feel surrounded but not attacked. Stalemate, they call it. Then, once you've forced a bit of trust out him, a traitorous courtier will help you attack and trap him for good.  And you probably can't trap him way out in the center of the board!";
 
 to say your-pals:
 	if quest-dir is primary:
-		say "a gratuitous biography of the [first-piece of quest-dir] with no mention of your secret helper, the [second-piece of quest-dir]";
+		say "a gratuitous biography of the [first-piece of quest-dir][if quest-dir is stalemated] with no mention of your secret helper, the [second-piece of quest-dir][end if]";
 	else:
 		say "gratuitous biographies of the [first-piece of quest-dir] and [second-piece of quest-dir] helping you here";
 
@@ -722,9 +728,13 @@ this is the stalemate dialogue rule:
 		if quest-dir is stalemated:
 			say "You shouldn't be able to re-stalemate [the fourbyfourian king]. This is a BUG.";
 		else:
+			if first-piece of quest-dir is yellow bishop or first-piece of quest-dir is purple bishop:
+				say "The planning felt right there, but For whatever reason, the [ck] doesn't feel comfortable there in the corner, at least not without an ally next to them. Perhaps there's another way."; [?? for the next bit, mention they should go in a corner, if on hard mode]
+				retreat-to-unity;
+				the rule succeeds;
 			let q2 be similar-early of quest-dir;
 			let other-guy be second-piece of q2;
-			say "You and [the first-piece of quest-dir] corner [the fourbyfourian king] and manage to convince him that you're really all just about the diplomacy. It ... seems to work![paragraph break]You sit and have a think back at the Ministry of Unity. Your plans for [q of similar-early of quest-dir] are similar enough to start. So you go there and pull the same trick, but this time with [the other-guy]. You note one contact in [q of q2] includes [the other-guy] who is not as loyal to their King as they should be. Their help should be just enough.";
+			say "You and [the first-piece of quest-dir] corner [the fourbyfourian king] and manage to convince him that you're really all just about the diplomacy these days, and they'd better trust you now and in the future. It ... seems to work![paragraph break]You sit and have a think back at the Ministry of Unity. Your plans for [q of similar-early of quest-dir] are similar enough to start. So you go there and pull the same trick, but this time with [the other-guy]. You note one contact in [q of q2] includes [the other-guy] who is not as loyal to their King as they should be. Their help should be just enough.";
 			now quest-dir is stalemated;
 			if q2 is stalemated:
 				say "[line break]NOTE: you should not have been able to stalemate here, since you already did so in [q of q2]. This is a BUG.";
@@ -800,7 +810,10 @@ carry out calling:
 		abide by the king-place of quest-dir;
 		if you-stalemated, abide by the stalemate dialogue rule;
 		unless Fourbyfourian king is checked:
-			say "But the [4n] king is not checked. So nothing really happens.";
+			if quest-dir is stalemated:
+				say "But the [ck] is not checked. So nothing really happens this time. That worked okay to gain his trust, but to finish the job, you need to be more aggressive.";
+			else:
+				say "You laid off the [ck] this time, but perhaps a bit too much. <NOTE TO SELF: FILL IN DETAILS OF HOW MANY SQUARES ATTACKED HERE.>";
 			if quest-dir is secondary:
 				say "[line break]And unfortunately this [if quest-dir is stalemated]doesn't put the enemy king any more at ease[else]is not enough to put the enemy king at ease. You'll need to get them into a seemingly tougher situation, then let them slip out[end if].";
 			say "[line break]You're able to blow it off as the sort of diplomatic meeting people have to have. You even put some backhanded blame on the enemy monarch for wasting YOUR king's time and not providing the sort of hospitality you expect. It doesn't really hurt them, but it does cover up your far more serious intent. So there'll be another chance. Just got to plan a bit better, next time.";
@@ -822,7 +835,10 @@ carry out calling:
 				end the story finally;
 				the rule succeeds;
 		else:
-			say "Oh no! The Fourbyfourian king escapes.";
+			say "Oh no! The [ck] escapes.";
+			if quest-dir is primary:
+				if quest-dir is unsolved:
+					say "[line break]Perhaps you were trying to do too much at once. If there was a way to trap the [ck] without attacking him ... that might make him feel helpless, yet trust you in the future.";
 		retreat-to-unity;
 		the rule succeeds;
 	if screen-reader is false, continue the action;

@@ -34,6 +34,56 @@ Also note that this walkthrough uses abbreviations a lot, since the game allows 
 
 You can even risk one-letter abbreviations, and you can still force disambiguation questions, but hopefully that's only if you're trying to.
 
+======================================== WEST/SOUTHWEST STALEMATES (king and knight vs. king):
+
+The idea here is that you need to trap the enemy king without attacking him. If he is in the corner, your minor piece can take one square, and your king can take the other two.
+
+This is not the only solution. There are rotations and mirrors, and the knight has two squares, and your king can be in one of two squares as well. But this is the general idea.
+
++-+-+-+-+-+
+|k| |K| | |
++-+-+-+-+-+
+| | | | | |
++-+-+-+-+-+
+| | |N| | |
++-+-+-+-+-+
+| | | | | |
++-+-+-+-+-+
+| | | | | |
++-+-+-+-+-+
+
+======================================== NORTH/NORTHEAST STALEMATES (king and bishop vs. king):
+
+There is a solution similar to the knight stalemates, but it's rejected on hard mode. The enemy king doesn't want to be put in the corner.
+
++-+-+-+-+-+
+|k| |K| | |
++-+-+-+-+-+
+| | | | | |
++-+-+-+-+-+
+| |B| | | |
++-+-+-+-+-+
+| | | | | |
++-+-+-+-+-+
+| | | | | |
++-+-+-+-+-+
+
+There is also another, on the side of the board.
+
++-+-+-+-+-+
+| | | | | |
++-+-+-+-+-+
+| | | | | |
++-+-+-+-+-+
+| | |K| | |
++-+-+-+-+-+
+| | |B| | |
++-+-+-+-+-+
+| | |k| | |
++-+-+-+-+-+
+
+These are not the only solutions. There are rotations and mirrors, and the bishop has several squares on the diagonal, and your king can be in one of two squares as well. But this is the general idea.
+
 ======================================== NORTH (knight vs. bishop):
 
 You may note that the king in the corner only has three squares to move to. Elsewhere he has at least five. So you want to put him there and then leave no escape squares. Your king can guard two squares, but your knight can't guard any if it is giving check. That means the bishop has to block a square. If the bishop is next to the king, that eliminates one square where the knight gives check. With the knight placed, there's only one square for your king that adequately blocks the opponent's king.
