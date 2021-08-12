@@ -40,9 +40,8 @@ mate_type = [ 'both', 'stalemate', 'checkmate' ]
 pieces = [ 'bishop', 'knight' ]
 pshort = [ 'b', 'n' ]
 
-BOTH_MATES = 0
-STALEMATE = 1
-CHECKMATE = 2
+STALEMATE = 0
+CHECKMATE = 1
 
 add_to_testfile = False
 write_out_graphics = False
@@ -136,7 +135,7 @@ def write_from_cfgs():
             if line.startswith(";"): break
             (prefix, data) = mt.cfg_data_split(line)
             ary = data.split('/')
-            background = Image.open(ch.blank_board) 
+            background = Image.open(ch.blank_board)
             foreground = Image.open(ch.chess_icons)
 
             delta = 60
@@ -221,13 +220,16 @@ def print_board(my_perm, blocked, knight_1, knight_2):
 # 0 = enemy king
 # 3 = my king
 
-def get_mates(knight_1, knight_2, wanted_mate = BOTH_MATES):
+def get_mates(knight_1, knight_2, wanted_mate, sideboard = True):
     current_solutions = []
     this_mate = "{} / {} {}".format(pieces[knight_1], pieces[knight_2], mate_type[wanted_mate])
     print("=========================BEGINNING check for {}.".format(this_mate))
     count = 0 # 0 = enemy king, 1 = 1st piece, 2 = 2nd piece, 3 = your king
     for p in lp:
-        if p[0][0] in (0, 1, 4): continue
+        if sideboard:
+            if p[0][0] in (0, 1, 4): continue
+        else:
+            if p[0] != 0: continue
         if p[0][1] > 0: continue
         if p[1][1] > 2: continue
         if p[2][1] > 2: continue
@@ -258,7 +260,7 @@ def get_mates(knight_1, knight_2, wanted_mate = BOTH_MATES):
                 temp = blocked[(p[0][0] + i, p[0][1] + j)]
                 if i == 0 and j == 0:
                     checkmate = temp
-                    if wanted_mate == BOTH_MATES:
+                    if wanted_mate == CHECKMATE:
                         continue
                     if wanted_mate == STALEMATE:
                         temp = not temp
@@ -336,9 +338,10 @@ if write_out_graphics:
 for x in (STALEMATE, CHECKMATE):
     for y in (False, True):
         for z in (False, True):
+            for w in (False, True):
             if z > y:
                 continue
-            end_string += get_mates(y, z, x)
+            end_string += get_mates(y, z, x, w)
 
 print(end_string)
 
