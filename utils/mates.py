@@ -39,9 +39,15 @@ lp = list(perms)
 mate_type = [ 'both', 'stalemate', 'checkmate' ]
 pieces = [ 'bishop', 'knight' ]
 pshort = [ 'b', 'n' ]
+board_loc = [ 'edge', 'corner' ]
 
 STALEMATE = 0
 CHECKMATE = 1
+
+knight_1 = [ False, True ]
+knight_2 = [ False, True ]
+checkmate = [ False, True ]
+corner = [ False, True ]
 
 add_to_testfile = False
 write_out_graphics = False
@@ -55,6 +61,14 @@ while cmd_count < len(sys.argv):
         arg = arg[1:]
     if arg == 'a':
         add_to_testfile = True
+    elif arg.startswuth('n1'):
+        knight_1 = my_array(arg[2:])
+    elif arg.startswuth('n2'):
+        knight_2 = my_array(arg[2:])
+    elif arg.startswuth('ch'):
+        checkmate = my_array(arg[2:])
+    elif arg.startswuth('co'):
+        corner = my_array(arg[2:])
     elif arg == 'w':
         write_out_graphics = True
     elif arg in ( 'wl', 'lw' ):
@@ -222,7 +236,7 @@ def print_board(my_perm, blocked, knight_1, knight_2):
 
 def get_mates(knight_1, knight_2, wanted_mate, sideboard = True):
     current_solutions = []
-    this_mate = "{} / {} {}".format(pieces[knight_1], pieces[knight_2], mate_type[wanted_mate])
+    this_mate = "{} / {} {} {}".format(pieces[knight_1], pieces[knight_2], mate_type[wanted_mate], board_loc[sideboard])
     print("=========================BEGINNING check for {}.".format(this_mate))
     count = 0 # 0 = enemy king, 1 = 1st piece, 2 = 2nd piece, 3 = your king
     for p in lp:
@@ -335,13 +349,13 @@ if write_out_graphics:
 
     write_from_cfgs()
 
-for x in (STALEMATE, CHECKMATE):
-    for y in (False, True):
-        for z in (False, True):
-            for w in (False, True):
-            if z > y:
-                continue
-            end_string += get_mates(y, z, x, w)
+for x in checkmate:
+    for w in corner:
+        for y in knight_1:
+            for z in knight_2:
+                if z > y:
+                    continue
+                end_string += get_mates(y, z, x, w)
 
 print(end_string)
 
