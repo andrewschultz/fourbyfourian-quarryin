@@ -67,10 +67,10 @@ check requesting the score:
 	say "This game doesn't keep a score, but to track your progress, you've helped 'reunite' [number of solved directions] of [number of questable directions] [4b]s so far[if number of solved directions > 0]: [list of solved directions][end if][if number of stalemated directions > 0].[paragraph break]You've gained the trust of [trusted-kings], as well[end if][one of].[paragraph break]This is all tracked in the upper-right status bar[or][stopping].";
 	if debug-state is true:
 		say "=============[line break]";
-		say "Easy checkmates: [list of easy-checkmated directions].";
+		say "Normal checkmates: [list of normal-checkmated directions].";
 		say "Hard checkmates: [list of hard-checkmated directions].";
 		say "=============[line break]";
-		say "Easy stalemates: [list of easy-stalemated directions].";
+		say "Normal stalemates: [list of normal-stalemated directions].";
 		say "Hard stalemates: [list of hard-stalemated directions].";
 	the rule succeeds;
 
@@ -478,9 +478,9 @@ a direction can be unsolved, solved or stalemated. a direction is usually unsolv
 
 a direction can be stalemate-bypassed. a direction is usually not stalemate-bypassed.
 
-a direction can be easy-stalemated, hard-stalemated or stalemate-neutral. a direction is usually stalemate-neutral.
+a direction can be normal-stalemated, hard-stalemated or stalemate-neutral. a direction is usually stalemate-neutral.
 
-a direction can be easy-checkmated, hard-checkmated or checkmate-neutral. a direction is usually checkmate-neutral.
+a direction can be normal-checkmated, hard-checkmated or checkmate-neutral. a direction is usually checkmate-neutral.
 
 a direction has a piece called first-piece.
 
@@ -746,7 +746,7 @@ this is the hard-bishop-stalemate rule:
 			say "The planning felt right there, but for whatever reason, the [ck] doesn't feel comfortable backed in the corner, at least not without an ally next to them. Maybe that idea will work later, but perhaps you need to do things a little differently now."; [?? for the next bit, mention they should go in a corner, if on hard mode] [?? also mention differently if you already solved KN vs K]
 			retreat-to-unity;
 			the rule succeeds;
-		now quest-dir is easy-stalemated;
+		now quest-dir is normal-stalemated;
 
 this is the stalemate dialogue rule:
 	if debug-state is true, say "DEBUG: Stalemate achieved!";
@@ -759,7 +759,7 @@ this is the stalemate dialogue rule:
 			let other-guy be second-piece of q2;
 			say "You and [the first-piece of quest-dir] corner [the fourbyfourian king] and manage to convince him that you're really all just about the diplomacy these days, and they'd better trust you now and in the future. It ... seems to work![paragraph break]You sit and have a think back at the Ministry of Unity. Your plans for [q of similar-early of quest-dir] are similar enough to start. So you go there and pull the same trick, but this time with [the other-guy]. You note one contact in [q of q2] includes [the other-guy] who is not as loyal to their King as they should be. Their help should be just enough.";
 			now quest-dir is stalemated;
-			if quest-dir is not easy-stalemated, now quest-dir is hard-stalemated;
+			if quest-dir is not normal-stalemated, now quest-dir is hard-stalemated;
 			if q2 is stalemated:
 				say "[line break]NOTE: you should not have been able to stalemate here, since you already did so in [q of q2]. This is a BUG.";
 			now q2 is stalemated;

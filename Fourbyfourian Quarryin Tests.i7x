@@ -31,6 +31,40 @@ carry out amuing:
 	look-for-amuse false;
 	the rule succeeds.
 
+chapter harding
+
+this is the dif-toggle rule:
+	if number of tried directions > 0:
+		say "WARNING: toggling normal/hard mode is risky after leaving the Ministry.";
+
+harding is an action out of world.
+
+understand the command "hard" as something new.
+
+understand "hard" as harding.
+
+carry out harding:
+	abide by the dif-toggle rule;
+	say "Normal mode is [if hard-mode is true]already[else]now[end if] set.";
+	now hard-mode is true;
+	the rule succeeds;
+
+chapter normaling
+
+normaling is an action out of world.
+
+understand the command "normal" as something new.
+understand the command "norm" as something new.
+
+understand "normal" as normaling.
+understand "norm" as normaling.
+
+carry out normaling:
+	abide by the dif-toggle rule;
+	say "Normal mode is [if hard-mode is false]already[else]now[end if] set.";
+	now hard-mode is false;
+	the rule succeeds;
+
 chapter pfing
 
 pfing is an action out of world.
