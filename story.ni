@@ -549,11 +549,11 @@ first-piece of southwest is yellow knight. second-piece of southwest is grey bis
 
 section individual quest properties -- advanced directions next
 
-first-piece of south is yellow knight. second-piece of south is purple knight. hard-stalemate-check of south is hard-advanced-stalemate rule. king-place of south is two-knights-silly rule. visit-text of south is traitors-all-used rule. can-visit of south is traitors-all-used-bare rule. south is secondary. quest-details of south is "The bishop and knight checkmate is a tricky one. It took me a while to figure. I walked away saying, 'Hey, look, here's proof that the two bishops are better than a bishop and knight if pawns aren't in the way.' But one night I was able to put it together: you have to push the enemy king to the corner your bishop can't cover, then push the king to the other corner. Having the bishop two squares from your knight puts a lock on critical escape squares, and the checkmate taught me a lot about square control.". hint-text of south is "[piece-cooperation]". quick-text of south is "2 N's". summary-text of south is "two knights". recap-text of south is "In [q of south], knights were three squares away from each other, and you were off to the side of them, enough to trap the enemy king."
+first-piece of south is yellow knight. second-piece of south is purple knight. king-place of south is two-knights-silly rule. visit-text of south is traitors-all-used rule. can-visit of south is traitors-all-used-bare rule. south is secondary. quest-details of south is "The bishop and knight checkmate is a tricky one. It took me a while to figure. I walked away saying, 'Hey, look, here's proof that the two bishops are better than a bishop and knight if pawns aren't in the way.' But one night I was able to put it together: you have to push the enemy king to the corner your bishop can't cover, then push the king to the other corner. Having the bishop two squares from your knight puts a lock on critical escape squares, and the checkmate taught me a lot about square control.". hint-text of south is "[piece-cooperation]". quick-text of south is "2 N's". summary-text of south is "two knights". recap-text of south is "In [q of south], knights were three squares away from each other, and you were off to the side of them, enough to trap the enemy king."
 
-first-piece of east is yellow bishop. second-piece of east is purple bishop. hard-stalemate-check of east is hard-advanced-stalemate rule. king-place of east is no-corner-no-close rule. visit-text of east is traitors-all-used rule. can-visit of east is traitors-all-used-bare rule. east is secondary. quest-details of east is "Checkmate with two bishops and nothing else isn't too bad to figure out. You push the enemy king to the side of the board, where he has only two moves. Then you lose a move with one of the bishop as you roll him into the corner. However, I was shocked to learn one Chicago area master I respected greatly (I had a Learning Experience against him) was unable to convert the advantage in a tournament with long time controls.". hint-text of east is "[piece-cooperation]". quick-text of east is "2 B's". summary-text of east is "two bishops". right-checkmate of east is two-bishops-formation rule. recap-text of east is "In [q of east], you placed one bishop next to the king and the other on a diagonal. The king guarded the bishop close by."
+first-piece of east is yellow bishop. second-piece of east is purple bishop. king-place of east is no-corner-no-close rule. visit-text of east is traitors-all-used rule. can-visit of east is traitors-all-used-bare rule. east is secondary. quest-details of east is "Checkmate with two bishops and nothing else isn't too bad to figure out. You push the enemy king to the side of the board, where he has only two moves. Then you lose a move with one of the bishop as you roll him into the corner. However, I was shocked to learn one Chicago area master I respected greatly (I had a Learning Experience against him) was unable to convert the advantage in a tournament with long time controls.". hint-text of east is "[piece-cooperation]". quick-text of east is "2 B's". summary-text of east is "two bishops". right-checkmate of east is two-bishops-formation rule. recap-text of east is "In [q of east], you placed one bishop next to the king and the other on a diagonal. The king guarded the bishop close by."
 
-first-piece of southeast is yellow bishop. second-piece of southeast is yellow knight. hard-stalemate-check of east is hard-advanced-stalemate rule. king-place of southeast is no-corner-no-close rule. visit-text of southeast is corner-cleared rule. can-visit of southeast is corner-cleared-bare rule. southeast is secondary. quest-details of southeast is "Checkmate with two knights against a king is impossible unless the opponent cooperates. However, two knights against a pawn may be very possible indeed, depending on where the pawn is. You can Google Troitsky Line for more on that. I remember reading an article about the endgame at math camp in high school. We were all pretty smart, but we didn't get far with it. Years later I read a blog post describing the strategies in an actual tournament game and remembered math camp. I felt pretty smart understanding the concept. Then I found out the person with the two knights ... wasn't in high school yet. I felt less smart.". hint-text of southeast is "[piece-cooperation]". quick-text of southeast is "B & N". summary-text of southeast is "a bishop and a knight". recap-text of southeast is "In [q of southeast], you positioned everyone in an L with the knight giving check, and you also positioned the king between his bishop and knight, to block out the enemy king on the edge."
+first-piece of southeast is yellow bishop. second-piece of southeast is yellow knight. king-place of southeast is no-corner-no-close rule. visit-text of southeast is corner-cleared rule. can-visit of southeast is corner-cleared-bare rule. southeast is secondary. quest-details of southeast is "Checkmate with two knights against a king is impossible unless the opponent cooperates. However, two knights against a pawn may be very possible indeed, depending on where the pawn is. You can Google Troitsky Line for more on that. I remember reading an article about the endgame at math camp in high school. We were all pretty smart, but we didn't get far with it. Years later I read a blog post describing the strategies in an actual tournament game and remembered math camp. I felt pretty smart understanding the concept. Then I found out the person with the two knights ... wasn't in high school yet. I felt less smart.". hint-text of southeast is "[piece-cooperation]". quick-text of southeast is "B & N". summary-text of southeast is "a bishop and a knight". recap-text of southeast is "In [q of southeast], you positioned everyone in an L with the knight giving check, and you also positioned the king between his bishop and knight, to block out the enemy king on the edge."
 
 to say hint-minor-vs of (d - a direction):
 	say "You'll need to restrict the squares the enemy king can run to. Also, your [if yellow bishop is irrelevant]knight can check but not cover escape squares[else]bishop can check and cover an escape square, but your king can't cover the rest[end if]. How can you cover that final square?"
@@ -585,10 +585,16 @@ definition: a piece (called p) is double-adjacent:
 
 this is the two-bishops-formation rule:
 	if diag-dist of yellow bishop and purple bishop is 3 and basic-dist of yellow bishop and purple bishop is 3:
+		if hard-mode is false:
+			now quest-dir is normal-checkmated;
+			continue the action;
 		say "[if south is solved]The Fourbyfourian king notices something is up. You remember that you had everyone in roughly the same place over in [q of south] with the two knights.  Perhaps you need to find a new way to corner the Fourbyfourian king. Too many similar moves may lead to proof of your activities[else]Something's up. The bishops cough at you, a bit confused. You shake your head, but they both shake their heads back. They wouldn't do this to you unless something was up.  So after the diplomatic meeting, you ask. They mention perhaps ... perhaps this specific maneuver may be more useful somewhere else.[paragraph break]They almost look satisfied with that bit of thoughtful dialogue. So much of their work is just intimidating people into what to believe that a bit of logical futzing is refreshing. They seem to be thinking back wistfully to the good old days of dreaming about gaining vast power--so different from having to wield it constantly[end if].";
 		poss-dupe-note instead;
 	let temp be boolval of (whether or not yellow bishop is double-adjacent) + boolval of (whether or not purple bishop is double-adjacent);
 	if temp > 0:
+		if hard-mode is false:
+			now quest-dir is normal-checkmated;
+			continue the action;
 		say "The Fourbyfourian king feels a bit squished in by [if temp is 2]your two bishops[else]one of your bishops being THAT close--and, well, your king, for that matter, no offense. He makes an excuse to wriggle out just before you can close the net.";
 		poss-dupe-note instead;
 
@@ -868,6 +874,10 @@ carry out calling:
 			abide by the checkmate dialogue rule;
 			abide by right-checkmate of quest-dir;
 			if debug-state is true, say "DEBUG: Checkmate achieved.";
+			if location of player is cornery:
+				now quest-dir is normal-checkmated;
+			if quest-dir is not normal-checkmated:
+				now quest-dir is hard-checkmated;
 			now quest-dir is solved;
 			now checkmate-recap of quest-dir is current-quest-snapshot;
 			now last-solved is quest-dir;
@@ -956,7 +966,7 @@ to update-guarded:
 section rules for placing
 
 this is the no-corner rule:
-	if location of player is cornery:
+	if location of player is cornery and hard-mode is true:
 		say "The [fourbyfourian], alas, knows your tricks. He won't be snuck into some corner, at least not without any allies. You'll have to find somewhere else to 'invite' him.";
 		the rule fails;
 
@@ -964,7 +974,7 @@ this is the no-corner-no-close rule:
 	abide by the no-corner rule;
 
 this is the two-knights-silly rule:
-	if location of player is cornery and you-checkmated:
+	if hard-mode is true and location of player is cornery and you-checkmated:
 		say "While the [fourbyfourian] sees what's up and booms 'You can't force me there,' you have an idea. You technically ... really ... couldn't, even if everyone alternated moves. But if you could make someone, or a whole society, think that way ... what power you would have! Perhaps you could tie it up with some 2+2=5 motivational nonsense as well.[paragraph break]Also, you recall some egghead advisor rambling on about how a traitorous pawn or page could help you conquer [cq] effortlessly, but it seemed too nonsensically far out for you. Easier just to tackle the [fourbyfourian] on the edge.";
 		note-amusing-stuff "orwell";
 		retreat-to-unity;

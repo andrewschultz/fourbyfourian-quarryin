@@ -240,48 +240,60 @@ chapter tests
 
 section each area arranged clockwise
 
-test bvk with "rd n/place k/s/place b/s/place k/pf". [random north or northeast]
-test nvk with "rd w/place n/n/place k/a5/place k". [random west or southwest]
+test bvk-r-s with "rd n/place k/s/place b/s/place k/pf". [random north or northeast]
+test bvk-r-s-n with "rd n/w/place k/se/place b/a1/place k/pf". [random north or northeast]
+test nvk-r-s with "rd w/place n/n/place k/a5/place k". [random west or southwest]
 
-test bvb1 with "n/s/place b/nw/place k/a1/place k/pf". [KBvsK, stalemate]
-test bvb2 with "n/place fb/e/place k/n/n/place eb/e/place k/pf". [BvB]
-test qn with "test bvb1/test bvb2".
+test bvb-s with "n/s/place b/nw/place k/a1/place k/pf". [KBvsK, stalemate]
+test bvb-c with "n/place fb/e/place k/n/n/place eb/e/place k/pf". [BvB]
+test qn with "test bvb-s/test bvb-c".
 
-test bvn1 with "ne/s/place b/nw/place k/a1/place k/pf". [KBvsK, stalemate]
-test bvn2 with "ne/w/place k/n/place fb/n/place gn/w/place k/pf". [BvN]
-test qne with "test bvn1/test bvn2".
+test bvn-s with "ne/s/place b/nw/place k/a1/place k/pf". [KBvsK, stalemate]
+test bvn-c with "ne/w/place k/n/place fb/n/place gn/w/place k/pf". [BvN]
+test qne with "test bvn-s/test bvn-c".
 
-test bb1 with "e/place b/w/place k/se/place b/s/place king/pf". [KBBvK stalemate]
-test bb2 with "e/e/place b/w/w/w/place k/se/place b/s/place king/pf". [KBBvK checkmate]
-test qe with "test bb1/test bb2".
+test bb-s-h with "e/place b/w/place k/se/place b/s/place king/pf". [KBBvK hard stalemate]
+test bb-s-n with "e/place k/s/place b/nw/place b/a1/place k". [KBBvK normal stalemate]
+test bb-c-n with "e/place b/w/place b/e3/place k/e1/place k". [KBBvK normal checkmate]
+test bb-c-h with "e/e/place b/w/w/w/place k/se/place b/s/place king/pf". [KBBvK hard checkmate]
+test qe-h with "test bb-s-h/test bb-c-h".
+test qe-n with "test bb-s-n/test bb-c-n".
 
-test bn1 with "se/place k/w/place b/w/place n/se/se/place k/pf". [KBNvK stalemate]
-test bn2 with "se/place k/w/place n/se/place b/s/place k/pf". [KBNvK checkmate]
-test qse with "test bn1/test bn2".
+test bn-s-h with "se/place k/w/place b/w/place n/se/se/place k/pf". [KBNvK hard stalemate]
+test bn-s-n with "se/place n/w/place k/w/place b/a1/place k/pf". [KBNvK normal stalemate]
+test bn-c-n with "se/place b/w/place k/w/place n/a1/place k/pf". [KBNvK normal checkmate]
+test bn-c-h with "se/place k/w/place n/se/place b/s/place k/pf". [KBNvK hard checkmate]
+test qse-h with "test bn-s-h/test bn-c-h".
+test qse-n with "test bn-s-n/test bn-c-n".
 
-test nn1 with "s/place k/sw/place n/e/e/place n/sw/place k/pf". [KNNvK stalemate]
-test nn2 with "s/e/place n/w/w/w/place n/se/se/e/e/place k/w/w/place k/pf". [KNNvK checkmate]
-test qs with "test nn1/test nn2".
+test nn-s-h with "s/place k/sw/place n/e/e/place n/sw/place k/pf". [KNNvK hard stalemate]
+test nn-s-n with "s/place n/e/place n/a3/place k/a1/place k". [KNNvK normal stalemate]
+test nn-c-n with "s/place n/w/place n/w/place k/a1/place k". [KNNvK normal checkmate]
+test nn-c-h with "s/e/place n/w/w/w/place n/se/se/e/e/place k/w/w/place k/pf". [KNNvK hard checkmate]
+test qs-h with "test nn-s-h/test nn-c-h".
+test qs-n with "test nn-s-n/test nn-c-n".
 
-test nvb1 with "sw/place n/n/place k/a5/place k". [KNvsK, stalemate]
-test nvb2 with "sw/n/place fn/n/place k/sw/w/place eb/n/place k/pf". [NvB]
-test qsw with "test nvb1/test nvb2".
+test nvb-s with "sw/place n/n/place k/a5/place k". [KNvsK, stalemate]
+test nvb-c with "sw/n/place fn/n/place k/sw/w/place eb/n/place k/pf". [NvB]
+test qsw with "test nvb-s/test nvb-c".
 
-test nvn1 with "w/place n/n/place k/a5/place k". [KNvsK, stalemate]
-test nvn2 with "w/w/place fn/ne/place k/w/w/place en/n/place k/pf". [NvN]
-test qw with "test nvn1/test nvn2".
+test nvn-s with "w/place n/n/place k/a5/place k". [KNvsK, stalemate]
+test nvn-c with "w/w/place fn/ne/place k/w/w/place en/n/place k/pf". [NvN]
+test qw with "test nvn-s/test nvn-c".
 
 section big picture tests
 
-test a14 with "test bvk/test nvk/test bvb2/test nvb2/test nvn2/test bvn2".
+test a14h with "test bvk-r-s/test nvk-r-s/test bvb-c/test nvb-c/test nvn-c/test bvn-c".
+test a14n with "test bvk-r-s-n/test nvk-r-s/test bvb-c/test nvb-c/test nvn-c/test bvn-c".
 
-test a56 with "test qe/test qs".
+test a57h with "test qe-h/test qs-h/test qse-h".
+test a57n with "test qe-n/test qs-n/test qse-n".
 
-test a7 with "test qse".
+test normal with "normal/test a14n/test a57n".
 
-test all with "test a14/test a56/test a7".
+test hard with "hard/test a14h/test a57h".
 
-test roomlist with "test a14/test nn2/test nn1/s". [make sure a list of rooms pops up]
+test roomlist with "hard/test a14h/test qs-h/s". [make sure a list of rooms pops up]
 
 section amusing / special cases
 
