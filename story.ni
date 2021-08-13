@@ -890,8 +890,8 @@ carry out calling:
 			now last-solved is quest-dir;
 			open-new-areas;
 			if number of to-solve directions is 0:
-				say "You win, yay!";
-				end the story finally;
+				calculate-ending;
+				end the story;
 				the rule succeeds;
 		else:
 			say "Oh no! The [ck] escapes.";
@@ -906,6 +906,24 @@ carry out calling:
 		now map-notes-flag is true;
 		say "Now that you've placed a piece, you can toggle seeing maps in the room description with [b]TOGGLE[r] or [b]T[r].";
 	the rule succeeds;
+
+to calculate-ending:
+	if hard-mode is true:
+		say "You had just the right combination of force and tact to take over the [4b]s without other countries getting too suspicious. Well, of course they were suspicious, but not enough to act until it was far too late. Everyone is happy, more or less, even if people in the new province aren't quite 'real' [4n]s.[paragraph break]But the important thing: you receive a statue with your likeness in Great Centroidia, the capital of [12b]! You loved your fast horse and all, but now that you proved yourself on your own, you shouldn't have to share the spotlight with it.[paragraph break]Alas, as you grow older, a new king demands the formation of a New Centroidia, which is more accessible to the far reaches of what was once [12b]. For strictly administrative purposes, of course. Your statue is left out, without quite enough people to lobby for you, though lesser minds and diplomatic talents are quite well-represented. Frustration!";
+	else:
+		say "But the similarities between all the [4n] Kings' disappearance is too much. Someone puts all the pieces together, and slowly but surely, you're fingered as a Person of Interest. Perhaps with more territories to conquer, your King would have backed you up, but here, you are offered as a sacrifice. You do, however, get a nifty diagonal street named after you in New Centroidia, the more practical capital now that Great Centroidia isn't really fully in the center any more.";
+		if number of nonoptimal directions is 0:
+			say "You managed to find non-overlapping solutions, so if you want to see the good entry, you should replay on hard mode. Or you can poke at the source and just read it. Either is an intellectual activity, of a sort.";
+			continue the action;
+		let L be the list of nonoptimal directions;
+		say "You could have found more unique solutions to the [L].";
+		repeat with D running through L:
+			say "[D] [whether or not D is hard-stalemated] [whether or not D is hard-checkmated].";
+
+definition: a direction (called d) is nonoptimal:
+	if d is normal-stalemated, yes;
+	if d is not primary and d is normal-checkmated, yes;
+	no;
 
 to retreat-to-unity:
 	move player to Ministry of Unity;

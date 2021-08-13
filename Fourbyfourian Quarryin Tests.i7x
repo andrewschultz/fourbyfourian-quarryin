@@ -245,9 +245,10 @@ volume tests
 
 section each area arranged clockwise (primary directions first)
 
-test bvk-r-s-h with "rd n/place k/s/place b/s/place k/pf". [random north or northeast hard]
-test bvk-r-s-n with "rd n/w/place k/se/place b/a1/place k/pf". [random north or northeast normal]
-test nvk-r-s with "rd w/place n/n/place k/a5/place k/pf". [random west or southwest no hard/normal]
+test bvkrsh with "rd n/place k/s/place b/s/place k/pf". [random north or northeast hard]
+test bvkrsn with "rd n/w/place k/se/place b/a1/place k/pf". [random north or northeast normal]
+test nvkrs with "rd w/place n/n/place k/a5/place k/pf". [random west or southwest no hard/normal]
+
 
 test bvb-s with "n/place k/s/place b/s/place k/pf". [KBvsK, stalemate]
 test bvb-c with "n/place fb/e/place k/n/n/place eb/e/place k/pf". [BvB]
@@ -288,8 +289,8 @@ test qs-n with "test nn-s-n/test nn-c-n".
 
 section big picture tests
 
-test a14h with "test bvk-r-s/test nvk-r-s/test bvb-c/test nvb-c/test nvn-c/test bvn-c".
-test a14n with "test bvk-r-s-n/test nvk-r-s/test bvb-c/test nvb-c/test nvn-c/test bvn-c".
+test a14h with "test bvkrs/test nvkrs/test bvb-c/test nvb-c/test nvn-c/test bvn-c".
+test a14n with "test bvkrsn/test nvkrs/test bvb-c/test nvb-c/test nvn-c/test bvn-c".
 
 test a57h with "test qe-h/test qs-h/test qse-h".
 test a57n with "test qe-n/test qs-n/test qse-n".
