@@ -67,6 +67,8 @@ carry out normaling:
 
 chapter pfing
 
+last-total is a number that varies.
+
 pfing is an action out of world.
 
 understand the command "pf" as something new.
@@ -74,7 +76,10 @@ understand the command "pf" as something new.
 understand "pf" as pfing.
 
 carry out pfing:
-	say "[if player is in ministry of unity]PASSED[else]FAILED--going back to Ministry[end if].";
+	say "DEBUG check for if player is in Ministry: [if player is in ministry of unity]PASSED[else]FAILED[end if].";
+	let this-total be number of stalemated directions + (2 * number of solved directions);
+	say "DEBUG check for progress: [if this-total <= last-total]FAILED[else]PASSED[end if] from [number of stalemated directions] stalemated [number of solved directions] solved, [last-total] vs [this-total].";
+	now last-total is this-total;
 	if player is not in ministry of unity:
 		move player to ministry of unity, without printing a room description;
 	new-quest;

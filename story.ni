@@ -576,7 +576,7 @@ dupe-noted-yet is a truth state that varies. [ if you found, say, the same BB an
 to poss-dupe-note:
 	if dupe-noted-yet is false:
 		now dupe-noted-yet is true;
-		say "(NOTE: your solution was fully valid, but I'm being a bit of a stickler about finding different ways for the south and east [4b]s. Hope it's not too much inconvenience, or maybe that you find the additional challenge interesting.)";
+		say "(NOTE: your solution was fully valid, but this being hard mode, I'm being a bit of a stickler about finding different ways for the south and east [4b]s. Hope it's not too much inconvenience, or maybe that you find the additional challenge interesting.)";
 
 definition: a piece (called p) is double-adjacent:
 	if basic-dist of p and Fourbyfourian king is 1 and basic-dist of p and Twelvebytwelvian king is 1:
@@ -760,7 +760,7 @@ this is the hard-advanced-stalemate rule:
 			now quest-dir is normal-stalemated;
 
 this is the stalemate dialogue rule:
-	if debug-state is true, say "DEBUG: Stalemate achieved!";
+	if debug-state is true, say "DEBUG: Stalemate achieved.";
 	if quest-dir is primary:
 		if quest-dir is stalemated:
 			say "You shouldn't be able to re-stalemate [the fourbyfourian king]. This is a BUG.";
@@ -974,7 +974,8 @@ section rules for placing
 
 this is the no-corner rule:
 	if location of player is cornery and hard-mode is true:
-		say "The [fourbyfourian], alas, knows your tricks. He won't be snuck into some corner, at least not without any allies. You'll have to find somewhere else to 'invite' him.";
+		say "The [ck], alas, knows your tricks. He won't be snuck into some corner, at least not without any allies. You'll have to find somewhere else to 'invite' him. On another diplomatic mission, perhaps. This wasn't quite the success you'd hoped.";
+		retreat-to-unity;
 		the rule fails;
 
 this is the no-corner-no-close rule:
@@ -1338,7 +1339,7 @@ code	done-yet	amuse-list
 "knight-moves-1"	false	"Moving one of the eight L-shaped directions from [5b] in the Ministry of Unity"
 "knight-moves-2"	false	"Moving one of the eight L-shaped directions from [5b] in a [4b]"
 "northwest"	false	"Going northwest in the [ministry]"
-"orwell"	false	"Checkmating with two knights and a king in the corner"
+"orwell"	false	"Checkmating with two knights and a king in the corner (hard mode only)"
 "self-check"	false	"Putting your own king in check"
 "xyzzy"	false	"Everyone's favorite* text-adventure in-joke, XYZZY"
 
