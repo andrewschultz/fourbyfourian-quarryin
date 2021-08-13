@@ -4,12 +4,14 @@
 ** game: /home/andrew/prt/debug-fourbyfourian-quarryin.z8
 ** interpreter: /home/andrew/prt/dfrotz -m -w 5000
 
-* easy-through
+* _normal-through
+
+> norm
 
 >{include} _knight_stalemate_1
 >{include} _bishop_stalemate_1
 !The planning felt right there, but for whatever reason, the North Fourbyfourian King doesn't feel comfortable backed in the corner, at least not without an ally next to them. Maybe that idea will work later, but perhaps you need to do things a little differently now.
-/You and the (yellow|purple) bishop corner the (North/Northeast) Fourbyfourian King and manage to convince him that you're really all just about the diplomacy these days, and they'd better trust you now and in the future. It ... seems to work!
+/You and the (yellow|purple) bishop corner the (North|Northeast) Fourbyfourian King and manage to convince him that you're really all just about the diplomacy these days, and they'd better trust you now and in the future. It ... seems to work!
 
 >{include} _intro_checkmates
 >{include} _bb_checkmate_1
@@ -21,17 +23,17 @@ The Southeast Fourbyfourian King doesn't look worried at first. After all, when 
 >{include} _nn_checkmate_1
 The South Fourbyfourian King doesn't look worried at first. After all, when you cornered him the last time, he escaped! So he has plenty of ways out, and one must work ... except he doesn't. The end is not the sort of thing I wish to focus on, and besides, the official version is abdication to spend more times exploring ... well, the rest of his new adopted land of Twelvebytwelvia.
 
-* easy-check-avoid-reject-1
+* _normal-check-avoid-reject-1
 
 > jump
-> {include} _bb_stalemate_1
-> {include} _bb_checkmate_1a
+>{include} _bb_stalemate_corner
+>{include} _bb_checkmate_1a
 !your solution was fully valid
 DEBUG: Checkmate achieved.
 > wipe e
 > jump
-> {include} _bb_stalemate_1
-> {include} _bb_checkmate_1b
+>{include} _bb_stalemate_corner
+>{include} _bb_checkmate_1b
 !your solution was fully valid
 DEBUG: Checkmate achieved.
 
@@ -41,11 +43,11 @@ DEBUG: Checkmate achieved.
 
 >{include} _bishop_stalemate_1
 The planning felt right there, but for whatever reason, the North Fourbyfourian King doesn't feel comfortable backed in the corner, at least not without an ally next to them. Maybe that idea will work later, but perhaps you need to do things a little differently now.
-!/You and the (yellow|purple) bishop corner the (North/Northeast) Fourbyfourian King and manage to convince him that you're really all just about the diplomacy these days, and they'd better trust you now and in the future. It ... seems to work!
+!/You and the (yellow|purple) bishop corner the (North|Northeast) Fourbyfourian King and manage to convince him that you're really all just about the diplomacy these days, and they'd better trust you now and in the future. It ... seems to work!
 
 >{include} _bishop_stalemate_2
 !The planning felt right there, but for whatever reason, the North Fourbyfourian King doesn't feel comfortable backed in the corner, at least not without an ally next to them. Maybe that idea will work later, but perhaps you need to do things a little differently now.
-/You and the (yellow|purple) bishop corner the (North/Northeast) Fourbyfourian King and manage to convince him that you're really all just about the diplomacy these days, and they'd better trust you now and in the future. It ... seems to work!
+/You and the (yellow|purple) bishop corner the (North|Northeast) Fourbyfourian King and manage to convince him that you're really all just about the diplomacy these days, and they'd better trust you now and in the future. It ... seems to work!
 
 >{include} _intro_checkmates
 
@@ -79,18 +81,12 @@ The Southeast Fourbyfourian King, alas, knows your tricks. He won't be snuck int
 DEBUG: Stalemate achieved.
 !The Southeast Fourbyfourian King, alas, knows your tricks.
 
->{include} _bn_checkmate_corner
-The Southeast Fourbyfourian King, alas, knows your tricks. He won't be snuck into some corner, at least not without any allies. You'll have to find somewhere else to "invite" him. On another diplomatic mission, perhaps. This wasn't quite the success you'd hoped.
-!DEBUG: Checkmate achieved.
-
->{include} _bn_checkmate_side
-!DEBUG: Checkmate achieved.
-
 >{include} _bn_checkmate_1
 The Southeast Fourbyfourian King, alas, knows your tricks. He won't be snuck into some corner, at least not without any allies. You'll have to find somewhere else to "invite" him. On another diplomatic mission, perhaps. This wasn't quite the success you'd hoped.
 !DEBUG: Checkmate achieved.
 
 >{include} _bn_checkmate_2
+!The Southeast Fourbyfourian King, alas, knows your tricks.
 DEBUG: Checkmate achieved.
 
 >{include} _nn_checkmate_1
@@ -109,7 +105,7 @@ DEBUG: Checkmate achieved.
 > place k
 > a1
 > place k
-/You and the (yellow|purple) knight corner the (West/Southwest) Fourbyfourian King and manage to convince him that you're really all just about the diplomacy these days, and they'd better trust you now and in the future. It ... seems to work!
+/You and the (yellow|purple) knight corner the (West|Southwest) Fourbyfourian King and manage to convince him that you're really all just about the diplomacy these days, and they'd better trust you now and in the future. It ... seems to work!
 
 * _bishop_stalemate_1
 
@@ -148,24 +144,24 @@ DEBUG: Checkmate achieved.
 > place eb
 > a5
 > place k
-The North Fourbyfourian King feels pretty confident he won't get squeezed, even in the corner, with the loyal grey bishop by his side. But how wrong he is! Sure, the Twelvebytwelvian King and (yellow|purple) bishop are closing in, but ... but ... the grey bishop doesn't move. He makes apologetic "I ... but ... " noises, confusing his leader just long enough.
+/The North Fourbyfourian King feels pretty confident he won't get squeezed, even in the corner, with the loyal grey bishop by his side. But how wrong he is! Sure, the Twelvebytwelvian King and (yellow|purple) bishop are closing in, but ... but ... the grey bishop doesn't move. He makes apologetic "I ... but ... " noises, confusing his leader just long enough.
 
-Perhaps he realized things in his last moment, perhaps not. But either way, there is the matter of leaving a regent for the newly acquired lands: the (yellow|purple) bishop would be just perfect. His successor may help later.
-
+/Perhaps he realized things in his last moment, perhaps not. But either way, there is the matter of leaving a regent for the newly acquired lands: the (yellow|purple) bishop would be just perfect. His successor may help later.
 
 * _bvn_checkmate
 
+> ne
 > n
 > place k
 > w
 > place b
 > w
-> place k
+> place n
 > n
 > place k
-The North Fourbyfourian King feels pretty confident he won't get squeezed, even in the corner, with the loyal grey bishop by his side. But how wrong he is! Sure, the Twelvebytwelvian King and (yellow|purple) bishop are closing in, but ... but ... the grey knight doesn't move. He makes apologetic "I ... but ... " noises, confusing his leader just long enough.
+/The Northeast Fourbyfourian King feels pretty confident he won't get squeezed, even in the corner, with the loyal grey knight by his side. But how wrong he is! Sure, the Twelvebytwelvian King and (yellow|purple) bishop are closing in, but ... but ... the grey knight doesn't move. He makes apologetic "I ... but ... " noises, confusing his leader just long enough.
 
-Perhaps he realized things in his last moment, perhaps not. But either way, there is the matter of leaving a regent for the newly acquired lands: the (yellow|purple) bishop would be just perfect. His successor may help later.
+/Perhaps he realized things in his last moment, perhaps not. But either way, there is the matter of leaving a regent for the newly acquired lands: the (yellow|purple) bishop would be just perfect. His successor may help later.
 
 * _nvb_checkmate
 
@@ -178,27 +174,28 @@ Perhaps he realized things in his last moment, perhaps not. But either way, ther
 > place b
 > n
 > place k
-The North Fourbyfourian King feels pretty confident he won't get squeezed, even in the corner, with the loyal grey bishop by his side. But how wrong he is! Sure, the Twelvebytwelvian King and (yellow|purple) knight are closing in, but ... but ... the grey bishop doesn't move. He makes apologetic "I ... but ... " noises, confusing his leader just long enough.
+/The Southwest Fourbyfourian King feels pretty confident he won't get squeezed, even in the corner, with the loyal grey bishop by his side. But how wrong he is! Sure, the Twelvebytwelvian King and (yellow|purple) knight are closing in, but ... but ... the grey bishop doesn't move. He makes apologetic "I ... but ... " noises, confusing his leader just long enough.
 
-Perhaps he realized things in his last moment, perhaps not. But either way, there is the matter of leaving a regent for the newly acquired lands: the (yellow|purple) knight would be just perfect. His successor may help later.
+/Perhaps he realized things in his last moment, perhaps not. But either way, there is the matter of leaving a regent for the newly acquired lands: the (yellow|purple) knight would be just perfect. His successor may help later.
 
 * _nvn_checkmate
 
 > w
 > n
-> place fn
-> sw
 > place k
+> sw
+> place fn
 > nw
 > place en
 > n
 > place k
-The North Fourbyfourian King feels pretty confident he won't get squeezed, even in the corner, with the loyal grey knight by his side. But how wrong he is! Sure, the Twelvebytwelvian King and (yellow|purple) knight are closing in, but ... but ... the grey knight doesn't move. He makes apologetic "I ... but ... " noises, confusing his leader just long enough.
+/The West Fourbyfourian King feels pretty confident he won't get squeezed, even in the corner, with the loyal grey knight by his side. But how wrong he is! Sure, the Twelvebytwelvian King and (yellow|purple) knight are closing in, but ... but ... the grey knight doesn't move. He makes apologetic "I ... but ... " noises, confusing his leader just long enough.
 
-Perhaps he realized things in his last moment, perhaps not. But either way, there is the matter of leaving a regent for the newly acquired lands: the (yellow|purple) knight would be just perfect. His successor may help later.
+/Perhaps he realized things in his last moment, perhaps not. But either way, there is the matter of leaving a regent for the newly acquired lands: the (yellow|purple) knight would be just perfect. His successor may help later.
 
 * _bb_stalemate_corner
 
+> ; bb stalemate corner
 > e
 > w
 > place b
@@ -211,6 +208,7 @@ Perhaps he realized things in his last moment, perhaps not. But either way, ther
 
 * _bb_stalemate_side
 
+> ; bb stalemate side
 > e
 > place k
 > e
@@ -222,6 +220,7 @@ Perhaps he realized things in his last moment, perhaps not. But either way, ther
 
 * _bb_checkmate_1
 
+> ; bb checkmate 1
 > e
 > place b
 > w
@@ -235,6 +234,7 @@ Perhaps he realized things in his last moment, perhaps not. But either way, ther
 
 # this is the two bishops 3 apart from each other in a net
 
+> ; bb checkmate 1a
 > e
 > w
 > place b
@@ -242,13 +242,14 @@ Perhaps he realized things in his last moment, perhaps not. But either way, ther
 > place b
 > a1
 > place k
-> c3
+> c1
 > place k
 
 * _bb_checkmate_1b
 
 # this is the K-B-K battery
 
+> ; bb checkmate 1b
 > e
 > place k
 > s
@@ -256,12 +257,13 @@ Perhaps he realized things in his last moment, perhaps not. But either way, ther
 > a3
 > place b
 > c1
-> place b
+> place k
 
 * _bb_checkmate_2
 
 # this is sort of the KBK battery, sort of the above scenario
 
+> ; bb checkmate 2
 > e
 > e
 > place b
@@ -273,7 +275,7 @@ Perhaps he realized things in his last moment, perhaps not. But either way, ther
 > place b
 > s
 > place king
-The East Fourbyfourian King doesn't look worried at first. After all, when you cornered him the last time, he escaped! So he has plenty of ways out, and one must work ... except he doesn't. The end is not the sort of thing I wish to focus on, and besides, the official version is abdication to spend more times exploring ... well, the rest of his new adopted land of Twelvebytwelvia.
+The East Fourbyfourian King doesn't look worried at first. After all, when you cornered him the last time, he escaped, and he isn't even pinned in the corner! So he has plenty of ways out, and one must work ... except he doesn't. The end is not the sort of thing I wish to focus on, and besides, the official version is abdication to spend more times exploring ... well, the rest of his new adopted land of Twelvebytwelvia.
 
 * _nn_stalemate_corner
 
@@ -288,13 +290,71 @@ The East Fourbyfourian King doesn't look worried at first. After all, when you c
 
 * _nn_stalemate_side
 
+> s
+> place k
+> sw
+> place n
+> d2
+> place n
+> c1
+> place k
+
 * _nn_checkmate_1
+
+> s
+> place n
+> w
+> place n
+> w
+> place k
+> a1
+> place k
 
 * _nn_checkmate_2
 The South Fourbyfourian King doesn't look worried at first. After all, when you cornered him the last time, he escaped! So he has plenty of ways out, and one must work ... except he doesn't. The end is not the sort of thing I wish to focus on, and besides, the official version is abdication to spend more times exploring ... well, the rest of his new adopted land of Twelvebytwelvia.
 
+* _bn_stalemate_corner
+
+> place n
+> w
+> place k
+> w
+> place b
+> a1
+> place k
+
+* _bn_stalemate_side
+
+> se
+> place k
+> e
+> place b
+> e
+> place n
+> c1
+> place k
+
 * _bn_checkmate_1
 
+> se
+> place b
+> w
+> place k
+> w
+> place n
+> a1
+> place k
+
 * _bn_checkmate_2
-The Southeast Fourbyfourian King doesn't look worried at first. After all, when you cornered him the last time, he escaped! So he has plenty of ways out, and one must work ... except he doesn't. The end is not the sort of thing I wish to focus on, and besides, the official version is abdication to spend more times exploring ... well, the rest of his new adopted land of Twelvebytwelvia.
+
+> se
+> place k
+> e
+> place n
+> sw
+> place b
+> s
+> place k
+
+The Southeast Fourbyfourian King doesn't look worried at first. After all, when you cornered him the last time, he escaped, and he isn't even pinned in the corner! So he has plenty of ways out, and one must work ... except he doesn't. The end is not the sort of thing I wish to focus on, and besides, the official version is abdication to spend more times exploring ... well, the rest of his new adopted land of Twelvebytwelvia.
 

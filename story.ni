@@ -162,7 +162,7 @@ to say tried:
 	if number of tried not solved directions is 0, continue the action;
 	let tried-unsolved be number of tried unsolved directions;
 	let stalemates be number of stalemated directions;
-	say ". You've[if  tried-unsolved > 0] been to [list of tried unsolved directions] before[end if][if tried-unsolved > 0 and stalemates > 0] and[end if][if stalemates > 0]made good progress to the [list of stalemated directions][end if]";
+	say ". You've[if tried-unsolved > 0] been to [list of tried unsolved directions] before[end if][if tried-unsolved > 0 and stalemates > 0] and[end if][if stalemates > 0] made good progress to the [list of stalemated directions][end if]";
 
 definition: a direction (called d) is solve-now:
 	if d is solved, no;
@@ -577,6 +577,8 @@ to poss-dupe-note:
 	if dupe-noted-yet is false:
 		now dupe-noted-yet is true;
 		say "(NOTE: your solution was fully valid, but this being hard mode, I'm being a bit of a stickler about finding different ways for the south and east [4b]s. Hope it's not too much inconvenience, or maybe that you find the additional challenge interesting.)";
+	retreat-to-unity;
+	the rule succeeds;
 
 definition: a piece (called p) is double-adjacent:
 	if basic-dist of p and Fourbyfourian king is 1 and basic-dist of p and Twelvebytwelvian king is 1:
@@ -1442,7 +1444,7 @@ when play begins (this is the assign variables and check for skips rule):
 
 when play begins (this is the initial unchangeable options rule):
 	if debug-state is true:
-		say "Forcing hard mode for testing purposes, because that is more likely to catch bugs.";
+		say "Forcing hard mode for testing purposes, because that is more likely to catch bugs. NORM will switch to normal mode.";
 		now hard-mode is true;
 		continue the action;
 	say "[this-game] can be played on hard or normal mode. In hard mode, some proper solutions will be rejected to force the player to try different approaches to different areas. Normal mode is recommended for newer chess players, at least for the first time through.";
