@@ -45,7 +45,7 @@ understand "hard" as harding.
 
 carry out harding:
 	abide by the dif-toggle rule;
-	say "Normal mode is [if hard-mode is true]already[else]now[end if] set.";
+	say "Hard mode is [if hard-mode is true]already[else]now[end if] set.";
 	now hard-mode is true;
 	the rule succeeds;
 
@@ -236,25 +236,33 @@ carry out pieing:
 		say "[P] [if p is irrelevant](irrelevant) [end if][location of P].";
 	the rule succeeds;
 
-chapter tests
+volume tests
 
-section each area arranged clockwise
+section each area arranged clockwise (primary directions first)
 
-test bvk-r-s with "rd n/place k/s/place b/s/place k/pf". [random north or northeast]
-test bvk-r-s-n with "rd n/w/place k/se/place b/a1/place k/pf". [random north or northeast]
-test nvk-r-s with "rd w/place n/n/place k/a5/place k". [random west or southwest]
+test bvk-r-s-h with "rd n/place k/s/place b/s/place k/pf". [random north or northeast hard]
+test bvk-r-s-n with "rd n/w/place k/se/place b/a1/place k/pf". [random north or northeast normal]
+test nvk-r-s with "rd w/place n/n/place k/a5/place k/pf". [random west or southwest no hard/normal]
 
-test bvb-s with "n/s/place b/nw/place k/a1/place k/pf". [KBvsK, stalemate]
+test bvb-s with "n/place k/s/place b/s/place k/pf". [KBvsK, stalemate]
 test bvb-c with "n/place fb/e/place k/n/n/place eb/e/place k/pf". [BvB]
 test qn with "test bvb-s/test bvb-c".
 
-test bvn-s with "ne/s/place b/nw/place k/a1/place k/pf". [KBvsK, stalemate]
+test bvn-s with "ne/place k/s/place b/s/place k/pf". [KBvsK, stalemate]
 test bvn-c with "ne/w/place k/n/place fb/n/place gn/w/place k/pf". [BvN]
 test qne with "test bvn-s/test bvn-c".
 
+test nvb-s with "sw/place n/n/place k/a5/place k/pf". [KNvsK, stalemate]
+test nvb-c with "sw/n/place fn/n/place k/sw/w/place eb/n/place k/pf". [NvB]
+test qsw with "test nvb-s/test nvb-c".
+
+test nvn-s with "w/place n/n/place k/a5/place k/pf". [KNvsK, stalemate]
+test nvn-c with "w/w/place fn/ne/place k/w/w/place en/n/place k/pf". [NvN]
+test qw with "test nvn-s/test nvn-c".
+
 test bb-s-h with "e/place b/w/place k/se/place b/s/place king/pf". [KBBvK hard stalemate]
-test bb-s-n with "e/place k/s/place b/nw/place b/a1/place k". [KBBvK normal stalemate]
-test bb-c-n with "e/place b/w/place b/e3/place k/e1/place k". [KBBvK normal checkmate]
+test bb-s-n with "e/w/place k/se/place b/e/place b/a1/place k/pf". [KBBvK normal stalemate]
+test bb-c-n with "e/place b/w/place b/e3/place k/e1/place k/pf". [KBBvK normal checkmate]
 test bb-c-h with "e/e/place b/w/w/w/place k/se/place b/s/place king/pf". [KBBvK hard checkmate]
 test qe-h with "test bb-s-h/test bb-c-h".
 test qe-n with "test bb-s-n/test bb-c-n".
@@ -267,19 +275,11 @@ test qse-h with "test bn-s-h/test bn-c-h".
 test qse-n with "test bn-s-n/test bn-c-n".
 
 test nn-s-h with "s/place k/sw/place n/e/e/place n/sw/place k/pf". [KNNvK hard stalemate]
-test nn-s-n with "s/place n/e/place n/a3/place k/a1/place k". [KNNvK normal stalemate]
-test nn-c-n with "s/place n/w/place n/w/place k/a1/place k". [KNNvK normal checkmate]
+test nn-s-n with "s/place n/e/place n/a3/place k/a1/place k/pf". [KNNvK normal stalemate]
+test nn-c-n with "s/place n/w/place n/w/place k/a1/place k/pf". [KNNvK normal checkmate]
 test nn-c-h with "s/e/place n/w/w/w/place n/se/se/e/e/place k/w/w/place k/pf". [KNNvK hard checkmate]
 test qs-h with "test nn-s-h/test nn-c-h".
 test qs-n with "test nn-s-n/test nn-c-n".
-
-test nvb-s with "sw/place n/n/place k/a5/place k". [KNvsK, stalemate]
-test nvb-c with "sw/n/place fn/n/place k/sw/w/place eb/n/place k/pf". [NvB]
-test qsw with "test nvb-s/test nvb-c".
-
-test nvn-s with "w/place n/n/place k/a5/place k". [KNvsK, stalemate]
-test nvn-c with "w/w/place fn/ne/place k/w/w/place en/n/place k/pf". [NvN]
-test qw with "test nvn-s/test nvn-c".
 
 section big picture tests
 

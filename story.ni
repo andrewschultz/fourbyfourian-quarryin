@@ -42,7 +42,7 @@ to say cq:
 	say "[q of quest-dir]"
 
 to say k of (d - a direction): [?? we can replace more text with this]
-	say "[printed name of d in title case][4n] King"
+	say "[printed name of d in title case] [4n] King"
 
 to say ck:
 	say "[k of quest-dir]"
@@ -588,7 +588,7 @@ this is the two-bishops-formation rule:
 		if hard-mode is false:
 			now quest-dir is normal-checkmated;
 			continue the action;
-		say "[if south is solved]The Fourbyfourian king notices something is up. You remember that you had everyone in roughly the same place over in [q of south] with the two knights.  Perhaps you need to find a new way to corner the Fourbyfourian king. Too many similar moves may lead to proof of your activities[else]Something's up. The bishops cough at you, a bit confused. You shake your head, but they both shake their heads back. They wouldn't do this to you unless something was up.  So after the diplomatic meeting, you ask. They mention perhaps ... perhaps this specific maneuver may be more useful somewhere else.[paragraph break]They almost look satisfied with that bit of thoughtful dialogue. So much of their work is just intimidating people into what to believe that a bit of logical futzing is refreshing. They seem to be thinking back wistfully to the good old days of dreaming about gaining vast power--so different from having to wield it constantly[end if].";
+		say "[if south is solved]The Fourbyfourian king notices something is up. You remember that you had everyone in roughly the same place over in [q of south] with the two knights.  Perhaps you need to find a new way to corner the [ck]. Too many similar moves may lead to proof of your activities[else]Something's up. The bishops cough at you, a bit confused. You shake your head, but they both shake their heads back. They wouldn't do this to you unless something was up.  So after the diplomatic meeting, you ask. They mention perhaps ... perhaps this specific maneuver may be more useful somewhere else.[paragraph break]They almost look satisfied with that bit of thoughtful dialogue. So much of their work is just intimidating people into what to believe that a bit of logical futzing is refreshing. They seem to be thinking back wistfully to the good old days of dreaming about gaining vast power--so different from having to wield it constantly[end if].";
 		poss-dupe-note instead;
 	let temp be boolval of (whether or not yellow bishop is double-adjacent) + boolval of (whether or not purple bishop is double-adjacent);
 	if temp > 0:
@@ -691,7 +691,7 @@ this is the same-colored-bishops rule:
 	unless location of Q and location of player are samecolored, continue the action;
 	if grey bishop is irrelevant:
 		note-amusing-stuff "bb-colors-second";
-		if quest-dir is stalemated:
+		if quest-dir is stalemated or hard-mode is false:
 			say "But wait! You realize that you are about to place both your bishops on the same-colored square. You may break a lot of stuffy old rules in [12b], but that's not one of them, especially since breaking that rule gives no practical benefit. Okay, it actually harms you.[paragraph break]Somewhere else, maybe.";
 		else:
 			say "One of your bishops looks confused. The other looks very impressed. Each doesn't like the other being on their turf, but your unconventional approach of putting them on the same color square just might work ... this time. Or it might fail spectacularly.";
@@ -768,7 +768,7 @@ this is the stalemate dialogue rule:
 			abide by hard-stalemate-check of quest-dir;
 			let q2 be similar-early of quest-dir;
 			let other-guy be second-piece of q2;
-			say "You and [the first-piece of quest-dir] corner [the fourbyfourian king] and manage to convince him that you're really all just about the diplomacy these days, and they'd better trust you now and in the future. It ... seems to work![paragraph break]You sit and have a think back at the Ministry of Unity. Your plans for [q of similar-early of quest-dir] are similar enough to start. So you go there and pull the same trick, but this time with [the other-guy]. You note one contact in [q of q2] includes [the other-guy] who is not as loyal to their King as they should be. Their help should be just enough.";
+			say "You and [the first-piece of quest-dir] corner the [ck] and manage to convince him that you're really all just about the diplomacy these days, and they'd better trust you now and in the future. It ... seems to work![paragraph break]You sit and have a think back at the Ministry of Unity. Your plans for [q of similar-early of quest-dir] are similar enough to start. So you go there and pull the same trick, but this time with [the other-guy]. You note one contact in [q of q2] includes [the other-guy] who is not as loyal to their King as they should be. Their help should be just enough.";
 			now quest-dir is stalemated;
 			if quest-dir is not normal-stalemated, now quest-dir is hard-stalemated;
 			if q2 is stalemated:
@@ -824,16 +824,19 @@ this is the check yourself and wreck yourself rule:
 		the rule succeeds;
 
 to open-new-areas:
-	if number of solved regions is 4:
+	if number of solved directions is 4:
 		say "A panel of distinguished barons and earls is waiting for you back at the Ministry. There is backslapping and tallyhoing for a while before everyone immediately yells at each other that it's time to get serious. And you do.[paragraph break]Unfortunately, the governments of both East and [q of south] were packed with loyalists. So you will have to bring an extra ally along. Once you do, you will have a passage to [q of southeast].";
 		if hard-mode is false:
 			say "[line break]Though you don't need two allies at first for the basic diplomatic procedure that you quickly stalemate the East and [k of south] to gain their trust.";
 			now all secondary directions are stalemate-bypassed;
 			now all secondary directions are stalemated;
-	else if number of solved regions is 5:
+	else if number of solved directions is 5:
 		say "You return to great applause at the Ministry. You now have passage to [q of southeast] via [q of last-solved], though you don't have to go there right away. Everyone is sure you will tackle things in the best order.";
 		if hard-mode is false:
 			say "[line break]That said, you go through the diplomatic hoops of stalemating the [k of southeast] one more time to gain his tenuous trust.";
+	else:
+		if debug-state is true:
+			say "DEBUG: no special text for [number of solved regions] solved regions.";
 
 carry out calling:
 	if location of player is Ministry of Unity, say "You don't need to call allies until you're away from the Ministry." instead;
@@ -874,6 +877,10 @@ carry out calling:
 			abide by the checkmate dialogue rule;
 			abide by right-checkmate of quest-dir;
 			if debug-state is true, say "DEBUG: Checkmate achieved.";
+			if quest-dir is primary:
+				say "The [ck] feels pretty confident he won't get squeezed, even in the corner, with the loyal [second-piece of quest-dir] by his side. But how wrong he is! Sure, the [twelvebytwelvian] and [first-piece of quest-dir] are closing in, but ... but ... [the second-piece of quest-dir] doesn't move. He makes apologetic 'I ... but ... ' noises, confusing his leader just long enough.[paragraph break]Perhaps he realized things in his last moment, perhaps not. But either way, there is the matter of leaving a regent for the newly acquired lands: [the first-piece of quest-dir] would be just perfect. His successor may help later.";
+			else:
+				say "The [ck] doesn't look worried at first. After all, when you cornered him the last time, he escaped[if location of player is not cornery], and he isn't even pinned in the corner[end if]! So he has plenty of ways out, and one must work ... except he doesn't. The end is not the sort of thing I wish to focus on, and besides, the official version is abdication to spend more times exploring ... well, the rest of his new adopted land of [12b].";
 			if location of player is cornery:
 				now quest-dir is normal-checkmated;
 			if quest-dir is not normal-checkmated:
