@@ -240,7 +240,7 @@ chapter tests
 
 section each area arranged clockwise
 
-test bvk with "rd n/s/place b/nw/place k/a1/place k/pf". [random north or northeast]
+test bvk with "rd n/place k/s/place b/s/place k/pf". [random north or northeast]
 test nvk with "rd w/place n/n/place k/a5/place k". [random west or southwest]
 
 test bvb1 with "n/s/place b/nw/place k/a1/place k/pf". [KBvsK, stalemate]

@@ -549,11 +549,11 @@ first-piece of southwest is yellow knight. second-piece of southwest is grey bis
 
 section individual quest properties -- advanced directions next
 
-first-piece of south is yellow knight. second-piece of south is purple knight. king-place of south is two-knights-silly rule. visit-text of south is traitors-all-used rule. can-visit of south is traitors-all-used-bare rule. south is secondary. quest-details of south is "The bishop and knight checkmate is a tricky one. It took me a while to figure. I walked away saying, 'Hey, look, here's proof that the two bishops are better than a bishop and knight if pawns aren't in the way.' But one night I was able to put it together: you have to push the enemy king to the corner your bishop can't cover, then push the king to the other corner. Having the bishop two squares from your knight puts a lock on critical escape squares, and the checkmate taught me a lot about square control.". hint-text of south is "[piece-cooperation]". quick-text of south is "2 N's". summary-text of south is "two knights". recap-text of south is "In [q of south], knights were three squares away from each other, and you were off to the side of them, enough to trap the enemy king."
+first-piece of south is yellow knight. second-piece of south is purple knight. hard-stalemate-check of south is hard-advanced-stalemate rule. king-place of south is two-knights-silly rule. visit-text of south is traitors-all-used rule. can-visit of south is traitors-all-used-bare rule. south is secondary. quest-details of south is "The bishop and knight checkmate is a tricky one. It took me a while to figure. I walked away saying, 'Hey, look, here's proof that the two bishops are better than a bishop and knight if pawns aren't in the way.' But one night I was able to put it together: you have to push the enemy king to the corner your bishop can't cover, then push the king to the other corner. Having the bishop two squares from your knight puts a lock on critical escape squares, and the checkmate taught me a lot about square control.". hint-text of south is "[piece-cooperation]". quick-text of south is "2 N's". summary-text of south is "two knights". recap-text of south is "In [q of south], knights were three squares away from each other, and you were off to the side of them, enough to trap the enemy king."
 
-first-piece of east is yellow bishop. second-piece of east is purple bishop. king-place of east is no-corner-no-close rule. visit-text of east is traitors-all-used rule. can-visit of east is traitors-all-used-bare rule. east is secondary. quest-details of east is "Checkmate with two bishops and nothing else isn't too bad to figure out. You push the enemy king to the side of the board, where he has only two moves. Then you lose a move with one of the bishop as you roll him into the corner. However, I was shocked to learn one Chicago area master I respected greatly (I had a Learning Experience against him) was unable to convert the advantage in a tournament with long time controls.". hint-text of east is "[piece-cooperation]". quick-text of east is "2 B's". summary-text of east is "two bishops". right-checkmate of east is two-bishops-formation rule. recap-text of east is "In [q of east], you placed one bishop next to the king and the other on a diagonal. The king guarded the bishop close by."
+first-piece of east is yellow bishop. second-piece of east is purple bishop. hard-stalemate-check of east is hard-advanced-stalemate rule. king-place of east is no-corner-no-close rule. visit-text of east is traitors-all-used rule. can-visit of east is traitors-all-used-bare rule. east is secondary. quest-details of east is "Checkmate with two bishops and nothing else isn't too bad to figure out. You push the enemy king to the side of the board, where he has only two moves. Then you lose a move with one of the bishop as you roll him into the corner. However, I was shocked to learn one Chicago area master I respected greatly (I had a Learning Experience against him) was unable to convert the advantage in a tournament with long time controls.". hint-text of east is "[piece-cooperation]". quick-text of east is "2 B's". summary-text of east is "two bishops". right-checkmate of east is two-bishops-formation rule. recap-text of east is "In [q of east], you placed one bishop next to the king and the other on a diagonal. The king guarded the bishop close by."
 
-first-piece of southeast is yellow bishop. second-piece of southeast is yellow knight. king-place of southeast is no-corner-no-close rule. visit-text of southeast is corner-cleared rule. can-visit of southeast is corner-cleared-bare rule. southeast is secondary. quest-details of southeast is "Checkmate with two knights against a king is impossible unless the opponent cooperates. However, two knights against a pawn may be very possible indeed, depending on where the pawn is. You can Google Troitsky Line for more on that. I remember reading an article about the endgame at math camp in high school. We were all pretty smart, but we didn't get far with it. Years later I read a blog post describing the strategies in an actual tournament game and remembered math camp. I felt pretty smart understanding the concept. Then I found out the person with the two knights ... wasn't in high school yet. I felt less smart.". hint-text of southeast is "[piece-cooperation]". quick-text of southeast is "B & N". summary-text of southeast is "a bishop and a knight". recap-text of southeast is "In [q of southeast], you positioned everyone in an L with the knight giving check, and you also positioned the king between his bishop and knight, to block out the enemy king on the edge."
+first-piece of southeast is yellow bishop. second-piece of southeast is yellow knight. hard-stalemate-check of east is hard-advanced-stalemate rule. king-place of southeast is no-corner-no-close rule. visit-text of southeast is corner-cleared rule. can-visit of southeast is corner-cleared-bare rule. southeast is secondary. quest-details of southeast is "Checkmate with two knights against a king is impossible unless the opponent cooperates. However, two knights against a pawn may be very possible indeed, depending on where the pawn is. You can Google Troitsky Line for more on that. I remember reading an article about the endgame at math camp in high school. We were all pretty smart, but we didn't get far with it. Years later I read a blog post describing the strategies in an actual tournament game and remembered math camp. I felt pretty smart understanding the concept. Then I found out the person with the two knights ... wasn't in high school yet. I felt less smart.". hint-text of southeast is "[piece-cooperation]". quick-text of southeast is "B & N". summary-text of southeast is "a bishop and a knight". recap-text of southeast is "In [q of southeast], you positioned everyone in an L with the knight giving check, and you also positioned the king between his bishop and knight, to block out the enemy king on the edge."
 
 to say hint-minor-vs of (d - a direction):
 	say "You'll need to restrict the squares the enemy king can run to. Also, your [if yellow bishop is irrelevant]knight can check but not cover escape squares[else]bishop can check and cover an escape square, but your king can't cover the rest[end if]. How can you cover that final square?"
@@ -748,6 +748,11 @@ this is the hard-bishop-stalemate rule:
 			the rule succeeds;
 		now quest-dir is normal-stalemated;
 
+this is the hard-advanced-stalemate rule:
+	if hard-mode is true:
+		if location of player is cornery:
+			now quest-dir is normal-stalemated;
+
 this is the stalemate dialogue rule:
 	if debug-state is true, say "DEBUG: Stalemate achieved!";
 	if quest-dir is primary:
@@ -812,6 +817,18 @@ this is the check yourself and wreck yourself rule:
 		note-amusing-stuff "self-check";
 		the rule succeeds;
 
+to open-new-areas:
+	if number of solved regions is 4:
+		say "A panel of distinguished barons and earls is waiting for you back at the Ministry. There is backslapping and tallyhoing for a while before everyone immediately yells at each other that it's time to get serious. And you do.[paragraph break]Unfortunately, the governments of both East and [q of south] were packed with loyalists. So you will have to bring an extra ally along. Once you do, you will have a passage to [q of southeast].";
+		if hard-mode is false:
+			say "[line break]Though you don't need two allies at first for the basic diplomatic procedure that you quickly stalemate the East and [k of south] to gain their trust.";
+			now all secondary directions are stalemate-bypassed;
+			now all secondary directions are stalemated;
+	else if number of solved regions is 5:
+		say "You return to great applause at the Ministry. You now have passage to [q of southeast] via [q of last-solved], though you don't have to go there right away. Everyone is sure you will tackle things in the best order.";
+		if hard-mode is false:
+			say "[line break]That said, you go through the diplomatic hoops of stalemating the [k of southeast] one more time to gain his tenuous trust.";
+
 carry out calling:
 	if location of player is Ministry of Unity, say "You don't need to call allies until you're away from the Ministry." instead;
 	if noun is irrelevant, say "You don't need to call [the noun]." instead;
@@ -854,6 +871,7 @@ carry out calling:
 			now quest-dir is solved;
 			now checkmate-recap of quest-dir is current-quest-snapshot;
 			now last-solved is quest-dir;
+			open-new-areas;
 			if number of to-solve directions is 0:
 				say "You win, yay!";
 				end the story finally;
@@ -1387,10 +1405,13 @@ when play begins (this is the assign variables and check for skips rule):
 		unless the rule succeeded, print-intro;
 
 when play begins (this is the initial unchangeable options rule):
-	if debug-state is true, continue the action;
-	say "[this-game] can be played on hard or normal mode. In hard mode, some proper solutions will be rejected to force the player to try different approaches to different areas. Normal mode is recommended for newer chess players, and even strong chess players may wish to use normal mode the first time through. This cannot be changed, but if you find all hard-mode solutions in normal mode, you will get the 'better' ending.";
+	if debug-state is true:
+		say "Forcing hard mode for testing purposes, because that is more likely to catch bugs.";
+		now hard-mode is true;
+		continue the action;
+	say "[this-game] can be played on hard or normal mode. In hard mode, some proper solutions will be rejected to force the player to try different approaches to different areas. Normal mode is recommended for newer chess players, at least for the first time through.";
 	while 1 is 1:
-		say "H or N for hard or normal?";
+		say "So, H for hard mode, or N for normal?";
 		let L be the chosen letter;
 		if L is 72 or L is 104:
 			now hard-mode is true;
