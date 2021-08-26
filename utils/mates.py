@@ -36,10 +36,10 @@ perms = permutations(rooms, 4)
 
 lp = list(perms)
 
-mate_type = [ 'both', 'stalemate', 'checkmate' ]
+mate_type = [ 'stalemate', 'checkmate' ]
 pieces = [ 'bishop', 'knight' ]
 pshort = [ 'b', 'n' ]
-board_loc = [ 'edge', 'corner' ]
+board_loc = [ 'corner', 'edge' ]
 
 STALEMATE = 0
 CHECKMATE = 1
@@ -47,7 +47,7 @@ CHECKMATE = 1
 knight_1 = [ False, True ]
 knight_2 = [ False, True ]
 checkmate = [ False, True ]
-corner = [ False, True ]
+edges = [ False, True ]
 
 add_to_testfile = False
 write_out_graphics = False
@@ -55,20 +55,32 @@ launch_graphics = False
 
 cmd_count = 1
 
+def my_array(my_string):
+    if my_string == 'f':
+        return [ False ]
+    elif my_string == 't':
+        return [ True ]
+    elif my_string in ( 'b', '', 'ft' ):
+        return [ False, True ]
+    elif my_string == 'tf':
+        return [ True, False ]
+    else:
+        sys.exit("Bad array-map string {}: f, t, b, ft, tf are all okay.".format(my_string))
+
 while cmd_count < len(sys.argv):
     arg = sys.argv[cmd_count].lower()
     if arg[0] == '-':
         arg = arg[1:]
     if arg == 'a':
         add_to_testfile = True
-    elif arg.startswuth('n1'):
+    elif arg.startswith('n1'):
         knight_1 = my_array(arg[2:])
-    elif arg.startswuth('n2'):
+    elif arg.startswith('n2'):
         knight_2 = my_array(arg[2:])
-    elif arg.startswuth('ch'):
+    elif arg.startswith('ch'):
         checkmate = my_array(arg[2:])
-    elif arg.startswuth('co'):
-        corner = my_array(arg[2:])
+    elif arg.startswith('ed'):
+        edges = my_array(arg[2:])
     elif arg == 'w':
         write_out_graphics = True
     elif arg in ( 'wl', 'lw' ):
@@ -243,9 +255,9 @@ def get_mates(knight_1, knight_2, wanted_mate, sideboard = True):
         if sideboard:
             if p[0][0] in (0, 1, 4): continue
         else:
-            if p[0] != 0: continue
+            if p[0][0] != 0: continue
         if p[0][1] > 0: continue
-        if p[1][1] > 2: continue
+        if p[1][1] > 3 or (p[1][1] > 2 and knight_1 == True): continue
         if p[2][1] > 2: continue
         if knight_1 == knight_2 and p[1] > p[2]:
             continue
@@ -271,6 +283,7 @@ def get_mates(knight_1, knight_2, wanted_mate, sideboard = True):
         checkmate = False
         for i in range (-1, 2):
             for j in range (0, 2):
+                if i + p[0][0] < 0: continue
                 temp = blocked[(p[0][0] + i, p[0][1] + j)]
                 if i == 0 and j == 0:
                     checkmate = temp
@@ -350,7 +363,7 @@ if write_out_graphics:
     write_from_cfgs()
 
 for x in checkmate:
-    for w in corner:
+    for w in edges:
         for y in knight_1:
             for z in knight_2:
                 if z > y:
