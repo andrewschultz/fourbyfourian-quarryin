@@ -361,6 +361,16 @@ a piece is a kind of person. a piece can be reserved, irrelevant or placed. a pi
 
 a piece has a team called the color.
 
+section relations
+
+Rivalry relates one piece to another (called the rival).
+
+The verb to rival (it rivals, they rival, it rivaled) implies the rivalry relation.
+
+when play begins:
+	now the yellow bishop rivals the purple bishop;
+	now the yellow knight rivals the purple knight;
+
 chapter whether attacks
 
 to decide whether (p1 - a piece) attacks (p2 - a piece):
