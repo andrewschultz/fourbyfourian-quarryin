@@ -105,9 +105,11 @@ after examining tricky endgame manual when player is not in Ministry:
 		say "[line break]Also, there's a note about how you probably can't trap the [4n] king violently right away. Find a way to fake him out. Make him feel surrounded, not attacked, at the first meeting. Then go in for the kill[if quest-dir is stalemated]. Hey, first part completed[end if].";
 	else:
 		say "Oh, wait. There is some note about general procedure: first, you will want to make the [4n] king feel surrounded but not attacked. Stalemate, they call it. Then, once you've forced a bit of trust out of him, a traitorous courtier will help you attack and trap him for good.  And you probably can't trap him way out in the center of the board!";
-	say "[line break]It doesn't even mention the important stuff applying right now: you need the cooperation of [the list of not irrelevant pieces] to take down the [k of quest-dir]."
+	say "[line break]It doesn't even mention the important stuff applying right now: [who-coop]."
 
-to decide if (p - a piece) is cooperative:
+to say who-coop: say "you need the cooperation of [the list of not irrelevant pieces] to take down the [k of quest-dir]"
+
+definition: a piece (called p) is cooperative:
 	if color of P is black and quest-dir is primary and quest-dir is unsolved, no;
 	if P is fourbyfourian king, no;
 	if P is irrelevant, no;
@@ -126,7 +128,9 @@ instead of doing something other than examining tricky endgame manual:
 	say "You can really only [b]X[r] or [b]EXAMINE[r] the [manual]." instead;
 
 check taking inventory:
-	say "All you have on you, besides various expensive rings and medals designating your position as a prominent [12n], is a tricky endgame manual. You can type [b]X[r] at any time outside the Ministry to see what needs to be done. Inside, [b]X[r] will examine the map of the Fourbyfourias." instead;
+	say "All you have on you, besides various expensive rings and medals designating your position as a prominent [12n], is a tricky, yet very dry, endgame manual. It simply wouldn't do to be found with any incriminating plans on you! Or to have incriminating plans written down that may get discovered at a later date.[paragraph break]You can type [b]X[r] at any time outside the Ministry to see what needs to be done. Inside, [b]X[r] will examine the map of the Fourbyfourias.";
+	if player is not in Ministry of Unity, say "Here, [who-coop].";
+	the rule succeeds;
 
 chapter modules not for release
 
@@ -450,15 +454,23 @@ the purple bishop is a bishop. color of purple bishop is white. understand "b" a
 
 the grey bishop is a bishop. color of grey bishop is black. understand "b" and "g" and "gb" and "bg" and "g b" and "b g" and "eb" and "be" and "b e" and "e b" as grey bishop. description is "[minor-color]."
 
-to say minor-color: say "The yellow and purple [if noun is a bishop]bishops[else]knights[end if] that will help you on your quest -- well, their outfits aren't VERY yellow, or VERY purple, but enough to tell them apart, which will help this whole operation quicker. Despite the yellow vs. purple squabbles that plague [12b], they're both equally effective.[paragraph break]It'd take a long time to describe the yellow vs. purple beefs and why things are the way they are. But if you're wondering why I chose these colors, type [b]YVP[r] or [b]PVY[r]."
+to say minor-color: say "The yellow and purple [if noun is a bishop]bishops[else]knights[end if] that will help you on your quest -- well, their outfits aren't VERY yellow, or VERY purple, but enough to tell them apart, which will help this whole operation quicker. Despite the yellow vs. purple squabbles that plague [12b], they're both equally effective.[paragraph break]It'd take a long time to describe the yellow vs. purple beefs and why things are the way they are. But if you're wondering why I chose these colors, type [b]YVP[r] or [b]PVY[r]"
+
+examine-yet is a truth state that varies.
 
 check examining a piece:
 	if the noun is examined, continue the action;
-	now noun is examined;
+	now the noun is examined;
 	if the noun is the Twelvebytwelvian king:
 		say "You and the [twelvebytwelvian] have a good working relationship that is not blemished by anything like friendship. You have nothing to say to each other, besides the obligatory flattery. He would nod pointedly at you to get back to work if you stared too long.";
 	else:
-		say "The [noun] avoids eye contact. That's probably for the best. You don't want to tip off any suspicions. When the time comes, you will nod, and your allies will act[if quest-dir is primary]--or not act, in the case of [the relevant traitor][end if].[paragraph break]";
+		say "The [noun] avoids eye contact. That's probably for the best. You don't want to tip off any Fourbyfourian suspicions, and you don't want to seem like you're playing favorites--indeed, you want bishops and knights of every color to kiss up to you equally, because equality is important.[paragraph break]Besides, when the time comes, you will nod, and your allies will act[if quest-dir is simple-dumb]--or not act, in the case of [the relevant traitor][end if].[paragraph break]";
+
+after examining a piece:
+	say "You think more generally of your relations with [the list of cooperative pieces] that led you to [q of quest-dir].[paragraph break][piece-bio of quest-dir]";
+	if examine-yet is false:
+		now examine-yet is true;
+		say "[i][bracket]NOTE: you get different biographies for each of the four starting Fourbyfourias before and after solving the first part, but you only get one for the remaining three.[close bracket][line break][r]"
 
 to decide which piece is the relevant traitor:
 	if grey knight is not irrelevant, decide on grey knight;
@@ -538,6 +550,8 @@ a direction has text called summary-text.
 
 a direction has text called recap-text.
 
+a direction has text called piece-bio.
+
 to decide which direction is similar-early of (d - a direction):
 	if d is north, decide on northeast;
 	if d is northeast, decide on north;
@@ -582,6 +596,30 @@ to say hint-minor-vs of (d - a direction):
 
 to say piece-cooperation:
 	say "You want your king to cover two escape squares, with one minor piece checking and covering an escape square, and another covering two escape squares. There may be multiple solutions. If one fails you, it is probably used somewhere else. I just didn't want to let the player get through with too-similar solutions."
+
+section individual quest properties -- piece biographies
+
+definition: a direction (called d) is simple-dumb:
+	if d is secondary, no;
+	if hard-mode is false, yes;
+	if d is unsolved, yes;
+	no;
+
+to say lone-bishop: say "You managed to persuade [the first-piece of quest-dir] that [q of quest-dir] was the TRUE plum assignment, here. Of course, this and [similar-early of quest-dir] are about the same, but he doesn't need to know that. "
+
+piece-bio of north is "[if north is simple-dumb][lone-bishop]His plan to tax everyone except the church was a truly brilliant piece of public relations, a windfall for the treasury, with the only flaw being that the church wasn't taxed. Yet. You'll get some knights to advocate for that.[else]You're impressed with how [the first-piece of quest-dir] reached out to the grey bishop at the every-decade international conference to lay the groundwork for the imminent betrayal. But of course you can't show it.".
+
+piece-bio of northeast is "".
+
+piece-bio of east is "".
+
+piece-bio of southeast is "".
+
+piece-bio of south is "".
+
+piece-bio of southwest is "".
+
+piece-bio of west is "".
 
 section quest solve rules
 
