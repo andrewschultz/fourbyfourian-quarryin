@@ -97,14 +97,21 @@ rule for supplying a missing noun when examining:
 	else:
 		now noun is tricky endgame manual;
 
-The tricky endgame manual is a thing. The player carries the tricky endgame manual. description of tricky endgame manual is "Sadly, it's filled with a lot of rah-rah general concepts about believing in yourself and trusting your intuition (well, duh. If you didn't, you wouldn't have come this far in life) yet checking your work and not moving too quickly or too slowly. There's also a note to make sure every ally is doing their part, because nobody can do too much. Duh, again.[paragraph break]The worst bit is the flowery writing (including [your-pals]) but low on useful details. Irrelevant rubbish. Plus there's nothing like that about you."
+The tricky endgame manual is a thing. The player carries the tricky endgame manual. description of tricky endgame manual is "Sadly, it's filled with a lot of rah-rah general concepts about believing in yourself and trusting your intuition (well, duh. If you didn't, you wouldn't have come this far in life) yet checking your work and not moving too quickly or too slowly. There's also a note to make sure every ally is doing their part, because nobody can do too much. Duh, again.[paragraph break]The worst bit is the flowery writing (including [your-pals]) but low on useful details. Irrelevant rubbish. If anyone deserves a hagiography, it's you. You're quite good at telling people you don't really deserve it, and yet they insist anyway!"
 
 after examining tricky endgame manual when player is not in Ministry:
 	if quest-dir is secondary:
 		say "Oh, wait. There is some note about how the [4n] king here is suspicious of being cornered these days, what with his neighbors disappearing mysteriously[if number of not irrelevant bishops is 2]. Also, he's a bit scared of being right next to a bishop who's right next to another monarch. He can't see the other king that way, but if the other king's even slightly off to the side, like on a diagonal, that's okay. Man, people have weird social phobias![else].[end if]";
 		say "[line break]Also, there's a note about how you probably can't trap the [4n] king violently right away. Find a way to fake him out. Make him feel surrounded, not attacked, at the first meeting. Then go in for the kill[if quest-dir is stalemated]. Hey, first part completed[end if].";
 	else:
-		say "Oh, wait. There is some note about general procedure: first, you will want to make the [4n] king feel surrounded but not attacked. Stalemate, they call it. Then, once you've forced a bit of trust out him, a traitorous courtier will help you attack and trap him for good.  And you probably can't trap him way out in the center of the board!";
+		say "Oh, wait. There is some note about general procedure: first, you will want to make the [4n] king feel surrounded but not attacked. Stalemate, they call it. Then, once you've forced a bit of trust out of him, a traitorous courtier will help you attack and trap him for good.  And you probably can't trap him way out in the center of the board!";
+	say "[line break]It doesn't even mention the important stuff applying right now: you need the cooperation of [the list of not irrelevant pieces] to take down the [k of quest-dir]."
+
+to decide if (p - a piece) is cooperative:
+	if color of P is black and quest-dir is primary and quest-dir is unsolved, no;
+	if P is fourbyfourian king, no;
+	if P is irrelevant, no;
+	yes;
 
 to say your-pals:
 	if quest-dir is primary:
@@ -119,7 +126,7 @@ instead of doing something other than examining tricky endgame manual:
 	say "You can really only [b]X[r] or [b]EXAMINE[r] the [manual]." instead;
 
 check taking inventory:
-	say "All you have on you, besides various expensive rings and medals designating your position as a prominent [12n], is a tricky endgame manual. You can type [b]X[r] at any time outside the Ministry to see what needs to be done. Inside, [b]X[r] will examine the map." instead;
+	say "All you have on you, besides various expensive rings and medals designating your position as a prominent [12n], is a tricky endgame manual. You can type [b]X[r] at any time outside the Ministry to see what needs to be done. Inside, [b]X[r] will examine the map of the Fourbyfourias." instead;
 
 chapter modules not for release
 
@@ -749,7 +756,7 @@ rule for supplying a missing noun when calling:
 			now noun is first-piece of quest-dir;
 			say "([the noun], since it is functionally equivalent to [the second-piece of quest-dir])[line break]";
 			the rule succeeds;
-	say "I'll need something more specific, since I can't decide which piece to place of the remaining ones.";
+	say "I'll need something more specific, since I can't decide which piece to place of the remaining ones. You have [list of reserved pieces] still to call.";
 	reject the player's command;
 
 to decide whether you-stalemated:
@@ -785,7 +792,7 @@ this is the stalemate dialogue rule:
 			abide by hard-stalemate-check of quest-dir;
 			let q2 be similar-early of quest-dir;
 			let other-guy be second-piece of q2;
-			say "You and [the first-piece of quest-dir] corner the [ck] and manage to convince him that you're really all just about the diplomacy these days, and they'd better trust you now and in the future. It ... seems to work![paragraph break]You sit and have a think back at the Ministry of Unity. Your plans for [q of similar-early of quest-dir] are similar enough to start. So you go there and pull the same trick, but this time with [the other-guy]. You note one contact in [q of q2] includes [the other-guy] who is not as loyal to their King as they should be. Their help should be just enough.";
+			say "You and [the first-piece of quest-dir] corner the [ck] and manage to convince him that you're really all just about the diplomacy these days, and they'd better trust you now and in the future. It ... seems to work![paragraph break]You sit and have a think back at the Ministry of Unity. Your plans for [q of similar-early of quest-dir] are similar enough to start. So you go there and pull the same trick, but this time with [the other-guy]. Your trips to [q of q2] and [q of quest-dir] includes [the other-guy] who is not as loyal to their King as they should be. Their help should be just enough.";
 			now quest-dir is stalemated;
 			if quest-dir is not normal-stalemated, now quest-dir is hard-stalemated;
 			if q2 is stalemated:
