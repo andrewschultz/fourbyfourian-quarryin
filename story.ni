@@ -467,10 +467,10 @@ check examining a piece:
 		say "The [noun] avoids eye contact. That's probably for the best. You don't want to tip off any Fourbyfourian suspicions, and you don't want to seem like you're playing favorites--indeed, you want bishops and knights of every color to kiss up to you equally, because equality is important.[paragraph break]Besides, when the time comes, you will nod, and your allies will act[if quest-dir is simple-dumb]--or not act, in the case of [the relevant traitor][end if].[paragraph break]";
 
 after examining a piece:
-	say "You think more generally of your relations with [the list of cooperative pieces] that led you to [q of quest-dir].[paragraph break][piece-bio of quest-dir]";
+	say "You think more generally of your relations with [the list of cooperative pieces] that led you to [q of quest-dir].[paragraph break][piece-bio of quest-dir][line break]";
 	if examine-yet is false:
 		now examine-yet is true;
-		say "[i][bracket]NOTE: you get different biographies for each of the four starting Fourbyfourias before and after solving the first part, but you only get one for the remaining three.[close bracket][line break][r]"
+		say "[line break][i][bracket]NOTE: you get different biographies for each of the four starting Fourbyfourias before and after solving the first part, but you only get one for the remaining three.[close bracket][line break][r]"
 
 to decide which piece is the relevant traitor:
 	if grey knight is not irrelevant, decide on grey knight;
@@ -605,21 +605,21 @@ definition: a direction (called d) is simple-dumb:
 	if d is unsolved, yes;
 	no;
 
-to say lone-bishop: say "You managed to persuade [the first-piece of quest-dir] that [q of quest-dir] was the TRUE plum assignment, here. Of course, this and [similar-early of quest-dir] are about the same, but he doesn't need to know that. "
+to say lone-stale: say "You managed to persuade [the first-piece of quest-dir] that [q of quest-dir] was the TRUE plum assignment, here. Of course, this and [similar-early of quest-dir] are about the same, but he doesn't need to know that. "
 
-piece-bio of north is "[if north is simple-dumb][lone-bishop]His plan to tax everyone except the church was a truly brilliant piece of public relations, a windfall for the treasury, with the only flaw being that the church wasn't taxed. Yet. You'll get some knights to advocate for that.[else]You're impressed with how [the first-piece of quest-dir] reached out to the grey bishop at the every-decade international conference to lay the groundwork for the imminent betrayal. But of course you can't show it.".
+piece-bio of north is "[if north is simple-dumb][lone-stale]His plan to tax everyone except the church was a truly brilliant piece of public relations, a windfall for the treasury, with the only flaw being that the church wasn't taxed. Yet. You'll get some knights to advocate for that.[else]You're impressed with how [the first-piece of quest-dir] reached out to the grey bishop at the every-decade international conference to lay the groundwork for the imminent betrayal. But of course you can't show it.[end if]".
 
-piece-bio of northeast is "".
+piece-bio of northeast is "[if northeast is simple-dumb][lone-stale]His insights into keeping the populace divided between 'the monarchy deserves all the power' and 'the clergy deserves all the power' are thoughtful indeed. You just don't quite agree on the respective ratios of who believes what. Perhaps a sabotaged crusade, seemingly ordered by the clergy, will tip the balance the right way.[else]You can't deny [the first-piece of quest-dir] did well to tap into [the second-piece of quest-dir]'s natural resentment of their own monarchs. Perhaps [the first-piece of quest-dir] did a bit too well.[end if]".
 
-piece-bio of east is "".
+piece-bio of east is "The two bishops simply do not like each other, but they know better than to show it. You had such a fight arguing over things: who would get the final blow in on the [ck]? Who would take the light squares, of which there are 13 in an X-by-Xian castle, with only 12 dark squares? Who was better at getting pawns out of their way so they could move about and get stuff done? And you didn't want to get them started on arcane ecumenical matters. Fortunately, they know to shelve their hostility until the job is done, and you were able to placate them enough so they would get the job done. You think. There's always the worry of some bizarre religious edict that dovetails with the current popular superstitions that could rob you of power.".
 
-piece-bio of southeast is "".
+piece-bio of southeast is "The trip up to [ck] was brutal. You'd heard all the rehashes of why bishops were better than knights, and vice versa, and by the end, THEY suggested THEY were getting tired of YOU saying 'Why yes, you both have thoughtful points.' The nerve! The bishop always starts by saying the knight takes too long to get places, then the knight laughs at the bishop for only being able to go certain places, then there's the whole kerfuffle of 'You let pawns get in the way' and 'You don't really appreciate pawns. You just leap over them and one day when you're older and less agile you'll trip over one.' That sort of thing. Or the arguments over why only knights get to search for holy grails. Is it that bishops are too corrupt, or knights are too dumb to be properly overwhelmed by the meaning of such an artifact?[paragraph break]Well, you managed to convince them these questions COULD be, for all practical purposes, decided if one of them bungles things. That should be enough."
 
-piece-bio of south is "".
+piece-bio of south is "The two knights really can't stand each other, but fortunately, taunting from bishops that they couldn't do the job alone, or they could only do it by accident, inspired teamwork. You managed to convince the knights they don't need to guard each other--in fact, that's inefficient--and they wouldn't have to wait for a traitorous pawn after seventy maneuvers. The knights believe they are good at diplomacy, and truth be told, they work together well: the dumb strong one and the smart weak one. All the promises of yes, we will go off to war and no, we won't go off to war--so difficult to keep straight. But thankfully knights are easy to distract.".
 
-piece-bio of southwest is "".
+piece-bio of southwest is "[if southwest is simple-dumb][lone-stale]He's quite the leader, and his charisma expands well beyond other knights. You are impressed at his ability to mock knights more able than himself without showing his own weaknesses.[else]. You weren't surprised when [the first-piece of quest-dir] and [the second-piece of quest-dir] hit it off at a formal banquet in Great Centroidia. When [the second-piece of quest-dir] complained about [cq], you arranged a return banquet to make sure [the first-piece of quest-dir] did not do the same about Twelvebytwelvia. A few sneaky meeting later, and he was on your side.".
 
-piece-bio of west is "".
+piece-bio of west is "[if west is simple-dumb][lone-stale]His physical abilities cannot be denied, but his leadership? Well, you can't have it all. Still, you sort of had to take him along, especially after he grumbled that his squire was a worthless spoiled brat who only got the position due to noble birth.[else]You're fortunate that skills and jousting tournament just occurred and that it was rigged. Having placed in a tie for second, below a clearly inferior knight from distant lands, [the first-piece of quest-dir] and [the second-piece of quest-dir] bonded over the unfairness of the judges. A quick word with [the second-piece of quest-dir], and suddenly they wanted so much more than [cq] could give.[end if]".
 
 section quest solve rules
 

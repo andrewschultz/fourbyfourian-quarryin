@@ -49,6 +49,8 @@ The planning felt right there, but for whatever reason, the North Fourbyfourian 
 !The planning felt right there, but for whatever reason, the North Fourbyfourian King doesn't feel comfortable backed in the corner, at least not without an ally next to them. Maybe that idea will work later, but perhaps you need to do things a little differently now.
 /You and the (yellow|purple) bishop corner the (North|Northeast) Fourbyfourian King and manage to convince him that you're really all just about the diplomacy these days, and they'd better trust you now and in the future. It ... seems to work!
 
+##########################################includes above
+
 >{include} _intro_checkmates
 
 >{include} _bb_stalemate_corner
