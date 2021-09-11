@@ -458,13 +458,20 @@ to say minor-color: say "The yellow and purple [if noun is a bishop]bishops[else
 
 examine-yet is a truth state that varies.
 
+pvy-note is a truth state that varies.
+
 check examining a piece:
+	if pvy-note is false:
+		if noun is not fourbyfourian king and noun is not twelvebytwelvian king:
+			say "[minor-color].";
+			now pvy-note is true;
 	if the noun is examined, continue the action;
 	now the noun is examined;
 	if the noun is the Twelvebytwelvian king:
 		say "You and the [twelvebytwelvian] have a good working relationship that is not blemished by anything like friendship. You have nothing to say to each other, besides the obligatory flattery. He would nod pointedly at you to get back to work if you stared too long.";
 	else:
 		say "The [noun] avoids eye contact. That's probably for the best. You don't want to tip off any Fourbyfourian suspicions, and you don't want to seem like you're playing favorites--indeed, you want bishops and knights of every color to kiss up to you equally, because equality is important.[paragraph break]Besides, when the time comes, you will nod, and your allies will act[if quest-dir is simple-dumb]--or not act, in the case of [the relevant traitor][end if].[paragraph break]";
+	the rule succeeds;
 
 after examining a piece:
 	say "You think more generally of your relations with [the list of cooperative pieces] that led you to [q of quest-dir].[paragraph break][piece-bio of quest-dir][line break]";
