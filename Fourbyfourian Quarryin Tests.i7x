@@ -79,6 +79,7 @@ carry out pfing:
 	say "DEBUG check for if player is in Ministry: [if player is in ministry of unity]PASSED[else]FAILED[end if].";
 	let this-total be number of stalemated directions + (2 * number of solved directions);
 	say "DEBUG check for progress: [if this-total <= last-total]FAILED[else]PASSED[end if] from [number of stalemated directions] stalemated [number of solved directions] solved, [last-total] vs [this-total].";
+	say "Note: we want a failure above in normal mode if we stalemated one of the final three kings.";
 	now last-total is this-total;
 	if player is not in ministry of unity:
 		move player to ministry of unity, without printing a room description;
@@ -237,17 +238,93 @@ understand the command "pie" as something new.
 understand "pie" as pieing.
 
 carry out pieing:
-	repeat with P running through pieces:
-		say "[P] [if p is irrelevant](irrelevant) [end if][location of P].";
+	if number of irrelevant pieces > 0:
+		say "IRRELEVANT PIECES:[line break]";
+		repeat with P running through irrelevant pieces:
+			say "[P] [if p is irrelevant](irrelevant) [end if][location of P].";
+	if number of placed pieces > 0:
+		say "PLACED PIECES:[line break]";
+		repeat with P running through placed pieces:
+			say "[P] [if p is placed](placed) [end if][location of P].";
+	if number of reserved pieces > 0:
+		say "RESERVED PIECES:[line break]";
+		repeat with P running through reserved pieces:
+			say "[P] [if p is reserved](reserved) [end if][location of P].";
+	the rule succeeds;
+
+volume game state twiddling
+
+this is the try to twiddle rule:
+	if first-piece of quest-dir is rival of second-piece of quest-dir, say "This isn't a quest where you can twiddle things." instead;
+	if player is in ministry of unity, say "You can't twiddle the game state in the [ministry]." instead;
+	if number of placed pieces > 1, say "You need to reset this quest before twiddling the game state." instead;
+	say "Trying to reserve [the noun]...";
+	if noun is not irrelevant, say "The [noun] is already part of this quest." instead;
+	if color of noun is black, say "You can only reserve yellow or purple pieces." instead;
+	if rival of noun is irrelevant, say "You can only swap yellows for purples if one is reserved and one isn't." instead;
+	now noun is reserved;
+	now rival of noun is irrelevant;
+	say "The [noun] is now reserved. The [rival of noun] is now irrelevant." instead;
+
+chapter pbing
+
+pbing is an action out of world.
+
+understand the command "pb" as something new.
+
+understand "pb" as pbing.
+
+carry out pbing:
+	now the noun is the purple bishop;
+	abide by the try to twiddle rule;
+	the rule succeeds;
+
+chapter pning
+
+pning is an action out of world.
+
+understand the command "pn" as something new.
+
+understand "pn" as pning.
+
+carry out pning:
+	now the noun is the purple knight;
+	abide by the try to twiddle rule;
+	the rule succeeds;
+
+chapter ybing
+
+ybing is an action out of world.
+
+understand the command "yb" as something new.
+
+understand "yb" as ybing.
+
+carry out ybing:
+	now the noun is the yellow bishop;
+	abide by the try to twiddle rule;
+	the rule succeeds;
+
+chapter yning
+
+yning is an action out of world.
+
+understand the command "yn" as something new.
+
+understand "yn" as yning.
+
+carry out yning:
+	now the noun is the yellow knight;
+	abide by the try to twiddle rule;
 	the rule succeeds;
 
 volume tests
 
 section each area arranged clockwise (primary directions first)
 
-test bvkrsh with "rd n/place k/s/place b/s/place k/pf". [random north or northeast hard]
-test bvkrsn with "rd n/w/place k/se/place b/a1/place k/pf". [random north or northeast normal]
-test nvkrs with "rd w/place n/n/place k/a5/place k/pf". [random west or southwest no hard/normal]
+test bvkr-s-h with "rd n/place k/s/place b/s/place k/pf". [random north or northeast hard]
+test bvkr-s-n with "rd n/w/place k/se/place b/a1/place k/pf". [random north or northeast normal]
+test nvkr-s with "rd w/place n/n/place k/a5/place k/pf". [random west or southwest no hard/normal]
 
 
 test bvb-s with "n/place k/s/place b/s/place k/pf". [KBvsK, stalemate]
@@ -289,8 +366,8 @@ test qs-n with "test nn-s-n/test nn-c-n".
 
 section big picture tests
 
-test a14h with "test bvkrs/test nvkrs/test bvb-c/test nvb-c/test nvn-c/test bvn-c".
-test a14n with "test bvkrsn/test nvkrs/test bvb-c/test nvb-c/test nvn-c/test bvn-c".
+test a14h with "test bvkr-s/test nvkr-s/test bvb-c/test nvb-c/test nvn-c/test bvn-c".
+test a14n with "test bvkr-s-n/test nvkr-s/test bvb-c/test nvb-c/test nvn-c/test bvn-c".
 
 test a57h with "test qe-h/test qs-h/test qse-h".
 test a57n with "test qe-n/test qs-n/test qse-n".
