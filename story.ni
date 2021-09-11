@@ -353,6 +353,11 @@ to decide which number is diag-dist of (t1 - a thing) and (t2 - a thing):
 rule for printing the locale description when map-view is true and player is not in ministry of unity:
 	show-the-board;
 
+chapter c3 explaining 4 vs 5
+
+after printing the locale description for c3 when c3 is unvisited:
+	say "It did not escape your notice that the castle was, in fact, five by five and not four by four as you expected. There are a few ways to spin this.[paragraph break] First, the Fourbyfourias are getting too big for their britches by having such a huge castle. Perhaps the increased size is a subconscious desire to be assimilated as Fivebyfivia was. They may be signalling they are worth taking over. Second, they are expressing a general need to be a part of something bigger, as they know you wouldn't just cede them territory for jollies. Third, you detect signs of disuse in the castle, a sign they can't take care of themselves here and need a little law and order.[paragraph break]Oh, there's a fourth more technical reason I couldn't quite give four-by-four castles. You can see it with [fofiv]. It may be slightly spoilery.";
+
 volume pieces
 
 team is a kind of value. the teams are black and white.
@@ -1138,7 +1143,7 @@ carry out chessing:
 	say "[line break]The king can move one square in any direction, straight or diagonally. While you'll probably want to put the [4n] king in check (a bishop or knight can attack it,) you don't want the [12n] king in check. You also can't place opposing kings next to each other.";
 	say "[line break]Bishops can move diagonally across the length of the board, but they can't jump over other pieces. You'll usually want bishops on the same color squares, to maximize the total squares they cover.";
 	say "[line break]Knights move one square vertically and two squares horizontally, or two horizontally and one vertically. Even if other pieces, enemy or friendly, are in the way.";
-	say "[line break]After placing a friendly piece, you should be able to use [b]MAP[r] to see what squares are attacked.";
+	say "[line break]After placing a friendly piece, you should be able to use [mapm] to see what squares are attacked.";
 	the rule succeeds;
 
 chapter creditsing
@@ -1187,6 +1192,20 @@ carry out failing:
 	say "You walk away, feigning boredom, pretending to the [4n] King it was HIS fault the negotiations, or whatever ... failed. This gaslighting doesn't work often, but it's worth the (lack of) effort.";
 	try going outside instead;
 
+chapter forfiving
+
+forfiving is an action out of world.
+
+understand the command "45" as something new.
+understand the command "54" as something new.
+
+understand "45" as forfiving.
+understand "54" as forfiving.
+
+carry out forfiving:
+	say "I wanted to make the castles four-by-four, but then there's no center to dump you in. I had a similar problem with Threediopolis that I skated on until Jenni Polodna noticed 444 wasn't the center of a 10x10x10 cube. It just didn't feel right dumping you in an almost-center or a corner to start.[paragraph break]I also think having a bit more space works a bit better, and it also gives very interesting alternate solutions to the southerastern Fourbyfourias, which are my favorite part of the game. The downside may be that, with more space, there may be too many options, even in normal mode.";
+	the rule succeeds;
+
 chapter hinting
 
 carry out helping:
@@ -1231,10 +1250,15 @@ understand "me" as metaing.
 
 to say mne: say "[b]MNE[r]/[b]MN[r]"
 
+to say fofiv: say "[b]45[r] or [b]54[r]"
+
+to say mapm: say "[b]MAP[r] or [b]M[r]"
+
 carry out metaing:
 	say "Here is a list of meta-verbs and options you can use. None are necessary to complete the game, but they can all be useful.";
 	say "[line break][b]ABOUT[r] or [b]A[r] tells about the game. [b]CREDITS[r] or [b]C[r] tells more technical details and thanks testers. [b]CHESS[r] or [b]CH[r] gives the relevant rules of chess. [b]DETAILS[r]/[b]DETAIL[r]/[b]D[r] gives some fourth-wall meta-details.";
-	say "[line break][b]MAP[r] or [b]M[r] or [b]BOARD[r] or [b]B[r] shows the current map. [b]TOGGLE[r] or [b]T[r] toggles the map.";
+	say "[line break][mapm] or [b]BOARD[r] or [b]B[r] shows the current map. [b]TOGGLE[r] or [b]T[r] toggles the map.";
+	if c3 is visited, say "[line break][fofiv] gives an explanation for why the Fourbyfourian castles are not, well, four-by-four.";
 	say "[line break][b]HINT[r] or [b]H[r] hints your current area or, if you give a direction, an area you've tried but haven't beaten yet.";
 	if number of solved directions > 0, say "[line break][b]R[r] or [b]RECAP[r] is available to recap areas you've solved. By default, it goes to the last one, but you can specify a direction.";
 	if player is in Ministry of Unity:
@@ -1376,7 +1400,7 @@ code	done-yet	amuse-list
 volume parser rules and errors
 
 rule for printing a parser error:
-	say "I didn't recognize that command. Type [verbs] to see the full list of commands. If you're confused what to do, [b]X[r] your manual again[if player is not in ministry of unity], or refer to the current [b]MAP[r][end if]."
+	say "I didn't recognize that command. Type [verbs] to see the full list of commands. If you're confused what to do, [b]X[r] your manual again[if player is not in ministry of unity], or refer to the current map with [mapm][end if]."
 
 volume beta testing - not for release
 
