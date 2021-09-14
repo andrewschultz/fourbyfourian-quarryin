@@ -64,7 +64,7 @@ hard-mode is a truth state that varies.
 section scoring
 
 check requesting the score:
-	say "This game doesn't keep a score, but to track your progress, you've helped 'reunite' [number of solved directions] of [number of questable directions] [4b]s so far[if number of solved directions > 0]: [list of solved directions][end if][if number of stalemated directions > 0].[paragraph break]You've gained the trust of [trusted-kings], as well[end if][one of].[paragraph break]This is all tracked in the upper-right status bar[or][stopping].";
+	say "This game doesn't keep a score, but to track your progress, you've helped 'reunite' [number of solved directions] of [number of questable directions] [4s] so far[if number of solved directions > 0]: [list of solved directions][end if][if number of stalemated directions > 0].[paragraph break]You've gained the trust of [trusted-kings], as well[end if][one of].[paragraph break]This is all tracked in the upper-right status bar[or][stopping].";
 	if debug-state is true:
 		say "=============[line break]";
 		say "Normal checkmates: [list of normal-checkmated directions].";
@@ -128,7 +128,7 @@ instead of doing something other than examining tricky endgame manual:
 	say "You can really only [b]X[r] or [b]EXAMINE[r] the [manual]." instead;
 
 check taking inventory:
-	say "All you have on you, besides various expensive rings and medals designating your position as a prominent [12n], is a tricky, yet very dry, endgame manual. It simply wouldn't do to be found with any incriminating plans on you! Or to have incriminating plans written down that may get discovered at a later date.[paragraph break]You can type [b]X[r] at any time outside the Ministry to see what needs to be done. Inside, [b]X[r] will examine the map of the [4b]s.";
+	say "All you have on you, besides various expensive rings and medals designating your position as a prominent [12n], is a tricky, yet very dry, endgame manual. It simply wouldn't do to be found with any incriminating plans on you! Or to have incriminating plans written down that may get discovered at a later date.[paragraph break]You can type [b]X[r] at any time outside the Ministry to see what needs to be done. Inside, [b]X[r] will examine the map of the [4s].";
 	if player is not in Ministry of Unity, say "Here, [who-coop].";
 	the rule succeeds;
 
@@ -156,7 +156,7 @@ to decide which number is quests-left:
 
 chapter central
 
-the Ministry of Unity is a not puzzly room. xval is 8. yval is 8. "The planning has been done. [can-leave][tried].[paragraph break]A map of [12b] and the surrounding [4b]s adorns one wall. You can [b]X[r] or [b]EXAMINE[r] it for details, if you want.".
+the Ministry of Unity is a not puzzly room. xval is 8. yval is 8. "The planning has been done. [can-leave][tried].[paragraph break]A map of [12b] and the surrounding [4s] adorns one wall. You can [b]X[r] or [b]EXAMINE[r] it for details, if you want.".
 
 to say can-leave:
 	if number of to-solve directions > 3:
@@ -219,7 +219,7 @@ check going (this is the knight move check rule):
 	say "You don't have your fast horse any more. It's been long moved to the great pasture in the sky.[paragraph break]";
 	if player is in Ministry of Unity:
 		note-amusing-stuff "knight-moves-1";
-		say "Besides, seven [4b]s are enough to conquer. You can only take over so many before bigger countries consider an alliance against you." instead;
+		say "Besides, seven [4s] are enough to conquer. You can only take over so many before bigger countries consider an alliance against you." instead;
 	let to-room be room-from-nums of (xval of location of player + xness of noun) and (yval of location of player + yness of noun);
 	if to-room is offsite:
 		say "That's outside the castle bounds, and there are no secret doors to [square of noun]. As a youngster, you've had enjoyed imagining just [i]visiting[r] such a place, but now that you're grown up and responsible, such daydreams are an impractical extravagance that disrupt your duty to your country.";
@@ -275,7 +275,7 @@ understand "map of 4b/4b4/4" and "4 map/4b map/4b4 map" and "4/4b/4b4" as map of
 check examining map of the Fourbyfourias:
 	if quests-left is 1:
 		say "The only part of the map not x-ed out is [random to-solve direction]. Not much choice." instead;
-	say "[if number of solved directions > 0]It's a 'before' map, not showing what you've annexed. [end if][12b] takes up most of the northwest--it's got more land mass than the seven tinier [4b]s combined. It's striped gold and yellow, the colors of each half of [5b], and your allies['] colors.[paragraph break]Clockwise in varying shades of grey from the upper right are [north], [northeast], [east], [southeast], [south], [southwest] and [west]. To the northwest are lands too big to conquer.[paragraph break]The map has some mnemonics you can study with [mne].";
+	say "[if number of solved directions > 0]It's a 'before' map, not showing what you've annexed. [end if][12b] takes up most of the northwest--it's got more land mass than the seven tinier [4s] combined. It's striped purple and yellow, the colors of each half of [5b], and your allies['] colors.[paragraph break]Clockwise in varying shades of grey from the upper right are [north], [northeast], [east], [southeast], [south], [southwest] and [west]. To the northwest are lands too big to conquer.[paragraph break]The map has some mnemonics you can study with [mne].";
 	if number of solved directions > 0:
 		say "Some titles are x-ed out, because you already unified them: [list of solved directions].";
 	else:
@@ -369,7 +369,7 @@ rule for printing the locale description when map-view is true and player is not
 chapter c3 explaining 4 vs 5
 
 after printing the locale description for c3 when c3 is unvisited:
-	say "It has not escaped your notice that the castle was, in fact, five by five and not four by four as you expected. There are a few ways to spin this.[paragraph break]First, the [4b]s are getting too big for their britches by having such a huge castle. Perhaps the increased size is a subconscious desire to be assimilated as [5b] was. They may be signaling they are worth taking over. Second, they are expressing a general need to be a part of something bigger, as they know you wouldn't just cede them territory for jollies. Third, you detect signs of disuse in the castle, a sign they can't take care of themselves here and need a little law and order.[paragraph break]Of course, if the castle were too small, perhaps the size of a [12n] baron's, it would be a sign [cq] knew they were inferior.[paragraph break]Oh, there's a fourth more technical reason I couldn't quite give four-by-four castles. You can see it with [fofiv]. It may be slightly spoilery.";
+	say "It has not escaped your notice that the castle was, in fact, five by five and not four by four as you expected. There are a few ways to spin this.[paragraph break]First, the [4s] are getting too big for their britches by having such a huge castle. Perhaps the increased size is a subconscious desire to be assimilated as [5b] was. They may be signaling they are worth taking over. Second, they are expressing a general need to be a part of something bigger, as they know you wouldn't just cede them territory for jollies. Third, you detect signs of disuse in the castle, a sign they can't take care of themselves here and need a little law and order.[paragraph break]Of course, if the castle were too small, perhaps the size of a [12n] baron's, it would be a sign [cq] knew they were inferior.[paragraph break]Oh, there's a fourth more technical reason I couldn't quite give four-by-four castles. You can see it with [fofiv]. It may be slightly spoilery.";
 
 volume pieces
 
@@ -479,7 +479,7 @@ after examining a piece:
 	say "You think more generally of your relations with [the list of cooperative pieces] that led you to [q of quest-dir].[paragraph break][piece-bio of quest-dir][line break]";
 	if examine-yet is false:
 		now examine-yet is true;
-		say "[line break][i][bracket]NOTE: when examining, you get different biographies for each of the four starting [4b]s before and after solving the first part, but you only get one for the remaining three.[close bracket][line break][r]"
+		say "[line break][i][bracket]NOTE: when examining, you get different biographies for each of the four starting [4s] before and after solving the first part, but you only get one for the remaining three.[close bracket][line break][r]"
 
 to decide which piece is the relevant traitor:
 	if grey knight is not irrelevant, decide on grey knight;
@@ -645,7 +645,7 @@ dupe-noted-yet is a truth state that varies. [ if you found, say, the same BB an
 to poss-dupe-note:
 	if dupe-noted-yet is false:
 		now dupe-noted-yet is true;
-		say "(NOTE: your solution was fully valid, but this being hard mode, I'm being a bit of a stickler about finding different ways for the south and east [4b]s. Hope it's not too much inconvenience, or maybe that you find the additional challenge interesting.)";
+		say "(NOTE: your solution was fully valid, but this being hard mode, I'm being a bit of a stickler about finding different ways for the south and east [4s]. Hope it's not too much inconvenience, or maybe that you find the additional challenge interesting.)";
 	retreat-to-unity;
 	the rule succeeds;
 
@@ -714,7 +714,7 @@ this is the traitors-all-used rule:
 		say "Tackling [q of noun] seems tactically unwise at the moment. You'll want to do as much as you can diplomatically. You still have [if number of solved directions is 3]a traitor[else]traitors[end if] willing to aid you elsewhere. Once the traitors helped you, [i]then[r] you can conquer the south and east with a bit more force. So you'll wan to take care of things to the [list of primary unsolved directions] first.";
 		if fourth-wall-warn is false:
 			now fourth-wall-warn is true;
-			say "[line break]And, yes, this is totally not me saying that I believe certain [4b]s are easier to conquer than others, or at least, they have more similar themes, so you'll get off to a quicker start.";
+			say "[line break]And, yes, this is totally not me saying that I believe certain [4s] are easier to conquer than others, or at least, they have more similar themes, so you'll get off to a quicker start.";
 		if jump-over is true:
 			say "[line break]But since you enabled jumping-over as a beta tester, I'll let you by.[paragraph break]";
 			continue the action;
@@ -980,7 +980,7 @@ carry out calling:
 
 to calculate-ending:
 	if hard-mode is true:
-		say "You had just the right combination of force and tact to take over the [4b]s without other countries getting too suspicious. Well, of course they were suspicious, but not enough to act until it was far too late. Everyone is happy, more or less, even if people in the new province aren't quite 'real' [4n]s.[paragraph break]But the important thing: you receive a statue with your likeness in Great Centroidia, the capital of [12b]! You loved your fast horse and all, but now that you proved yourself on your own, you shouldn't have to share the spotlight with it.[paragraph break]Alas, as you grow older, a new king demands the formation of a New Centroidia, which is more accessible to the far reaches of what was once [12b]. For strictly administrative purposes, of course. Your statue is left out, without quite enough people to lobby for you, though lesser minds and diplomatic talents are quite well-represented. Frustration!";
+		say "You had just the right combination of force and tact to take over the [4s] without other countries getting too suspicious. Well, of course they were suspicious, but not enough to act until it was far too late. Everyone is happy, more or less, even if people in the new province aren't quite 'real' [4n]s.[paragraph break]But the important thing: you receive a statue with your likeness in Great Centroidia, the capital of [12b]! You loved your fast horse and all, but now that you proved yourself on your own, you shouldn't have to share the spotlight with it.[paragraph break]Alas, as you grow older, a new king demands the formation of a New Centroidia, which is more accessible to the far reaches of what was once [12b]. For strictly administrative purposes, of course. Your statue is left out, without quite enough people to lobby for you, though lesser minds and diplomatic talents are quite well-represented. Frustration!";
 	else:
 		say "But the similarities between all the [4n] Kings' disappearance is too much. Someone puts all the pieces together, and slowly but surely, you're fingered as a Person of Interest. Perhaps with more territories to conquer, your King would have backed you up, but here, you are offered as a sacrifice. You do, however, get a nifty diagonal street named after you in New Centroidia, the more practical capital now that Great Centroidia isn't really fully in the center any more.";
 		if number of nonoptimal directions is 0:
@@ -1145,8 +1145,8 @@ to big-map:
 
 carry out boarding:
 	if location of player is ministry of unity:
-		if screen-reader is true, say "Unfortunately, the map of all the [4b]s would tear up a screen reader, so I can't depict it in this mode." instead;
-		say "Here is a rough text representation of the map of the [4b]s.[paragraph break]";
+		if screen-reader is true, say "Unfortunately, the map of all the [4s] would tear up a screen reader, so I can't depict it in this mode." instead;
+		say "Here is a rough text representation of the map of the [4s].[paragraph break]";
 		big-map instead;
 	say "STRATEGIC MAP OF [printed name of quest-dir in upper case] FOURBYFOURIA SO FAR:[line break]";
 	if screen-reader is true, say "Since you are using a screen reader, text maps in any [4b] are disabled. You'll need to restart if you want to use them." instead;
@@ -1292,7 +1292,7 @@ understand "45" as forfiving.
 understand "54" as forfiving.
 
 carry out forfiving:
-	say "So, here's why the [4n] castles are the size they are.[paragraph break]I wanted to make the castles four-by-four, but then there's no center to dump you in. I had a similar problem with Threediopolis that I skated on until Jenni Polodna noticed 444 wasn't the center of a 10x10x10 cube. It just didn't feel right dumping you in an almost-center or a corner to start.[paragraph break]I also think having a bit more space works a bit better, and it also gives very interesting alternate solutions to the southerastern [4b]s, which are my favorite part of the game. The downside may be that, with more space, there may be too many options, even in normal mode.";
+	say "So, here's why the [4n] castles are the size they are.[paragraph break]I wanted to make the castles four-by-four, but then there's no center to dump you in. I had a similar problem with Threediopolis that I skated on until Jenni Polodna noticed 444 wasn't the center of a 10x10x10 cube. It just didn't feel right dumping you in an almost-center or a corner to start.[paragraph break]I also think having a bit more space works a bit better, and it also gives very interesting alternate solutions to the southerastern [4s], which are my favorite part of the game. The downside may be that, with more space, there may be too many options, even in normal mode.";
 	the rule succeeds;
 
 chapter hinting
@@ -1301,7 +1301,7 @@ carry out helping:
 	if walkthrough-hint is false:
 		now walkthrough-hint is true;
 		say "[line break]NOTE: if you want full hints, the walkthrough.txt file that came with this binary should have the details. This command tries to give you hints without spoiling anything. This nag will not appear again." instead;
-	if player is in Ministry of Unity, say "You have nothing to do in the [unity], but you can hint a direction if you want, for specific [4b]s." instead;
+	if player is in Ministry of Unity, say "You have nothing to do in the [unity], but you can hint a direction if you want, for specific [4s]." instead;
 	if debug-state is false:
 		abide by the visit-text of noun;
 	try hintdiring quest-dir;
@@ -1611,14 +1611,14 @@ after printing the locale description when instructions-given is false:
 to print-intro:
 	say "The treaty was signed at the first Council of Sensibly Bordered Nations. After [12b] annexed [5b], you, who had risen to the office of Cheap Diplomat, assured the seven [4n] mini-states that of COURSE there would be no further conquests. While swooping up the seven of them would increase [12b]'s size almost doubly, why, you'd have to rename yourself Sixteenbysixteenia in the process, and that was just too awkward a name.";
 	wfak;
-	say "That was good enough for them, but not really. They established border patrols. They improved their spying. You brought up their paranoia, their spying, at future Councils, mentioning how [12b] has more landmass than the [4b]s combined, but who got seven times the votes? Not this guy! If there was anyone not to trust, it was those rinky-dink kingdoms whispering among each other. And with each year that passed, you expected to gain trust you wouldn't attack and gobble them up, but they only seemed to suspect you more. Even as you built up armies in the northwest frontier, against bigger, tougher countries!";
+	say "That was good enough for them, but not really. They established border patrols. They improved their spying. You brought up their paranoia, their spying, at future Councils, mentioning how [12b] has more landmass than the [4s] combined, but who got seven times the votes? Not this guy! If there was anyone not to trust, it was those rinky-dink kingdoms whispering among each other. And with each year that passed, you expected to gain trust you wouldn't attack and gobble them up, but they only seemed to suspect you more. Even as you built up armies in the northwest frontier, against bigger, tougher countries!";
 	say "You'd let them bait you long enough. You see, after the first council, a courtier suggested in private that, perhaps, Sixteenbysixteenia wasn't the only possible name if the [4b] mini-states were vacuumed up. Largeboxica! Doubleboardistan! Foursquaresquareland! Even Twofiftysixia!";
 	wfak;
 	say "Obviously a much more level-headed fellow than that nutcase who claimed the sun and moon didn't follow [12b] ... or whatever [12b]'s real name should be. Well, level-headed until he expected an advanced title. He should have just let you buy his silence. It would have been more than generous. And the ex-nations newly in the fold? Why, they could vote on the favorite name!";
 	wfak;
 	say "And if those full-square-worldists wanted to oppose your forging a bit of unity that actually made [i]sense[r], well, you would expose their inconsistencies! Still, there is a matter of diplomacy. No all-out wars. A mission, between high-ranking officers of each state. You've had time to cultivate some allies in the ranks of some of the outer realms. Not quite the inner ones, yet.";
 	wfak;
-	say "You've gotten too old and fat, I mean distinguished, to ride your super-speedy horse that served so well annexing [5b]. It's slowed down quicker than you did. But no matter. Business can be conducted in castles -- five-by-five affairs, proof the [4b]s are a bit too big for their britches.";
+	say "You've gotten too old and fat, I mean distinguished, to ride your super-speedy horse that served so well annexing [5b]. It's slowed down quicker than you did. But no matter. Business can be conducted in castles -- five-by-five affairs, proof the [4s] are a bit too big for their britches.";
 	wfak;
 	say "In the Ministry of Unity, the final touches are laid on the plans. Four of the satellite nations have traitors, waiting for power, who will help you. The others--well, you will need to strike quickly and not be too obvious. You flip an octaroon towards the scribe who applies the finishing touches of an odd script, made just for you, called 'BASIC ENDGAME MANUAL.' And off you go!";
 
