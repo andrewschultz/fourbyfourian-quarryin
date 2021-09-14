@@ -1493,9 +1493,6 @@ rule for printing a parser error:
 
 volume beta testing - not for release
 
-when play begins:
-	if debug-state is false, say "Note you can use the J command to jump to areas that might be too advanced in release mode.";
-
 chapter jumping
 
 jumpovering is an action out of world.
@@ -1576,9 +1573,9 @@ when play begins (this is the initial unchangeable options rule):
 		let L be the chosen letter;
 		if L is 72 or L is 104:
 			now hard-mode is true;
-			the rule succeeds;
+			continue the action;
 		if L is 78 or L is 110:
-			the rule succeeds;
+			continue the action;
 	say "[this-game] has an option to use text maps in some places. This may cause problems with a screen reader. Are you using a screen reader?";
 	if the player consents:
 		now screen-reader is true;
