@@ -128,7 +128,7 @@ instead of doing something other than examining tricky endgame manual:
 	say "You can really only [b]X[r] or [b]EXAMINE[r] the [manual]." instead;
 
 check taking inventory:
-	say "All you have on you, besides various expensive rings and medals designating your position as a prominent [12n], is a tricky, yet very dry, endgame manual. It simply wouldn't do to be found with any incriminating plans on you! Or to have incriminating plans written down that may get discovered at a later date.[paragraph break]You can type [b]X[r] at any time outside the Ministry to see what needs to be done. Inside, [b]X[r] will examine the map of the Fourbyfourias.";
+	say "All you have on you, besides various expensive rings and medals designating your position as a prominent [12n], is a tricky, yet very dry, endgame manual. It simply wouldn't do to be found with any incriminating plans on you! Or to have incriminating plans written down that may get discovered at a later date.[paragraph break]You can type [b]X[r] at any time outside the Ministry to see what needs to be done. Inside, [b]X[r] will examine the map of the [4b]s.";
 	if player is not in Ministry of Unity, say "Here, [who-coop].";
 	the rule succeeds;
 
@@ -275,7 +275,7 @@ understand "map of 4b/4b4/4" and "4 map/4b map/4b4 map" and "4/4b/4b4" as map of
 check examining map of the Fourbyfourias:
 	if quests-left is 1:
 		say "The only part of the map not x-ed out is [random to-solve direction]. Not much choice." instead;
-	say "[if number of solved directions > 0]It's a 'before' map, not showing what you've annexed. [end if][12b] takes up most of the northwest--it's got more land mass than the seven tinier [4b]s combined. It's striped gold and yellow, the colors of each half of Fivebyfivia, and your allies['] colors.[paragraph break]Clockwise in varying shades of grey from the upper right are [north], [northeast], [east], [southeast], [south], [southwest] and [west]. To the northwest are lands too big to conquer.[paragraph break]The map has some mnemonics you can study with [mne].";
+	say "[if number of solved directions > 0]It's a 'before' map, not showing what you've annexed. [end if][12b] takes up most of the northwest--it's got more land mass than the seven tinier [4b]s combined. It's striped gold and yellow, the colors of each half of [5b], and your allies['] colors.[paragraph break]Clockwise in varying shades of grey from the upper right are [north], [northeast], [east], [southeast], [south], [southwest] and [west]. To the northwest are lands too big to conquer.[paragraph break]The map has some mnemonics you can study with [mne].";
 	if number of solved directions > 0:
 		say "Some titles are x-ed out, because you already unified them: [list of solved directions].";
 	else:
@@ -286,6 +286,8 @@ check examining map of the Fourbyfourias:
 		say "[line break][if number of solved directions > 0]However, [end if]South and East and Southeast [4b] are greyed out a bit. It's not time, yet.";
 	else if number of solved directions is 4:
 		say "[line break]However, [southeast] is still greyed out. It only touches [12b] at a corner, so you need a path through [south] or [east] to get there.";
+	if screen-reader is false:
+		say "[line break]A full text-map representation is avaliable with [b]MAP[r].";
 	the rule succeeds;
 
 instead of doing something with map of the fourbyfourias:
@@ -367,7 +369,7 @@ rule for printing the locale description when map-view is true and player is not
 chapter c3 explaining 4 vs 5
 
 after printing the locale description for c3 when c3 is unvisited:
-	say "It did not escape your notice that the castle was, in fact, five by five and not four by four as you expected. There are a few ways to spin this.[paragraph break] First, the Fourbyfourias are getting too big for their britches by having such a huge castle. Perhaps the increased size is a subconscious desire to be assimilated as Fivebyfivia was. They may be signalling they are worth taking over. Second, they are expressing a general need to be a part of something bigger, as they know you wouldn't just cede them territory for jollies. Third, you detect signs of disuse in the castle, a sign they can't take care of themselves here and need a little law and order.[paragraph break]Oh, there's a fourth more technical reason I couldn't quite give four-by-four castles. You can see it with [fofiv]. It may be slightly spoilery.";
+	say "It has not escaped your notice that the castle was, in fact, five by five and not four by four as you expected. There are a few ways to spin this.[paragraph break]First, the [4b]s are getting too big for their britches by having such a huge castle. Perhaps the increased size is a subconscious desire to be assimilated as [5b] was. They may be signaling they are worth taking over. Second, they are expressing a general need to be a part of something bigger, as they know you wouldn't just cede them territory for jollies. Third, you detect signs of disuse in the castle, a sign they can't take care of themselves here and need a little law and order.[paragraph break]Of course, if the castle were too small, perhaps the size of a [12n] baron's, it would be a sign [cq] knew they were inferior.[paragraph break]Oh, there's a fourth more technical reason I couldn't quite give four-by-four castles. You can see it with [fofiv]. It may be slightly spoilery.";
 
 volume pieces
 
@@ -470,14 +472,14 @@ check examining a piece:
 	if the noun is the Twelvebytwelvian king:
 		say "You and the [twelvebytwelvian] have a good working relationship that is not blemished by anything like friendship. You have nothing to say to each other, besides the obligatory flattery. He would nod pointedly at you to get back to work if you stared too long.";
 	else:
-		say "The [noun] avoids eye contact. That's probably for the best. You don't want to tip off any Fourbyfourian suspicions, and you don't want to seem like you're playing favorites--indeed, you want bishops and knights of every color to kiss up to you equally, because equality is important.[paragraph break]Besides, when the time comes, you will nod, and your allies will act[if quest-dir is simple-dumb]--or not act, in the case of [the relevant traitor][end if].[paragraph break]";
+		say "The [noun] avoids eye contact. That's probably for the best. You don't want to tip off any [4n] suspicions, and you don't want to seem like you're playing favorites--indeed, you want bishops and knights of every color to kiss up to you equally, because equality is important.[paragraph break]Besides, when the time comes, you will nod, and your allies will act[if quest-dir is simple-dumb]--or not act, in the case of [the relevant traitor][end if].[paragraph break]";
 	the rule succeeds;
 
 after examining a piece:
 	say "You think more generally of your relations with [the list of cooperative pieces] that led you to [q of quest-dir].[paragraph break][piece-bio of quest-dir][line break]";
 	if examine-yet is false:
 		now examine-yet is true;
-		say "[line break][i][bracket]NOTE: you get different biographies for each of the four starting Fourbyfourias before and after solving the first part, but you only get one for the remaining three.[close bracket][line break][r]"
+		say "[line break][i][bracket]NOTE: when examining, you get different biographies for each of the four starting [4b]s before and after solving the first part, but you only get one for the remaining three.[close bracket][line break][r]"
 
 to decide which piece is the relevant traitor:
 	if grey knight is not irrelevant, decide on grey knight;
@@ -624,7 +626,7 @@ piece-bio of southeast is "The trip up to [ck] was brutal. You'd heard all the r
 
 piece-bio of south is "The two knights really can't stand each other, but fortunately, taunting from bishops that they couldn't do the job alone, or they could only do it by accident, inspired teamwork. You managed to convince the knights they don't need to guard each other--in fact, that's inefficient--and they wouldn't have to wait for a traitorous pawn after seventy maneuvers. The knights believe they are good at diplomacy, and truth be told, they work together well: the dumb strong one and the smart weak one. All the promises of yes, we will go off to war and no, we won't go off to war--so difficult to keep straight. But thankfully knights are easy to distract.".
 
-piece-bio of southwest is "[if southwest is simple-dumb][lone-stale]He's quite the leader, and his charisma expands well beyond other knights. You are impressed at his ability to mock knights more able than himself without showing his own weaknesses.[else]. You weren't surprised when [the first-piece of quest-dir] and [the second-piece of quest-dir] hit it off at a formal banquet in Great Centroidia. When [the second-piece of quest-dir] complained about [cq], you arranged a return banquet to make sure [the first-piece of quest-dir] did not do the same about Twelvebytwelvia. A few sneaky meeting later, and he was on your side.".
+piece-bio of southwest is "[if southwest is simple-dumb][lone-stale]He's quite the leader, and his charisma expands well beyond other knights. You are impressed at his ability to mock knights more able than himself without showing his own weaknesses.[else]. You weren't surprised when [the first-piece of quest-dir] and [the second-piece of quest-dir] hit it off at a formal banquet in Great Centroidia. When [the second-piece of quest-dir] complained about [cq], you arranged a return banquet to make sure [the first-piece of quest-dir] did not do the same about [12b]. A few sneaky meeting later, and he was on your side.".
 
 piece-bio of west is "[if west is simple-dumb][lone-stale]His physical abilities cannot be denied, but his leadership? Well, you can't have it all. Still, you sort of had to take him along, especially after he grumbled that his squire was a worthless spoiled brat who only got the position due to noble birth.[else]You're fortunate that skills and jousting tournament just occurred and that it was rigged. Having placed in a tie for second, below a clearly inferior knight from distant lands, [the first-piece of quest-dir] and [the second-piece of quest-dir] bonded over the unfairness of the judges. A quick word with [the second-piece of quest-dir], and suddenly they wanted so much more than [cq] could give.[end if]".
 
@@ -657,14 +659,14 @@ this is the two-bishops-formation rule:
 		if hard-mode is false:
 			now quest-dir is normal-checkmated;
 			continue the action;
-		say "[if south is solved]The Fourbyfourian king notices something is up. You remember that you had everyone in roughly the same place over in [q of south] with the two knights.  Perhaps you need to find a new way to corner the [ck]. Too many similar moves may lead to proof of your activities[else]Something's up. The bishops cough at you, a bit confused. You shake your head, but they both shake their heads back. They wouldn't do this to you unless something was up.  So after the diplomatic meeting, you ask. They mention perhaps ... perhaps this specific maneuver may be more useful somewhere else.[paragraph break]They almost look satisfied with that bit of thoughtful dialogue. So much of their work is just intimidating people into what to believe that a bit of logical futzing is refreshing. They seem to be thinking back wistfully to the good old days of dreaming about gaining vast power--so different from having to wield it constantly[end if].";
+		say "[if south is solved]The [fourbyfourian] notices something is up. You remember that you had everyone in roughly the same place over in [q of south] with the two knights.  Perhaps you need to find a new way to corner the [ck]. Too many similar moves may lead to proof of your activities[else]Something's up. The bishops cough at you, a bit confused. You shake your head, but they both shake their heads back. They wouldn't do this to you unless something was up.  So after the diplomatic meeting, you ask. They mention perhaps ... perhaps this specific maneuver may be more useful somewhere else.[paragraph break]They almost look satisfied with that bit of thoughtful dialogue. So much of their work is just intimidating people into what to believe that a bit of logical futzing is refreshing. They seem to be thinking back wistfully to the good old days of dreaming about gaining vast power--so different from having to wield it constantly[end if].";
 		poss-dupe-note instead;
 	let temp be boolval of (whether or not yellow bishop is double-adjacent) + boolval of (whether or not purple bishop is double-adjacent);
 	if temp > 0:
 		if hard-mode is false:
 			now quest-dir is normal-checkmated;
 			continue the action;
-		say "The Fourbyfourian king feels a bit squished in by [if temp is 2]your two bishops[else]one of your bishops being THAT close--and, well, your king, for that matter, no offense. He makes an excuse to wriggle out just before you can close the net.";
+		say "The [fourbyfourian] feels a bit squished in by [if temp is 2]your two bishops[else]one of your bishops being THAT close--and, well, your king, for that matter, no offense. He makes an excuse to wriggle out just before you can close the net.";
 		poss-dupe-note instead;
 
 this is the bishop takes knight rule:
@@ -683,9 +685,9 @@ this is the knight blocks bishop rule:
 	note-amusing-stuff "bvn-miss";
 	say "The enemy knight, who wants to cooperate with your cunning plan, unfortunately has no choice. The king being in danger, and the knight in obvious position to prevent it, jumps to action![paragraph break]";
 	if Q is 2:
-		say "A big fight ensues! A fake one, to impress the Fourbyfourian king and not really raise suspicions.[paragraph break]Eh well. There's more bishops where THEY came from.";
+		say "A big fight ensues! A fake one, to impress the [fourbyfourian] and not really raise suspicions.[paragraph break]Eh well. There's more bishops where THEY came from.";
 	else:
-		say "The knight throws itself in front of the bishop. You have no choice but to dismiss the bishop in disgrace and assure the Fourbyfourian king you had nothing to do with it, and if you can help yourself, it won't happen again. The bishop looks ... less than happy. But you mention it is divine will, which the bishop can't argue with. After all, he's used that argument on some unlucky doomed unfortunates, himself.";
+		say "The knight throws itself in front of the bishop. You have no choice but to dismiss the bishop in disgrace and assure the [fourbyfourian] you had nothing to do with it, and if you can help yourself, it won't happen again. The bishop looks ... less than happy. But you mention it is divine will, which the bishop can't argue with. After all, he's used that argument on some unlucky doomed unfortunates, himself.";
 	retreat-to-unity;
 	the rule succeeds;
 
@@ -782,19 +784,19 @@ to decide which number is check-total:
 this is the excessive beatdown rule:
 	if check-total is 2:
 		note-amusing-stuff "beatdown";
-		say "The pieces under your command look over at you questioningly. While they recognize what fun it is to both be attacking the Fourbyfourian king at once, they also consider such fun is not strategically sound. Still, you're the boss...";
+		say "The pieces under your command look over at you questioningly. While they recognize what fun it is to both be attacking the [fourbyfourian] at once, they also consider such fun is not strategically sound. Still, you're the boss...";
 
 rule for supplying a missing noun when calling:
 	if location of player is Ministry of Unity:
 		now noun is Twelvebytwelvian king;
 		the rule succeeds; [doesn't matter. Same reaction for them all!]
 	if Fourbyfourian king is reserved and number of reserved pieces is 1:
-		say "(the Fourbyfourian king is last)[line break]";
+		say "(the [fourbyfourian] is last)[line break]";
 		now noun is Fourbyfourian king;
 		the rule succeeds;
 	if Fourbyfourian king is reserved and number of reserved pieces is 2: [ maybe redundant but let's make sure ]
 		now noun is a random reserved piece that is not the Fourbyfourian king;
-		say "([the noun] before the Fourbyfourian king)[line break]";
+		say "([the noun] before the [fourbyfourian])[line break]";
 		the rule succeeds;
 	if Fourbyfourian king is placed and number of reserved pieces is 2: [ e.g. placed king, have BB or NN left so it doesn't matter ]
 		if quest-dir is east or quest-dir is south:
@@ -846,25 +848,25 @@ this is the stalemate dialogue rule:
 			now q2 is stalemate-bypassed;
 			now stalemate-recap of quest-dir is current-quest-snapshot;
 	else if quest-dir is stalemated:
-		say "Again, you pretty much cornered the Fourbyfourian king without attacking him. Awkward laughter resonates in this diplomatic meeting. It only sort of builds up his trust. You know how it is, when someone oversells something? You might be risking that here. The Fourbyfourian king (fool) already trusts you enough. Next time, you can go fully on offense.";
+		say "Again, you pretty much cornered the [fourbyfourian] without attacking him. Awkward laughter resonates in this diplomatic meeting. It only sort of builds up his trust. You know how it is, when someone oversells something? You might be risking that here. The [fourbyfourian] (fool) already trusts you enough. Next time, you can go fully on offense.";
 	else:
 		now quest-dir is stalemated;
-		say "Oh my! The Fourbyfourian king is trapped, but not too trapped. After a lot of verbal manipulation, you manage to convince him that this show of almost-force is just standard negotiating technique, and if he can't trust you, who can he trust?[paragraph break]The diplomatic maneuver is thus a success. After a few hours, you take leave, confident your little feint will keep the Fourbyfourian king off-guard enough, you will get him next time.";
+		say "Oh my! The [fourbyfourian] is trapped, but not too trapped. After a lot of verbal manipulation, you manage to convince him that this show of almost-force is just standard negotiating technique, and if he can't trust you, who can he trust?[paragraph break]The diplomatic maneuver is thus a success. After a few hours, you take leave, confident your little feint will keep the [fourbyfourian] off-guard enough, you will get him next time.";
 		now stalemate-recap of quest-dir is current-quest-snapshot;
 	retreat-to-unity;
 	the rule succeeds;
 
 this is the checkmate dialogue rule:
 	if quest-dir is secondary and quest-dir is not stalemated:
-		say "But wait! The Fourbyfourian king feels a LITTLE too under attack. He excuses himself for ... well, a family emergency, an important jousting tournament to judge, another one of those banquets, you know.[paragraph break]";
+		say "But wait! The [fourbyfourian] feels a LITTLE too under attack. He excuses himself for ... well, a family emergency, an important jousting tournament to judge, another one of those banquets, you know.[paragraph break]";
 		if number of solved secondary directions > 0:
 			say "Ye Olde Bummeur. You mixed things up. You should have slow-walked it a bit more, as in [q of random solved secondary direction].";
 		else if number of stalemated secondary directions > 0:
 			say "Man! You felt like you had something there. But you didn't gain the king's trust as in [q of random stalemated secondary direction]. You'll need to do that.";
 		else:
-			say "Drat! You were a bit too aggressive. Perhaps if there were a way to make the Fourbyfourian king feel almost-trapped but let him off the hook ... then he could be suckered. But not now.";
+			say "Drat! You were a bit too aggressive. Perhaps if there were a way to make [the fourbyfourian] feel almost-trapped but let him off the hook ... then he could be suckered. But not now.";
 		if already-solved of quest-dir is empty:
-			say "Perhaps this will work later. You note the position in your head. Some scribe will write it down. Perhaps once you've gained the Fourbyfourian king's trust you won't attack him. Then, you can even say 'Ha, if I were going to fool you, I wouldn't use this exact same formation you'd been suspicious of, earlier.' People fall for that, even when they should know better.";
+			say "Perhaps this will work later. You note the position in your head. Some scribe will write it down. Perhaps once you've gained [the fourbyfourian]'s trust you won't attack him. Then, you can even say 'Ha, if I were going to fool you, I wouldn't use this exact same formation you'd been suspicious of, earlier.' People fall for that, even when they should know better.";
 			now checkmate-recap of quest-dir is current-quest-snapshot;
 			now already-solved of quest-dir is {};
 		else:
@@ -888,7 +890,7 @@ definition: a piece (called p) is check-warning:
 this is the check yourself and wreck yourself rule:
 	unless quest-dir is primary, continue the action;
 	if the second-piece of quest-dir attacks the Twelvebytwelvian King:
-		say "The [random placed piece] coughs. You realize that setup won't do. The Twelvebytwelvian King will feel more heat than necessary. The enemy king might start to question why [the second-piece of quest-dir] won't rush to his defense.[paragraph break]So, somewhere else, maybe. As much as you'd sometimes love an excuse to see your monarch get bopped for no reason, the price is too high. A failed conquest and, of course, blame for said conquest.";
+		say "The [random placed piece] coughs. You realize that setup won't do. The [twelvebytwelvian] will feel more heat than necessary. The enemy king might start to question why [the second-piece of quest-dir] won't rush to his defense.[paragraph break]So, somewhere else, maybe. As much as you'd sometimes love an excuse to see your monarch get bopped for no reason, the price is too high. A failed conquest and, of course, blame for said conquest.";
 		note-amusing-stuff "self-check";
 		the rule succeeds;
 
@@ -923,7 +925,7 @@ carry out calling:
 	update-guarded;
 	if noun is Fourbyfourian king:
 		if number of reserved pieces > 1:
-			say "You'll want to place the Fourbyfourian king last." instead;
+			say "You'll want to place the [fourbyfourian] last." instead;
 		if diag-dist of Twelvebytwelvian king and Fourbyfourian king <= 1, say "You can't really place the enemy kings that close to each other. Oh, sure, they'll perform all the proper diplomacy ... but they really don't WANT to. At least, your king doesn't want to. He doesn't want his fingerprints on any ... disappearances." instead;
 		consider the excessive beatdown rule;
 		abide by the king-place of quest-dir;
@@ -1109,10 +1111,45 @@ rule for asking which do you mean when everything matched is not reserved (this 
 
 chapter maps
 
+to say topbox: say "+-----------+";
+
+to say 12sp: say "|           ";
+
+to say vbord: say "---+";
+
+to say spc4: say "4b4|";
+
+to say topbord: say "[topbox][vbord][line break]";
+
+to say longspc: say "[12sp]|[spc4][line break]";
+
+to say midbord: say "[12sp]+[vbord][line break]";
+
+to say bordlines: say "[longspc][midbord]";
+
+to say botbord:
+	say "+[vbord][vbord][vbord][vbord][line break]";
+
+to big-map:
+	say "[fixed letter spacing][topbord]";
+	say "[12sp]| N |[line break]";
+	say "[bordlines]";
+	say "[12sp]| NE|[line break]";
+	say "[bordlines]";
+	say "[12sp]| E |[line break]";
+	say "[longspc]";
+	say "[botbord]";
+	say "| W | SW| S | SE|[line break]";
+	say "|[spc4][spc4][spc4][spc4][line break]";
+	say "[botbord][r][variable letter spacing]";
+
 carry out boarding:
-	if location of player is ministry of unity, say "There is no map to look at right now." instead;
+	if location of player is ministry of unity:
+		if screen-reader is true, say "Unfortunately, the map of all the [4b]s would tear up a screen reader, so I can't depict it in this mode." instead;
+		say "Here is a rough text representation of the map of the [4b]s.[paragraph break]";
+		big-map instead;
 	say "STRATEGIC MAP OF [printed name of quest-dir in upper case] FOURBYFOURIA SO FAR:[line break]";
-	if screen-reader is true, say "Since you are using a screen reader, text maps are disabled. You'll need to restart if you want to use them." instead;
+	if screen-reader is true, say "Since you are using a screen reader, text maps in any [4b] are disabled. You'll need to restart if you want to use them." instead;
 	show-the-board;
 	the rule succeeds.
 
@@ -1255,7 +1292,7 @@ understand "45" as forfiving.
 understand "54" as forfiving.
 
 carry out forfiving:
-	say "I wanted to make the castles four-by-four, but then there's no center to dump you in. I had a similar problem with Threediopolis that I skated on until Jenni Polodna noticed 444 wasn't the center of a 10x10x10 cube. It just didn't feel right dumping you in an almost-center or a corner to start.[paragraph break]I also think having a bit more space works a bit better, and it also gives very interesting alternate solutions to the southerastern Fourbyfourias, which are my favorite part of the game. The downside may be that, with more space, there may be too many options, even in normal mode.";
+	say "So, here's why the [4n] castles are the size they are.[paragraph break]I wanted to make the castles four-by-four, but then there's no center to dump you in. I had a similar problem with Threediopolis that I skated on until Jenni Polodna noticed 444 wasn't the center of a 10x10x10 cube. It just didn't feel right dumping you in an almost-center or a corner to start.[paragraph break]I also think having a bit more space works a bit better, and it also gives very interesting alternate solutions to the southerastern [4b]s, which are my favorite part of the game. The downside may be that, with more space, there may be too many options, even in normal mode.";
 	the rule succeeds;
 
 chapter hinting
@@ -1310,7 +1347,7 @@ carry out metaing:
 	say "Here is a list of meta-verbs and options you can use. None are necessary to complete the game, but they can all be useful.";
 	say "[line break][b]ABOUT[r] or [b]A[r] tells about the game. [b]CREDITS[r] or [b]C[r] tells more technical details and thanks testers. [b]CHESS[r] or [b]CH[r] gives the relevant rules of chess. [b]DETAILS[r]/[b]DETAIL[r]/[b]D[r] gives some fourth-wall meta-details.";
 	say "[line break][mapm] or [b]BOARD[r] or [b]B[r] shows the current map. [b]TOGGLE[r] or [b]T[r] toggles the map.";
-	if c3 is visited, say "[line break][fofiv] gives an explanation for why the Fourbyfourian castles are not, well, four-by-four.";
+	if c3 is visited, say "[line break][fofiv] gives an explanation for why the [4n] castles are not, well, four-by-four.";
 	say "[line break][b]HINT[r] or [b]H[r] hints your current area or, if you give a direction, an area you've tried but haven't beaten yet.";
 	if number of solved directions > 0, say "[line break][b]R[r] or [b]RECAP[r] is available to recap areas you've solved. By default, it goes to the last one, but you can specify a direction.";
 	if player is in Ministry of Unity:
@@ -1437,7 +1474,7 @@ to note-amusing-stuff (t - text):
 
 table of amusing stuff
 code	done-yet	amuse-list
-"beatdown"	false	"Constructing a double check (both allies, no traitors, attacking the Fourbyfourian king)"
+"beatdown"	false	"Constructing a double check (both allies, no traitors, attacking [the fourbyfourian])"
 "nvb-miss"	false	"Placing your knight where the traitor bishop can attack it"
 "bvn-miss"	false	"Placing the bishop too far from the king when you have the traitor knight"
 "bb-colors-first"	false	"Placing two opposing bishops on the same color tile"
