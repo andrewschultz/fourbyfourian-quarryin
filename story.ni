@@ -97,7 +97,7 @@ rule for supplying a missing noun when examining:
 	else:
 		now noun is tricky endgame manual;
 
-The tricky endgame manual is a thing. The player carries the tricky endgame manual. description of tricky endgame manual is "Sadly, it's filled with a lot of rah-rah general concepts about believing in yourself and trusting your intuition (well, duh. If you didn't, you wouldn't have come this far in life) yet checking your work and not moving too quickly or too slowly. There's also a note to make sure every ally is doing their part, because nobody can do too much. Duh, again.[paragraph break]The worst bit is the flowery writing (including [your-pals]) but low on useful details. Irrelevant rubbish. If anyone deserves a hagiography, it's you. You're quite good at telling people you don't really deserve it, and yet they insist anyway!"
+The tricky endgame manual is a thing. The player carries the tricky endgame manual. description of tricky endgame manual is "Sadly, it's filled with a lot of rah-rah general concepts about believing in yourself and trusting your intuition (well, duh. If you didn't, you wouldn't have come this far in life) yet checking your work and not moving too quickly or too slowly. There's also a note to make sure every ally is doing their part, because nobody can do too much. Duh, again.[paragraph break]The worst bit is the flowery writing (including [your-pals]) but low on useful details. Irrelevant rubbish. If anyone deserves a hagiography, it's you. You're quite good at telling people you don't really deserve all this praise, and yet they insist anyway!"
 
 after examining tricky endgame manual when player is not in Ministry:
 	if quest-dir is secondary:
@@ -105,9 +105,9 @@ after examining tricky endgame manual when player is not in Ministry:
 		say "[line break]Also, there's a note about how you probably can't trap the [4n] king violently right away. Find a way to fake him out. Make him feel surrounded, not attacked, at the first meeting. Then go in for the kill[if quest-dir is stalemated]. Hey, first part completed[end if].";
 	else:
 		say "Oh, wait. There is some note about general procedure: first, you will want to make the [4n] king feel surrounded but not attacked. Stalemate, they call it. Then, once you've forced a bit of trust out of him, a traitorous courtier will help you attack and trap him for good.  And you probably can't trap him way out in the center of the board!";
-	say "[line break]It doesn't even mention the important stuff applying right now: [who-coop]."
+	say "[line break]Of course, it doesn't even mention the important stuff applying right now: [who-coop]."
 
-to say who-coop: say "you need the cooperation of [the list of not irrelevant pieces] to take down the [k of quest-dir]"
+to say who-coop: say "you need the cooperation of [the list of cooperative pieces] to take down the [k of quest-dir]"
 
 definition: a piece (called p) is cooperative:
 	if color of P is black and quest-dir is primary and quest-dir is unsolved, no;
@@ -128,8 +128,8 @@ instead of doing something other than examining tricky endgame manual:
 	say "You can really only [b]X[r] or [b]EXAMINE[r] the [manual]." instead;
 
 check taking inventory:
-	say "All you have on you, besides various expensive rings and medals designating your position as a prominent [12n], is a tricky, yet very dry, endgame manual. It simply wouldn't do to be found with any incriminating plans on you! Or to have incriminating plans written down that may get discovered at a later date.[paragraph break]You can type [b]X[r] at any time outside the Ministry to see what needs to be done. Inside, [b]X[r] will examine the map of the [4s].";
-	if player is not in Ministry of Unity, say "Here, [who-coop].";
+	say "All you have on you, besides various expensive rings and medals designating your position as a prominent [12n], is a tricky, yet very dry, endgame manual. It simply wouldn't do to be found with any incriminating plans on you! Or even to have them turn up later.[paragraph break]You can type [b]X[r] at any time outside the Ministry to see what needs to be done. Inside, [b]X[r] will examine the map of the [4s].";
+	if player is not in Ministry of Unity, say "[line break]Here, [who-coop].";
 	the rule succeeds;
 
 chapter modules not for release
