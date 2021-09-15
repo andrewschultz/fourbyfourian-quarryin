@@ -84,43 +84,7 @@ There is also another, on the side of the board.
 
 These are not the only solutions. There are rotations and mirrors, and the bishop has several squares on the diagonal, and your king can be in one of two squares as well. But this is the general idea.
 
-======================================== NORTH (knight vs. bishop):
-
-You may note that the king in the corner only has three squares to move to. Elsewhere he has at least five. So you want to put him there and then leave no escape squares. Your king can guard two squares, but your knight can't guard any if it is giving check. That means the bishop has to block a square. If the bishop is next to the king, that eliminates one square where the knight gives check. With the knight placed, there's only one square for your king that adequately blocks the opponent's king.
-
-+-+-+-+-+-+
-|k| |K| | |
-+-+-+-+-+-+
-|b| |N| | |
-+-+-+-+-+-+
-| | | | | |
-+-+-+-+-+-+
-| | | | | |
-+-+-+-+-+-+
-| | | | | |
-+-+-+-+-+-+
-
-So one solution is n/place n/n/place k/a4/place b/n/place k.
-
-======================================== NORTHEAST (knight vs. knight):
-
-You can again use process of elimination for this: the king in the corner has 3 squares. Your king can guard two. The knight can't guard any. So the enemy knight has to block one square. But when it does, it makes one of the squares for your king impossible. Since that square is a knight's move away, you need your knight on the other square.
-
-+-+-+-+-+-+
-|k| | | | |
-+-+-+-+-+-+
-|n| |K| | |
-+-+-+-+-+-+
-| |N| | | |
-+-+-+-+-+-+
-| | | | | |
-+-+-+-+-+-+
-| | | | | |
-+-+-+-+-+-+
-
-So one solution is n/place k/sw/place fn/nw/place n/n/place k.
-
-======================================== SOUTHWEST (bishop vs. bishop):
+======================================== NORTH (bishop vs. bishop):
 
 +-+-+-+-+-+
 |k| | | | |
@@ -138,7 +102,7 @@ As before, you need to give check, and while the bishop can guard one flight squ
 
 So one solution is place fb/n/place k/a4/place b/n/place k.
 
-======================================== WEST (bishop vs. knight):
+======================================== NORTHEAST (bishop vs. knight):
 
 +-+-+-+-+-+
 |k| | | | |
@@ -169,6 +133,42 @@ The above seems like it should work, but it doesn't! The knight can block. Simil
 Everyone has to be packed in here, but that makes the solution a bit quicker.
 
 So one solution is n/place k/w/place b/w/place n/n/place k.
+
+======================================== SOUTHWEST (knight vs. bishop):
+
+You may note that the king in the corner only has three squares to move to. Elsewhere he has at least five. So you want to put him there and then leave no escape squares. Your king can guard two squares, but your knight can't guard any if it is giving check. That means the bishop has to block a square. If the bishop is next to the king, that eliminates one square where the knight gives check. With the knight placed, there's only one square for your king that adequately blocks the opponent's king.
+
++-+-+-+-+-+
+|k| |K| | |
++-+-+-+-+-+
+|b| |N| | |
++-+-+-+-+-+
+| | | | | |
++-+-+-+-+-+
+| | | | | |
++-+-+-+-+-+
+| | | | | |
++-+-+-+-+-+
+
+So one solution is n/place n/n/place k/a4/place b/n/place k.
+
+======================================== WEST (knight vs. knight):
+
+You can again use process of elimination for this: the king in the corner has 3 squares. Your king can guard two. The knight can't guard any. So the enemy knight has to block one square. But when it does, it makes one of the squares for your king impossible. Since that square is a knight's move away, you need your knight on the other square.
+
++-+-+-+-+-+
+|k| | | | |
++-+-+-+-+-+
+|n| |K| | |
++-+-+-+-+-+
+| |N| | | |
++-+-+-+-+-+
+| | | | | |
++-+-+-+-+-+
+| | | | | |
++-+-+-+-+-+
+
+So one solution is n/place k/sw/place fn/nw/place n/n/place k.
 
 But now things may get a bit trickier. The enemy king is too smart to be suckered into the corner. He's heard rumors. In fact, checkmate won't work at first! You have to sucker him by trapping him with stalemate--where he has no legal moves, and he doesn't have any subjects who can move legally.
 
