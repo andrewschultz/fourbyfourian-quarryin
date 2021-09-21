@@ -154,9 +154,9 @@ to decide if (r1 - a room) and (r2 - a room) are samecolored:
 to decide which number is quests-left:
 	decide on number of questable directions - number of solved directions.
 
-chapter central
+chapter unity
 
-the Ministry of Unity is a not puzzly room. xval is 8. yval is 8. "The planning has been done. [can-leave][tried].[paragraph break]A map of [12b] and the surrounding [4s] adorns one wall. You can [b]X[r] or [b]EXAMINE[r] it for details, if you want.".
+the Ministry of Unity is a not puzzly room. xval is 8. yval is 8. "The planning has been done. [can-leave][tried]. For refreshers on who does what, you can go [b]IN[r] or [b]INSIDE[r] to the observation grounds.[paragraph break]A map of [12b] and the surrounding [4s] adorns one wall. You can [b]X[r] or [b]EXAMINE[r] it for details, if you want.".
 
 to say can-leave:
 	if number of to-solve directions > 3:
@@ -196,7 +196,7 @@ the knight move check rule is listed first in the check going rulebook.
 the note boundaries rule is listed before the can't go that way rule in the check going rulebook.
 
 check going outside:
-	try exiting instead;
+	if location of player is not observation grounds, try exiting instead;
 
 check exiting (this is the blanket exit rule):
 	if location of player is Ministry of Unity:
@@ -236,6 +236,7 @@ check going (this is the hub check rule):
 		if noun is northwest:
 			note-amusing-stuff "northwest";
 			say "Alas, the vast lands northwest of [12b] are so unruly as to feature nonlinear borders. Some such borders are not even defined by rivers![paragraph break]Plus, they're vast enough, it'd take too long to get to their capitals. Oh, and the whole painful winters and large armies things, too." instead;
+		if noun is inside, continue the action;
 		if noun is unquestable, say "You can't go [noun] from the Ministry." instead;
 		if noun is solved, say "You already conquered [noun] [4b]." instead;
 		abide by visit-text of noun;
@@ -293,6 +294,16 @@ check examining map of the Fourbyfourias:
 instead of doing something with map of the fourbyfourias:
 	if current action is examining, continue the action;
 	say "You can really only [b]X[r] or [b]EXAMINE[r] the [map of the]." instead;
+
+chapter observation grounds
+
+check going down in Ministry of Unity:
+	now all pieces are off-stage;
+	move Twelvebytwelvian King to Observation Grounds;
+	move a random bishop to Observation Grounds;
+	move a random knight to Observation Grounds;
+
+the Observation Grounds are inside of the Ministry of Unity. "The [unity] just outside is for big-picture planning. Here, you can (X)amine people to determine how and when and why they will act."
 
 chapter the grid
 
@@ -479,7 +490,7 @@ after examining a piece:
 	say "You think more generally of your relations with [the list of cooperative pieces] that led you to [q of quest-dir].[paragraph break][piece-bio of quest-dir][line break]";
 	if examine-yet is false:
 		now examine-yet is true;
-		say "[line break][i][bracket]NOTE: when examining, you get different biographies for each of the four starting [4s] before and after solving the first part, but you only get one for the remaining three.[close bracket][line break][r]"
+		say "[line break][i][bracket]NOTE: examining any ally will give you the same story for your current quest, except in the case of the southeastern [4s], where you get the same story for each.[close bracket][line break][r]"
 
 to decide which piece is the relevant traitor:
 	if grey knight is not irrelevant, decide on grey knight;
@@ -616,7 +627,7 @@ definition: a direction (called d) is simple-dumb:
 
 to say lone-stale: say "You managed to persuade [the first-piece of quest-dir] that [q of quest-dir] was the TRUE plum assignment, here. Of course, this and [similar-early of quest-dir] are about the same, but he doesn't need to know that. "
 
-piece-bio of north is "[if north is simple-dumb][lone-stale]His plan to tax everyone except the church was a truly brilliant piece of public relations, a windfall for the treasury, with the only flaw being that the church wasn't taxed. Yet. You'll get some knights to advocate for that.[else]You're impressed with how [the first-piece of quest-dir] reached out to the grey bishop at the every-decade international conference to lay the groundwork for the imminent betrayal. But of course you can't show it.[end if]".
+piece-bio of north is "[if north is simple-dumb][lone-stale]His list of reasons to tax everyone except the church was a truly brilliant piece of public relations and a windfall for the treasury. It also allowed enough leeway to tax (eventually) the church. You know a few knights very willing to advocate for that.[else]You're impressed with how [the first-piece of quest-dir] reached out to the grey bishop at the every-decade international conference to lay the groundwork for the imminent betrayal. But of course you can't show it.[end if]".
 
 piece-bio of northeast is "[if northeast is simple-dumb][lone-stale]His insights into keeping the populace divided between 'the monarchy deserves all the power' and 'the clergy deserves all the power' are thoughtful indeed. You just don't quite agree on the respective ratios of who believes what. Perhaps a sabotaged crusade, seemingly ordered by the clergy, will tip the balance the right way.[else]You can't deny [the first-piece of quest-dir] did well to tap into [the second-piece of quest-dir]'s natural resentment of their own monarchs. Perhaps [the first-piece of quest-dir] did a bit too well.[end if]".
 
@@ -803,7 +814,7 @@ rule for supplying a missing noun when calling:
 			now noun is first-piece of quest-dir;
 			say "([the noun], since it is functionally equivalent to [the second-piece of quest-dir])[line break]";
 			the rule succeeds;
-	say "I'll need something more specific, since I can't decide which piece to place of the remaining ones. You have [list of reserved pieces] still to call.";
+	say "I'll need something more specific, since I can't decide which piece to place of the remaining ones. You have [the list of reserved pieces] still to call.";
 	reject the player's command;
 
 to decide whether you-stalemated:
@@ -820,7 +831,7 @@ to decide whether you-checkmated:
 this is the hard-bishop-stalemate rule:
 	if location of player is cornery:
 		if hard-mode is true:
-			say "The planning felt right there, but for whatever reason, the [ck] doesn't feel comfortable backed in the corner, at least not without an ally next to them. Maybe that idea will work later, but perhaps you need to do things a little differently now."; [?? for the next bit, mention they should go in a corner, if on hard mode] [?? also mention differently if you already solved KN vs K]
+			say "The planning felt right there, but for whatever reason, the [ck] doesn't feel comfortable backed in that way, at least not without an ally next to them. Maybe that idea will work later, but there's a way to trap him away from the corner, here.[paragraph break]Surely [cq] will be better off with a much braver leader like ... your very own king! Or, perhaps, a regent such as yourself."; [?? for the next bit, mention they should go in a corner, if on hard mode] [?? also mention differently if you already solved KN vs K]
 			retreat-to-unity;
 			the rule succeeds;
 		now quest-dir is normal-stalemated;
@@ -1200,7 +1211,7 @@ understand "pvy" as colorchating.
 understand "yvp" as colorchating.
 
 carry out colorchating:
-	say "I wanted to choose 'opposite' colors from the red/yellow/blue primary and secondary colors. Blue and orange is only nice if you're a Chicago Bears fan or, worse, you actually enjoyed going to the high school I attended, you utter bum, you. Red and green is for, well, Red Green or Santa Claus, both of whom are cool and all, but not for this game. I considered brown and tan, to underscore that there wasn't any difference, but it didn't work. But I wanted to avoid the white/black seen in chess.[paragraph break]I also wanted to avoid words that started with N, B or K, because I wanted the color abbreviations to make things clearer, not confuse people.";
+	say "I wanted to choose 'opposite' colors from the red/yellow/blue primary and secondary colors. Blue and orange is only nice if you're a Chicago Bears fan or, worse, you actually enjoyed going to the high school I attended, you utter bum, you. Red and green is for, well, Red Green or Santa Claus, both of whom are cool and all, but not for this game. I considered brown and tan, to underscore that there wasn't any difference, but it left me a bit confused. I also wanted to avoid the white/black seen in chess as well as any too-obscure colors.[paragraph break]I also wanted to avoid colors that started with N, B or K, because I wanted the color abbreviations to make things clearer, not confuse people.";
 	the rule succeeds;
 
 chapter abbing
