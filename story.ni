@@ -310,6 +310,7 @@ check going inside in Ministry of Unity:
 	move Twelvebytwelvian King to Observation Grounds;
 	move a random observable bishop to Observation Grounds;
 	move a random observable knight to Observation Grounds;
+	now all pieces are not init-observed;
 
 the Observation Grounds are inside of the Ministry of Unity. "The [unity] just back outside is for big-picture planning. Here, you can (X)amine people to determine how and when and why they will act. Though you can also head in a direction to start a quest."
 
@@ -407,7 +408,24 @@ team is a kind of value. the teams are black and white.
 
 a piece is a kind of person. a piece can be reserved, irrelevant or placed. a piece is usually irrelevant. a piece has text called short-text. description is usually "You don't really want to make eye contact. You might give the game away.".
 
+a piece has a rule called tutorial-rule.
+
 a piece has a team called the color.
+
+a piece can be init-observed. a piece is usually not init-observed.
+
+note-move-help is a truth state that varies.
+
+after examining a piece in Observation Grounds when screen-reader is true and note-move-help is false:
+	now note-move-help is true;
+	say "Examining a piece twice will give you examples of how they move.";
+	continue the action;
+
+a piece can be gen-help-examined. a piece is usually not gen-help-examined.
+
+after examining a piece in Observation Grounds:
+	now noun is gen-help-examined;
+	now rival of noun is gen-help-examined;
 
 section relations
 
@@ -478,17 +496,38 @@ to decide whether (p1 - a piece) is immobile:
 
 chapter bishop
 
-a bishop is a kind of piece.
+a bishop is a kind of piece. description of a bishop is usually "Like [the rival of item described], [the item described] moves diagonally across boards. They can move as far as they want until the board ends. They are also limited to squares of one color. They can't jump over anyone else."
 
-the yellow bishop is a bishop. color of yellow bishop is white. understand "b" and "yb" and "by" and "y b" and "b y" and "y" and "fb" and "bf" and "b f" and "f b" as yellow bishop. description is "[minor-color].". "The yellow bishop [bishop-shuffle]."
+the yellow bishop is a bishop. color of yellow bishop is white. understand "b" and "yb" and "by" and "y b" and "b y" and "y" and "fb" and "bf" and "b f" and "f b" as yellow bishop. "The yellow bishop [bishop-shuffle]."
 
-the purple bishop is a bishop. color of purple bishop is white. understand "b" and "pb" and "bp" and "p b" and "b p" and "p" and "fb" and "bf" and "b f" and "f b" as purple bishop. description is "[minor-color].". "The purple bishop [bishop-shuffle]."
+the purple bishop is a bishop. color of purple bishop is white. understand "b" and "pb" and "bp" and "p b" and "b p" and "p" and "fb" and "bf" and "b f" and "f b" as purple bishop. "The purple bishop [bishop-shuffle]."
 
-the grey bishop is a bishop. color of grey bishop is black. understand "b" and "g" and "gb" and "bg" and "g b" and "b g" and "eb" and "be" and "b e" and "e b" as grey bishop. description is "[minor-color]."
+the grey bishop is a bishop. color of grey bishop is black. understand "b" and "g" and "gb" and "bg" and "g b" and "b g" and "eb" and "be" and "b e" and "e b" as grey bishop. "The grey bishop [bishop-shuffle]."
 
 to say minor-color: say "The yellow and purple [if noun is a bishop]bishops[else]knights[end if] that will help you on your quest -- well, their outfits aren't VERY yellow, or VERY purple, but enough to tell them apart, which will help this whole operation quicker. Despite the yellow vs. purple squabbles that plague [12b], they're both equally effective.[paragraph break]It'd take a long time to describe the yellow vs. purple beefs and why things are the way they are. But if you're wondering why I chose these colors, type [b]YVP[r] or [b]PVY[r]"
 
-to say bishop-shuffle: say "shuffles around here, never quite moving in a straight line. Religion is weirdw"
+to say bishop-shuffle: say "shuffles around here, never quite moving in a straight line. Religion is weird"
+
+tutorial-rule of bishop is bishop-tutorial rule.
+
+this is the bishop-tutorial rule:
+	let riv be the rival of the noun;
+	now riv is placed;
+	say "A bishop in the corner or on the edges guards only four squares.";
+	move riv to a1;
+	show-one-tutorial;
+	say "A bishop in the inner ring can guard six squares if it is not blocked.";
+	move riv to b2;
+	show-one-tutorial;
+	say "A bishop in the center can guard eight squares if not blocked.";
+	move riv to c3;
+	show-one-tutorial;
+	now riv is irrelevant;
+
+to show-one-tutorial:
+	update-guarded;
+	show-the-board;
+	reset-guard;
 
 chapter examining pieces in the field
 
@@ -496,7 +535,7 @@ examine-yet is a truth state that varies.
 
 pvy-note is a truth state that varies.
 
-carry out examining a piece when location of player is puzzly:
+carry out examining a piece when location of player is puzzly (this is the alternate stories on examining rule):
 	if pvy-note is false:
 		if noun is not fourbyfourian king and noun is not twelvebytwelvian king:
 			say "[minor-color].";
@@ -508,6 +547,10 @@ carry out examining a piece when location of player is puzzly:
 	else:
 		say "The [noun] avoids eye contact. That's probably for the best. You don't want to tip off any [4n] suspicions, and you don't want to seem like you're playing favorites--indeed, you want bishops and knights of every color to kiss up to you equally, because equality is important.[paragraph break]Besides, when the time comes, you will nod, and your allies will act[if quest-dir is simple-dumb]--or not act, in the case of [the relevant traitor][end if].[paragraph break]";
 	the rule succeeds;
+
+carry out examining a piece when location of player is not puzzly (this is the check for tutorials rule):
+	if noun is init-observed, abide by the tutorial-rule of noun instead;
+	now noun is init-observed;
 
 after examining a piece when location of player is puzzly (this is the general quest piece description rule):
 	say "You think more generally of your relations with [the list of cooperative pieces] that led you to [q of quest-dir].[paragraph break][piece-bio of quest-dir][line break]";
@@ -523,7 +566,7 @@ to say waits-here: say "waits here, seemingly relaxed, but ready to spring to ac
 
 chapter knight
 
-a knight is a kind of piece.
+a knight is a kind of piece. "Like [the rival of item described], [the item described]moves in an L, two shapes vertically and one square horizontally, or one square vertically and two squares horizontally. They can jump over anyone else to get there."
 
 the yellow knight is a knight. color of yellow knight is white. understand "n" and "yn" and "ny" and "n y" and "y n" and "y" and "fn" and "nf" and "f n" and "n f" as yellow knight. "The yellow knight [waits-here]."
 
@@ -535,7 +578,7 @@ chapter king
 
 a king is a kind of piece.
 
-the Twelvebytwelvian King is a king. color of Twelvebytwelvian king is white. understand "k" and "k12" and "12k" and "12" and "fk" and "kf" as twelvebytwelvian king. "Your king waits here for you to set everything just so."
+the Twelvebytwelvian King is a king. color of Twelvebytwelvian king is white. understand "k" and "k12" and "12k" and "12" and "fk" and "kf" as twelvebytwelvian king. "Your king waits here for you to set everything just so.". description of twelvebytwelvian king is "The king can move in any directions, though it just wouldn't do to have him zipping across the board. He'd be too exhausted to lead, but he could. Of course he could, even if he isn't as spry as when he was younger!"
 
 the Fourbyfourian King is a king. color of Fourbyfourian king is black. understand "k" and "4k" and "k4" and "ke" and "ek" and "4" and "k e" and "e k" and "k 4" and "4 k" as fourbyfourian king. description is "Any sort of eye contact might cause the [fourbyfourian] to get suspicious. You can't have that.". "You shouldn't be able to see the Fourbyfourian king."
 
