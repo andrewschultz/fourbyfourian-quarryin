@@ -124,8 +124,10 @@ to say your-pals:
 	else:
 		say "gratuitous biographies of the [first-piece of quest-dir] and [second-piece of quest-dir] helping you here";
 
-check examining manual when player is in Ministry of Unity:
-	say "You read up on the basics of taking down an enemy king with [if number of solved directions > 4]one ally and one equally-strong traitor[else]two relatively inauspicious allies[end if]. But it's all a bit dry and technical, and you'll know what specifics apply better once you leave the Ministry of Unity." instead;
+check examining manual when location of player is not puzzly:
+	say "You read up on the basics of taking down an enemy king with [if number of solved directions > 4]one ally and one equally-strong traitor[else]two relatively inauspicious allies[end if]. But it's all a bit dry and technical, and you'll know what specifics apply better once you leave the the planning areas.";
+	if player is in observation grounds, say "[line break]You may also want to [xbold] your allies here for refreshers on how they work alone or together.";
+	the rule succeeds;
 
 instead of doing something other than examining tricky endgame manual:
 	say "You can really only [xbold] the [manual]." instead;
@@ -220,7 +222,7 @@ the blanket exit rule is listed before the can't exit when not inside anything r
 check going (this is the knight move check rule):
 	if noun is normal, continue the action;
 	say "You don't have your fast horse any more. It's been long moved to the great pasture in the sky.[paragraph break]";
-	if player is in Ministry of Unity:
+	if location of player is not puzzly:
 		note-amusing-stuff "knight-moves-1";
 		say "Besides, seven [4s] are enough to conquer. You can only take over so many before bigger countries consider an alliance against you." instead;
 	let to-room be room-from-nums of (xval of location of player + xness of noun) and (yval of location of player + yness of noun);
@@ -391,7 +393,7 @@ to decide which number is diag-dist of (r1 - a room) and (r2 - a room):
 to decide which number is diag-dist of (t1 - a thing) and (t2 - a thing):
 	decide on diag-dist of location of t1 and location of t2;
 
-rule for printing the locale description when map-view is true and player is not in ministry of unity:
+rule for printing the locale description when map-view is true and location of player is puzzly:
 	show-the-board;
 
 chapter c3 explaining 4 vs 5
@@ -478,24 +480,28 @@ chapter bishop
 
 a bishop is a kind of piece.
 
-the yellow bishop is a bishop. color of yellow bishop is white. understand "b" and "yb" and "by" and "y b" and "b y" and "y" and "fb" and "bf" and "b f" and "f b" as yellow bishop. description is "[minor-color]."
+the yellow bishop is a bishop. color of yellow bishop is white. understand "b" and "yb" and "by" and "y b" and "b y" and "y" and "fb" and "bf" and "b f" and "f b" as yellow bishop. description is "[minor-color].". "The yellow bishop [bishop-shuffle]."
 
-the purple bishop is a bishop. color of purple bishop is white. understand "b" and "pb" and "bp" and "p b" and "b p" and "p" and "fb" and "bf" and "b f" and "f b" as purple bishop. description is "[minor-color]."
+the purple bishop is a bishop. color of purple bishop is white. understand "b" and "pb" and "bp" and "p b" and "b p" and "p" and "fb" and "bf" and "b f" and "f b" as purple bishop. description is "[minor-color].". "The purple bishop [bishop-shuffle]."
 
 the grey bishop is a bishop. color of grey bishop is black. understand "b" and "g" and "gb" and "bg" and "g b" and "b g" and "eb" and "be" and "b e" and "e b" as grey bishop. description is "[minor-color]."
 
 to say minor-color: say "The yellow and purple [if noun is a bishop]bishops[else]knights[end if] that will help you on your quest -- well, their outfits aren't VERY yellow, or VERY purple, but enough to tell them apart, which will help this whole operation quicker. Despite the yellow vs. purple squabbles that plague [12b], they're both equally effective.[paragraph break]It'd take a long time to describe the yellow vs. purple beefs and why things are the way they are. But if you're wondering why I chose these colors, type [b]YVP[r] or [b]PVY[r]"
 
+to say bishop-shuffle: say "shuffles around here, never quite moving in a straight line. Religion is weirdw"
+
+chapter examining pieces in the field
+
 examine-yet is a truth state that varies.
 
 pvy-note is a truth state that varies.
 
-check examining a piece:
+carry out examining a piece when location of player is puzzly:
 	if pvy-note is false:
 		if noun is not fourbyfourian king and noun is not twelvebytwelvian king:
 			say "[minor-color].";
 			now pvy-note is true;
-	if the noun is examined, continue the action;
+	if the noun is examined, the rule succeeds;
 	now the noun is examined;
 	if the noun is the Twelvebytwelvian king:
 		say "You and the [twelvebytwelvian] have a good working relationship that is not blemished by anything like friendship. You have nothing to say to each other, besides the obligatory flattery. He would nod pointedly at you to get back to work if you stared too long.";
@@ -503,7 +509,7 @@ check examining a piece:
 		say "The [noun] avoids eye contact. That's probably for the best. You don't want to tip off any [4n] suspicions, and you don't want to seem like you're playing favorites--indeed, you want bishops and knights of every color to kiss up to you equally, because equality is important.[paragraph break]Besides, when the time comes, you will nod, and your allies will act[if quest-dir is simple-dumb]--or not act, in the case of [the relevant traitor][end if].[paragraph break]";
 	the rule succeeds;
 
-after examining a piece:
+after examining a piece when location of player is puzzly (this is the general quest piece description rule):
 	say "You think more generally of your relations with [the list of cooperative pieces] that led you to [q of quest-dir].[paragraph break][piece-bio of quest-dir][line break]";
 	if examine-yet is false:
 		now examine-yet is true;
@@ -644,7 +650,7 @@ definition: a direction (called d) is simple-dumb:
 
 to say lone-stale: say "You managed to persuade [the first-piece of quest-dir] that [q of quest-dir] was the TRUE plum assignment, here. Of course, this and [similar-early of quest-dir] are about the same, but he doesn't need to know that. "
 
-piece-bio of north is "[if north is simple-dumb][lone-stale]His list of reasons to tax everyone except the church was a truly brilliant piece of public relations and a windfall for the treasury. It also allowed enough leeway to tax (eventually) the church. You know a few knights very willing to advocate for that.[else]You're impressed with how [the first-piece of quest-dir] reached out to the grey bishop at the every-decade international conference to lay the groundwork for the imminent betrayal. But of course you can't show it.[end if]".
+piece-bio of north is "[if north is simple-dumb][lone-stale]His list of reasons to tax everyone except the church was a truly brilliant piece of public relations and a windfall for the treasury. It also allowed enough leeway to tax (eventually) the church. You know a few knights very willing to advocate for that.[else]You're impressed with how [the first-piece of quest-dir] reached out to the grey bishop at the every-decade international ecumenical conference to lay the groundwork for the imminent betrayal, as well as the reasons they gave to justify said betrayal. But of course you can't show it.[end if]".
 
 piece-bio of northeast is "[if northeast is simple-dumb][lone-stale]His insights into keeping the populace divided between 'the monarchy deserves all the power' and 'the clergy deserves all the power' are thoughtful indeed. You just don't quite agree on the respective ratios of who believes what. Perhaps a sabotaged crusade, seemingly ordered by the clergy, will tip the balance the right way.[else]You can't deny [the first-piece of quest-dir] did well to tap into [the second-piece of quest-dir]'s natural resentment of their own monarchs. Perhaps [the first-piece of quest-dir] did a bit too well.[end if]".
 
@@ -757,7 +763,7 @@ volume verbs
 chapter going to
 
 rule for supplying a missing noun when gotoing:
-	if player is in Ministry of Unity, try going outside instead;
+	if location of player is not puzzly, try going outside instead;
 	say "There are twenty-four other squares, so you'll need to be more specific.";
 	reject the player's command;
 
@@ -815,7 +821,7 @@ this is the excessive beatdown rule:
 		say "The pieces under your command look over at you questioningly. While they recognize what fun it is to both be attacking the [fourbyfourian] at once, they also consider such fun is not strategically sound. Still, you're the boss...";
 
 rule for supplying a missing noun when calling:
-	if location of player is Ministry of Unity:
+	if location of player is not puzzly:
 		now noun is Twelvebytwelvian king;
 		the rule succeeds; [doesn't matter. Same reaction for them all!]
 	if Fourbyfourian king is reserved and number of reserved pieces is 1:
@@ -938,7 +944,7 @@ to open-new-areas:
 			say "DEBUG: no special text for [number of solved regions] solved regions.";
 
 carry out calling:
-	if location of player is Ministry of Unity, say "You don't need to call allies until you're away from the Ministry." instead;
+	if location of player is not puzzly, say "You don't need to call allies until you're away from the [the location of the player]." instead;
 	if noun is irrelevant, say "You don't need to call [the noun]." instead;
 	if noun is Fourbyfourian king and number of reserved pieces > 1, say "You will want to call [the noun] last." instead;
 	if number of pieces in location of player is 1, say "But [the random piece in location of player] is already there." instead;
@@ -1172,7 +1178,7 @@ to big-map:
 	say "[botbord][r][variable letter spacing]";
 
 carry out boarding:
-	if location of player is ministry of unity:
+	if location of player is not puzzly:
 		if screen-reader is true, say "Unfortunately, the map of all the [4s] would tear up a screen reader, so I can't depict it in this mode." instead;
 		say "Here is a rough text representation of the map of the [4s].[paragraph break]";
 		big-map instead;
@@ -1274,8 +1280,8 @@ carry out creditsing:
 chapter detailing
 
 rule for supplying a missing noun when detailing:
-	if player is in Ministry of Unity:
-		say "There are no specific fourth-wall technical details for the Ministry of Unity. You should specify a directional [4b] here or go out in the field to see more.";
+	if location of player is not puzzly:
+		say "There are no specific fourth-wall technical details for [the location of the player]. You should specify a directional [4b] here or go out in the field to see more.";
 		reject the player's command;
 	now noun is quest-dir;
 
@@ -1305,7 +1311,7 @@ carry out detailing:
 chapter failing
 
 carry out failing:
-	if player is in Ministry of Unity, say "Get ahold of yourself! Positive thinking and all that sort of thing! It won't do to admit failure." instead;
+	if location of player is not puzzly, say "Get ahold of yourself! Positive thinking and all that sort of thing! It won't do to admit failure." instead;
 	say "You walk away, feigning boredom, pretending to the [4n] King it was HIS fault the negotiations, or whatever ... failed. This gaslighting doesn't work often, but it's worth the (lack of) effort.";
 	try going outside instead;
 
@@ -1329,7 +1335,7 @@ carry out helping:
 	if walkthrough-hint is false:
 		now walkthrough-hint is true;
 		say "[line break]NOTE: if you want full hints, the walkthrough.txt file that came with this binary should have the details. This command tries to give you hints without spoiling anything. This nag will not appear again." instead;
-	if player is in Ministry of Unity, say "You have nothing to do in the [unity], but you can hint a direction if you want, for specific [4s]." instead;
+	if location of player is not puzzly, say "You have no specific tasks in [the location of the player], but you can hint a direction if you want, for specific [4s]." instead;
 	if debug-state is false:
 		abide by the visit-text of noun;
 	try hintdiring quest-dir;
@@ -1517,7 +1523,7 @@ code	done-yet	amuse-list
 volume parser rules and errors
 
 rule for printing a parser error:
-	say "I didn't recognize that command. Type [verbs] to see the full list of commands. If you're confused what to do, [b]X[r] your manual again[if player is not in ministry of unity], or refer to the current map with [mapm][end if]."
+	say "I didn't recognize that command. Type [verbs] to see the full list of commands. If you're confused what to do, [b]X[r] your manual again[if location of player is puzzly], or refer to the current map with [mapm][end if]."
 
 volume beta testing - not for release
 
@@ -1552,7 +1558,7 @@ carry out jumptoggleing:
 volume meta
 
 report undoing an action:
-	say "Undone[if number of placed pieces is 0 and player is not in Ministry of Unity], though until you've placed a piece, there's nothing worth undoing[end if]. Note you can always undo everything by going [b]OUT[r][if player is in Ministry of Unity] once you're in a [4b][end if].";
+	say "Undone[if number of placed pieces is 0 and location of player is puzzly], though until you've placed a piece, there's nothing worth undoing[end if]. Note you can always undo everything by going [b]OUT[r][if location of player is not puzzly] once you're in a [4b][end if].";
 
 volume when play begins
 
@@ -1566,7 +1572,7 @@ to say stalemate-ticks:
 		if D is stalemated, say "+";
 
 when play begins (this is the assign variables and check for skips rule):
-	now left hand status line is "[if player is in Ministry of Unity][location of player][else][q of quest-dir], [location of player] ([quick-text of quest-dir])";
+	now left hand status line is "[if location of player is puzzly][q of quest-dir], [location of player] ([quick-text of quest-dir])[else][location of player][end if]";
 	now right hand status line is "[number of solved directions][stalemate-ticks]/[number of questable directions]";
 	repeat with xval running from 0 to 4:
 		repeat with yval running from 0 to 4:
