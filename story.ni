@@ -545,11 +545,11 @@ chapter bishop
 
 a bishop is a kind of piece. description of a bishop is usually "Like [the rival of item described], [the item described] moves diagonally across boards. They can move as far as they want until the board ends. They are also limited to squares of one color. They can't jump over anyone else."
 
-the yellow bishop is a bishop. color of yellow bishop is white. understand "b" and "yb" and "by" and "y b" and "b y" and "y" and "fb" and "bf" and "b f" and "f b" as yellow bishop. "The yellow bishop [bishop-shuffle]."
+the yellow bishop is a bishop. color of yellow bishop is white. understand "b" and "yb" and "by" and "y b" and "b y" and "y" and "fb" and "bf" and "b f" and "f b" and "yellow b" and "y bishop" as yellow bishop. "The yellow bishop [bishop-shuffle]."
 
-the purple bishop is a bishop. color of purple bishop is white. understand "b" and "pb" and "bp" and "p b" and "b p" and "p" and "fb" and "bf" and "b f" and "f b" as purple bishop. "The purple bishop [bishop-shuffle]."
+the purple bishop is a bishop. color of purple bishop is white. understand "b" and "pb" and "bp" and "p b" and "b p" and "p" and "fb" and "bf" and "b f" and "f b" and "purple b" and "p bishop" as purple bishop. "The purple bishop [bishop-shuffle]."
 
-the grey bishop is a bishop. color of grey bishop is black. understand "b" and "g" and "gb" and "bg" and "g b" and "b g" and "eb" and "be" and "b e" and "e b" as grey bishop. "The grey bishop [bishop-shuffle]."
+the grey bishop is a bishop. color of grey bishop is black. understand "b" and "g" and "gb" and "bg" and "g b" and "b g" and "eb" and "be" and "b e" and "e b" and "grey b" and "g bishop" as grey bishop. "The grey bishop [bishop-shuffle]."
 
 to say minor-color: say "The yellow and purple [if noun is a bishop]bishops[else]knights[end if] that will help you on your quest -- well, their outfits aren't VERY yellow, or VERY purple, but enough to tell them apart, which will help this whole operation quicker. Despite the yellow vs. purple squabbles that plague [12b], they're both equally effective.[paragraph break]It'd take a long time to describe the yellow vs. purple beefs and why things are the way they are. But if you're wondering why I chose these colors, type [b]YVP[r] or [b]PVY[r]"
 
@@ -561,11 +561,11 @@ chapter knight
 
 a knight is a kind of piece. description of a knight is usually "Like [the rival of item described], [the item described]moves in an L, two shapes vertically and one square horizontally, or one square vertically and two squares horizontally. They can jump over anyone else to get there.[paragraph break]You were a knight once. It was such fun to be able to move in an L. But it got tiring, and you suppose you could still do it, you guess, if you had to, and you got in shape. But now you're focused on moving straight and getting to the point."
 
-the yellow knight is a knight. color of yellow knight is white. understand "n" and "yn" and "ny" and "n y" and "y n" and "y" and "fn" and "nf" and "f n" and "n f" as yellow knight. "The yellow knight [waits-here]."
+the yellow knight is a knight. color of yellow knight is white. understand "n" and "yn" and "ny" and "n y" and "y n" and "y" and "fn" and "nf" and "f n" and "n f" and "y knight" and "yellow n" as yellow knight. "The yellow knight [waits-here]."
 
-the purple knight is a knight. color of purple knight is white. understand "n" and "pn" and "np" and "p n" and "n p" and "p" and "fn" and "nf" and "n f" and "f n" as purple knight. "The purple knight [waits-here]."
+the purple knight is a knight. color of purple knight is white. understand "n" and "pn" and "np" and "p n" and "n p" and "p" and "fn" and "nf" and "n f" and "f n" and "p knight" and "purple n" as purple knight. "The purple knight [waits-here]."
 
-the grey knight is a knight. color of grey knight is black. understand "n" and "g" and "gn" and "ng" and "g n" and "n g" and "en" and "ne" and "e n" and "n e" as grey knight. "The traitorous grey knight waits here, expressionless."
+the grey knight is a knight. color of grey knight is black. understand "n" and "g" and "gn" and "ng" and "g n" and "n g" and "en" and "ne" and "e n" and "n e" and "grey n" and "g night" as grey knight. "The traitorous grey knight waits here, expressionless."
 
 piece-tutorial of a knight is usually table of knight tutorials.
 
