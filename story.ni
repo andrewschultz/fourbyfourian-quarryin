@@ -96,6 +96,9 @@ rule for supplying a missing noun when examining:
 		now noun is map;
 	else:
 		now noun is tricky endgame manual;
+	if player is in observation grounds:
+		say "Here you could be examining anyone or anything, so you'll have to be more specific.";
+		reject the player's command;
 
 The tricky endgame manual is a thing. The player carries the tricky endgame manual. description of tricky endgame manual is "Sadly, it's filled with a lot of rah-rah general concepts about believing in yourself and trusting your intuition (well, duh. If you didn't, you wouldn't have come this far in life) yet checking your work and not moving too quickly or too slowly. There's also a note to make sure every ally is doing their part, because nobody can do too much. Duh, again.[paragraph break]The worst bit is the flowery writing (including [your-pals]) but low on useful details. Irrelevant rubbish. If anyone deserves a hagiography, it's you. You're quite good at telling people you don't really deserve all this praise, and yet they insist anyway!"
 
@@ -156,7 +159,7 @@ to decide which number is quests-left:
 
 chapter unity
 
-the Ministry of Unity is a not puzzly room. xval is 8. yval is 8. "The planning has been done. [can-leave][tried]. For refreshers on who does what, you can go [b]IN[r] or [b]INSIDE[r] to the observation grounds.[paragraph break]A map of [12b] and the surrounding [4s] adorns one wall. You can [b]X[r] or [b]EXAMINE[r] it for details, if you want.".
+the Ministry of Unity is a not puzzly room. xval is 8. yval is 8. "The planning has been done. [can-leave][tried]. For refreshers on who does what, you can go [b]IN[r] or [b]INSIDE[r] to the observation grounds.[paragraph break]A map of [12b] and the surrounding [4s] adorns one wall. You can [xbold] it for details, if you want.".
 
 to say can-leave:
 	if number of to-solve directions > 3:
@@ -228,27 +231,26 @@ check going (this is the knight move check rule):
 	note-amusing-stuff "knight-moves-2";
 	the rule fails;
 
-check going (this is the hub check rule):
+check going (this is the reject verticals rule):
 	if noun is up or noun is down:
 		say "Flying machines are a century or more away." instead;
-	if player is in Ministry of Unity:
-		let cur-row be 0;
-		if noun is northwest:
-			note-amusing-stuff "northwest";
-			say "Alas, the vast lands northwest of [12b] are so unruly as to feature nonlinear borders. Some such borders are not even defined by rivers![paragraph break]Plus, they're vast enough, it'd take too long to get to their capitals. Oh, and the whole painful winters and large armies things, too." instead;
-		if noun is inside, continue the action;
-		if noun is unquestable, say "You can't go [noun] from the Ministry." instead;
-		if noun is solved, say "You already conquered [noun] [4b]." instead;
-		abide by visit-text of noun;
-		now quest-dir is noun;
-		say "You head to [cq]. [unless noun is primary and noun is unsolved]Your allies for this quest are [summary-text of noun][else]You only have [the twelvebytwelvian king] and [the first-piece of noun] with you[end if].";
-		new-quest;
-		move player to c3;
-		if quest-dir is stalemated and already-solved of quest-dir is not empty:
-			say "Okay. You make a note of what you tried earlier, before you gained the enemy king's trust. It almost worked. It should work now.[paragraph break]Your king, [entry 1 of already-solved of quest-dir]. The [first-piece of quest-dir], [entry 2 of already-solved of quest-dir]. The [second-piece of quest-dir], [entry 3 of already-solved of quest-dir]. The king of [q of quest-dir], [entry 4 of already-solved of quest-dir].";
-		the rule succeeds;
-	if noun is inside:
-		say "You need to go a planar direction.";
+
+check going when location of player is not puzzly (this is the hub check rule):
+	let cur-row be 0;
+	if noun is northwest:
+		note-amusing-stuff "northwest";
+		say "Alas, the vast lands northwest of [12b] are so unruly as to feature nonlinear borders. Some such borders are not even defined by rivers![paragraph break]Plus, they're vast enough, it'd take too long to get to their capitals. Oh, and the whole painful winters and large armies things, too." instead;
+	if noun is inside or noun is outside, continue the action;
+	if noun is unquestable, say "There's nothing to conquer to the [noun]." instead;
+	if noun is solved, say "You already conquered [noun] [4b]." instead;
+	abide by visit-text of noun;
+	now quest-dir is noun;
+	say "[if player is in grounds]Rushing through the [ministry] with a quick good-bye, y[else]Y[end if]ou head to [cq]. [unless noun is primary and noun is unsolved]Your allies for this quest are [summary-text of noun][else]You only have [the twelvebytwelvian king] and [the first-piece of noun] with you[end if].";
+	new-quest;
+	move player to c3;
+	if quest-dir is stalemated and already-solved of quest-dir is not empty:
+		say "Okay. You make a note of what you tried earlier, before you gained the enemy king's trust. It almost worked. It should work now.[paragraph break]Your king, [entry 1 of already-solved of quest-dir]. The [first-piece of quest-dir], [entry 2 of already-solved of quest-dir]. The [second-piece of quest-dir], [entry 3 of already-solved of quest-dir]. The king of [q of quest-dir], [entry 4 of already-solved of quest-dir].";
+	the rule succeeds;
 
 check going (this is the note boundaries rule):
 	if the room noun of location of player is nowhere:
@@ -297,13 +299,28 @@ instead of doing something with map of the fourbyfourias:
 
 chapter observation grounds
 
-check going down in Ministry of Unity:
+definition: a piece (called p) is observable:
+	if color of p is white, yes;
+	no;
+
+check going inside in Ministry of Unity:
 	now all pieces are off-stage;
 	move Twelvebytwelvian King to Observation Grounds;
-	move a random bishop to Observation Grounds;
-	move a random knight to Observation Grounds;
+	move a random observable bishop to Observation Grounds;
+	move a random observable knight to Observation Grounds;
 
-the Observation Grounds are inside of the Ministry of Unity. "The [unity] just outside is for big-picture planning. Here, you can (X)amine people to determine how and when and why they will act."
+the Observation Grounds are inside of the Ministry of Unity. "The [unity] just back outside is for big-picture planning. Here, you can (X)amine people to determine how and when and why they will act. Though you can also head in a direction to start a quest."
+
+the Observation Grounds are not puzzly.
+
+check going in Observation Grounds:
+	if noun is outside, continue the action;
+	if noun is inside, say "Yes, you have even more secret quarters inside the Observation Grounds, but they aren't open in this game." instead;
+
+for printing a locale paragraph about a piece (called p) when location of player is observation grounds:
+	if p is not mentioned:
+		now all pieces are mentioned;
+		say "The [list of touchable pieces] are milling around here. You can [xbold] any of them for a refresher on their roles and how they'll execute said roles.";
 
 chapter the grid
 
@@ -1226,7 +1243,7 @@ carry out abbing:
 	say "[line break]You can also use spaces in these abbreviations, if you don't like the weird nonsense words or whatever.";
 	if ironic-ab is false:
 		now ironic-ab is true;
-		say "[line break]And yes, it's also worth noting and snickering at, if you wish, how [b]ABB[r] is not as abbreviated as [b]A[r] for about. But I figure people will see [b]ABOUT[r] first.";
+		say "[line break]And yes, it's also worth noting and snickering at, if you wish, how [b]ABB[r] is not as abbreviated as [b]A[r] for about. But I figure people will see [b]ABOUT[r] first, and they are less likely to want or need to read it twice.";
 	the rule succeeds;
 
 chapter abouting
