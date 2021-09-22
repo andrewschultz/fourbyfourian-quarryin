@@ -414,28 +414,33 @@ a piece has a team called the color.
 
 a piece can be init-observed. a piece is usually not init-observed.
 
-note-move-help is a truth state that varies.
+a piece can be tutored. a piece is usually not tutored.
 
-after examining a piece in Observation Grounds when screen-reader is true and note-move-help is false:
-	now note-move-help is true;
-	say "Examining a piece twice will give you examples of how they move.";
-	continue the action;
+note-move-help is a truth state that varies.
 
 a piece can be gen-help-examined. a piece is usually not gen-help-examined.
 
 after examining a piece in Observation Grounds:
+	if noun is not gen-help-examined, say "NOTE: next time you examine [the noun][if rival of noun is not noun] or their rival, [the rival of noun][end if], you'll get a tutorial about how they move[if screen-reader is false], with text graphics[end if].";
 	now noun is gen-help-examined;
 	now rival of noun is gen-help-examined;
 
 section tutorials
 
 to tutorial-process (tn - a table name):
+	let need-wait be false;
 	let riv be rival of noun;
 	now riv is placed;
 	repeat through tn:
-		if there is a the-text entry, say "[the-text entry][paragraph break]";
+		if there is a the-text entry:
+			if debug-state is false and need-wait is true:
+				say "See more of the tutorial? Y means yes, and any other key means no.";
+				let Q be the chosen letter;
+				unless Q is 89 or Q is 121, break;
+			say "[the-text entry][paragraph break]";
+			now need-wait is true;
 		move riv to the-square entry;
-		show-one-tutorial;
+		if screen-reader is false, show-one-tutorial;
 	now riv is off-stage;
 	now riv is irrelevant;
 
@@ -552,6 +557,28 @@ to say bishop-shuffle: say "shuffles around here, never quite moving in a straig
 
 piece-tutorial of a bishop is usually table of bishop tutorials.
 
+chapter knight
+
+a knight is a kind of piece. description of a knight is usually "Like [the rival of item described], [the item described]moves in an L, two shapes vertically and one square horizontally, or one square vertically and two squares horizontally. They can jump over anyone else to get there.[paragraph break]You were a knight once. It was such fun to be able to move in an L. But it got tiring, and you suppose you could still do it, you guess, if you had to, and you got in shape. But now you're focused on moving straight and getting to the point."
+
+the yellow knight is a knight. color of yellow knight is white. understand "n" and "yn" and "ny" and "n y" and "y n" and "y" and "fn" and "nf" and "f n" and "n f" as yellow knight. "The yellow knight [waits-here]."
+
+the purple knight is a knight. color of purple knight is white. understand "n" and "pn" and "np" and "p n" and "n p" and "p" and "fn" and "nf" and "n f" and "f n" as purple knight. "The purple knight [waits-here]."
+
+the grey knight is a knight. color of grey knight is black. understand "n" and "g" and "gn" and "ng" and "g n" and "n g" and "en" and "ne" and "e n" and "n e" as grey knight. "The traitorous grey knight waits here, expressionless."
+
+piece-tutorial of a knight is usually table of knight tutorials.
+
+chapter king
+
+a king is a kind of piece.
+
+the Twelvebytwelvian King is a king. color of Twelvebytwelvian king is white. understand "k" and "k12" and "12k" and "12" and "fk" and "kf" as twelvebytwelvian king. "Your king waits here for you to set everything just so.". description of twelvebytwelvian king is "The king can move in any directions, though it just wouldn't do to have him zipping across the board. He'd be too exhausted to lead, but he could. Of course he could, even if he isn't as spry as when he was younger!"
+
+the Fourbyfourian King is a king. color of Fourbyfourian king is black. understand "k" and "4k" and "k4" and "ke" and "ek" and "4" and "k e" and "e k" and "k 4" and "4 k" as fourbyfourian king. description is "Any sort of eye contact might cause the [fourbyfourian] to get suspicious. You can't have that.". "You shouldn't be able to see the Fourbyfourian king."
+
+piece-tutorial of a king is usually table of king tutorials.
+
 chapter examining pieces in the field
 
 examine-yet is a truth state that varies.
@@ -588,28 +615,6 @@ to decide which piece is the relevant traitor:
 	decide on Fourbyfourian king;
 
 to say waits-here: say "waits here, seemingly relaxed, but ready to spring to action"
-
-chapter knight
-
-a knight is a kind of piece. "Like [the rival of item described], [the item described]moves in an L, two shapes vertically and one square horizontally, or one square vertically and two squares horizontally. They can jump over anyone else to get there."
-
-the yellow knight is a knight. color of yellow knight is white. understand "n" and "yn" and "ny" and "n y" and "y n" and "y" and "fn" and "nf" and "f n" and "n f" as yellow knight. "The yellow knight [waits-here]."
-
-the purple knight is a knight. color of purple knight is white. understand "n" and "pn" and "np" and "p n" and "n p" and "p" and "fn" and "nf" and "n f" and "f n" as purple knight. "The purple knight [waits-here]."
-
-the grey knight is a knight. color of grey knight is black. understand "n" and "g" and "gn" and "ng" and "g n" and "n g" and "en" and "ne" and "e n" and "n e" as grey knight. "The traitorous grey knight waits here, expressionless."
-
-piece-tutorial of a knight is usually table of knight tutorials.
-
-chapter king
-
-a king is a kind of piece.
-
-the Twelvebytwelvian King is a king. color of Twelvebytwelvian king is white. understand "k" and "k12" and "12k" and "12" and "fk" and "kf" as twelvebytwelvian king. "Your king waits here for you to set everything just so.". description of twelvebytwelvian king is "The king can move in any directions, though it just wouldn't do to have him zipping across the board. He'd be too exhausted to lead, but he could. Of course he could, even if he isn't as spry as when he was younger!"
-
-the Fourbyfourian King is a king. color of Fourbyfourian king is black. understand "k" and "4k" and "k4" and "ke" and "ek" and "4" and "k e" and "e k" and "k 4" and "4 k" as fourbyfourian king. description is "Any sort of eye contact might cause the [fourbyfourian] to get suspicious. You can't have that.". "You shouldn't be able to see the Fourbyfourian king."
-
-piece-tutorial of a king is usually table of king tutorials.
 
 volume directions
 
