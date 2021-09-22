@@ -125,7 +125,7 @@ check examining manual when player is in Ministry of Unity:
 	say "You read up on the basics of taking down an enemy king with [if number of solved directions > 4]one ally and one equally-strong traitor[else]two relatively inauspicious allies[end if]. But it's all a bit dry and technical, and you'll know what specifics apply better once you leave the Ministry of Unity." instead;
 
 instead of doing something other than examining tricky endgame manual:
-	say "You can really only [b]X[r] or [b]EXAMINE[r] the [manual]." instead;
+	say "You can really only [xbold] the [manual]." instead;
 
 check taking inventory:
 	say "All you have on you, besides various expensive rings and medals designating your position as a prominent [12n], is a tricky, yet very dry, endgame manual. It simply wouldn't do to be found with any incriminating plans on you! Or even to have them turn up later.[paragraph break]You can type [b]X[r] at any time outside the Ministry to see what needs to be done. Inside, [b]X[r] will examine the map of the [4s].";
@@ -1356,7 +1356,7 @@ to say mapm: say "[b]MAP[r] or [b]M[r]"
 
 carry out metaing:
 	say "Here is a list of meta-verbs and options you can use. None are necessary to complete the game, but they can all be useful.";
-	say "[line break][b]ABOUT[r] or [b]A[r] tells about the game. [b]CREDITS[r] or [b]C[r] tells more technical details and thanks testers. [b]CHESS[r] or [b]CH[r] gives the relevant rules of chess. [b]DETAILS[r]/[b]DETAIL[r]/[b]D[r] gives some fourth-wall meta-details.";
+	say "[line break][b]ABOUT[r] tells about the game. [b]CREDITS[r] or [b]C[r] tells more technical details and thanks testers. [b]CHESS[r] or [b]CH[r] gives the relevant rules of chess. [b]DETAILS[r]/[b]DETAIL[r]/[b]D[r] gives some fourth-wall meta-details.";
 	say "[line break][mapm] or [b]BOARD[r] or [b]B[r] shows the current map. [b]TOGGLE[r] or [b]T[r] toggles the map.";
 	if c3 is visited, say "[line break][fofiv] gives an explanation for why the [4n] castles are not, well, four-by-four.";
 	say "[line break][b]HINT[r] or [b]H[r] hints your current area or, if you give a direction, an area you've tried but haven't beaten yet.";
@@ -1612,7 +1612,7 @@ when play begins (this is the randomizing colors rule):
 		now second-piece of east is yellow bishop;
 
 after printing the locale description when instructions-given is false:
-	say "[bracket][b]NOTE[r]: to get you started, [b]ABOUT[r] or [b]A[r] will give general information about [this-game]. [verbs] will show common verbs, which usually have abbreviations, and [b]CHESS[r] or [b]CH[r] will give the relevant rules of chess.[close bracket][line break]";
+	say "[bracket][b]NOTE[r]: to get you started, [b]ABOUT[r] will give general information about [this-game]. [verbs] will show common verbs, which usually have abbreviations, and [b]CHESS[r] or [b]CH[r] will give the relevant rules of chess.[close bracket][line break]";
 	now instructions-given is true;
 	continue the action;
 
