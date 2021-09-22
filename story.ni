@@ -1058,6 +1058,15 @@ definition: a piece (called p) is not-last:
 
 section rules for what's guarded
 
+to king-mark (p - a piece):
+	let myx be xval of location of p;
+	let myy be yval of location of p;
+	repeat with xtemp running through {-1, 0, 1}:
+		repeat with ytemp running through {-1, 0, 1}:
+			if xtemp is 0 and ytemp is 0, next;
+			let RR be room-from-nums of myx + xtemp and myy + ytemp;
+			now RR is guarded;
+
 to knight-mark (p - a piece):
 	let myx be xval of location of p;
 	let myy be yval of location of p;
@@ -1092,6 +1101,7 @@ to update-guarded:
 		if color of Q is black, next;
 		if Q is a bishop, bishop-mark Q;
 		if Q is a knight, knight-mark Q;
+		if Q is a king, king-mark Q;
 
 section rules for placing
 
