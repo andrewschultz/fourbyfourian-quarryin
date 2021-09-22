@@ -408,7 +408,7 @@ team is a kind of value. the teams are black and white.
 
 a piece is a kind of person. a piece can be reserved, irrelevant or placed. a piece is usually irrelevant. a piece has text called short-text. description is usually "You don't really want to make eye contact. You might give the game away.".
 
-a piece has a rule called tutorial-rule.
+a piece has a table name called piece-tutorial.
 
 a piece has a team called the color.
 
@@ -427,6 +427,47 @@ after examining a piece in Observation Grounds:
 	now noun is gen-help-examined;
 	now rival of noun is gen-help-examined;
 
+section tutorials
+
+to tutorial-process (tn - a table name):
+	let riv be rival of noun;
+	now riv is placed;
+	repeat through tn:
+		if there is a the-text entry, say "[the-text entry][paragraph break]";
+		move riv to the-square entry;
+		show-one-tutorial;
+	now riv is off-stage;
+	now riv is irrelevant;
+
+to show-one-tutorial:
+	update-guarded;
+	show-the-board;
+	reset-guard;
+
+table of bishop tutorials
+the-square	the-text
+a1	"A bishop in the corner or on the edges guards only four squares."
+e3	--
+b2	"A bishop in the inner ring can guard six squares if it is not blocked."
+c4	--
+c3	"A bishop in the center can guard eight squares if not blocked."
+
+table of knight tutorials
+the-square	the-text
+e1	"A knight in the corner can only move to two squares."
+e4	"A knight next to the corner can only move to three squares."
+a3	"A knight in the center of the edge can move to four squares."
+d2	"A knight at the corner of the inner ring can move to four squares."
+d3	"A knight at the center of the inner ring can move to six squares."
+c3	"A bishop in the center can guard eight squares if not blocked."
+
+table of king tutorials
+the-square	the-text
+a5	"A king in the corner can only move to or guard three squares."
+a3	"A king anywhere on the edge but not in the corner can move to or guard five squares."
+b4	"A king in the center or inner ring can move to or guard all eight squares."
+c3	--
+
 section relations
 
 Rivalry relates one piece to another (called the rival).
@@ -436,6 +477,7 @@ The verb to rival (it rivals, they rival, it rivaled) implies the rivalry relati
 when play begins:
 	now the yellow bishop rivals the purple bishop;
 	now the yellow knight rivals the purple knight;
+	now the twelvebytwelvian king rivals the twelvebytwelvian king;
 
 chapter whether attacks
 
@@ -508,26 +550,7 @@ to say minor-color: say "The yellow and purple [if noun is a bishop]bishops[else
 
 to say bishop-shuffle: say "shuffles around here, never quite moving in a straight line. Religion is weird"
 
-tutorial-rule of bishop is bishop-tutorial rule.
-
-this is the bishop-tutorial rule:
-	let riv be the rival of the noun;
-	now riv is placed;
-	say "A bishop in the corner or on the edges guards only four squares.";
-	move riv to a1;
-	show-one-tutorial;
-	say "A bishop in the inner ring can guard six squares if it is not blocked.";
-	move riv to b2;
-	show-one-tutorial;
-	say "A bishop in the center can guard eight squares if not blocked.";
-	move riv to c3;
-	show-one-tutorial;
-	now riv is irrelevant;
-
-to show-one-tutorial:
-	update-guarded;
-	show-the-board;
-	reset-guard;
+piece-tutorial of a bishop is usually table of bishop tutorials.
 
 chapter examining pieces in the field
 
@@ -549,7 +572,9 @@ carry out examining a piece when location of player is puzzly (this is the alter
 	the rule succeeds;
 
 carry out examining a piece when location of player is not puzzly (this is the check for tutorials rule):
-	if noun is init-observed, abide by the tutorial-rule of noun instead;
+	if noun is init-observed:
+		tutorial-process piece-tutorial of noun;
+		the rule succeeds;
 	now noun is init-observed;
 
 after examining a piece when location of player is puzzly (this is the general quest piece description rule):
@@ -574,6 +599,8 @@ the purple knight is a knight. color of purple knight is white. understand "n" a
 
 the grey knight is a knight. color of grey knight is black. understand "n" and "g" and "gn" and "ng" and "g n" and "n g" and "en" and "ne" and "e n" and "n e" as grey knight. "The traitorous grey knight waits here, expressionless."
 
+piece-tutorial of a knight is usually table of knight tutorials.
+
 chapter king
 
 a king is a kind of piece.
@@ -581,6 +608,8 @@ a king is a kind of piece.
 the Twelvebytwelvian King is a king. color of Twelvebytwelvian king is white. understand "k" and "k12" and "12k" and "12" and "fk" and "kf" as twelvebytwelvian king. "Your king waits here for you to set everything just so.". description of twelvebytwelvian king is "The king can move in any directions, though it just wouldn't do to have him zipping across the board. He'd be too exhausted to lead, but he could. Of course he could, even if he isn't as spry as when he was younger!"
 
 the Fourbyfourian King is a king. color of Fourbyfourian king is black. understand "k" and "4k" and "k4" and "ke" and "ek" and "4" and "k e" and "e k" and "k 4" and "4 k" as fourbyfourian king. description is "Any sort of eye contact might cause the [fourbyfourian] to get suspicious. You can't have that.". "You shouldn't be able to see the Fourbyfourian king."
+
+piece-tutorial of a king is usually table of king tutorials.
 
 volume directions
 
