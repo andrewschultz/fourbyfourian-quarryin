@@ -6,8 +6,24 @@
 
 * main-thru
 
+# preliminary stuff: get the stalemates out of the way
+
+>n
+>place k
+>n
+>place b
+>n
+>place
+
+>w
+>place n
+>n
+>place k
+>a5
+>place k
+
 >amu
- ----Constructing a double check (both allies, no traitors, attacking the Fourbyfourian king)
+ ----Constructing a double check (both allies, no traitors, attacking the Fourbyfourian King)
  ----Placing the bishop too far from the king when you have the traitor knight
  ----Placing two opposing bishops on the same color tile
  ----Placing your two bishops on the same color tile
@@ -27,7 +43,7 @@ DEBUG: bb-colors-first amusement entry done.
 
 >amu
  ----Placing your two bishops on the same color tile
- ----Constructing a double check (both allies, no traitors, attacking the Fourbyfourian king)
+ ----Constructing a double check (both allies, no traitors, attacking the Fourbyfourian King)
  ----Placing the bishop too far from the king when you have the traitor knight
 ! ----Placing two opposing bishops on the same color tile
  ----Checkmating with two knights and a king in the corner
@@ -56,7 +72,7 @@ DEBUG: bb-colors-second amusement entry done.
 >amu
 ! ----Placing two opposing bishops on the same color tile
 ! ----Placing your two bishops on the same color tile
- ----Constructing a double check (both allies, no traitors, attacking the Fourbyfourian king)
+ ----Constructing a double check (both allies, no traitors, attacking the Fourbyfourian King)
  ----Placing the bishop too far from the king when you have the traitor knight
  ----Checkmating with two knights and a king in the corner
  ----Everyone's favorite* text-adventure in-joke, XYZZY
@@ -85,7 +101,7 @@ DEBUG: bb-colors-second amusement entry redone.
 DEBUG: beatdown amusement entry done.
 
 >amu
-! ----Constructing a double check (both allies, no traitors, attacking the Fourbyfourian king)
+! ----Constructing a double check (both allies, no traitors, attacking the Fourbyfourian King)
 ! ----Placing two opposing bishops on the same color tile
 ! ----Placing your two bishops on the same color tile
  ----Placing the bishop too far from the king when you have the traitor knight
@@ -140,7 +156,7 @@ DEBUG: bvn-miss amusement entry done.
 DEBUG: bvn-miss amusement entry redone.
 
 >amu
-! ----Constructing a double check (both allies, no traitors, attacking the Fourbyfourian king)
+! ----Constructing a double check (both allies, no traitors, attacking the Fourbyfourian King)
 ! ----Placing the bishop too far from the king when you have the traitor knight
 ! ----Placing two opposing bishops on the same color tile
 ! ----Placing your two bishops on the same color tile
@@ -163,7 +179,7 @@ DEBUG: bvn-miss amusement entry redone.
 DEBUG: orwell amusement entry done.
 
 >amu
-! ----Constructing a double check (both allies, no traitors, attacking the Fourbyfourian king)
+! ----Constructing a double check (both allies, no traitors, attacking the Fourbyfourian King)
 ! ----Placing the bishop too far from the king when you have the traitor knight
 ! ----Placing two opposing bishops on the same color tile
 ! ----Placing your two bishops on the same color tile
@@ -183,7 +199,7 @@ You wouldn't want to pick a fight with any 26-wide country, that's for sure. Als
 DEBUG: xyzzy amusement entry redone.
 
 >amu
-! ----Constructing a double check (both allies, no traitors, attacking the Fourbyfourian king)
+! ----Constructing a double check (both allies, no traitors, attacking the Fourbyfourian King)
 ! ----Placing the bishop too far from the king when you have the traitor knight
 ! ----Placing two opposing bishops on the same color tile
 ! ----Placing your two bishops on the same color tile
@@ -201,7 +217,7 @@ Besides, seven Fourbyfourias are enough to conquer. You can only take over so ma
 DEBUG: knight-moves-1 amusement entry done.
 
 >amu
-! ----Constructing a double check (both allies, no traitors, attacking the Fourbyfourian king)
+! ----Constructing a double check (both allies, no traitors, attacking the Fourbyfourian King)
 ! ----Placing the bishop too far from the king when you have the traitor knight
 ! ----Placing two opposing bishops on the same color tile
 ! ----Placing your two bishops on the same color tile
@@ -218,7 +234,7 @@ Besides, if you want to go to b5, you can just type b5 at the command prompt. Yo
 DEBUG: knight-moves-2 amusement entry done.
 
 >amu
-! ----Constructing a double check (both allies, no traitors, attacking the Fourbyfourian king)
+! ----Constructing a double check (both allies, no traitors, attacking the Fourbyfourian King)
 ! ----Placing the bishop too far from the king when you have the traitor knight
 ! ----Placing two opposing bishops on the same color tile
 ! ----Placing your two bishops on the same color tile
@@ -249,7 +265,7 @@ Things seem perfect! Until ... until ...
 DEBUG: nvb-miss amusement entry done.
 
 >amu
-! ----Constructing a double check (both allies, no traitors, attacking the Fourbyfourian king)
+! ----Constructing a double check (both allies, no traitors, attacking the Fourbyfourian King)
 ! ----Placing the bishop too far from the king when you have the traitor knight
 ! ----Placing two opposing bishops on the same color tile
 ! ----Placing your two bishops on the same color tile
@@ -272,7 +288,7 @@ DEBUG: self-check amusement entry done.
 > fail
 
 > amu
-! ----Constructing a double check (both allies, no traitors, attacking the Fourbyfourian king)
+! ----Constructing a double check (both allies, no traitors, attacking the Fourbyfourian King)
 ! ----Placing the bishop too far from the king when you have the traitor knight
 ! ----Placing two opposing bishops on the same color tile
 ! ----Placing your two bishops on the same color tile

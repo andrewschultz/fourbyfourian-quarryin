@@ -6,6 +6,31 @@
 
 * main-thru
 
+> recap
+You have no conquerings to recap. Yet.
+> r
+You have no conquerings to recap. Yet.
+
+> n
+> out
+You return to the Ministry of Unity. The conquest of North Fourbyfouria can wait for later.
+
+# preliminary stuff: get the stalemates out of the way
+
+>n
+>place k
+>n
+>place b
+>n
+>place
+
+>w
+>place n
+>n
+>place k
+>a5
+>place k
+
 > verbs
 Meta-verbs and options are discussed in
 > verb
@@ -15,17 +40,17 @@ Meta-verbs and options are discussed in
 
 > abbrev
 You can use abbreviations while placing pieces. They were meant to be relatively intuitive. Fourbyfourian traitor pieces are always grey. Your Twelvebytwelvian allies can be either yellow or purple.
-And yes, it's also worth noting and snickering at, if you wish, how ABB is not as abbreviated as A for about. But I figure people will see ABOUT first.
+And yes, it's also worth noting and snickering at, if you wish, how ABB is not as abbreviated as A. But I figure people will see ABOUT first, and they are less likely to want or need to read it twice.
 > abb
 You can use abbreviations while placing pieces. They were meant to be relatively intuitive. Fourbyfourian traitor pieces are always grey. Your Twelvebytwelvian allies can be either yellow or purple.
-!And yes, it's also worth noting and snickering at, if you wish, how ABB is not as abbreviated as A for about. But I figure people will see ABOUT first.
+!And yes, it's also worth noting and snickering at, if you wish, how ABB is not as abbreviated as A. But I figure people will see ABOUT first, and they are less likely to want or need to read it twice.
 > ab
 You can use abbreviations while placing pieces. They were meant to be relatively intuitive. Fourbyfourian traitor pieces are always grey. Your Twelvebytwelvian allies can be either yellow or purple.
 
 > about
-Fourbyfourian Quarryin' is a sequel to Fivebyfivia Delenda Est, my entry in the 2021 ParserComp. I first had the idea for
+The next time you type A or ABOUT, you will see gameplay details.
 > a
-Fourbyfourian Quarryin' is a sequel to Fivebyfivia Delenda Est, my entry in the 2021 ParserComp. I first had the idea for
+The next time you type A or ABOUT, you will see game history details.
 
 > chess
 The rules of chess are that each player gets alternate turns, but here, you get to move as much as you want.
@@ -35,18 +60,17 @@ The rules of chess are that each player gets alternate turns, but here, you get 
 > mne
 You study the map to see how the Fourbyfourian conquests line up. You note you ally with bishops on the east edge (north down to southeast) and knights on the south edge (west over to southeast.) Also, diagonal directions feature one knight and one bishop.
 > mn
-You study the map to see how the Fourbyfourian conquests line up. You note you ally with bishops on the east edge (north down to southeast) and knights on the south edge (west over to southeast.) Also, diagonal directions feature one knight and one bishop.
-
+You study the map some more to see how the Fourbyfourian conquests line up. You note you ally with bishops on the east edge (north down to southeast) and knights on the south edge (west over to southeast.) Also, diagonal directions feature one knight and one bishop.
 
 > help
 NOTE: if you want full hints, the walkthrough.txt file that came with this binary should have the details. This command tries to give you hints without spoiling anything.
-!You have nothing to do in the Ministry of Unity, but you can hint a direction if you want, for specific Fourbyfourias.
+!You have no specific tasks in the Ministry of Unity, but you can hint a direction if you want, for specific Fourbyfourias.
 > hint
 !NOTE: if you want full hints, the walkthrough.txt file that came with this binary should have the details. This command tries to give you hints without spoiling anything.
-You have nothing to do in the Ministry of Unity, but you can hint a direction if you want, for specific Fourbyfourias.
+You have no specific tasks in the Ministry of Unity, but you can hint a direction if you want, for specific Fourbyfourias.
 > h
 !NOTE: if you want full hints, the walkthrough.txt file that came with this binary should have the details. This command tries to give you hints without spoiling anything.
-You have nothing to do in the Ministry of Unity, but you can hint a direction if you want, for specific Fourbyfourias.
+You have no specific tasks in the Ministry of Unity, but you can hint a direction if you want, for specific Fourbyfourias.
 > h ne
 You haven't been to Northeast Fourbyfouria yet, so I don't want to give any hints.
 > ne
@@ -54,9 +78,9 @@ You haven't been to Northeast Fourbyfouria yet, so I don't want to give any hint
 > h ne
 
 > pvy
-I also wanted to avoid words that started with N, B or K, because I wanted the color abbreviations to make things clearer, not confuse people.
+I also wanted to avoid colors that started with N, B or K, because I wanted the color abbreviations to make things clearer, not confuse people.
 > yvp
-I also wanted to avoid words that started with N, B or K, because I wanted the color abbreviations to make things clearer, not confuse people.
+I also wanted to avoid colors that started with N, B or K, because I wanted the color abbreviations to make things clearer, not confuse people.
 
 > meta
 Here is a list of meta-verbs and options you can use. None are necessary to complete the game, but they can all be useful.
@@ -66,33 +90,35 @@ Here is a list of meta-verbs and options you can use. None are necessary to comp
 Here is a list of meta-verbs and options you can use. None are necessary to complete the game, but they can all be useful.
 
 > recap
-You have no conquers to recap. Yet.
+Going with the last solved direction, west.
 > r
-You have no conquers to recap. Yet.
+Going with the last solved direction, west.
 
 > map
-There is no map to look at right now.
+Here is a rough text representation of the map of the Fourbyfourias.
 > m
-There is no map to look at right now.
+Here is a rough text representation of the map of the Fourbyfourias.
 > board
-There is no map to look at right now.
+Here is a rough text representation of the map of the Fourbyfourias.
 > b
-There is no map to look at right now.
+Here is a rough text representation of the map of the Fourbyfourias.
+> t
+Map text-graphics view toggled to off.
 > toggle
-Map view toggled to on.
+Map text-graphics view toggled to on.
 !Showing the map.
 > undo
 > n
 !a b c d e
 > toggle
-Map view toggled to on.
+Map text-graphics view toggled to on.
 Showing the map.
 > map
 STRATEGIC MAP OF NORTH FOURBYFOURIA SO FAR:
 > n
 a b c d e
 > t
-Map view toggled to off.
+Map text-graphics view toggled to off.
 > n
 !a b c d e
 > undo
@@ -143,20 +169,22 @@ DEBUG: Checkmate achieved.
 > recap n
 In North Fourbyfouria, you used the enemy bishop and your own king to wall in the enemy king.
 Here are specifics of conquering North Fourbyfouria:
-/You captured the enemy king \(checkmated\) with the Twelvebytwelvian King at d3, the (yellow|purple) bishop at c3, the grey bishop at d5, and the Fourbyfourian King at e5.
+/You then captured the enemy king \(checkmated\) with the Twelvebytwelvian King at d3, the (yellow|purple) bishop at c3, the grey bishop at d5, and the Fourbyfourian King at e5.
 > r n
 In North Fourbyfouria, you used the enemy bishop and your own king to wall in the enemy king.
 > r sw
-You haven't taken over Southwest Fourbyfouria yet. In fact, you haven't even been there.
+Here are specifics of your progress in Southwest Fourbyfouria:
+/So far, you bypassed \(in-game\) gaining the Southwest Fourbyfourian King's trust \(stalemating\) because you did so in West Fourbyfouria with the Twelvebytwelvian King at c4, the (yellow|purple) knight at c3, and the Fourbyfourian King at a5.
 > r ne
-You haven't taken over Northeast Fourbyfouria yet.
+You're halfway to conquering Northeast Fourbyfouria.
+
 !In fact, you haven't even been there.
 > r
 In North Fourbyfouria, you used the enemy bishop and your own king to wall in the enemy king.
 > ne
 > out
 > r ne
-You haven't taken over Northeast Fourbyfouria yet.
+/Here are specifics of your progress in Northeast Fourbyfouria: So far, you bypassed \(in-game\) gaining the Northeast Fourbyfourian King's trust \(stalemating\) because you did so in North Fourbyfouria with the Twelvebytwelvian King at c3, the (yellow|purple) bishop at c4, and the Fourbyfourian King at c5.
 !In fact, you haven't even been there.
 
 > d n
@@ -175,9 +203,9 @@ You'll be able to see what's south soon enough, but it's not open yet.
 You'll be able to see what's east soon enough, but it's not open yet.
 
 >wipe
-Wiping your progress for north.
+Wiping your progress for north, northeast, southwest and west.
 >recap n
-You have no conquers to recap. Yet.
+/In North Fourbyfouria, you'll need the help of the (yellow|purple) bishop and the grey bishop.
 
 > fail
 Get ahold of yourself! Positive thinking and all that sort of thing! It won't do to admit failure.
@@ -186,14 +214,14 @@ Get ahold of yourself! Positive thinking and all that sort of thing! It won't do
 >e
 #########################meta command -- using east specifically since piece colors aren't randomized
 > pie
-yellow bishop offsite.
-purple bishop offsite.
+/yellow bishop \((irrelevant|reserved)\) offsite.
+/purple bishop \((irrelevant|reserved)\) offsite.
 grey bishop (irrelevant) offsite.
 yellow knight (irrelevant) offsite.
 purple knight (irrelevant) offsite.
 grey knight (irrelevant) offsite.
-Twelvebytwelvian King offsite.
-Fourbyfourian King offsite.
+Twelvebytwelvian King (reserved) offsite.
+Fourbyfourian King (reserved) offsite.
 > fail
 
 > n

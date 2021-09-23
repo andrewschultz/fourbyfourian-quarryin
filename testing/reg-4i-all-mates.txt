@@ -634,7 +634,7 @@ PASSED.
 > place bishop
 > c1
 > place king
-But wait! The Fourbyfourian king feels a LITTLE too under attack. He excuses himself for ... well, a family emergency, an important jousting tournament to judge, another one of those banquets, you know.
+But wait! The Fourbyfourian King feels a LITTLE too under attack. He excuses himself for ... well, a family emergency, an important jousting tournament to judge, another one of those banquets, you know.
 > pf
 PASSED.
 > wipe e
@@ -649,7 +649,7 @@ PASSED.
 > place bishop
 > c1
 > place king
-But wait! The Fourbyfourian king feels a LITTLE too under attack. He excuses himself for ... well, a family emergency, an important jousting tournament to judge, another one of those banquets, you know.
+But wait! The Fourbyfourian King feels a LITTLE too under attack. He excuses himself for ... well, a family emergency, an important jousting tournament to judge, another one of those banquets, you know.
 > pf
 PASSED.
 > wipe e
@@ -664,7 +664,7 @@ PASSED.
 > place bishop
 > c1
 > place king
-But wait! The Fourbyfourian king feels a LITTLE too under attack. He excuses himself for ... well, a family emergency, an important jousting tournament to judge, another one of those banquets, you know.
+But wait! The Fourbyfourian King feels a LITTLE too under attack. He excuses himself for ... well, a family emergency, an important jousting tournament to judge, another one of those banquets, you know.
 > pf
 PASSED.
 > wipe e
@@ -678,7 +678,7 @@ PASSED.
 > place bishop
 > c1
 > place king
-But wait! The Fourbyfourian king feels a LITTLE too under attack. He excuses himself for ... well, a family emergency, an important jousting tournament to judge, another one of those banquets, you know.
+But wait! The Fourbyfourian King feels a LITTLE too under attack. He excuses himself for ... well, a family emergency, an important jousting tournament to judge, another one of those banquets, you know.
 > pf
 PASSED.
 > wipe se
@@ -692,7 +692,7 @@ PASSED.
 > place bishop
 > c1
 > place king
-But wait! The Fourbyfourian king feels a LITTLE too under attack. He excuses himself for ... well, a family emergency, an important jousting tournament to judge, another one of those banquets, you know.
+But wait! The Fourbyfourian King feels a LITTLE too under attack. He excuses himself for ... well, a family emergency, an important jousting tournament to judge, another one of those banquets, you know.
 > pf
 PASSED.
 > wipe se
@@ -707,7 +707,7 @@ PASSED.
 > place bishop
 > c1
 > place king
-But wait! The Fourbyfourian king feels a LITTLE too under attack. He excuses himself for ... well, a family emergency, an important jousting tournament to judge, another one of those banquets, you know.
+But wait! The Fourbyfourian King feels a LITTLE too under attack. He excuses himself for ... well, a family emergency, an important jousting tournament to judge, another one of those banquets, you know.
 > pf
 PASSED.
 > wipe se
@@ -722,7 +722,7 @@ PASSED.
 > place knight
 > c1
 > place king
-But wait! The Fourbyfourian king feels a LITTLE too under attack. He excuses himself for ... well, a family emergency, an important jousting tournament to judge, another one of those banquets, you know.
+But wait! The Fourbyfourian King feels a LITTLE too under attack. He excuses himself for ... well, a family emergency, an important jousting tournament to judge, another one of those banquets, you know.
 > pf
 PASSED.
 > wipe s
@@ -737,7 +737,7 @@ PASSED.
 > place knight
 > c1
 > place king
-But wait! The Fourbyfourian king feels a LITTLE too under attack. He excuses himself for ... well, a family emergency, an important jousting tournament to judge, another one of those banquets, you know.
+But wait! The Fourbyfourian King feels a LITTLE too under attack. He excuses himself for ... well, a family emergency, an important jousting tournament to judge, another one of those banquets, you know.
 > pf
 PASSED.
 > wipe s
