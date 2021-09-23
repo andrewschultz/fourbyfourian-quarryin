@@ -290,9 +290,9 @@ after examining map of the fourbyfourias:
 	else:
 		say "Nothing's x-ed out yet. You've unified nothing so far. That will change soon.";
 	if number of stalemated directions > 0:
-		say "[line break][list of stalemated directions] [if number of stalemated directions > 1]are[else]is[end if]half-crossed out, since you established trust there. But you still need to finish the job.";
+		say "[line break][list of stalemated directions] [if number of stalemated directions > 1]are[else]is[end if] half-crossed out, since you established trust there. But you still need to finish the job.";
 	if number of solved directions < 4:
-		say "[line break][if number of solved directions > 0]However, [end if]South and East and Southeast [4b] are greyed out a bit. It's not time, yet.";
+		say "[line break][if number of solved directions > 0]However, [end if]South and East and Southeast [4b] are only written in very lightly. It's not time, yet.";
 	else if number of solved directions is 4:
 		say "[line break]However, [southeast] is still greyed out. It only touches [12b] at a corner, so you need a path through [south] or [east] to get there.";
 	if player-knows-toggle is false:
@@ -416,7 +416,7 @@ volume pieces
 
 team is a kind of value. the teams are black and white.
 
-a piece is a kind of person. a piece can be reserved, irrelevant or placed. a piece is usually irrelevant. a piece has text called short-text. description is usually "You don't really want to make eye contact. You might give the game away.".
+a piece has text called short-text. description is usually "You don't really want to make eye contact. You might give the game away.".
 
 a piece has a table name called piece-tutorial.
 
@@ -682,6 +682,14 @@ a direction has text called recap-text.
 
 a direction has text called piece-bio.
 
+a direction has text called map-abbrev.
+
+map-abbrev of north is " n ". map-abbrev of northeast is " ne". map-abbrev of east is " e ".
+
+map-abbrev of west is " w ". map-abbrev of southwest is " sw ". map-abbrev of south is " s ".
+
+map-abbrev of southeast is " se".
+
 to decide which direction is similar-early of (d - a direction):
 	if d is north, decide on northeast;
 	if d is northeast, decide on north;
@@ -874,6 +882,8 @@ does the player mean calling first-piece of quest-dir when first-piece of quest-
 does the player mean calling second-piece of quest-dir when first-piece of quest-dir is placed and second-piece of quest-dir is reserved: it is likely.
 
 does the player mean calling a piece (called p) when number of reserved bishops is 2 or number of reserved knights is 2:
+	if p is irrelevant, it is very unlikely;
+	if p is placed, it is unlikely;
 	if color of p is white, it is likely;
 	if color of p is black, it is unlikely;
 
@@ -941,10 +951,13 @@ to decide whether you-checkmated:
 	unless Fourbyfourian king is immobile, no;
 	yes;
 
+to say normal-ok:
+	say "[line break][i][bracket]NOTE: you found a solution that would've worked in normal mode, but hard mode forces you to be a bit more creative in some areas, often to avoid multiple similar solutions. There should be clues as to an alternate solution.[close bracket][r][line break]";
+
 this is the hard-bishop-stalemate rule:
 	if location of player is cornery:
 		if hard-mode is true:
-			say "The planning felt right there, but for whatever reason, the [ck] doesn't feel comfortable backed in that way, at least not without an ally next to them. Maybe that idea will work later, but there's a way to trap him away from the corner, here.[paragraph break]Surely [cq] will be better off with a much braver leader like ... your very own king! Or, perhaps, a regent such as yourself."; [?? for the next bit, mention they should go in a corner, if on hard mode] [?? also mention differently if you already solved KN vs K]
+			say "The planning felt right there, but for whatever reason, the [ck] doesn't feel comfortable backed in that way, at least not without an ally next to them. Maybe that idea will work later, but there's a way to trap him away from the corner, here.[paragraph break]Surely [cq] will be better off with a much braver leader like ... your very own king! Or, perhaps, a regent such as yourself.[line break][normal-ok]"; [?? for the next bit, mention they should go in a corner, if on hard mode] [?? also mention differently if you already solved KN vs K]
 			retreat-to-unity;
 			the rule succeeds;
 		now quest-dir is normal-stalemated;
@@ -1267,30 +1280,32 @@ to say 12sp: say "|           ";
 
 to say vbord: say "---+";
 
-to say spc4: say "4b4|";
+to say dirmap of (d - a direction): say "[if d is solved]xxx[else][map-abbrev of d][end if]|";
+
+to say spc4 of (d - a direction): say "[if d is solved]xxx[else if d is stalemated]~~~[else]4b4[end if]|";
 
 to say topbord: say "[topbox][vbord][line break]";
 
-to say longspc: say "[12sp]|[spc4][line break]";
+to say longspc of (d - a direction): say "[12sp]|[spc4 of d][line break]";
 
 to say midbord: say "[12sp]+[vbord][line break]";
 
-to say bordlines: say "[longspc][midbord]";
+to say bordlines of (d - a direction): say "[longspc of d][midbord]";
 
 to say botbord:
 	say "+[vbord][vbord][vbord][vbord][line break]";
 
 to say big-map:
 	say "[fixed letter spacing][topbord]";
-	say "[12sp]| N |[line break]";
-	say "[bordlines]";
-	say "[12sp]| NE|[line break]";
-	say "[bordlines]";
-	say "[12sp]| E |[line break]";
-	say "[longspc]";
+	say "[12sp]|[dirmap of north][line break]";
+	say "[bordlines of north]";
+	say "[12sp]|[dirmap of northeast][line break]";
+	say "[bordlines of northeast]";
+	say "[12sp]|[dirmap of east][line break]";
+	say "[longspc of east]";
 	say "[botbord]";
-	say "| W | SW| S | SE|[line break]";
-	say "|[spc4][spc4][spc4][spc4][line break]";
+	say "|[dirmap of west][dirmap of southwest][dirmap of south][dirmap of southeast][line break]";
+	say "|[spc4 of west][spc4 of southwest][spc4 of south][spc4 of southeast][line break]";
 	say "[botbord][r][variable letter spacing][run paragraph on]";
 
 carry out boarding:
@@ -1657,7 +1672,7 @@ code	done-yet	amuse-list
 volume parser rules and errors
 
 rule for printing a parser error:
-	say "I didn't recognize that command. Type [verbs] to see the full list of commands. If you're confused what to do, [b]X[r] your manual again[if location of player is puzzly], or refer to the current map with [mapm][end if]."
+	say "I didn't recognize that command. Type [verbs] to see the full list of commands. [if location of player is puzzly][b]P[r] to place a piece is probably the big one. [end if]If you're confused what to do, [b]X[r] your manual again[if location of player is puzzly], or refer to the current map with [mapm][end if]."
 
 volume beta testing - not for release
 
