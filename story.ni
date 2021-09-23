@@ -686,7 +686,7 @@ a direction has text called map-abbrev.
 
 map-abbrev of north is " n ". map-abbrev of northeast is " ne". map-abbrev of east is " e ".
 
-map-abbrev of west is " w ". map-abbrev of southwest is " sw ". map-abbrev of south is " s ".
+map-abbrev of west is " w ". map-abbrev of southwest is " sw". map-abbrev of south is " s ".
 
 map-abbrev of southeast is " se".
 
@@ -858,7 +858,9 @@ volume verbs
 chapter going to
 
 rule for supplying a missing noun when gotoing:
-	if location of player is not puzzly, try going outside instead;
+	if location of player is not puzzly:
+		try going outside;
+		reject the player's command;
 	say "There are twenty-four other squares, so you'll need to be more specific.";
 	reject the player's command;
 
@@ -1053,7 +1055,7 @@ definition: a room (called r) is near-unguarded:
 
 definition: a room (called r) is capturable:
 	unless r is near-unguarded, no;
-	if number of pieces in r > 0, yes;
+	if number of observable pieces in r > 0, yes;
 	no;
 
 this is the no-illegal-positions rule:
@@ -1072,7 +1074,7 @@ carry out calling:
 	if noun is a bishop:
 		abide by the same-colored-bishops rule;
 	if noun is Fourbyfourian king, abide by the no-illegal-positions rule;
-	now noun is placed;
+	place-and-list noun;
 	abide by the check yourself and wreck yourself rule;
 	now entry (status-index of noun) of current-quest-snapshot is location of player;
 	update-guarded;
@@ -1216,6 +1218,7 @@ the-x	the-y
 -1	-2
 
 to update-guarded:
+	now all rooms are not guarded;
 	repeat with Q running through placed pieces:
 		if color of Q is black, next;
 		if Q is a bishop, bishop-mark Q;
@@ -1611,7 +1614,7 @@ carry out toggleing:
 chapter verbs
 
 carry out verbsing:
-	say "[this-game] uses a simplified parser. The main commands are the planar directions: [b]N[r], [b]S[r], [b]E[r], [b]W[r], [b]NW[r], [b]NE[r], [b]SW[r], [b]SE[r]. [b]U[r] and [b]D[r], for up and down, aren't used. [b]OUT[r] anywhere but the [ministry] returns you to the [ministry].[paragraph break]You can also ignore directions to jump to a square when you're not in the Ministry of Unity. So typing [b]a1[r] sends you to a1, etc.[paragraph break]You can also [b]CALL[r]/[b]C[r] or [b]PLACE[r]/[b]P[r] a piece, enemy or friendly. These have abbreviations, too: [b]ABB[r] finds them.[paragraph break]Meta-verbs and options are discussed in [b]META[r] ([b]MET[r]/[b]ME[r]).";
+	say "[this-game] uses a simplified parser. The main commands are the planar directions: [b]N[r], [b]S[r], [b]E[r], [b]W[r], [b]NW[r], [b]NE[r], [b]SW[r], [b]SE[r]. [b]U[r] and [b]D[r], for up and down, aren't used. [b]OUT[r] anywhere but the [ministry] returns you to the [ministry].[paragraph break]You can also ignore directions to jump to a square when you're not in the Ministry of Unity. So typing [b]a1[r] sends you to a1, etc.[paragraph break]You can also [b]CALL[r]/[b]C[r] or [b]PLACE[r]/[b]P[r] a piece, enemy or friendly. These have abbreviations, too: [b]ABB[r] finds them.[paragraph break]Meta-verbs and options are discussed in [b]META[r] ([b]MET[r]/[b]ME[r]).[paragraph break][b]UNDO[r] is also available, though any quest should only take ";
 	the rule succeeds;
 
 chapter xyzzy
@@ -1707,7 +1710,9 @@ carry out jumptoggleing:
 volume meta
 
 report undoing an action:
-	say "Undone[if number of placed pieces is 0 and location of player is puzzly], though until you've placed a piece, there's nothing worth undoing[end if]. Note you can always undo everything by going [b]OUT[r][if location of player is not puzzly] once you're in a [4b][end if].";
+	if location of player is not puzzly:
+		say "Undone, though note there is nothing worth undoing when you aren't questing.";
+	say "Undone. Note that if you want to remove an ally you've called, [kick] works. And you can always reset everything by going [b]OUT[r].";
 
 volume when play begins
 
