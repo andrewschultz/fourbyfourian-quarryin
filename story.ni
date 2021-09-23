@@ -894,7 +894,6 @@ to decide which number is check-total:
 		if color of Q is black, next;
 		if Q is Twelvebytwelvian king, next;
 		if Q attacks the Fourbyfourian king, increment temp;
-	say "[list of placed pieces] [temp].";
 	decide on temp;
 
 this is the excessive beatdown rule:
@@ -1025,24 +1024,38 @@ to open-new-areas:
 		if debug-state is true:
 			say "DEBUG: no special text for [number of solved regions] solved regions.";
 
+definition: a room (called r) is near-unguarded:
+	if r is guarded, no;
+	if r is adjacent to location of fourbyfourian king, yes;
+	no;
+
+definition: a room (called r) is capturable:
+	unless r is near-unguarded, no;
+	if number of pieces in r > 0, yes;
+	no;
+
+this is the no-illegal-positions rule:
+	if number of reserved pieces > 1:
+		say "You'll want to place the [fourbyfourian] last." instead;
+	if diag-dist of Twelvebytwelvian king and Fourbyfourian king <= 1, say "You can't really place the enemy kings that close to each other. Oh, sure, they'll perform all the proper diplomacy ... but they really don't WANT to. At least, your king doesn't want to. He doesn't want his fingerprints on any ... disappearances." instead;
+
 carry out calling:
 	if location of player is not puzzly, say "You don't need to call allies until you're away from the [the location of the player]." instead;
 	if noun is irrelevant, say "You don't need to call [the noun]." instead;
 	if noun is Fourbyfourian king and number of reserved pieces > 1, say "You will want to call [the noun] last." instead;
-	if number of pieces in location of player is 1, say "But [the random piece in location of player] is already there." instead;
+	if number of pieces in location of player is 1, say "But [the random piece in location of player] is already here at [location of player]." instead;
 	if noun is placed, say "But [the noun] is already at [location of the noun]." instead;
 	say "You place [the noun] at [location of player].";
 	move noun to location of player;
 	if noun is a bishop:
 		abide by the same-colored-bishops rule;
+	if noun is Fourbyfourian king, abide by the no-illegal-positions rule;
 	now noun is placed;
 	abide by the check yourself and wreck yourself rule;
 	now entry (status-index of noun) of current-quest-snapshot is location of player;
 	update-guarded;
+	show-the-board;
 	if noun is Fourbyfourian king:
-		if number of reserved pieces > 1:
-			say "You'll want to place the [fourbyfourian] last." instead;
-		if diag-dist of Twelvebytwelvian king and Fourbyfourian king <= 1, say "You can't really place the enemy kings that close to each other. Oh, sure, they'll perform all the proper diplomacy ... but they really don't WANT to. At least, your king doesn't want to. He doesn't want his fingerprints on any ... disappearances." instead;
 		consider the excessive beatdown rule;
 		abide by the king-place of quest-dir;
 		if you-stalemated, abide by the stalemate dialogue rule;
@@ -1050,7 +1063,7 @@ carry out calling:
 			if quest-dir is stalemated:
 				say "But the [ck] is not checked. So nothing really happens this time. That worked okay to gain his trust, but to finish the job, you need to be more aggressive.";
 			else:
-				say "You laid off the [ck] this time, but perhaps a bit too much. <NOTE TO SELF: FILL IN DETAILS OF HOW MANY SQUARES ATTACKED HERE.>";
+				say "You laid off the [ck] this time, but perhaps a bit too much. He had [if number of near-unguarded rooms is 1]only one place to go[else]several places to go, including [random near-unguarded room][end if].";
 			if quest-dir is secondary:
 				say "[line break]And unfortunately this [if quest-dir is stalemated]doesn't put the enemy king any more at ease[else]is not enough to put the enemy king at ease. You'll need to get them into a seemingly tougher situation, then let them slip out[end if].";
 			say "[line break]You're able to blow it off as the sort of diplomatic meeting people have to have. You even put some backhanded blame on the enemy monarch for wasting YOUR king's time and not providing the sort of hospitality you expect. It doesn't really hurt them, but it does cover up your far more serious intent. So there'll be another chance. Just got to plan a bit better, next time.";
@@ -1081,7 +1094,9 @@ carry out calling:
 				end the story;
 				the rule succeeds;
 		else:
-			say "Oh no! The [ck] escapes.";
+			let sq be a random near-unguarded room;
+			if number of capturable rooms > 0, let sq be a random capturable room;
+			say "Oh no! The [ck] sees [sq] is available, and he goes there[if sq is capturable], running over [the random piece in sq] in the process without even apologizing. Ouch![else].[end if]";
 			if quest-dir is primary:
 				if quest-dir is unsolved:
 					say "[line break]Perhaps you were trying to do too much at once. If there was a way to trap the [ck] without attacking him ... that might make him feel helpless, yet trust you in the future.";
@@ -1278,6 +1293,8 @@ carry out boarding:
 	if screen-reader is true, say "Since you are using a screen reader, text maps in any [4b] are disabled. You'll need to restart if you want to use them." instead;
 	show-the-board;
 	the rule succeeds.
+
+after printing the name of a placed piece (called p) when boarding: say " at [location of p]";
 
 to show-the-board:
 	if screen-reader is true:
