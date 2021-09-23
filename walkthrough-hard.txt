@@ -1,4 +1,4 @@
-Fourbyfourian Quarryin' is divided into seven quest zones: four where you have an enemy ally and three where you have two allies. The third and final quest zone may seem arbitrary, but ... people who've seen the basics of chess endgames know that forcing checkmate with two knights is impossible without cooperation. So I considered it the toughest.
+Fourbyfourian Quarryin' is divided into seven quest zones: four where you have an enemy ally and three where you have two allies. While you could argue that Southeast Fourbyfouria should be two knights, because that's the toughest, I wanted to stay with the bishops east/knights south mnemonic.
 
 +-----------+---+
 |           | N |
@@ -18,7 +18,7 @@ Fourbyfourian Quarryin' is divided into seven quest zones: four where you have a
 |   |   |   |   |
 +---+---+---+---+
 
-The checkmate patterns for the bishop-and-(bishop or knight) areas are not forceable, but I found them interesting, and I hope you do too. Anyone who can checkmate with two bishops or bishop and knight is likely more than pretty good at chess.
+The checkmate patterns for the bishop-and-(bishop or knight) areas are not forceable, but I found them interesting, and I hope you do too. Anyone who can force checkmate with two bishops or bishop and knight is likely a well above average chess player, but here, you just need to place your pieces.
 
 You may have some of your solutions rejected. I'll try to detail why without spoiling too much.
 
@@ -100,7 +100,7 @@ These are not the only solutions. There are rotations and mirrors, and the bisho
 
 As before, you need to give check, and while the bishop can guard one flight square, it leaves two squares your king can't guard both of. So you still need help from the opposing bishop. Here, your king has a choice of two squares, since the bishop can't check it, and your bishop has a choice of four squares to give mate.
 
-So one solution is place fb/n/place k/a4/place b/n/place k.
+So one solution from c3 is place fb/n/place k/a4/place b/n/place k.
 
 ======================================== NORTHEAST (bishop vs. knight):
 
@@ -132,7 +132,7 @@ The above seems like it should work, but it doesn't! The knight can block. Simil
 
 Everyone has to be packed in here, but that makes the solution a bit quicker.
 
-So one solution is n/place k/w/place b/w/place n/n/place k.
+So one solution from c3 is n/place k/w/place b/w/place n/n/place k.
 
 ======================================== SOUTHWEST (knight vs. bishop):
 
@@ -150,7 +150,7 @@ You may note that the king in the corner only has three squares to move to. Else
 | | | | | |
 +-+-+-+-+-+
 
-So one solution is n/place n/n/place k/a4/place b/n/place k.
+So one solution from c3 is n/place n/n/place k/a4/place b/n/place k.
 
 ======================================== WEST (knight vs. knight):
 
@@ -168,7 +168,7 @@ You can again use process of elimination for this: the king in the corner has 3 
 | | | | | |
 +-+-+-+-+-+
 
-So one solution is n/place k/sw/place fn/nw/place n/n/place k.
+So one solution from c3 is n/place k/sw/place fn/nw/place n/n/place k.
 
 But now things may get a bit trickier. The enemy king is too smart to be suckered into the corner. He's heard rumors. In fact, checkmate won't work at first! You have to sucker him by trapping him with stalemate--where he has no legal moves, and he doesn't have any subjects who can move legally.
 
@@ -198,21 +198,21 @@ This is the only solution--apart from moving your king to a1, which is only triv
 
 Since again you can't force the enemy king into the corner, you need to find a way to take care of it when it is on the edge. Here's where it gets a bit complex. The enemy king is claustrophobic enough that having a bishop in front of him and a king behind the bishop makes him suspicious. But diagonal? That's okay. He can see your king from there.
 
-I included two of my favorite stalemates. The first could happen in a real game. The player with the bishops wants to push the lone king against the side of the board, but they need to make a waiting move with their bishop, not come in with their king, to push the lone king into the corner. The first example shows what happens if the player with the bishops doesn't know how to roll the king up.
+I included two of my favorite stalemates. The first could happen in a real game. The player with the bishops wants to push the lone king against the side of the board, but they need to make a waiting move with their bishop, not come in with their king, to push the lone king into the corner. The first example shows what happens if the player with the bishops doesn't know how to roll the king up. It doubles as a solution to this game.
 
 +-+-+-+-+-+
 | | | | | |
 +-+-+-+-+-+
 | | | | | |
 +-+-+-+-+-+
-| |B|B| | |
+|B|B| | | |
 +-+-+-+-+-+
 | | | | | |
 +-+-+-+-+-+
 |K| |k| | |
 +-+-+-+-+-+
 
-place b/w/place b/a1/place k/c1/place k
+You can get this, starting at c3, with place b/w/place b/a1/place k/c1/place k
 
 Below is an alternate stalemate. Note the bishops are on same-colored squares, which never happens unless you deliberately underpromote one, which is very rare indeed. But it's still a tidy, compact solution.
 
@@ -228,7 +228,7 @@ Below is an alternate stalemate. Note the bishops are on same-colored squares, w
 | | |k| | |
 +-+-+-+-+-+
 
-place k/w/place b/d3/place b/c1/place k
+You can get this, starting at c3, with place k/w/place b/d3/place b/c1/place k
 
 Also, the game deliberately pokes you so you can't have a similar position for 2B as for 2N. Note you can just swap the knights for bishops above and get a checkmate. But this doesn't work: either it's done before, or doing it now might spoil the surprise for later when it's necessary.
 
@@ -244,7 +244,7 @@ Also, the game deliberately pokes you so you can't have a similar position for 2
 | |k| | | |
 +-+-+-+-+-+
 
-e/place b/a3/place k/se/place b/s/place k
+You can get this, starting at c3, with e/place b/a3/place k/se/place b/s/place k
 
 The following legal (if unusual in practical play) checkmates are thus rejected:
 
@@ -260,7 +260,7 @@ The following legal (if unusual in practical play) checkmates are thus rejected:
 | | |k| | |
 +-+-+-+-+-+
 
-This is too much like the two-knights' mate, so it was a judgement call on my part to discourage it. I wanted to have you find solutions where you didn't drop the minor pieces on the same squares each time.
+The below is too much like the two-knights' mate, so it was a judgement call on my part to discourage it. I wanted to have you find solutions where you didn't drop the minor pieces on the same squares each time.
 
 +-+-+-+-+-+
 | | | | | |
@@ -290,7 +290,7 @@ Stalemate has many options here. The simplest is to make a king-bishop-king batt
 |B| |k| |K|
 +-+-+-+-+-+
 
-a3/place n/a1/place b/e1/place k/c1/place k
+You can get this, starting at c3, with a3/place n/a1/place b/e1/place k/c1/place k
 
 There are two ways to checkmate, since you are not restricted by the claustrophobia with the two bishops.
 
@@ -306,7 +306,7 @@ There are two ways to checkmate, since you are not restricted by the claustropho
 | | |k| | |
 +-+-+-+-+-+
 
-place n/w/e3/place b/c1/place k
+You can get this, starting at c3, with place n/w/e3/place b/c1/place k
 
 +-+-+-+-+-+
 | | | | | |
@@ -320,6 +320,6 @@ place n/w/e3/place b/c1/place k
 | | |k| | |
 +-+-+-+-+-+
 
-place k/e/place n/sw/place b/s/place k
+You can get this, starting at c3, with place k/e/place n/sw/place b/s/place k
 
 Once you've done this, congratulations! You have won!

@@ -256,7 +256,7 @@ volume game state twiddling
 
 this is the try to twiddle rule:
 	if first-piece of quest-dir is rival of second-piece of quest-dir, say "This isn't a quest where you can twiddle things." instead;
-	if player is in ministry of unity, say "You can't twiddle the game state in the [ministry]." instead;
+	if location of player is puzzly, say "You can't twiddle the game state in non-puzzly areas." instead;
 	if number of placed pieces > 1, say "You need to reset this quest before twiddling the game state." instead;
 	say "Trying to reserve [the noun]...";
 	if noun is not irrelevant, say "The [noun] is already part of this quest." instead;
