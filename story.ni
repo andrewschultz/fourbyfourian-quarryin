@@ -51,7 +51,7 @@ to say github: say "https://github.com/andrewschultz/fourbyfourian-quarryin"
 
 section meta/option booleans
 
-map-view is a truth state that varies.
+map-view is a truth state that varies. map-view is true.
 
 map-notes-flag is a truth state that varies.
 
@@ -272,15 +272,19 @@ definition: a direction (called d) is edged:
 
 section map of the fourbyfourias
 
-the map of the Fourbyfourias is scenery in Ministry of Unity. description is "See the check-rule.";
+the map of the Fourbyfourias is scenery in Ministry of Unity. description is "[big-map]";
 
 understand "map of 12b/12b12/12" and "12 map/12b map/12b12 map" and "12/12b/12b12" as map of the fourbyfourias.
 understand "map of 4b/4b4/4" and "4 map/4b map/4b4 map" and "4/4b/4b4" as map of the fourbyfourias.
 
-check examining map of the Fourbyfourias:
+carry out examining map of the Fourbyfourias when map-view is false:
+	if screen-reader is false:
+		say "[if number of solved directions > 0]It's a 'before' map, not showing what you've annexed. [end if][12b] takes up most of the northwest--it's got more land mass than the seven tinier [4s] combined. It's striped purple and yellow, the colors of each half of [5b], and your allies['] colors.[paragraph break]Clockwise in varying shades of grey from the upper right are [north], [northeast], [east], [southeast], [south], [southwest] and [west]. To the northwest are lands too big to conquer.[paragraph break]The map has some mnemonics you can study with [mne].";
+		the rule succeeds;
+
+after examining map of the fourbyfourias:
 	if quests-left is 1:
 		say "The only part of the map not x-ed out is [random to-solve direction]. Not much choice." instead;
-	say "[if number of solved directions > 0]It's a 'before' map, not showing what you've annexed. [end if][12b] takes up most of the northwest--it's got more land mass than the seven tinier [4s] combined. It's striped purple and yellow, the colors of each half of [5b], and your allies['] colors.[paragraph break]Clockwise in varying shades of grey from the upper right are [north], [northeast], [east], [southeast], [south], [southwest] and [west]. To the northwest are lands too big to conquer.[paragraph break]The map has some mnemonics you can study with [mne].";
 	if number of solved directions > 0:
 		say "Some titles are x-ed out, because you already unified them: [list of solved directions].";
 	else:
@@ -291,8 +295,9 @@ check examining map of the Fourbyfourias:
 		say "[line break][if number of solved directions > 0]However, [end if]South and East and Southeast [4b] are greyed out a bit. It's not time, yet.";
 	else if number of solved directions is 4:
 		say "[line break]However, [southeast] is still greyed out. It only touches [12b] at a corner, so you need a path through [south] or [east] to get there.";
-	if screen-reader is false:
-		say "[line break]A full text-map representation is avaliable with [b]MAP[r].";
+	if player-knows-toggle is false:
+		say "[line break]You can use [tog] to toggle viewing a text description of the map and a text map. While most testers and players seem to prefer the text map, I still want to give you the options.";
+		now player-knows-toggle is true;
 	the rule succeeds;
 
 instead of doing something with map of the fourbyfourias:
@@ -1251,7 +1256,7 @@ to say bordlines: say "[longspc][midbord]";
 to say botbord:
 	say "+[vbord][vbord][vbord][vbord][line break]";
 
-to big-map:
+to say big-map:
 	say "[fixed letter spacing][topbord]";
 	say "[12sp]| N |[line break]";
 	say "[bordlines]";
@@ -1262,13 +1267,13 @@ to big-map:
 	say "[botbord]";
 	say "| W | SW| S | SE|[line break]";
 	say "|[spc4][spc4][spc4][spc4][line break]";
-	say "[botbord][r][variable letter spacing]";
+	say "[botbord][r][variable letter spacing][run paragraph on]";
 
 carry out boarding:
 	if location of player is not puzzly:
 		if screen-reader is true, say "Unfortunately, the map of all the [4s] would tear up a screen reader, so I can't depict it in this mode." instead;
 		say "Here is a rough text representation of the map of the [4s].[paragraph break]";
-		big-map instead;
+		say "[big-map]" instead;
 	say "STRATEGIC MAP OF [printed name of quest-dir in upper case] FOURBYFOURIA SO FAR:[line break]";
 	if screen-reader is true, say "Since you are using a screen reader, text maps in any [4b] are disabled. You'll need to restart if you want to use them." instead;
 	show-the-board;
@@ -1535,15 +1540,18 @@ carry out recaping:
 
 chapter toggleing
 
+player-knows-toggle is a truth state that varies.
+
 carry out toggleing:
 	if screen-reader is true, say "Since you are using a screen reader, text maps are disabled. You'll need to restart if you want to use them or change their options." instead;
 	now map-view is whether or not map-view is false;
-	say "Map view toggled to [on-off of map-view].";
+	say "Map text-graphics view toggled to [on-off of map-view].";
 	if map-view is false, the rule succeeds;
 	say "[line break]";
-	if player is in ministry of unity, say "Maps won't be shown until you leave the [Ministry], however." instead;
+	if location of player is not puzzly, say "Before you go on quests, this only affects viewing the map of the Fourbyfourias." instead;
 	say "Showing the map.";
 	show-the-board;
+	now player-knows-toggle is true;
 	the rule succeeds;
 
 chapter verbs
