@@ -210,7 +210,7 @@ check exiting (this is the blanket exit rule):
 			say "Only one direction to go out: [D]. So you do.";
 			try going D instead;
 		say "You need to specify a compass direction to go out from the Ministry of Unity." instead;
-	say "You return to the Ministry of Unity. This conquest can wait for later.";
+	say "You return to the Ministry of Unity. The conquest of [cq] can wait for later.";
 	repeat with P running through pieces:
 		now P is irrelevant;
 		move P to offsite;
@@ -883,17 +883,11 @@ carry out gotoing:
 
 chapter calling
 
-does the player mean calling a reserved piece which is not the Fourbyfourian king: it is very likely.
+does the player mean calling the Fourbyfourian King when number of reserved pieces > 1: it is unlikely.
 
 does the player mean calling first-piece of quest-dir when first-piece of quest-dir is reserved: it is likely.
 
 does the player mean calling second-piece of quest-dir when first-piece of quest-dir is placed and second-piece of quest-dir is reserved: it is likely.
-
-[does the player mean calling a piece (called p) when number of reserved bishops is 2 or number of reserved knights is 2:
-	if p is irrelevant, it is very unlikely;
-	if p is placed, it is unlikely;
-	if color of p is white, it is likely;
-	if color of p is black, it is unlikely;]
 
 does the player mean calling a placed piece: it is unlikely.
 
@@ -986,6 +980,7 @@ this is the stalemate dialogue rule:
 			let other-guy be second-piece of q2;
 			say "You and [the first-piece of quest-dir] corner the [ck] and manage to convince him that you're really all just about the diplomacy these days, and they'd better trust you now and in the future. It ... seems to work![paragraph break]You sit and have a think back at the Ministry of Unity. Your plans for [q of similar-early of quest-dir] are similar enough to start. So you go there and pull the same trick, but this time with [the other-guy]. Your trips to [q of q2] and [q of quest-dir] includes [the other-guy] who is not as loyal to their King as they should be. Their help should be just enough.";
 			now quest-dir is stalemated;
+			now last-solved is quest-dir;
 			if quest-dir is not normal-stalemated, now quest-dir is hard-stalemated;
 			if q2 is stalemated:
 				say "[line break]NOTE: you should not have been able to stalemate here, since you already did so in [q of q2]. This is a BUG.";
@@ -1574,6 +1569,7 @@ understand "recap" as recaping.
 understand "r" as recaping.
 
 rule for supplying a missing noun when recaping:
+	say "Going with the last solved direction, [last-solved].";
 	now the noun is last-solved;
 
 to say stale-list of (L - a list of rooms) and (d - a direction):
@@ -1585,20 +1581,26 @@ to say list-out of (L - a list of rooms) and (d - a direction):
 carry out recaping:
 	if number of not unsolved directions is 0, say "You have no conquerings to recap. Yet." instead;
 	if noun is not questable, say "That's not a [4b] to conquer." instead;
-	if noun is not solved:
+	if noun is unsolved:
 		say "You haven't taken over [q of noun] yet[if noun is untried]. In fact, you haven't even been there[end if].";
 		if noun is primary:
 			say "[line break]In [q of noun], you'll need the help of [the first-piece of noun][if noun is unsolved] and [the second-piece of noun][end if].";
 		the rule succeeds;
-	if recap-text of noun is empty, say "[q of noun] needs recap text." instead;
-	say "[recap-text of noun]";
-	say "[paragraph break]Here are specifics of conquering [q of noun]:";
+	if noun is stalemated:
+		say "You're halfway to conquering [q of noun].[paragraph break]";
+	if noun is solved:
+		if recap-text of noun is empty:
+			say "[q of noun] needs recap text.";
+		else:
+			say "[recap-text of noun]";
+	say "[paragraph break]Here are specifics of [if noun is stalemated]your progress in[else]conquering[end if] [q of noun]: ";
 	if noun is stalemate-bypassed:
 		let dir2 be similar-early of noun;
-		say "[if noun is solved]Y[else]So far, y[end if]ou bypassed (in-game) gaining the [k of noun]'s trust (stalemating) because you did so in [q of dir2] with [list-out of stalemate-recap of dir2 and dir2].";
+		say "[if noun is not solved]so far, [end if]you bypassed (in-game) gaining the [k of noun]'s trust (stalemating) because you did so in [q of dir2] with [stale-list of stalemate-recap of dir2 and dir2].";
 	else:
-		say "[if noun is solved]Y[else]So far, y[end if]ou gained the enemy king's trust (stalemated) with [list-out of stalemate-recap of noun and noun].";
-	say "[line break]  You [if noun is not stalemate-bypassed]then [end if]captured the enemy king (checkmated) with [list-out of checkmate-recap of noun and noun].";
+		say "[if noun is solved]Y[else]So far, y[end if]ou gained the enemy king's trust (stalemated) with [if noun is primary][stale-list of stalemate-recap of noun and noun][else][list-out of stalemate-recap of noun and noun][end if].";
+	if noun is solved:
+		say "[line break]  You [if noun is not stalemate-bypassed]then [end if]captured the enemy king (checkmated) with [list-out of checkmate-recap of noun and noun].";
 	the rule succeeds;
 
 chapter toggleing
