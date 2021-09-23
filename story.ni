@@ -328,7 +328,7 @@ check going in Observation Grounds:
 for printing a locale paragraph about a piece (called p) when location of player is observation grounds:
 	if p is not mentioned:
 		now all pieces are mentioned;
-		say "The [list of touchable pieces] are milling around here. You can [xbold] any of them for a refresher on their roles and how they'll execute said roles.";
+		say "The [list of touchable pieces] are milling around here near the center of the room, because there's lots more space to move around in the center than at the sides. You can [xbold] any of them for a refresher on their roles and how they'll execute said roles.";
 
 chapter the grid
 
@@ -406,6 +406,11 @@ chapter c3 explaining 4 vs 5
 
 after printing the locale description for c3 when c3 is unvisited:
 	say "It has not escaped your notice that the castle was, in fact, five by five and not four by four as you expected. There are a few ways to spin this.[paragraph break]First, the [4s] are getting too big for their britches by having such a huge castle. Perhaps the increased size is a subconscious desire to be assimilated as [5b] was. They may be signaling they are worth taking over. Second, they are expressing a general need to be a part of something bigger, as they know you wouldn't just cede them territory for jollies. Third, you detect signs of disuse in the castle, a sign they can't take care of themselves here and need a little law and order.[paragraph break]Of course, if the castle were too small, perhaps the size of a [12n] baron's, it would be a sign [cq] knew they were inferior.[paragraph break]Oh, there's a fourth more technical reason I couldn't quite give four-by-four castles. You can see it with [fofiv]. It may be slightly spoilery.";
+	say "[line break]Technical note(s): ";
+	if player-knows-toggle is true:
+		say "You already know about [tog], but just in case, it can change between text maps and text descriptions.";
+	else:
+		say "The [tog] command can change from the map you see above, though most testers and players seen to prefer it.";
 
 volume pieces
 
@@ -868,6 +873,10 @@ does the player mean calling first-piece of quest-dir when first-piece of quest-
 
 does the player mean calling second-piece of quest-dir when first-piece of quest-dir is placed and second-piece of quest-dir is reserved: it is likely.
 
+does the player mean calling a piece (called p) when number of reserved bishops is 2 or number of reserved knights is 2:
+	if color of p is white, it is likely;
+	if color of p is black, it is unlikely;
+
 does the player mean calling a placed piece: it is unlikely.
 
 does the player mean calling an irrelevant piece: it is very unlikely.
@@ -1292,6 +1301,8 @@ carry out boarding:
 	say "STRATEGIC MAP OF [printed name of quest-dir in upper case] FOURBYFOURIA SO FAR:[line break]";
 	if screen-reader is true, say "Since you are using a screen reader, text maps in any [4b] are disabled. You'll need to restart if you want to use them." instead;
 	show-the-board;
+	if number of placed pieces > 0, say "You've placed [the list of placed pieces].";
+	if number of reserved pieces > 0, say "You still need to place [the list of reserved pieces].";
 	the rule succeeds.
 
 after printing the name of a placed piece (called p) when boarding: say " at [location of p]";
@@ -1358,13 +1369,24 @@ carry out abbing:
 	say "[line break]You can also use spaces in these abbreviations, if you don't like the weird nonsense words or whatever.";
 	if ironic-ab is false:
 		now ironic-ab is true;
-		say "[line break]And yes, it's also worth noting and snickering at, if you wish, how [b]ABB[r] is not as abbreviated as [b]A[r] for about. But I figure people will see [b]ABOUT[r] first, and they are less likely to want or need to read it twice.";
+		say "[line break]And yes, it's also worth noting and snickering at, if you wish, how [b]ABB[r] is not as abbreviated as [b]A[r]. But I figure people will see [b]ABOUT[r] first, and they are less likely to want or need to read it twice.";
 	the rule succeeds;
 
 chapter abouting
 
+show-technical is a truth state that varies.
+
 carry out abouting:
-	say "[this-game] is a sequel to [5d], my entry in the 2021 ParserComp. I first had the idea for [this-game] a week or so before the deadline. Obviously, I couldn't do much with it besides write out the basic stuff. Most of the puzzles revolve around checkmates with very few pieces left on the board. I wondered how many I could find. I had some problems with solutions being too similar. But it seemed there was enough for a challenging game.";
+	if show-technical is false:
+		say "If you haven't played [5d], the game [this-game] is a sequel to, or don't know chess well, don't worry. You don't need to plan anything--just know how the king, bishop and knight move.";
+		if player is in observation grounds:
+			say "More details are available here by using [xbold] on anyone present.";
+		else if observation grounds are visited:
+			say "[if observation grounds are visited]You've been to the Observational Grounds, where examining your allies can tell you what they do.";
+	else:
+		say "The technical stuff: [this-game] is a sequel to [5d], my entry in the 2021 ParserComp. I first had the idea for [this-game] a week or so before the deadline. Obviously, I couldn't do much with it besides write out the basic stuff. Most of the puzzles revolve around checkmates with very few pieces left on the board. I wondered how many I could find. I had some problems with solutions being too similar. But it seemed there was enough for a challenging game.";
+	say "[line break]The next time you type [about], you will see [if show-technical is true]game history[else]gameplay[end if] details.";
+	now show-technical is whether or not show-technical is false;
 	the rule succeeds;
 
 chapter ching
@@ -1488,7 +1510,7 @@ to say mapm: say "[b]MAP[r] or [b]M[r]"
 
 carry out metaing:
 	say "Here is a list of meta-verbs and options you can use. None are necessary to complete the game, but they can all be useful.";
-	say "[line break][b]ABOUT[r] tells about the game. [b]CREDITS[r] or [b]C[r] tells more technical details and thanks testers. [b]CHESS[r] or [b]CH[r] gives the relevant rules of chess. [b]DETAILS[r]/[b]DETAIL[r]/[b]D[r] gives some fourth-wall meta-details.";
+	say "[line break][about] tells about the game. [cred] tells more technical details and thanks testers. [b]CHESS[r] or [b]CH[r] gives the relevant rules of chess. [b]DETAILS[r]/[b]DETAIL[r]/[b]D[r] gives some fourth-wall meta-details about your current quest.";
 	say "[line break][mapm] or [b]BOARD[r] or [b]B[r] shows the current map. [b]TOGGLE[r] or [b]T[r] toggles the map.";
 	if c3 is visited, say "[line break][fofiv] gives an explanation for why the [4n] castles are not, well, four-by-four.";
 	say "[line break][b]HINT[r] or [b]H[r] hints your current area or, if you give a direction, an area you've tried but haven't beaten yet.";
