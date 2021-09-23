@@ -459,28 +459,34 @@ to show-one-tutorial:
 	show-the-board;
 	reset-guard;
 
+to say in-corner:
+	say "in the corner ([list of cornery rooms])"
+
+to say in-center:
+	say "in the corner ([list of central rooms])"
+
 table of bishop tutorials
 the-square	the-text
-a1	"A bishop in the corner or on the edges guards only four squares."
+a1	"A bishop [in-corner] can guard only four squares."
 e3	--
-b2	"A bishop in the inner ring can guard six squares if it is not blocked."
+b2	"A bishop in the inner ring ([list of inner-ring rooms]) can guard six squares if it is not blocked."
 c4	--
-c3	"A bishop in the center can guard eight squares if not blocked."
+c3	"A bishop ([in-center]) can guard eight squares if not blocked."
 
 table of knight tutorials
 the-square	the-text
-e1	"A knight in the corner can only move to two squares."
-e4	"A knight next to the corner can only move to three squares."
-a3	"A knight in the center of the edge can move to four squares."
-d2	"A knight at the corner of the inner ring can move to four squares."
-d3	"A knight at the center of the inner ring can move to six squares."
-c3	"A bishop in the center can guard eight squares if not blocked."
+e1	"A knight [in-corner] can only guard two squares."
+e4	"A knight next to the corner ([list of edgeside rooms]) can only guard three squares."
+a3	"A knight in the center of the edge ([list of edgecentral rooms]) can guard four squares."
+d2	"A knight at the corner of the inner ring ([list of inner-ring-corner rooms]) can guard four squares."
+d3	"A knight on the side of the inner ring ([list of inner-ring-side rooms]) can guard six squares."
+c3	"A knight ([in-center]) can guard eight squares if not blocked."
 
 table of king tutorials
 the-square	the-text
 a5	"A king in the corner can only move to or guard three squares."
 a3	"A king anywhere on the edge but not in the corner can move to or guard five squares."
-b4	"A king in the center or inner ring can move to or guard all eight squares."
+b4	"A king in the center or inner ring ([list of not edgy rooms]) can move to or guard all eight squares."
 c3	--
 
 section relations
@@ -883,11 +889,11 @@ does the player mean calling first-piece of quest-dir when first-piece of quest-
 
 does the player mean calling second-piece of quest-dir when first-piece of quest-dir is placed and second-piece of quest-dir is reserved: it is likely.
 
-does the player mean calling a piece (called p) when number of reserved bishops is 2 or number of reserved knights is 2:
+[does the player mean calling a piece (called p) when number of reserved bishops is 2 or number of reserved knights is 2:
 	if p is irrelevant, it is very unlikely;
 	if p is placed, it is unlikely;
 	if color of p is white, it is likely;
-	if color of p is black, it is unlikely;
+	if color of p is black, it is unlikely;]
 
 does the player mean calling a placed piece: it is unlikely.
 
