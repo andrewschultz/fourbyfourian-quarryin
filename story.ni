@@ -1402,6 +1402,10 @@ to show-pieces:
 
 after printing the name of a placed piece (called p) when boarding: say " at [location of p]";
 
+aware-of-legend is a truth state that varies.
+
+aware-of-enemy-attacks is a truth state that varies.
+
 to show-the-board:
 	if screen-reader is true:
 		repeat with Q running through placed pieces:
@@ -1414,6 +1418,13 @@ to show-the-board:
 	say "2[pie of a2][pie of b2][pie of c2][pie of d2][pie of e2] 2[line break]";
 	say "1[pie of a1][pie of b1][pie of c1][pie of d1][pie of e1] 1[line break]";
 	say "  a b c d e[variable letter spacing][paragraph break]";
+	if aware-of-legend is false:
+		say "[b]LEG[r] shows the full legend of pieces.";
+		now aware-of-legend is true;
+	if aware-of-enemy-attacks is false:
+		if second-piece of quest-dir is placed and color of second-piece of quest-dir is black:
+			say "Note that attacks for [the second-piece of quest-dir] aren't shown, as they don't restrict [the fourbyfourian], so they'd be a distraction. You'll be warned if you place [the twelvebytwelvian] where an enemy could attack him. The [second-piece of quest-dir], not being an outright obvious traitor, can only block a square [the fourbyfourian] could run to.";
+			now aware-of-enemy-attacks is true;
 
 to say pie of (rm - a room):
 	say " ";
@@ -1586,6 +1597,21 @@ carry out hintdiring:
 		say "[piece-cooperation][line break]";
 	else:
 		say "Note that since [q of southeast] is your final conquest, you need to solve it two ways.";
+	the rule succeeds;
+
+chapter leging
+
+leging is an action out of world.
+
+understand the command "leg" as something new.
+
+understand "leg" as leging.
+
+carry out leging:
+	if screen-reader is true, say "Since there are no text maps in screen reader mode, the LEG command is unfortunately of limited use." instead;
+	say "UNOCCUPIED BY ALLIES: + = guarded square, # = your location (guarded), * = your location (unguarded), - = uninhabited and unguarded.";
+	say "OCCUPIED BY ALLIES: K, B and N refer to king, bishop and knight. If they are lower-case, they are enemy or traitorous pieces.";
+	now aware-of-legend is true;
 	the rule succeeds;
 
 chapter metaing
