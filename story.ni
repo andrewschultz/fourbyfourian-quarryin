@@ -1271,17 +1271,66 @@ definition: a thing is matched if it fits the parse list.
 
 rule for asking which do you mean when everything matched is irrelevant (this is the bypass disambiguation rule):
 	if the current action is calling:
-		say "Everyone matching that request isn't part of the current maneuvers, so I can't figure anyone to call.";
+		say "I couldn't find a good match for that in [the list of not irrelevant pieces], your current allies for this quest, so I didn't do anything[if number of placed pieces > 0]. You still need to call [the list of reserved pieces][end if]. You may need to be more specific.";
 		bypass disambiguation;
 		the rule succeeds;
 	continue the action;
 
 rule for asking which do you mean when everything matched is not reserved (this is the bypass disambiguation 2 rule):
 	if the current action is calling:
-		say "Everyone matching that request is either placed or not part of the current maneuvers, so I can't figure anyone to call.";
+		say "I couldn't find a good match for that in [the list of reserved pieces], whom you still need to place, though I may've found a match among current allies, so I didn't do anything. So you will need to be more specific.";
 		bypass disambiguation;
 		the rule succeeds;
 	continue the action;
+
+chapter kicking
+
+kicking is an action applying to one visible thing.
+
+understand the command "kick" as something new.
+understand the command "k" as something new.
+
+understand "kick" as kicking.
+understand "k" as kicking.
+
+understand "kick [any piece]" as kicking.
+understand "k [any piece]" as kicking.
+
+does the player mean kicking a placed piece: it is very likely.
+
+does the player mean kicking an irrelevant piece: it is very unlikely.
+
+kick-list is a list of things variable.
+
+rule for supplying a missing noun when kicking:
+	if location of player is not puzzly:
+		say "You need to be on a quest with allies placed in order to [kick].";
+		reject the player's command;
+	let x be the number of entries in kick-list;
+	if x is 0:
+		say "You can't kick any allies out, because you haven't placed anyone yet.";
+		reject the player's command;
+	now noun is entry x of kick-list;
+
+to place-and-list (p - a piece):
+	now p is placed;
+	add p to kick-list;
+
+carry out kicking:
+	if location of player is not puzzly, say "You can't [kick] anyone when you're not on a quest." instead;
+	if noun is not placed, say "You don't need to kick [the noun], since it isn't [if noun is irrelevant]part of the quest[else]placed yet[end if]." instead;
+	if noun is not listed in kick-list:
+		say "Oops. There is a bug here. [the noun] should be in an internal list, but it isn't. This won't affect gameplay.[paragraph break]";
+	remove noun from kick-list, if present;
+	now noun is off-stage;
+	now noun is reserved;
+	say "With no small embarrassment, you whisper to [the noun] that their presence isn't quite needed right here, right now. You assure them there's been an important change of plans and all that sort of thing.";
+	update-guarded;
+	if number of entries in kick-list is 0:
+		say "Now you have no allies placed.";
+	else:
+		show-the-board;
+	the rule succeeds;
 
 chapter maps
 
