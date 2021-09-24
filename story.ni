@@ -878,8 +878,8 @@ rule for supplying a missing noun when gotoing:
 
 carry out gotoing:
 	abide by the already-here rule;
-	if player is in Ministry:
-		say "You need to depart from the Ministry before going anywhere." instead;
+	if location of noun is not puzzly:
+		say "You need to travel to a Fourbyfouria to go to a specific square on its map." instead;
 	if noun is Ministry:
 		try going outside instead;
 	let bd be diag-dist of location of player and noun;
@@ -1501,11 +1501,12 @@ chapter ching
 
 carry out chessing:
 	say "The rules of chess are that each player gets alternate turns, but here, you get to move as much as you want.";
-	say "[line break]The only pieces you need to worry about are the knight, bishop and king.";
+	say "[line break]In [this-game] you also can focus on three pieces: the knight, bishop and king.";
 	say "[line break]The king can move one square in any direction, straight or diagonally. While you'll probably want to put the [4n] king in check (a bishop or knight can attack it,) you don't want the [12n] king in check. You also can't place opposing kings next to each other.";
 	say "[line break]Bishops can move diagonally across the length of the board, but they can't jump over other pieces. You'll usually want bishops on the same color squares, to maximize the total squares they cover.";
 	say "[line break]Knights move one square vertically and two squares horizontally, or two horizontally and one vertically. Even if other pieces, enemy or friendly, are in the way.";
 	say "[line break]After placing a friendly piece, you should be able to use [mapm] to see what squares are attacked.";
+	say "[line break]More details are available [if player is in observation grounds]here, if you examine your allies[else]in the Observation Grounds, inside the Ministry of Unity[end if].";
 	the rule succeeds;
 
 chapter creditsing
@@ -1566,7 +1567,7 @@ understand "45" as forfiving.
 understand "54" as forfiving.
 
 carry out forfiving:
-	say "So, here's why the [4n] castles are the size they are.[paragraph break]I wanted to make the castles four-by-four, but then there's no center to dump you in. I had a similar problem with Threediopolis that I skated on until Jenni Polodna noticed 444 wasn't the center of a 10x10x10 cube. It just didn't feel right dumping you in an almost-center or a corner to start.[paragraph break]I also think having a bit more space works a bit better, and it also gives very interesting alternate solutions to the southerastern [4s], which are my favorite part of the game. The downside may be that, with more space, there may be too many options, even in normal mode.";
+	say "So, here's why the [4n] castles are the size they are.[paragraph break]I wanted to make the castles four-by-four, but then there's no center to dump you in. I had a similar problem with Threediopolis that I skated on until Jenni Polodna noticed 444 wasn't the center of a 10x10x10 cube. It just didn't feel right dumping you in an almost-center or a corner to start.[paragraph break]I also think having a bit more space works a bit better, and it allowed for me to require conceptually different solutions for the southeastern [4s] in hard mode. The downside may be that, with more space, there may be too many options, even in normal mode.";
 	the rule succeeds;
 
 chapter hinting
@@ -1635,7 +1636,8 @@ to say mapm: say "[b]MAP[r] or [b]M[r]"
 carry out metaing:
 	say "Here is a list of meta-verbs and options you can use. None are necessary to complete the game, but they can all be useful.";
 	say "[line break][about] tells about the game. [cred] tells more technical details and thanks testers. [b]CHESS[r] or [b]CH[r] gives the relevant rules of chess. [b]DETAILS[r]/[b]DETAIL[r]/[b]D[r] gives some fourth-wall meta-details about your current quest.";
-	say "[line break][mapm] or [b]BOARD[r] or [b]B[r] shows the current map. [b]TOGGLE[r] or [b]T[r] toggles the map.";
+	say "[line break][mapm] or [b]BOARD[r] or [b]B[r] shows the current quest map. [b]TOGGLE[r] or [b]T[r] toggles the map. [b]LEG[r] shows the quest map legend.";
+	now aware-of-legend is true;
 	if c3 is visited, say "[line break][fofiv] gives an explanation for why the [4n] castles are not, well, four-by-four.";
 	say "[line break][b]HINT[r] or [b]H[r] hints your current area or, if you give a direction, an area you've tried but haven't beaten yet.";
 	if number of solved directions > 0, say "[line break][b]R[r] or [b]RECAP[r] is available to recap areas you've solved. By default, it goes to the last one, but you can specify a direction.";
@@ -1727,7 +1729,7 @@ carry out toggleing:
 chapter verbs
 
 carry out verbsing:
-	say "[this-game] uses a simplified parser. The main commands are the planar directions: [b]N[r], [b]S[r], [b]E[r], [b]W[r], [b]NW[r], [b]NE[r], [b]SW[r], [b]SE[r]. [b]U[r] and [b]D[r], for up and down, aren't used. [b]OUT[r] anywhere but the [ministry] returns you to the [ministry].[paragraph break]You can also ignore directions to jump to a square when you're not in the Ministry of Unity. So typing [b]a1[r] sends you to a1, etc.[paragraph break]You can also [b]CALL[r]/[b]C[r] or [b]PLACE[r]/[b]P[r] a piece, enemy or friendly. These have abbreviations, too: [b]ABB[r] finds them.[paragraph break]Meta-verbs and options are discussed in [b]META[r] ([b]MET[r]/[b]ME[r]).[paragraph break][b]UNDO[r] is also available, though any quest should only take ";
+	say "[this-game] uses a simplified parser. The main commands are the planar directions: [b]N[r], [b]S[r], [b]E[r], [b]W[r], [b]NW[r], [b]NE[r], [b]SW[r], [b]SE[r]. [b]U[r] and [b]D[r], for up and down, aren't used. [b]OUT[r] anywhere but the [ministry] returns you to the [ministry].[paragraph break]You can also ignore directions to jump to a square when you're not in the Ministry of Unity. So typing [b]a1[r] sends you to a1, etc.[paragraph break]You can also [b]CALL[r]/[b]C[r] or [b]PLACE[r]/[b]P[r] a piece, enemy or friendly. Calling a piece on the board moves it. You can also [kick] it off the board. These have abbreviations, too: [b]ABB[r] finds them.[paragraph break]Meta-verbs and options are discussed in [b]META[r] ([b]MET[r]/[b]ME[r]).[paragraph break][b]UNDO[r] is also available, though any quest should only take ";
 	the rule succeeds;
 
 chapter xyzzy
@@ -1824,8 +1826,8 @@ volume meta
 
 report undoing an action:
 	if location of player is not puzzly:
-		say "Undone, though note there is nothing worth undoing when you aren't questing.";
-	say "Undone. Note that if you want to remove an ally you've called, [kick] works. And you can always reset everything by going [b]OUT[r].";
+		say "Undone. Note that there is nothing worth undoing when you aren't questing.";
+	say "Undone. Note that if you want to remove an ally you've called, [kick] works. You can also [cp] an already-placed piece to move it over, and you can always reset everything by going [b]OUT[r].";
 
 volume when play begins
 
