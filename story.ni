@@ -1075,7 +1075,16 @@ carry out calling:
 	if noun is irrelevant, say "You don't need to call [the noun]." instead;
 	if noun is Fourbyfourian king and number of reserved pieces > 1, say "You will want to call [the noun] last." instead;
 	if number of pieces in location of player is 1, say "But [the random piece in location of player] is already here at [location of player]." instead;
-	if noun is placed, say "But [the noun] is already at [location of the noun]." instead;
+	if noun is placed:
+		say "You already called [the noun] to [location of the noun]. Have them move over here?";
+		if the player regex-prompt-consents:
+			say "You solemnly announce an unforeseen change of plans. The [noun] nods. It adds to the formality of it all. Perhaps the [cq] will be impressed or intimidated by all this procedure, making it easier to shut the trap.[paragraph break]";
+			move noun to location of player;
+			update-guarded;
+			show-the-board;
+		else:
+			say "On second thought, [the noun] seems better positioned at [location of the noun]. For now.";
+		the rule succeeds;
 	say "You place [the noun] at [location of player].";
 	move noun to location of player;
 	if noun is a bishop:
