@@ -279,7 +279,7 @@ understand "map of 4b/4b4/4" and "4 map/4b map/4b4 map" and "4/4b/4b4" as map of
 
 carry out examining map of the Fourbyfourias when map-view is false:
 	if screen-reader is false:
-		say "[if number of solved directions > 0]It's a 'before' map, not showing what you've annexed. [end if][12b] takes up most of the northwest--it's got more land mass than the seven tinier [4s] combined. It's striped purple and yellow, the colors of each half of [5b], and your allies['] colors.[paragraph break]Clockwise in varying shades of grey from the upper right are [north], [northeast], [east], [southeast], [south], [southwest] and [west]. To the northwest are lands too big to conquer.[paragraph break]The map has some mnemonics you can study with [mne].";
+		say "[if number of solved directions > 0]It's a 'before' map, not showing what you've annexed. [end if][12b] takes up most of the northwest--it's got more land mass than the seven tinier [4s] combined. It's striped purple and yellow, the colors of each half of [5b], and your allies['] colors.[paragraph break]Clockwise in varying shades of grey from the upper right are [north], [northeast], [east], [southeast], [south], [southwest] and [west]. To the northwest are sprawling lands too big and unprofitable to annex.[paragraph break]The map has some mnemonics you can study with [mne].";
 		the rule succeeds;
 
 after examining map of the fourbyfourias:
@@ -401,6 +401,8 @@ to decide which number is diag-dist of (t1 - a thing) and (t2 - a thing):
 
 rule for printing the locale description when map-view is true and location of player is puzzly:
 	show-the-board;
+	if c3 is not visited:
+		show-pieces;
 
 chapter c3 explaining 4 vs 5
 
@@ -561,11 +563,11 @@ chapter bishop
 
 a bishop is a kind of piece. description of a bishop is usually "Like [the rival of item described], [the item described] moves diagonally across boards. They can move as far as they want until the board ends. They are also limited to squares of one color. They can't jump over anyone else."
 
-the yellow bishop is a bishop. color of yellow bishop is white. understand "b" and "yb" and "by" and "y b" and "b y" and "y" and "fb" and "bf" and "b f" and "f b" and "yellow b" and "y bishop" as yellow bishop. "The yellow bishop [bishop-shuffle]."
+the yellow bishop is a bishop. color of yellow bishop is white. understand "b" and "yb" and "by" and "y b" and "b y" and "y" and "fb" and "bf" and "b f" and "f b" and "yellow b" and "y bishop" as yellow bishop. "The yellow bishop [bishop-shuffle].".
 
-the purple bishop is a bishop. color of purple bishop is white. understand "b" and "pb" and "bp" and "p b" and "b p" and "p" and "fb" and "bf" and "b f" and "f b" and "purple b" and "p bishop" as purple bishop. "The purple bishop [bishop-shuffle]."
+the purple bishop is a bishop. color of purple bishop is white. understand "b" and "pb" and "bp" and "p b" and "b p" and "p" and "fb" and "bf" and "b f" and "f b" and "purple b" and "p bishop" as purple bishop. "The purple bishop [bishop-shuffle].".
 
-the grey bishop is a bishop. color of grey bishop is black. understand "b" and "g" and "gb" and "bg" and "g b" and "b g" and "eb" and "be" and "b e" and "e b" and "grey b" and "g bishop" as grey bishop. "The grey bishop [bishop-shuffle]."
+the grey bishop is a bishop. color of grey bishop is black. understand "b" and "g" and "gb" and "bg" and "g b" and "b g" and "eb" and "be" and "b e" and "e b" and "grey b" and "g bishop" as grey bishop. "The grey bishop [bishop-shuffle].".
 
 to say minor-color: say "The yellow and purple [if noun is a bishop]bishops[else]knights[end if] that will help you on your quest -- well, their outfits aren't VERY yellow, or VERY purple, but enough to tell them apart, which will help this whole operation quicker. Despite the yellow vs. purple squabbles that plague [12b], they're both equally effective.[paragraph break]It'd take a long time to describe the yellow vs. purple beefs and why things are the way they are. But if you're wondering why I chose these colors, type [b]YVP[r] or [b]PVY[r]"
 
@@ -577,11 +579,11 @@ chapter knight
 
 a knight is a kind of piece. description of a knight is usually "Like [the rival of item described], [the item described]moves in an L, two shapes vertically and one square horizontally, or one square vertically and two squares horizontally. They can jump over anyone else to get there.[paragraph break]You were a knight once. It was such fun to be able to move in an L. But it got tiring, and you suppose you could still do it, you guess, if you had to, and you got in shape. But now you're focused on moving straight and getting to the point."
 
-the yellow knight is a knight. color of yellow knight is white. understand "n" and "yn" and "ny" and "n y" and "y n" and "y" and "fn" and "nf" and "f n" and "n f" and "y knight" and "yellow n" as yellow knight. "The yellow knight [waits-here]."
+the yellow knight is a knight. color of yellow knight is white. understand "n" and "yn" and "ny" and "n y" and "y n" and "y" and "fn" and "nf" and "f n" and "n f" and "y knight" and "yellow n" as yellow knight. "The yellow knight [waits-here].".
 
-the purple knight is a knight. color of purple knight is white. understand "n" and "pn" and "np" and "p n" and "n p" and "p" and "fn" and "nf" and "n f" and "f n" and "p knight" and "purple n" as purple knight. "The purple knight [waits-here]."
+the purple knight is a knight. color of purple knight is white. understand "n" and "pn" and "np" and "p n" and "n p" and "p" and "fn" and "nf" and "n f" and "f n" and "p knight" and "purple n" as purple knight. "The purple knight [waits-here].".
 
-the grey knight is a knight. color of grey knight is black. understand "n" and "g" and "gn" and "ng" and "g n" and "n g" and "en" and "ne" and "e n" and "n e" and "grey n" and "g night" as grey knight. "The traitorous grey knight waits here, expressionless."
+the grey knight is a knight. color of grey knight is black. understand "n" and "g" and "gn" and "ng" and "g n" and "n g" and "en" and "ne" and "e n" and "n e" and "grey n" and "g night" as grey knight. "The traitorous grey knight waits here, expressionless.".
 
 piece-tutorial of a knight is usually table of knight tutorials.
 
@@ -589,9 +591,9 @@ chapter king
 
 a king is a kind of piece.
 
-the Twelvebytwelvian King is a king. color of Twelvebytwelvian king is white. understand "k" and "k12" and "12k" and "12" and "fk" and "kf" as twelvebytwelvian king. "Your king waits here for you to set everything just so.". description of twelvebytwelvian king is "The king can move in any directions, though it just wouldn't do to have him zipping across the board. He'd be too exhausted to lead, but he could. Of course he could, even if he isn't as spry as when he was younger!"
+the Twelvebytwelvian King is a king. color of Twelvebytwelvian king is white. understand "k" and "k12" and "12k" and "12" and "fk" and "kf" as twelvebytwelvian king. "Your king waits here for you to set everything just so.". description of twelvebytwelvian king is "The king can move in any directions, though it just wouldn't do to have him zipping across the board. He'd be too exhausted to lead, but he could. Of course he could, even if he isn't as spry as when he was younger!".
 
-the Fourbyfourian King is a king. color of Fourbyfourian king is black. understand "k" and "4k" and "k4" and "ke" and "ek" and "4" and "k e" and "e k" and "k 4" and "4 k" as fourbyfourian king. description is "Any sort of eye contact might cause the [fourbyfourian] to get suspicious. You can't have that.". "You shouldn't be able to see the Fourbyfourian king."
+the Fourbyfourian King is a king. color of Fourbyfourian king is black. understand "k" and "4k" and "k4" and "ke" and "ek" and "4" and "k e" and "e k" and "k 4" and "4 k" as fourbyfourian king. description is "Any sort of eye contact might cause the [fourbyfourian] to get suspicious. You can't have that.". "You shouldn't be able to see the Fourbyfourian king.".
 
 piece-tutorial of a king is usually table of king tutorials.
 
@@ -757,7 +759,7 @@ piece-bio of northeast is "[if northeast is simple-dumb][lone-stale]His insights
 
 piece-bio of east is "The two bishops simply do not like each other, but they know better than to show it. You had such a fight arguing over things: who would get the final blow in on the [ck]? Who would take the light squares, of which there are 13 in an X-by-Xian castle, with only 12 dark squares? Who was better at getting pawns out of their way so they could move about and get stuff done? And you didn't want to get them started on arcane ecumenical matters. Fortunately, they know to shelve their hostility until the job is done, and you were able to placate them enough so they would get the job done. You think. There's always the worry of some bizarre religious edict that dovetails with the current popular superstitions that could rob you of power.".
 
-piece-bio of southeast is "The trip up to [ck] was brutal. You'd heard all the rehashes of why bishops were better than knights, and vice versa, and by the end, THEY suggested THEY were getting tired of YOU saying 'Why yes, you both have thoughtful points.' The nerve! The bishop always starts by saying the knight takes too long to get places, then the knight laughs at the bishop for only being able to go certain places, then there's the whole kerfuffle of 'You let pawns get in the way' and 'You don't really appreciate pawns. You just leap over them and one day when you're older and less agile you'll trip over one.' That sort of thing. Or the arguments over why only knights get to search for holy grails. Is it that bishops are too corrupt, or knights are too dumb to be properly overwhelmed by the meaning of such an artifact?[paragraph break]Well, you managed to convince them these questions COULD be, for all practical purposes, decided if one of them bungles things. That should be enough."
+piece-bio of southeast is "The trip up to [ck] was brutal. You'd heard all the rehashes of why bishops were better than knights, and vice versa, and by the end, THEY suggested THEY were getting tired of YOU saying 'Why yes, you both have thoughtful points.' The nerve! The bishop always starts by saying the knight takes too long to get places, then the knight laughs at the bishop for only being able to go certain places, then there's the whole kerfuffle of 'You let pawns get in the way' and 'You don't really appreciate pawns. You just leap over them and one day when you're older and less agile you'll trip over one.' Then the bishop insisting they deserve more prestige because a bigger Twelvebytwelvia or whatever means more squares they can go to immediately, but the knight claims that's more squares a bishop can never touch. That sort of thing. Or the arguments over why only knights get to search for holy grails. Is it that bishops are too corrupt, or knights are too dumb to be properly overwhelmed by the meaning of such an artifact?[paragraph break]Well, you managed to convince them that if one of them bungles their role, you will have a pretty good idea how all these questions should be answered. That shut them up, sort of."
 
 piece-bio of south is "The two knights really can't stand each other, but fortunately, taunting from bishops that they couldn't do the job alone, or they could only do it by accident, inspired teamwork. You managed to convince the knights they don't need to guard each other--in fact, that's inefficient--and they wouldn't have to wait for a traitorous pawn after seventy maneuvers. The knights believe they are good at diplomacy, and truth be told, they work together well: the dumb strong one and the smart weak one. All the promises of yes, we will go off to war and no, we won't go off to war--so difficult to keep straight. But thankfully knights are easy to distract.".
 
@@ -1160,12 +1162,13 @@ to new-quest:
 	now quest-dir is tried;
 	reset-guard;
 	now all pieces are irrelevant;
-	now all kings are reserved;
 	now first-piece of quest-dir is reserved;
 	now current-quest-snapshot is { Ministry, Ministry, Ministry };
 	unless quest-dir is primary and quest-dir is unsolved:
 		now second-piece of quest-dir is reserved;
 		add Ministry of Unity to current-quest-snapshot;
+	now Twelvebytwelvian King is reserved;
+	now Fourbyfourian King is reserved;
 	reset-board;
 
 to reset-board:
@@ -1320,9 +1323,12 @@ carry out boarding:
 	say "STRATEGIC MAP OF [printed name of quest-dir in upper case] FOURBYFOURIA SO FAR:[line break]";
 	if screen-reader is true, say "Since you are using a screen reader, text maps in any [4b] are disabled. You'll need to restart if you want to use them." instead;
 	show-the-board;
+	show-pieces;
+	the rule succeeds.
+
+to show-pieces:
 	if number of placed pieces > 0, say "You've placed [the list of placed pieces].";
 	if number of reserved pieces > 0, say "You still need to place [the list of reserved pieces].";
-	the rule succeeds.
 
 after printing the name of a placed piece (called p) when boarding: say " at [location of p]";
 
@@ -1353,6 +1359,8 @@ to say pie of (rm - a room):
 		say "K";
 	else if Fourbyfourian king is in rm:
 		say "k";
+	else if rm is guarded and location of player is rm:
+		say "#";
 	else if rm is guarded:
 		say "+";
 	else if location of player is rm:
@@ -1423,6 +1431,7 @@ chapter creditsing
 
 carry out creditsing:
 	say "Thanks to chess.com, lichess.org, chessgames.com, and everyone who helped chess streaming become popular during the pandemic. It saved my sanity enough to write [this-game], which will hopefully not take too much of yours. Thanks to Adam Sommerfield for ParserComp, which led to this game.";
+	say "Thanks to Amanda W., FA, and Olaf Nowacki for testing help.";
 	say "[line break]Thanks to Robin Johnson, whose technical suggestion for [5b] paid quick dividends in [this-game].";
 	say "[line break]If you find a bug or have a transcript, mail me at [email]. Or you can report bugs at [github].";
 	the rule succeeds;
@@ -1802,18 +1811,19 @@ after printing the locale description when instructions-given is false:
 	continue the action;
 
 to print-intro:
-	say "The treaty was signed at the first Council of Sensibly Bordered Nations. After [12b] annexed [5b], you, who had risen to the office of Cheap Diplomat, assured the seven [4n] mini-states that of COURSE there would be no further conquests. While swooping up the seven of them would increase [12b]'s size almost doubly, why, you'd have to rename yourself Sixteenbysixteenia in the process, and that was just too awkward a name.";
+	say "The treaty was signed at the first Council of Sensibly Bordered Nations. After [12b] annexed [5b], you, who had risen to the office of Chief Diplomat, assured the seven [4n] mini-states that of COURSE there would be no further conquests. While swooping up the seven of them would increase [12b]'s size almost doubly, why, you'd have to rename yourself Sixteenbysixteenia in the process, and that was just too awkward a name.";
 	wfak;
-	say "That was good enough for them, but not really. They established border patrols. They improved their spying. You brought up their paranoia, their spying, at future Councils, mentioning how [12b] has more landmass than the [4s] combined, but who got seven times the votes? Not this guy! If there was anyone not to trust, it was those rinky-dink kingdoms whispering among each other. And with each year that passed, you expected to gain trust you wouldn't attack and gobble them up, but they only seemed to suspect you more. Even as you built up armies in the northwest frontier, against bigger, tougher countries!";
+	say "That was good enough for them, but not really. They established border patrols. They improved their spying. You brought up their paranoia, their spying, at future Councils, mentioning how [12b] has more landmass than the [4s] combined, but who got nine times more votes per square mile? Not this guy's country! If there was anyone not to trust, it was those rinky-dink kingdoms whispering among each other. And with each year that passed, you expected to gain trust you wouldn't attack and gobble them up, but they only seemed to suspect you more. Even though [12b]'s border patrols went to the northwest frontier, against bigger, tougher countries!";
+	wfak;
 	say "You'd let them bait you long enough. You see, after the first council, a courtier suggested in private that, perhaps, Sixteenbysixteenia wasn't the only possible name if the [4b] mini-states were vacuumed up. Largeboxica! Doubleboardistan! Foursquaresquareland! Even Twofiftysixia!";
 	wfak;
 	say "Obviously a much more level-headed fellow than that nutcase who claimed the sun and moon didn't follow [12b] ... or whatever [12b]'s real name should be. Well, level-headed until he expected an advanced title. He should have just let you buy his silence. It would have been more than generous. And the ex-nations newly in the fold? Why, they could vote on the favorite name!";
 	wfak;
 	say "And if those full-square-worldists wanted to oppose your forging a bit of unity that actually made [i]sense[r], well, you would expose their inconsistencies! Still, there is a matter of diplomacy. No all-out wars. A mission, between high-ranking officers of each state. You've had time to cultivate some allies in the ranks of some of the outer realms. Not quite the inner ones, yet.";
 	wfak;
-	say "You've gotten too old and fat, I mean distinguished, to ride your super-speedy horse that served so well annexing [5b]. It's slowed down quicker than you did. But no matter. Business can be conducted in castles -- five-by-five affairs, proof the [4s] are a bit too big for their britches.";
+	say "You've gotten too old and fat, I mean distinguished, to ride your super-speedy horse that served so well annexing [5b]. But you are alive, and it, alas, is not, despite the best medical attention. And you've shown your worth without it. Planning. Skill. A quick mind.  Noting the [4n] castles were, in fact, five-by-five. Indicating a need to be a part of something bigger. From there, more reasons for annexation were found. Enough to build the Ministry of Unity.";
 	wfak;
-	say "In the Ministry of Unity, the final touches are laid on the plans. Four of the satellite nations have traitors, waiting for power, who will help you. The others--well, you will need to strike quickly and not be too obvious. You flip an octaroon towards the scribe who applies the finishing touches of an odd script, made just for you, called 'BASIC ENDGAME MANUAL.' And off you go!";
+	say "Where the final touches are laid on the plans. Four of the satellite nations have traitors, waiting for power, who will help you. The others--well, you will need to strike quickly and not be too obvious. You flip an octaroon towards the scribe who applies the finishing touches of an odd script, made just for you, called 'BASIC ENDGAME MANUAL.' And off you go!";
 
 volume beta testing - not for release
 
