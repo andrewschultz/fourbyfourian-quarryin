@@ -954,6 +954,12 @@ to decide whether you-stalemated:
 	if Fourbyfourian king is immobile, yes;
 	no;
 
+to decide whether king-cornered-not-stalemated:
+	unless second-piece of quest-dir is placed and color of second-piece of quest-dir is black, no;
+	if Fourbyfourian king is checked, no;
+	if Fourbyfourian king is immobile, yes;
+	no;
+
 to decide whether you-checkmated:
 	unless Fourbyfourian king is checked, no;
 	unless Fourbyfourian king is immobile, no;
@@ -1101,15 +1107,17 @@ carry out calling:
 		if you-stalemated, abide by the stalemate dialogue rule;
 		unless Fourbyfourian king is checked:
 			if quest-dir is stalemated:
-				say "But the [ck] is not checked. So nothing really happens this time. That worked okay to gain his trust, but to finish the job, you need to be more aggressive.";
+				if king-cornered-not-stalemated:
+					say "Once again, you stalemated the enemy king--well, sort of. But that doesn't work this time. He doesn't feel completely helpless, what with his [second-piece of quest-dir] to order around. You're pretty sure you need to put him under pressure to finish the job--he needs to be attacked, with no way out.";
+				else:
+					say "But the [ck] is neither in check nor immobilized. So nothing really happens this time.";
 			else:
 				say "You laid off the [ck] this time, but perhaps a bit too much. He had [if number of near-unguarded rooms is 1]only one place to go[else]several places to go, including [random near-unguarded room][end if].";
 			if quest-dir is secondary:
 				say "[line break]And unfortunately this [if quest-dir is stalemated]doesn't put the enemy king any more at ease[else]is not enough to put the enemy king at ease. You'll need to get them into a seemingly tougher situation, then let them slip out[end if].";
-			say "[line break]You're able to blow it off as the sort of diplomatic meeting people have to have. You even put some backhanded blame on the enemy monarch for wasting YOUR king's time and not providing the sort of hospitality you expect. It doesn't really hurt them, but it does cover up your far more serious intent. So there'll be another chance. Just got to plan a bit better, next time.";
+			say "[line break]So things didn't quite work out, but you're able to blow it off to all involved as the sort of diplomatic meeting that inches things forward. You even put some backhanded blame on the enemy monarch for wasting YOUR king's time and not providing the sort of hospitality you expect. It doesn't really hurt them, but it does cover up your far more serious intent. So there'll be another chance. Just got to plan a bit better, next time.";
 			if quest-dir is secondary:
 				say "";
-			if screen-reader is false, show-the-board;
 			move player to Ministry of Unity;
 			the rule succeeds;
 		abide by misc-checks of quest-dir;
