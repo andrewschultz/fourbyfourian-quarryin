@@ -605,7 +605,7 @@ pvy-note is a truth state that varies.
 
 carry out examining a piece when location of player is puzzly (this is the alternate stories on examining rule):
 	if pvy-note is false:
-		if noun is not fourbyfourian king and noun is not twelvebytwelvian king:
+		if color of noun is white and noun is not fourbyfourian king:
 			say "[minor-color].";
 			now pvy-note is true;
 	if the noun is examined, the rule succeeds;
@@ -719,11 +719,15 @@ definition: a direction (called d) is to-solve:
 section individual quest properties -- initial directions first
 
 to say first-hints:
-	say "You probably need [the second-piece of the item described] to block the enemy king's fleeing path"
+	if the item described is stalemated:
+		say "You probably need [the second-piece of the item described] to block the enemy king's fleeing path";
+		if the item described is northeast, say ". But this one's a bit different from the other three--one more thing to look for";
+	else:
+		say "You probably need [the twelvebytwelvian] and [the first-piece of the item described] to push [the fourbyfourian] where he can't move at all, even if he's not attacked"
 
 first-piece of north is yellow bishop. second-piece of north is grey bishop. north is primary. hard-stalemate-check of north is the hard-bishop-stalemate rule. hint-text of north is "[first-hints].". quick-text of north is "[if north is stalemated]B vs. B[else]B[end if]". summary-text of north is "two bishops, one traitorous". recap-text of north is "In [q of north], you used the enemy bishop and your own king to wall in the enemy king.".
 
-first-piece of northeast is yellow bishop. second-piece of northeast is grey knight. northeast is primary. hard-stalemate-check of northeast is the hard-bishop-stalemate rule. hint-text of northeast is "[first-hints]. But this one's a bit different from the other three--one more thing to look for.". quick-text of northeast is "[if northeast is stalemated]B vs. N[else]B[end if]". misc-checks of northeast is knight blocks bishop rule. summary-text of northeast is "a bishop and a traitorous knight". recap-text of northeast is "In [q of northeast], you had to put everyone in a Tetris L-shaped block, enemy king in the corner, to conquer him. If your bishop had been further away, the traitor knight would've had to save the king."
+first-piece of northeast is yellow bishop. second-piece of northeast is grey knight. northeast is primary. hard-stalemate-check of northeast is the hard-bishop-stalemate rule. hint-text of northeast is "[first-hints].". quick-text of northeast is "[if northeast is stalemated]B vs. N[else]B[end if]". misc-checks of northeast is knight blocks bishop rule. summary-text of northeast is "a bishop and a traitorous knight". recap-text of northeast is "In [q of northeast], you had to put everyone in a Tetris L-shaped block, enemy king in the corner, to conquer him. If your bishop had been further away, the traitor knight would've had to save the king."
 
 first-piece of west is yellow knight. second-piece of west is grey knight. west is primary. hint-text of west is "[first-hints].". quick-text of west is "[if west is stalemated]N vs. N[else]N[end if]". summary-text of west is "two knights, one traitorous". recap-text of west is "In [q of west], you linked everyone in a sort of fish-hook to trap the enemy king, with the [twelvebytwelvian] farthest away. You couldn't keep the king two squares from the enemy king, as the enemy knight would be attacking."
 
@@ -1032,7 +1036,7 @@ definition: a piece (called p) is check-warning:
 this is the check yourself and wreck yourself rule:
 	unless quest-dir is primary, continue the action;
 	if the second-piece of quest-dir attacks the Twelvebytwelvian King:
-		say "The [random placed piece] coughs. You realize that setup won't do. The [twelvebytwelvian] will feel more heat than necessary. The enemy king might start to question why [the second-piece of quest-dir] won't rush to his defense.[paragraph break]So, somewhere else, maybe. As much as you'd sometimes love an excuse to see your monarch get bopped for no reason, the price is too high. A failed conquest and, of course, blame for said conquest.";
+		say "The [random placed piece] coughs. You realize that setup won't do. The [twelvebytwelvian] is stared down a bit too much by [the second-piece of quest-dir]. The enemy king might start to question why you or [the first-piece of quest-dir] won't rush to his defense.[paragraph break]So, somewhere else, maybe. As much as you'd sometimes love an excuse to see your monarch get bopped for no reason, the price is too high. A failed conquest and, of course, blame for said conquest.";
 		note-amusing-stuff "self-check";
 		the rule succeeds;
 
