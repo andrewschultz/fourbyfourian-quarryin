@@ -1512,9 +1512,10 @@ carry out chessing:
 chapter creditsing
 
 carry out creditsing:
-	say "Thanks to chess.com, lichess.org, chessgames.com, and everyone who helped chess streaming become popular during the pandemic. It saved my sanity enough to write [this-game], which will hopefully not take too much of yours. Thanks to Adam Sommerfield for ParserComp, which led to this game.";
+	say "Thanks to chess.com, lichess.org, chessgames.com, and everyone who helped chess streaming become popular during the pandemic, on YouTube and Twitch. It saved my sanity enough to write [this-game], which will hopefully not take too much of yours. Thanks to Adam Sommerfield for ParserComp, which led to this game.";
 	say "Thanks to Amanda W., FA, and Olaf Nowacki for testing help.";
 	say "[line break]Thanks to Robin Johnson, whose technical suggestion for [5b] paid quick dividends in [this-game].";
+	say "Thanks to publicdomainvectors.org for the vector art of the knight(s) and freesvg.org for the vector art of the bishop(s) in the cover art.";
 	say "[line break]If you find a bug or have a transcript, mail me at [email]. Or you can report bugs at [github].";
 	the rule succeeds;
 
