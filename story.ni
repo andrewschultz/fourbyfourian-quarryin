@@ -108,7 +108,7 @@ after examining tricky endgame manual when player is not in Ministry:
 		say "[line break]Also, there's a note about how you probably can't trap the [4n] king violently right away. Find a way to fake him out. Make him feel surrounded, not attacked, at the first meeting. Then go in for the kill[if quest-dir is stalemated]. Hey, first part completed[end if].";
 	else:
 		say "Oh, wait. There is some note about general procedure: first, you will want to make the [4n] king feel surrounded but not attacked. Stalemate, they call it. Then, once you've forced a bit of trust out of him, a traitorous courtier will help you attack and trap him for good.  And you probably can't trap him way out in the center of the board!";
-	say "[line break]Of course, it doesn't even mention the important stuff applying right now: [who-coop]."
+	say "[line break]Of course, it can't mention any incriminating specifics: [who-coop]."
 
 to say who-coop: say "you need the cooperation of [the list of cooperative pieces] to take down the [k of quest-dir]"
 
@@ -133,7 +133,7 @@ instead of doing something other than examining tricky endgame manual:
 	say "You can really only [xbold] the [manual]." instead;
 
 check taking inventory:
-	say "All you have on you, besides various expensive rings and medals designating your position as a prominent [12n], is a tricky, yet very dry, endgame manual. It simply wouldn't do to be found with any incriminating plans on you! Or even to have them turn up later.[paragraph break]You can type [b]X[r] at any time outside the Ministry to see what needs to be done. Inside, [b]X[r] will examine the map of the [4s].";
+	say "All you have on you, besides various expensive rings and medals designating your position as a prominent [12n], is a tricky, yet very dry, endgame manual. It simply wouldn't do to be found with any incriminating plans on you! Or even to have them turn up later.[paragraph break]You can type [b]X[r] at any time outside the Ministry and Observation Grounds to see what needs to be done. Inside, [b]X[r] will examine the map of the [4s].";
 	if player is not in Ministry of Unity, say "[line break]Here, [who-coop].";
 	the rule succeeds;
 
@@ -161,7 +161,7 @@ to decide which number is quests-left:
 
 chapter unity
 
-the Ministry of Unity is a not puzzly room. xval is 8. yval is 8. "The planning has been done. [can-leave][tried]. For refreshers on who does what, you can go [b]IN[r] or [b]INSIDE[r] to the observation grounds.[paragraph break]A map of [12b] and the surrounding [4s] adorns one wall. You can [xbold] it for details, if you want.".
+the Ministry of Unity is a not puzzly room. xval is 8. yval is 8. "The planning has been done. [can-leave][tried]. For refreshers on who does what, you can go [b]IN[r] or [b]INSIDE[r] to the observation grounds.[paragraph break]A map of [12b] and the surrounding [4s] adorns one wall[one of]. You can [xbold] it for details, if you want[or][stopping].".
 
 to say can-leave:
 	if number of to-solve directions > 3:
@@ -245,7 +245,7 @@ check going when location of player is not puzzly (this is the hub check rule):
 		say "Alas, the vast lands northwest of [12b] are so unruly as to feature nonlinear borders. Some such borders are not even defined by rivers![paragraph break]Plus, they're vast enough, it'd take too long to get to their capitals. Oh, and the whole painful winters and large armies things, too." instead;
 	if noun is inside or noun is outside, continue the action;
 	if noun is unquestable, say "There's nothing to conquer to the [noun]." instead;
-	if noun is solved, say "You already conquered [noun] [4b]." instead;
+	if noun is solved, say "Of course, it would be pleasant to return to the scene of your success at [q of noun]. You will, eventually. There will be a great banquet and everything, of course. And making sure the regents you installed are corrupt enough to extract taxes but not corrupt enough to hide them too much. Now is the time to grow [12b], though." instead;
 	abide by visit-text of noun;
 	now quest-dir is noun;
 	say "[if player is in grounds]Rushing through the [ministry] with a quick good-bye, y[else]Y[end if]ou head to [cq]. [unless noun is primary and noun is unsolved]Your allies for this quest are [summary-text of noun][else]You only have [the twelvebytwelvian king] and [the first-piece of noun] with you[end if].";
@@ -413,7 +413,7 @@ after printing the locale description for c3 when c3 is unvisited:
 	if player-knows-toggle is true:
 		say "You already know about [tog], but just in case, it can change between text maps and text descriptions.";
 	else:
-		say "The [tog] command can change from the map you see above, though most testers and players seen to prefer it.";
+		say "The [tog] command can change from the text map you see above to a text description, though most testers and players seem to prefer text map.";
 
 volume pieces
 
@@ -1003,8 +1003,8 @@ this is the stalemate dialogue rule:
 		else:
 			abide by hard-stalemate-check of quest-dir;
 			let q2 be similar-early of quest-dir;
-			let other-guy be second-piece of q2;
-			say "You and [the first-piece of quest-dir] corner the [ck] and manage to convince him that you're really all just about the diplomacy these days, and they'd better trust you now and in the future. It ... seems to work![paragraph break]You sit and have a think back at the Ministry of Unity. Your plans for [q of similar-early of quest-dir] are similar enough to start. So you go there and pull the same trick, but this time with [the other-guy]. Your trips to [q of q2] and [q of quest-dir] includes [the other-guy] who is not as loyal to their King as they should be. Their help should be just enough.";
+			let other-guy be rival of q2;
+			say "You and [the first-piece of quest-dir] corner the [ck] and manage to convince him that you're really all just about the diplomacy these days, and they'd better trust you now and in the future. It ... seems to work![paragraph break]Once back at the Ministry of Unity, you realize your plans for [q of similar-early of quest-dir] are more or less identical. But so as not to show any yellow/purple favoritism, you go through the paces with [the rival of the first-piece of quest-dir].[paragraph break]Your trips to [q of q2] and [q of quest-dir] will include [the other-guy] who is not as loyal to their King as they should be. They won't attack their own king. They'll only obstruct him. And their help should be just enough.";
 			now quest-dir is stalemated;
 			now last-solved is quest-dir;
 			if quest-dir is not normal-stalemated, now quest-dir is hard-stalemated;
@@ -1090,6 +1090,19 @@ this is the no-illegal-positions rule:
 		say "You'll want to place the [fourbyfourian] last." instead;
 	if diag-dist of Twelvebytwelvian king and Fourbyfourian king <= 1, say "You can't really place the enemy kings that close to each other. Oh, sure, they'll perform all the proper diplomacy ... but they really don't WANT to. At least, your king doesn't want to. He doesn't want his fingerprints on any ... disappearances." instead;
 
+to decide whether enemy-self-check:
+	if color of second-piece of quest-dir is black, no;
+	let sp be second-piece of quest-dir;
+	let xdelt be absval of ((xval of location of fourbyfourian king) - (xval of location of sp));
+	let ydelt be absval of ((yval of location of fourbyfourian king) - (yval of location of sp));
+	if sp is grey knight:
+		if (xdelt is 1 and ydelt is 2) or (xdelt is 2 and ydelt is 1), yes;
+		no;
+	if sp is grey bishop:
+		if xdelt is not ydelt, no;
+		yes; [?? there are some VERY special cases where a bishop blocks the knight ]
+	no; [should never be reached]
+
 carry out calling:
 	if location of player is not puzzly, say "You don't need to call allies until you're away from the [the location of the player]." instead;
 	if noun is irrelevant, say "You don't need to call [the noun]." instead;
@@ -1129,6 +1142,8 @@ carry out calling:
 				say "You laid off the [ck] this time, but perhaps a bit too much. He had [if number of near-unguarded rooms is 1]only one place to go[else]several places to go, including [random near-unguarded room][end if].";
 			if quest-dir is secondary:
 				say "[line break]And unfortunately this [if quest-dir is stalemated]doesn't put the enemy king any more at ease[else]is not enough to put the enemy king at ease. You'll need to get them into a seemingly tougher situation, then let them slip out[end if].";
+			if enemy-self-check:
+				say "You also remember that though [second-piece of quest-dir] 'saw' his own king just now, his treachery doesn't extend to actual violence. So the [fourbyfourian] isn't really attacked.";
 			say "[line break]So things didn't quite work out, but you're able to blow it off to all involved as the sort of diplomatic meeting that inches things forward. You even put some backhanded blame on the enemy monarch for wasting YOUR king's time and not providing the sort of hospitality you expect. It doesn't really hurt them, but it does cover up your far more serious intent. So there'll be another chance. Just got to plan a bit better, next time.";
 			if quest-dir is secondary:
 				say "";
