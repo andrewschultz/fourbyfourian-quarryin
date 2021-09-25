@@ -245,7 +245,7 @@ check going when location of player is not puzzly (this is the hub check rule):
 		say "Alas, the vast lands northwest of [12b] are so unruly as to feature nonlinear borders. Some such borders are not even defined by rivers![paragraph break]Plus, they're vast enough, it'd take too long to get to their capitals. Oh, and the whole painful winters and large armies things, too." instead;
 	if noun is inside or noun is outside, continue the action;
 	if noun is unquestable, say "There's nothing to conquer to the [noun]." instead;
-	if noun is solved, say "Of course, it would be pleasant to return to the scene of your success at [q of noun]. You will, eventually. There will be a great banquet and everything, of course. And making sure the regents you installed are corrupt enough to extract taxes but not corrupt enough to hide them too much. Now is the time to grow [12b], though." instead;
+	if noun is solved, say "Of course, it would be pleasant to return to the scene of your success at [q of noun]. You will, eventually. There will be a great banquet and everything, the most unsurprising surprise party there ever was! And quite bluntly, the regents you installed need to spruce up the palace a bit. Not so much that it drains the [12b] treasury, of course.[paragraph break]So the fun can wait. There is still business." instead;
 	abide by visit-text of noun;
 	now quest-dir is noun;
 	say "[if player is in grounds]Rushing through the [ministry] with a quick good-bye, y[else]Y[end if]ou head to [cq]. [unless noun is primary and noun is unsolved]Your allies for this quest are [summary-text of noun][else]You only have [the twelvebytwelvian king] and [the first-piece of noun] with you[end if].";
@@ -1003,7 +1003,7 @@ this is the stalemate dialogue rule:
 		else:
 			abide by hard-stalemate-check of quest-dir;
 			let q2 be similar-early of quest-dir;
-			let other-guy be rival of q2;
+			let other-guy be rival of first-piece of quest-dir;
 			say "You and [the first-piece of quest-dir] corner the [ck] and manage to convince him that you're really all just about the diplomacy these days, and they'd better trust you now and in the future. It ... seems to work![paragraph break]Once back at the Ministry of Unity, you realize your plans for [q of similar-early of quest-dir] are more or less identical. But so as not to show any yellow/purple favoritism, you go through the paces with [the rival of the first-piece of quest-dir].[paragraph break]Your trips to [q of q2] and [q of quest-dir] will include [the other-guy] who is not as loyal to their King as they should be. They won't attack their own king. They'll only obstruct him. And their help should be just enough.";
 			now quest-dir is stalemated;
 			now last-solved is quest-dir;
@@ -1091,7 +1091,7 @@ this is the no-illegal-positions rule:
 	if diag-dist of Twelvebytwelvian king and Fourbyfourian king <= 1, say "You can't really place the enemy kings that close to each other. Oh, sure, they'll perform all the proper diplomacy ... but they really don't WANT to. At least, your king doesn't want to. He doesn't want his fingerprints on any ... disappearances." instead;
 
 to decide whether enemy-self-check:
-	if color of second-piece of quest-dir is black, no;
+	if color of second-piece of quest-dir is white, no;
 	let sp be second-piece of quest-dir;
 	let xdelt be absval of ((xval of location of fourbyfourian king) - (xval of location of sp));
 	let ydelt be absval of ((yval of location of fourbyfourian king) - (yval of location of sp));
@@ -1099,25 +1099,43 @@ to decide whether enemy-self-check:
 		if (xdelt is 1 and ydelt is 2) or (xdelt is 2 and ydelt is 1), yes;
 		no;
 	if sp is grey bishop:
-		if xdelt is not ydelt, no;
-		yes; [?? there are some VERY special cases where a bishop blocks the knight ]
-	no; [should never be reached]
+		let fd be from-dir of location of sp and location of fourbyfourian king;
+		let check-room be the room fd of location of sp;
+		while check-room is not nothing:
+			if number of pieces in check-room is 1:
+				if fourbyfourian king is in check-room, decide yes;
+				no;
+		no;
+	no; [this should never be reached]
+
+this is the shuffle-pieces-around rule:
+	if the player regex-prompt-consents:
+		say "You solemnly announce an unforeseen change of plans. The [noun] nods. It adds to the formality of it all. Perhaps the [cq] will be impressed or intimidated by all this procedure, making it easier to shut the trap.[paragraph break]";
+		if number of pieces in location of player is 1:
+			let rp be random piece in location of player;
+			now rp is reserved;
+			now rp is off-stage;
+		move noun to location of player;
+		now noun is placed;
+		update-guarded;
+		show-the-board;
+	else:
+		say "On second thought, [the noun] seems better positioned at [location of the noun]. For now.";
+	the rule succeeds;
 
 carry out calling:
 	if location of player is not puzzly, say "You don't need to call allies until you're away from the [the location of the player]." instead;
 	if noun is irrelevant, say "You don't need to call [the noun]." instead;
 	if noun is Fourbyfourian king and number of reserved pieces > 1, say "You will want to call [the noun] last." instead;
-	if number of pieces in location of player is 1, say "But [the random piece in location of player] is already here at [location of player]." instead;
+	if number of pieces in location of player is 1:
+		say "But [the random piece in location of player] is already here at [location of player]. Replace it with [the noun]?";
+		abide by the shuffle-pieces-around rule;
 	if noun is placed:
+		if noun is twelvebytwelvian king:
+			say "Since [the fourbyfourian] is the last person to call, replacing [the twelvebytwelvian] with him wouldn't work." instead;
+		if noun is random piece in location of player, say "It looks like you tried to call [the noun] to where he already was. If this is wrong, you may want to try being more specific." instead;
 		say "You already called [the noun] to [location of the noun]. Have them move over here?";
-		if the player regex-prompt-consents:
-			say "You solemnly announce an unforeseen change of plans. The [noun] nods. It adds to the formality of it all. Perhaps the [cq] will be impressed or intimidated by all this procedure, making it easier to shut the trap.[paragraph break]";
-			move noun to location of player;
-			update-guarded;
-			show-the-board;
-		else:
-			say "On second thought, [the noun] seems better positioned at [location of the noun]. For now.";
-		the rule succeeds;
+		abide by the shuffle-pieces-around rule;
 	say "You place [the noun] at [location of player].";
 	move noun to location of player;
 	if noun is a bishop:
