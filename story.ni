@@ -209,7 +209,8 @@ check exiting (this is the blanket exit rule):
 			let D be a random unsolved direction;
 			say "Only one direction to go out: [D]. So you do.";
 			try going D instead;
-		say "You need to specify a compass direction to go out from the Ministry of Unity." instead;
+		say "You need to specify a compass direction to go out from the Ministry of Unity.";
+		the rule succeeds;
 	say "You return to the Ministry of Unity. The conquest of [cq] can wait for later.";
 	repeat with P running through pieces:
 		now P is irrelevant;
@@ -581,7 +582,7 @@ piece-tutorial of a bishop is usually table of bishop tutorials.
 
 chapter knight
 
-a knight is a kind of piece. description of a knight is usually "Like [the rival of item described], [the item described]moves in an L, two shapes vertically and one square horizontally, or one square vertically and two squares horizontally. They can jump over anyone else to get there.[paragraph break]You were a knight once. It was such fun to be able to move in an L. But it got tiring, and you suppose you could still do it, you guess, if you had to, and you got in shape. But now you're focused on moving straight and getting to the point."
+a knight is a kind of piece. description of a knight is usually "Like [the rival of item described], [the item described] moves in an L, two shapes vertically and one square horizontally, or one square vertically and two squares horizontally. They can jump over anyone else to get there.[paragraph break]You were a knight once. It was such fun to be able to move in an L. But it got tiring, and you suppose you could still do it, you guess, if you had to, and you got in shape. But now you're focused on moving straight and getting to the point."
 
 the yellow knight is a knight. color of yellow knight is white. understand "n" and "yn" and "ny" and "n y" and "y n" and "y" and "fn" and "nf" and "f n" and "n f" and "y knight" and "yellow n" as yellow knight. "The yellow knight [waits-here].".
 
@@ -874,20 +875,29 @@ volume verbs
 chapter going to
 
 rule for supplying a missing noun when gotoing:
-	if location of player is not puzzly:
-		try going outside;
+	if location of player is grounds:
+		say "Nowhere to go but out...";
+		now noun is ministry of unity;
+	else if location of player is ministry of unity:
+		if number of not solved directions is 1:
+			now quest-dir is a random not solved direction;
+			now noun is c3;
+		else:
+			say "You'll have to be more specific, as you have more than one [4b] left to conquer. If you want to visit [the grounds], type IN.";
+			reject the player's command;
+	else:
+		say "There are twenty-four other squares here in [cq], so you'll need to be more specific.";
 		reject the player's command;
-	say "There are twenty-four other squares, so you'll need to be more specific.";
-	reject the player's command;
 
 carry out gotoing:
 	abide by the already-here rule;
-	if location of noun is not puzzly:
+	if location of noun is not puzzly and location of player is puzzly:
+		say "Just go OUT to leave [cq]." instead;
+	if location of player is not puzzly and location of noun is puzzly:
 		say "You need to travel to a Fourbyfouria to go to a specific square on its map." instead;
-	if noun is Ministry:
-		try going outside instead;
-	let bd be diag-dist of location of player and noun;
-	say "You take a [if bd is 1]brief[else if bd is 2]moderate[else if bd is 3]nice long[else]serious[end if] walk...";
+	if location of player is puzzly:
+		let bd be diag-dist of location of player and noun;
+		say "You take a [if bd is 1]brief[else if bd is 2]moderate[else if bd is 3]nice long[else]serious[end if] walk...";
 	move player to noun;
 	the rule succeeds;
 
@@ -1527,7 +1537,7 @@ chapter detailing
 
 rule for supplying a missing noun when detailing:
 	if location of player is not puzzly:
-		say "There are no specific fourth-wall technical details for [the location of the player]. You should specify a directional [4b] here or go out in the field to see more.";
+		say "There are no specific fourth-wall technical details for [the location of the player]. You should specify a directional [4b] here or go out in the field to see more. Or you can go inside, to the [grounds].";
 		reject the player's command;
 	now noun is quest-dir;
 
