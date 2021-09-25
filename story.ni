@@ -442,17 +442,21 @@ section tutorials
 to tutorial-process (tn - a table name):
 	let need-wait be false;
 	let riv be rival of noun;
+	let broke-tutorial be false;
 	now riv is placed;
 	repeat through tn:
 		if there is a the-text entry:
 			if debug-state is false and need-wait is true:
 				say "See more of the tutorial? Y means yes, and any other key means no.";
 				let Q be the chosen letter;
-				unless Q is 89 or Q is 121, break;
+				unless Q is 89 or Q is 121:
+					now broke-tutorial is true;
+					break;
 			say "[the-text entry][paragraph break]";
 			now need-wait is true;
 		move riv to the-square entry;
 		if screen-reader is false, show-one-tutorial;
+	if broke-tutorial is false, say "That's all of the tutorial for [the noun].";
 	now riv is off-stage;
 	now riv is irrelevant;
 
@@ -471,9 +475,9 @@ table of bishop tutorials
 the-square	the-text
 a1	"A bishop [in-corner] can guard only four squares."
 e3	--
-b2	"A bishop in the inner ring ([list of inner-ring rooms]) can guard six squares if it is not blocked."
+b2	"A bishop in the inner ring [list of inner-ring rooms] can guard six squares if it is not blocked."
 c4	--
-c3	"A bishop ([in-center]) can guard eight squares if not blocked."
+c3	"A bishop [in-center] can guard eight squares if not blocked."
 
 table of knight tutorials
 the-square	the-text
@@ -482,7 +486,7 @@ e4	"A knight next to the corner ([list of edgeside rooms]) can only guard three 
 a3	"A knight in the center of the edge ([list of edgecentral rooms]) can guard four squares."
 d2	"A knight at the corner of the inner ring ([list of inner-ring-corner rooms]) can guard four squares."
 d3	"A knight on the side of the inner ring ([list of inner-ring-side rooms]) can guard six squares."
-c3	"A knight ([in-center]) can guard eight squares if not blocked."
+c3	"A knight [in-center] can guard eight squares if not blocked."
 
 table of king tutorials
 the-square	the-text
