@@ -857,7 +857,7 @@ this is the corner-cleared-bare rule:
 this is the traitors-all-used rule:
 	consider the traitors-all-used-bare rule;
 	if the rule failed:
-		say "Tackling [q of noun] seems tactically unwise at the moment. You'll want to do as much as you can diplomatically. You still have [if number of solved directions is 3]a traitor[else]traitors[end if] willing to aid you elsewhere. Once the traitors helped you, [i]then[r] you can conquer the south and east with a bit more force. So you'll wan to take care of things to the [list of primary unsolved directions] first.";
+		say "Tackling [q of noun] seems tactically unwise at the moment. You'll want to do as much as you can diplomatically. You still have [if number of solved directions is 3]a traitor[else]traitors[end if] willing to aid you elsewhere. Once the traitors have helped you, [i]then[r] you can conquer the south and east with a bit more force. So you'll wan to take care of things to the [list of primary unsolved directions] first.";
 		if fourth-wall-warn is false:
 			now fourth-wall-warn is true;
 			say "[line break]And, yes, this is totally not me saying that I believe certain [4s] are easier to conquer than others, or at least, they have more similar themes, so you'll get off to a quicker start.";
@@ -1785,7 +1785,7 @@ chapter xyzzy
 carry out xyzzying:
 	note-amusing-stuff "xyzzy";
 	if player is in Ministry of Unity:
-		say "The x-y plane provides enough challenges, thank you very much. You don't want or need to deal with 3-d visualization. Maybe some younguns with fresher brains could figure it out. Oh, and tackle the toughies in the underworld.";
+		say "The x-y plane provides enough challenges, thank you very much. You don't want or need to deal with 3-d visualization. Maybe some younguns with fresher brains could figure it out. And fresher legs. If there're any underworld monsters, I bet they're BRUTAL.";
 	else:
 		say "You wouldn't want to pick a fight with any 26-wide country, that's for sure. Also, there are no secret doors on the west side of the castle."
 
@@ -1969,7 +1969,7 @@ to print-intro:
 	wfak;
 	say "You've gotten too old and fat, I mean distinguished, to ride your super-speedy horse that served so well annexing [5b]. But you are alive, and it, alas, is not, despite the best medical attention. And you've shown your worth without it. Planning. Skill. A quick mind.  Noting the [4n] castles were, in fact, five-by-five. Indicating a need to be a part of something bigger. From there, more reasons for annexation were found. Enough to build the Ministry of Unity.";
 	wfak;
-	say "Where the final touches are laid on the plans. Four of the satellite nations have traitors, waiting for power, who will help you. The others--well, you will need to strike quickly and not be too obvious. You flip an octaroon towards the scribe who applies the finishing touches of an odd script, made just for you, called 'BASIC ENDGAME MANUAL.' And off you go!";
+	say "Where the final touches are laid on the plans. Four of the satellite nations have traitors, waiting for power, who will help you. The others--well, you will need to strike quickly and not be too obvious. You flip a doubloon (not THAT hollow) towards the scribe who applies the finishing touches of an odd script, made just for you, called 'BASIC ENDGAME MANUAL.' And off you go!";
 
 volume beta testing - not for release
 

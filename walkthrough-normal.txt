@@ -181,14 +181,14 @@ place n/w/place n/w/place k/a1/place k
 +-+-+-+-+-+
 | | | | | |
 +-+-+-+-+-+
-|K|B|B| | |
+|K| |B| | |
 +-+-+-+-+-+
-| | | | | |
+| | |B| | |
 +-+-+-+-+-+
 |k| | | | |
 +-+-+-+-+-+
 
-place b/w/place b/w/place k/a1/place k
+place b/s/place b/a3/place k/a1/place k
 
 ======================================== SOUTHEAST (bishop and knight):
 
