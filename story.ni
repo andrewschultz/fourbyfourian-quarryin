@@ -564,9 +564,11 @@ to decide whether (p1 - a piece) is immobile:
 			no;
 	yes;
 
+to say dont-attack-own: say ".[paragraph break]The [item described] sees you staring and quickly reassures you he would never attack his own king, and neither would his [4n] contempraries. But perhaps they could get in the way just enough"
+
 chapter bishop
 
-a bishop is a kind of piece. description of a bishop is usually "Like [the rival of item described], [the item described] moves diagonally across boards. They can move as far as they want until the board ends. They are also limited to squares of one color. They can't jump over anyone else."
+a bishop is a kind of piece. description of a bishop is usually "Like [the rival of item described], [the item described] moves diagonally across boards. They can move as far as they want until the board ends. They are also limited to squares of one color. They can't jump over anyone else[dont-attack-own]."
 
 the yellow bishop is a bishop. color of yellow bishop is white. understand "b" and "yb" and "by" and "y b" and "b y" and "y" and "fb" and "bf" and "b f" and "f b" and "yellow b" and "y bishop" as yellow bishop. "The yellow bishop [bishop-shuffle].".
 
@@ -582,7 +584,7 @@ piece-tutorial of a bishop is usually table of bishop tutorials.
 
 chapter knight
 
-a knight is a kind of piece. description of a knight is usually "Like [the rival of item described], [the item described] moves in an L, two shapes vertically and one square horizontally, or one square vertically and two squares horizontally. They can jump over anyone else to get there.[paragraph break]You were a knight once. It was such fun to be able to move in an L. But it got tiring, and you suppose you could still do it, you guess, if you had to, and you got in shape. But now you're focused on moving straight and getting to the point."
+a knight is a kind of piece. description of a knight is usually "Like [the rival of item described], [the item described] moves in an L, two shapes vertically and one square horizontally, or one square vertically and two squares horizontally. They can jump over anyone else to get there.[paragraph break]You were a knight once. It was such fun to be able to move in an L. But it got tiring, and you suppose you could still do it, you guess, if you had to, and you got in shape. But now you're focused on moving straight and getting to the point[dont-attack-own]."
 
 the yellow knight is a knight. color of yellow knight is white. understand "n" and "yn" and "ny" and "n y" and "y n" and "y" and "fn" and "nf" and "f n" and "n f" and "y knight" and "yellow n" as yellow knight. "The yellow knight [waits-here].".
 
@@ -1226,7 +1228,18 @@ to retreat-to-unity:
 	move player to Ministry of Unity;
 	new-quest;
 
+incident-row is a number that varies.
+
 to new-quest:
+	if quest-dir is not tried:
+		if number of tried directions is 0:
+			say "The initial reception at [cq] is a game of golf, the new sport that's swept nearby lands in the past twenty years. The [twelvebytwelvian] wins, of course, perfectly honestly. Perfectly honestly! As it should be. Your king has mandated people appreciate it, even if they are too poor to play it. But ... but ... a terrible insult occurred. Enough to remove any doubt [cq] must be conquered.[paragraph break]";
+		else:
+			say "Again, a golf game as welcome. Again, a diplomatic insult that justifies your takeover plans.You recall another insult that needs to be repaid as you visit [cq].[paragraph break]";
+		increment incident-row;
+		choose row incident-row in the table of incidents;
+		say "[incident-text entry][line break]";
+		now quest-dir is tried;
 	now quest-dir is tried;
 	reset-guard;
 	now all pieces are irrelevant;
@@ -1238,6 +1251,17 @@ to new-quest:
 	now Twelvebytwelvian King is reserved;
 	now Fourbyfourian King is reserved;
 	reset-board;
+
+table of incidents
+incident-text	rough-order
+"The [cq] did not offer the proper mid-match refreshments. An unfair advantage, considering [the twelvebytwelvian] was tired from his long journey!"	1
+"The [cq] confessed to being 'too busy' (heh) to play golf or take lessons, thus greatly lessening the joy of [the twelvebytwelvian]'s emphatic victory."	1
+"The [cq] failed to give the [twelvebytwelvian] a mulligan at a particularly tricky hole with weird hazards. Rigged!"	1
+"The [cq]'s courtiers expressed mild skepticisim that [the twelvebytwelvian] had made three holes-in-one in the past year. Losers and haters!"	1
+"The [cq] did not offer the [twelvebytwelvian] his best clubs. Of course, your porters brought better, but it's the principle of the thing."	2
+"The [cq] arranged for transport between golf holes with the dingiest pony-cart you ever saw. No gold plating at all. Sad!"	2
+"The [cq] drew more attention with his golfing outfit than [the twelvebytwelvian]."	2
+"The [cq] did not flash an enthusiastic enough thumbs-up for the post-golf match portrait with the [twelvebytwelvian]."	2
 
 to reset-board:
 	repeat with P running through pieces:
@@ -1658,8 +1682,8 @@ understand "leg" as leging.
 
 carry out leging:
 	if screen-reader is true, say "Since there are no text maps in screen reader mode, the LEG command is unfortunately of limited use." instead;
-	say "UNOCCUPIED BY ALLIES: + = guarded square, # = your location (guarded), * = your location (unguarded), - = uninhabited and unguarded.";
-	say "OCCUPIED BY ALLIES: K, B and N refer to king, bishop and knight. If they are lower-case, they are enemy or traitorous pieces.";
+	say "[b][fixed letter spacing]UNOCCUPIED BY ALLIES:[r][variable letter spacing] + = guarded square, # = your location (guarded), * = your location (unguarded), - = uninhabited and unguarded.";
+	say "[b][fixed letter spacing]OCCUPIED BY ALLIES:[r][variable letter spacing] K, B and N refer to king, bishop and knight. If they are lower-case, they are enemy or traitorous pieces.";
 	now aware-of-legend is true;
 	the rule succeeds;
 
@@ -1777,14 +1801,14 @@ carry out toggleing:
 chapter verbs
 
 carry out verbsing:
-	say "[this-game] uses a simplified parser. The main commands are the planar directions: [b]N[r], [b]S[r], [b]E[r], [b]W[r], [b]NW[r], [b]NE[r], [b]SW[r], [b]SE[r]. [b]U[r] and [b]D[r], for up and down, aren't used. [b]OUT[r] anywhere but the [ministry] returns you to the [ministry].[paragraph break]You can also ignore directions to jump to a square when you're not in the Ministry of Unity. So typing [b]a1[r] sends you to a1, etc.[paragraph break]You can also [b]CALL[r]/[b]C[r] or [b]PLACE[r]/[b]P[r] a piece, enemy or friendly. Calling a piece on the board moves it. You can also [kick] it off the board. These have abbreviations, too: [b]ABB[r] finds them.[paragraph break]Meta-verbs and options are discussed in [b]META[r] ([b]MET[r]/[b]ME[r]).[paragraph break][b]UNDO[r] is also available, though any quest should only take ";
+	say "[this-game] uses a simplified parser. The main commands are the planar directions: [b]N[r], [b]S[r], [b]E[r], [b]W[r], [b]NW[r], [b]NE[r], [b]SW[r], [b]SE[r]. [b]U[r] and [b]D[r], for up and down, aren't used. [b]OUT[r] anywhere but the [ministry] returns you to the [ministry].[paragraph break]You can also ignore directions to jump to a square when you're not in the Ministry of Unity. So typing [b]a1[r] sends you to a1, etc.[paragraph break]You can also [b]CALL[r]/[b]C[r] or [b]PLACE[r]/[b]P[r] a piece, enemy or friendly. Calling a piece already on the board moves it, and calling a piece to an occupied square removes the previous piece. You can also [kick] it off the board. These have abbreviations, too: [b]ABB[r] finds them.[paragraph break]Meta-verbs and options are discussed in [b]META[r] ([b]MET[r]/[b]ME[r]).[paragraph break][b]UNDO[r] is also available, though any quest can be solved in a maximum of seven moves.";
 	the rule succeeds;
 
 chapter xyzzy
 
 carry out xyzzying:
 	note-amusing-stuff "xyzzy";
-	if player is in Ministry of Unity:
+	if location of player is not puzzly:
 		say "The x-y plane provides enough challenges, thank you very much. You don't want or need to deal with 3-d visualization. Maybe some younguns with fresher brains could figure it out. And fresher legs. If there're any underworld monsters, I bet they're BRUTAL.";
 	else:
 		say "You wouldn't want to pick a fight with any 26-wide country, that's for sure. Also, there are no secret doors on the west side of the castle."
@@ -1931,7 +1955,7 @@ when play begins (this is the initial unchangeable options rule):
 	if the player consents:
 		now screen-reader is true;
 
-when play begins (this is the randomizing colors rule):
+when play begins (this is the randomizing game details rule):
 	if a random chance of 1 in 2 succeeds:
 		now first-piece of north is purple bishop;
 	else::
@@ -1950,6 +1974,7 @@ when play begins (this is the randomizing colors rule):
 	if a random chance of 1 in 2 succeeds:
 		now first-piece of east is purple bishop;
 		now second-piece of east is yellow bishop;
+	sort the table of incidents in rough-order order;
 
 after printing the locale description when instructions-given is false:
 	say "[bracket][b]NOTE[r]: to get you started, [b]ABOUT[r] will give general information about [this-game]. [verbs] will show common verbs, which usually have abbreviations, and [b]CHESS[r] or [b]CH[r] will give the relevant rules of chess.[close bracket][line break]";
