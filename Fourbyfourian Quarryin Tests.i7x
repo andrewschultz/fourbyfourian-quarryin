@@ -324,22 +324,21 @@ section each area arranged clockwise (primary directions first)
 
 test bvkr-s-h with "rd n/place k/s/place b/s/place k/pf". [random north or northeast hard]
 test bvkr-s-n with "rd n/w/place k/se/place b/a1/place k/pf". [random north or northeast normal]
-test nvkr-s with "rd w/place n/n/place k/a5/place k/pf". [random west or southwest no hard/normal]
-
+test nvkr-s with "rd w/place n/s/place k/a1/place k/pf". [random west or southwest no hard/normal]
 
 test bvb-s with "n/place k/s/place b/s/place k/pf". [KBvsK, stalemate]
-test bvb-c with "n/place fb/e/place k/n/n/place eb/e/place k/pf". [BvB]
+test bvb-c with "n/place b/s/place k/a2/place b/s/place k/pf". [BvB]
 test qn with "test bvb-s/test bvb-c".
 
-test bvn-s with "ne/place k/s/place b/s/place k/pf". [KBvsK, stalemate]
+test bvn-s with "ne/place k/s/place b/s/place k/pf". [KBvsK, stalemate. This is equivalent to bvb-s one on a quest but is included if we want to combine paths through.]
 test bvn-c with "ne/w/place k/n/place fb/n/place gn/w/place k/pf". [BvN]
 test qne with "test bvn-s/test bvn-c".
 
-test nvb-s with "sw/place n/n/place k/a5/place k/pf". [KNvsK, stalemate]
+test nvb-s with "sw/place n/n/place k/a1/place k/pf". [KNvsK, stalemate]
 test nvb-c with "sw/n/place fn/n/place k/sw/w/place eb/n/place k/pf". [NvB]
 test qsw with "test nvb-s/test nvb-c".
 
-test nvn-s with "w/place n/n/place k/a5/place k/pf". [KNvsK, stalemate]
+test nvn-s with "w/place n/s/place k/a1/place k/pf". [KNvsK, stalemate, for normal or hard]
 test nvn-c with "w/w/place fn/ne/place k/w/w/place en/n/place k/pf". [NvN]
 test qw with "test nvn-s/test nvn-c".
 
@@ -357,7 +356,7 @@ test bn-c-h with "se/place k/w/place n/se/place b/s/place k/pf". [KBNvK hard che
 test qse-h with "test bn-s-h/test bn-c-h".
 test qse-n with "test bn-s-n/test bn-c-n".
 
-test nn-s-h with "s/place k/sw/place n/e/e/place n/sw/place k/pf". [KNNvK hard stalemate]
+test nn-s-h with "s/place k/sw/place n/d2/place n/sw/place k/pf". [KNNvK hard stalemate]
 test nn-s-n with "s/place n/e/place n/a3/place k/a1/place k/pf". [KNNvK normal stalemate]
 test nn-c-n with "s/place n/w/place n/w/place k/a1/place k/pf". [KNNvK normal checkmate]
 test nn-c-h with "s/e/place n/w/w/w/place n/se/se/e/e/place k/w/w/place k/pf". [KNNvK hard checkmate]
@@ -366,7 +365,7 @@ test qs-n with "test nn-s-n/test nn-c-n".
 
 section big picture tests
 
-test a14h with "test bvkr-s/test nvkr-s/test bvb-c/test nvb-c/test nvn-c/test bvn-c".
+test a14h with "test bvkr-s-h/test nvkr-s/test bvb-c/test nvb-c/test nvn-c/test bvn-c".
 test a14n with "test bvkr-s-n/test nvkr-s/test bvb-c/test nvb-c/test nvn-c/test bvn-c".
 
 test a57h with "test qe-h/test qs-h/test qse-h".
