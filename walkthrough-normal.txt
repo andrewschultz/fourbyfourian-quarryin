@@ -20,39 +20,19 @@ Fourbyfourian Quarryin' is divided into seven quest zones: four where you have a
 |   |   |   |   |
 +---+---+---+---+
 
-None of the checkmate patterns in the bishop/knight vs. bishop/knight scenarios is forceable in an actual game.
-
 Some of these solutions will be rejected on hard mode. So if you play hard mode after this, be aware there is a learning curve.
 
-A key thing to note is that your king needs to do a lot of the work. It's actually slightly more powerful than the bishop and knight.
+A key thing to note is that your king needs to do a lot of the work in every quest. It's more powerful than the bishop and knight, since it can potentially restrict three of his counterpart's squares, while the bishop and knight can only restrict two.
 
 Your pieces are in capital letters. Your enemy's are in small letters. K = king, B = bishop, N = knight.
 
 Note that there are multiple solutions, rotating the board or flipping them. I went with the upper left corner for the sake of consistency, but everything should work.
 
-Also note that this walkthrough uses abbreviations a lot, since the game allows them. The game parser will be able to disambiguate most of the time. It favors reserved pieces over placed ones over irrelevant ones. But you may just find some shortcuts easier: n is knight, b is bishop, k is king. E is enemy and F is friendly, but you can also use the colors. Yellow and purple are randomly chosen for the first for quests--there are two of each--but enemies are always grey. So you can say yb or by for, say the yellow bishop, or pn or np or fn or nf for the purple knight, or gk or kg or eg or ge for the enemy king.
+Also note that this walkthrough uses abbreviations a lot, since the game allows them. The game parser will be able to disambiguate most of the time. It favors reserved pieces over placed ones over irrelevant ones and allies over enemies and traitors. Therefore, you may just find some shortcuts easier: n is knight, b is bishop, k is king. E is enemy and f is friendly, but you can also use the colors. Yellow and purple are randomly chosen for the first for quests--there are two of each--but enemies are always grey. So you can say yb or by or y b or b y for, say the yellow bishop, or pn or np or fn or nf for the purple knight. For the kings, no abbreviation is needed, since the enemy king must be placed last.
 
-You can even risk one-letter abbreviations to save keystrokes. FQ tries to guess what you mean. For instance, c b or p b both place your bishop, assuming there is only one. You can even use just c or p to call or place the final piece (always the Fourbyfourian King) or second-final piece (whoever's not the Fourbyfourian King).
+You can even risk one-letter abbreviations to save keystrokes. FQ tries to guess what you mean. For instance, c b or p b both place your bishop, as it takes priority over the enemy bishop, and when you have two bishops, the game just picks randomly. You can even use just c or p to call or place the final piece (always the Fourbyfourian King) or second-final piece (whoever's not the Fourbyfourian King).
 
-Note you only have to perform each stalemate below once. Once you do, you'll need to perform a checkmate next.
-
-======================================== NORTH/NORTHEAST STALEMATES (king and bishop vs. king):
-
-Similarly, you can guard the opposing king's flight square with your bishop, just as with your knight. You need to find a new way in hard mode, because that requires thinking of alternate solutions.
-
-+-+-+-+-+-+
-| | | | | |
-+-+-+-+-+-+
-| | | | | |
-+-+-+-+-+-+
-| |B| | | |
-+-+-+-+-+-+
-| | |K| | |
-+-+-+-+-+-+
-|k| | | | |
-+-+-+-+-+-+
-
-w/place b/se/place k/a1/place k
+First, the stalemates. Note you only have to perform each stalemate below once, since your allies in the north/northeast and west/southwest are equivalent. Once you do, you'll need to perform a checkmate next.
 
 ======================================== WEST/SOUTHWEST STALEMATES (king and knight vs. king):
 
@@ -74,57 +54,27 @@ This is not the only solution. There are rotations and mirrors, and the knight h
 
 place n/s/place k/a1/place k
 
-======================================== NORTH (bishop vs. bishop):
+Now ahead are checkmates that would never happen in practical play unless a player wanted to lose deliberately.
+
+======================================== NORTH/NORTHEAST STALEMATES (king and bishop vs. king):
+
+Similarly to the king-and-knight stalemate, the bishop can guard the square your king can't.
 
 +-+-+-+-+-+
 | | | | | |
 +-+-+-+-+-+
 | | | | | |
 +-+-+-+-+-+
-| | |B| | |
+| |B| | | |
 +-+-+-+-+-+
-|b| |K| | |
+| | |K| | |
 +-+-+-+-+-+
 |k| | | | |
 +-+-+-+-+-+
 
-As before, you need to give check, and while the bishop can guard one flight square, it leaves two squares your king can't guard both of. So you still need help from the opposing bishop. Here, your king has a choice of two squares, since the bishop can't check it, and your bishop has a choice of four squares to give mate.
+w/place b/se/place k/a1/place k
 
-Note that you place your allies first, so your yellow or purple bishop drops with "place b," after which you then place the grey bishop with "place b."
-
-place b/s/a2/place b/s/place k
-
-======================================== NORTHEAST (bishop vs. knight):
-
-+-+-+-+-+-+
-| | | | | |
-+-+-+-+-+-+
-| | | |B| |
-+-+-+-+-+-+
-| | | | | |
-+-+-+-+-+-+
-|n| |K| | |
-+-+-+-+-+-+
-|k| | | | |
-+-+-+-+-+-+
-
-The above seems like it should work, but it doesn't! The knight can block. Similarly if the bishop is in the center, though the knight then can take. The bishop needs to be kitty-corner from the enemy king.
-
-+-+-+-+-+-+
-| | | | | |
-+-+-+-+-+-+
-| | | | | |
-+-+-+-+-+-+
-| | | | | |
-+-+-+-+-+-+
-|n|B|K| | |
-+-+-+-+-+-+
-|k| | | | |
-+-+-+-+-+-+
-
-Everyone has to be packed in here.
-
-s/place k/w/place b/w/place n/s/place k.
+You're now given a pass on stalemates for the two areas you didn't visit, because you have identical allies in, say, the north and northeast, and repetition can be boring. So, on to the checkmates. Note that you need to make sure the traitorous piece is not attacking your king in your solution. There are no potential surprises with the knights, so let's tackle them first.
 
 ======================================== SOUTHWEST (knight vs. bishop):
 
@@ -161,6 +111,58 @@ You can again use process of elimination for this: the king in the corner has 3 
 +-+-+-+-+-+
 
 So one solution is s/place k/nw/place n/sw/place n/s/place k.
+
+======================================== NORTH (bishop vs. bishop):
+
++-+-+-+-+-+
+| | | | | |
++-+-+-+-+-+
+| | | | | |
++-+-+-+-+-+
+| | |B| | |
++-+-+-+-+-+
+|b| |K| | |
++-+-+-+-+-+
+|k| | | | |
++-+-+-+-+-+
+
+As before, you need to give check, and while the bishop can guard one flight square, it leaves two squares your king can't guard both of. So you still need help from the opposing bishop. Here, your king has a choice of two squares, since the bishop can't check it, and your bishop has a choice of four squares to give mate.
+
+Note that you place your allies first, so your yellow or purple bishop drops with "place b," after which you then place the grey bishop with "place b."
+
+place b/s/place k/a2/place b/s/place k
+
+======================================== NORTHEAST (bishop vs. knight):
+
+First, a detour to something that looks good but doesn't quite work:
+
++-+-+-+-+-+
+| | | | | |
++-+-+-+-+-+
+| | | |B| |
++-+-+-+-+-+
+| | | | | |
++-+-+-+-+-+
+|n| |K| | |
++-+-+-+-+-+
+|k| | | | |
++-+-+-+-+-+
+
+Here, the knight can block. Similarly, if the bishop is in the center, the knight can just take it. The bishop, despite being a ranged piece, needs to be kitty-corner from the enemy king.
+
++-+-+-+-+-+
+| | | | | |
++-+-+-+-+-+
+| | | | | |
++-+-+-+-+-+
+| | | | | |
++-+-+-+-+-+
+|n|B|K| | |
++-+-+-+-+-+
+|k| | | | |
++-+-+-+-+-+
+
+s/place k/w/place b/w/place n/s/place k.
 
 Now you need to checkmate with two pieces. I'll put in a spoiler of how to do things at the end, but a semi-spoiler is: the three solutions are all very similar!
 
