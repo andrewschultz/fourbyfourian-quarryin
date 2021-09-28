@@ -1,4 +1,6 @@
-Fourbyfourian Quarryin' is divided into seven quest zones: four where you have an enemy ally and three where you have two allies. The third and final quest zone may seem arbitrary, but ... people who've seen the basics of chess endgames know that forcing checkmate with two knights is impossible without cooperation. So I considered it the toughest.
+This is the normal-mode walkthrough for Fourbyfourian Quarryin'. IF you are downloading from ifcomp.org, note that the hard-mode walkthrough is contained in the ZIP file along with this normal walkthrough.
+
+Fourbyfourian Quarryin' is divided into seven quest zones: four where you have an enemy ally and three where you have two allies. The Fourbyfourias are arranged so there are bishops on the south and knights on the east.
 
 +-----------+---+
 |           | N |
@@ -18,21 +20,39 @@ Fourbyfourian Quarryin' is divided into seven quest zones: four where you have a
 |   |   |   |   |
 +---+---+---+---+
 
-The checkmate patterns for the bishop-and-(bishop or knight) areas are not forceable, but I found them interesting, and I hope you do too. Anyone who can checkmate with two bishops or bishop and knight is likely more than pretty good at chess.
+The checkmate patterns for the bishop-and-(bishop or knight) areas are not forceable in an actual game, but I found them interesting, and I hope you do too. Anyone who can checkmate with two bishops or bishop and knight is likely more than pretty good at chess.
 
-You may have some of your solutions rejected. I'll try to detail why without spoiling too much.
+On hard mode, you may have some of your solutions rejected. I'll try to detail why without spoiling too much.
 
-There's no real relation between actual directions and puzzles. Just that they roughly get more difficult as you go east or south.
-
-A key thing to note is that the piece giving check may be able to block off a square or two, but your king will need to do the rest of the work.
+A key thing to note is that your king needs to do a lot of the work. It's actually slightly more powerful than the bishop and knight.
 
 Your pieces are in capital letters. Your enemy's are in small letters. K = king, B = bishop, N = knight.
 
-Note that there are multiple solutions, rotating the board or flipping them. I went with the upper left corner.
+Note that there are multiple solutions, rotating the board or flipping them. I went with the upper left corner for the sake of consistency, but everything should work.
 
 Also note that this walkthrough uses abbreviations a lot, since the game allows them. The game parser will be able to disambiguate most of the time. It favors reserved pieces over placed ones over irrelevant ones. But you may just find some shortcuts easier: n is knight, b is bishop, k is king. E is enemy and F is friendly, but you can also use the colors. Yellow and purple are randomly chosen for the first for quests--there are two of each--but enemies are always grey. So you can say yb or by for, say the yellow bishop, or pn or np or fn or nf for the purple knight, or gk or kg or eg or ge for the enemy king.
 
-You can even risk one-letter abbreviations, and you can still force disambiguation questions, but hopefully that's only if you're trying to.
+You can even risk one-letter abbreviations to save keystrokes. FQ tries to guess what you mean. For instance, c b or p b both place your bishop, assuming there is only one. You can even use just c or p to call or place the final piece (always the Fourbyfourian King) or second-final piece (whoever's not the Fourbyfourian King).
+
+Note you only have to perform each stalemate below once. Once you do, you'll need to perform a checkmate next.
+
+======================================== NORTH/NORTHEAST STALEMATES (king and bishop vs. king):
+
+Similarly, you can guard the opposing king's flight square with your bishop, just as with your knight. You need to find a new way in hard mode, because that requires thinking of alternate solutions.
+
++-+-+-+-+-+
+| | | | | |
++-+-+-+-+-+
+| | | | | |
++-+-+-+-+-+
+| |B| | | |
++-+-+-+-+-+
+| | |K| | |
++-+-+-+-+-+
+|k| | | | |
++-+-+-+-+-+
+
+w/place b/se/place k/a1/place k
 
 ======================================== WEST/SOUTHWEST STALEMATES (king and knight vs. king):
 
@@ -41,57 +61,41 @@ The idea here is that you need to trap the enemy king without attacking him. If 
 This is not the only solution. There are rotations and mirrors, and the knight has two squares, and your king can be in one of two squares as well. But this is the general idea.
 
 +-+-+-+-+-+
-|k| |K| | |
+| | | | | |
 +-+-+-+-+-+
 | | | | | |
 +-+-+-+-+-+
 | | |N| | |
 +-+-+-+-+-+
-| | | | | |
+| | |K| | |
 +-+-+-+-+-+
-| | | | | |
+|k| | | | |
 +-+-+-+-+-+
 
-======================================== NORTH/NORTHEAST STALEMATES (king and bishop vs. king):
-
-Similarly, you can guard the opposing king's flight square with your bishop, just as with your knight. You need to find a new way in hard mode.
-
-+-+-+-+-+-+
-|k| |K| | |
-+-+-+-+-+-+
-| | | | | |
-+-+-+-+-+-+
-| |B| | | |
-+-+-+-+-+-+
-| | | | | |
-+-+-+-+-+-+
-| | | | | |
-+-+-+-+-+-+
+place n/s/place k/a1/place k
 
 ======================================== NORTH (bishop vs. bishop):
 
 +-+-+-+-+-+
-|k| | | | |
+| | | | | |
 +-+-+-+-+-+
-|b| |K| | |
+| | | | | |
 +-+-+-+-+-+
 | | |B| | |
 +-+-+-+-+-+
-| | | | | |
+|b| |K| | |
 +-+-+-+-+-+
-| | | | | |
+|k| | | | |
 +-+-+-+-+-+
 
 As before, you need to give check, and while the bishop can guard one flight square, it leaves two squares your king can't guard both of. So you still need help from the opposing bishop. Here, your king has a choice of two squares, since the bishop can't check it, and your bishop has a choice of four squares to give mate.
 
-So one solution is place fb/n/place k/a4/place b/n/place k.
+Note that you place your allies first, so your yellow or purple bishop drops with "place b," after which you then place the grey bishop with "place b."
+
+place b/s/a2/place b/s/place k
 
 ======================================== NORTHEAST (bishop vs. knight):
 
-+-+-+-+-+-+
-|k| | | | |
-+-+-+-+-+-+
-|n| |K| | |
 +-+-+-+-+-+
 | | | | | |
 +-+-+-+-+-+
@@ -99,64 +103,70 @@ So one solution is place fb/n/place k/a4/place b/n/place k.
 +-+-+-+-+-+
 | | | | | |
 +-+-+-+-+-+
+|n| |K| | |
++-+-+-+-+-+
+|k| | | | |
++-+-+-+-+-+
 
 The above seems like it should work, but it doesn't! The knight can block. Similarly if the bishop is in the center, though the knight then can take. The bishop needs to be kitty-corner from the enemy king.
 
 +-+-+-+-+-+
-|k| | | | |
+| | | | | |
++-+-+-+-+-+
+| | | | | |
++-+-+-+-+-+
+| | | | | |
 +-+-+-+-+-+
 |n|B|K| | |
 +-+-+-+-+-+
-| | | | | |
-+-+-+-+-+-+
-| | | | | |
-+-+-+-+-+-+
-| | | | | |
+|k| | | | |
 +-+-+-+-+-+
 
-Everyone has to be packed in here, but that makes the solution a bit quicker.
+Everyone has to be packed in here.
 
-So one solution is n/place k/w/place b/w/place n/n/place k.
+s/place k/w/place b/w/place n/s/place k.
 
 ======================================== SOUTHWEST (knight vs. bishop):
 
 You may note that the king in the corner only has three squares to move to. Elsewhere he has at least five. So you want to put him there and then leave no escape squares. Your king can guard two squares, but your knight can't guard any if it is giving check. That means the bishop has to block a square. If the bishop is next to the king, that eliminates one square where the knight gives check. With the knight placed, there's only one square for your king that adequately blocks the opponent's king.
 
 +-+-+-+-+-+
-|k| |K| | |
+| | | | | |
++-+-+-+-+-+
+| | | | | |
++-+-+-+-+-+
+| | | | | |
 +-+-+-+-+-+
 |b| |N| | |
 +-+-+-+-+-+
-| | | | | |
-+-+-+-+-+-+
-| | | | | |
-+-+-+-+-+-+
-| | | | | |
+|k| |K| | |
 +-+-+-+-+-+
 
-So one solution is n/place n/n/place k/a4/place b/n/place k.
+The solution above arises from s/place n/s/place k/a2/place b/s/place k.
 
 ======================================== WEST (knight vs. knight):
 
 You can again use process of elimination for this: the king in the corner has 3 squares. Your king can guard two. The knight can't guard any. So the enemy knight has to block one square. But when it does, it makes one of the squares for your king impossible. Since that square is a knight's move away, you need your knight on the other square.
 
 +-+-+-+-+-+
-|k| | | | |
+| | | | | |
 +-+-+-+-+-+
-|n| |K| | |
+| | | | | |
 +-+-+-+-+-+
 | |N| | | |
 +-+-+-+-+-+
-| | | | | |
+|n| |K| | |
 +-+-+-+-+-+
-| | | | | |
+|k| | | | |
 +-+-+-+-+-+
 
-So one solution is n/place k/sw/place fn/nw/place n/n/place k.
+So one solution is s/place k/nw/place n/sw/place n/s/place k.
 
 Now you need to checkmate with two pieces. I'll put in a spoiler of how to do things at the end, but a semi-spoiler is: the three solutions are all very similar!
 
 On hard mode, you need to stalemate the king on the edge of the board (not the corner) and checkmate him too.
+
+The basic trick to keep it simple in normal mode is to proceed as before when you stalemated, then drop in a piece to check the enemy king.
 
 ======================================== SOUTH (two knights):
 
@@ -188,7 +198,7 @@ place n/w/place n/w/place k/a1/place k
 |k| | | | |
 +-+-+-+-+-+
 
-place b/s/place b/a3/place k/a1/place k
+place b/s/place b/a3/place k/a5/place k
 
 ======================================== SOUTHEAST (bishop and knight):
 
@@ -204,11 +214,11 @@ place b/s/place b/a3/place k/a1/place k
 |k| | | | |
 +-+-+-+-+-+
 
-place b/w/place k/w/place n/a1/place k
+place b/w/place k/w/place n/a5/place k
 
 This one is a bit different, as the kings are a knight's move away. But it provides the same routine with place, W, place, W, place, a1, place.
 
-If you want to keep them two squares away, this works:
+An alternate solution, since this is the final puzzle, is as follows:
 
 +-+-+-+-+-+
 | | | | | |
@@ -222,6 +232,7 @@ If you want to keep them two squares away, this works:
 |k| | | | |
 +-+-+-+-+-+
 
-You have won on normal mode!
+In this case, w/place n/w/place k/n/place b/n/place k
 
-The basic trick to keep it simple in normal mode is to proceed as before when you stalemated, then drop in a piece to check the enemy king.
+Congratulations! You have won on normal mode!
+
