@@ -66,10 +66,10 @@ section scoring
 check requesting the score:
 	say "This game doesn't keep a score, but to track your progress, you've helped 'reunite' [number of solved directions] of [number of questable directions] [4s] so far[if number of solved directions > 0]: [list of solved directions][end if][if number of stalemated directions > 0].[paragraph break]You've gained the trust of [trusted-kings], as well[end if][one of].[paragraph break]This is all tracked in the upper-right status bar[or][stopping].";
 	if debug-state is true:
-		say "=============[line break]";
+		say "=============DEBUG DETAILS[line break]";
 		say "Normal checkmates: [list of normal-checkmated directions].";
 		say "Hard checkmates: [list of hard-checkmated directions].";
-		say "=============[line break]";
+		say "=============DEBUG DETAILS[line break]";
 		say "Normal stalemates: [list of normal-stalemated directions].";
 		say "Hard stalemates: [list of hard-stalemated directions].";
 	the rule succeeds;
@@ -408,7 +408,7 @@ rule for printing the locale description when map-view is true and location of p
 chapter c3 explaining 4 vs 5
 
 after printing the locale description for c3 when c3 is unvisited:
-	say "It has not escaped your notice that the castle was, in fact, five by five and not four by four as you expected. There are a few ways to spin this.[paragraph break]First, the [4s] are getting too big for their britches by having such a huge castle. Perhaps the increased size is a subconscious desire to be assimilated as [5b] was. They may be signaling they are worth taking over. Second, they are expressing a general need to be a part of something bigger, as they know you wouldn't just cede them territory for jollies. Third, you detect signs of disuse in the castle, a sign they can't take care of themselves here and need a little law and order.[paragraph break]Of course, if the castle were too small, perhaps the size of a [12n] baron's, it would be a sign [cq] knew they were inferior.[paragraph break]Oh, there's a fourth more technical reason I couldn't quite give four-by-four castles. You can see it with [fofiv]. It may be slightly spoilery.";
+	say "[line break]It has not escaped your notice that the castle was, in fact, five by five and not four by four as you expected. You can review the likely reasons why with [45][if hard-mode is true], which may be slightly spoilery[end if].";
 	say "[line break]Technical note(s): ";
 	if player-knows-toggle is true:
 		say "You already know about [tog], but just in case, it can change between text maps and text descriptions.";
@@ -859,7 +859,7 @@ this is the corner-cleared-bare rule:
 this is the traitors-all-used rule:
 	consider the traitors-all-used-bare rule;
 	if the rule failed:
-		say "Tackling [q of noun] seems tactically unwise at the moment. You'll want to do as much as you can diplomatically. You still have [if number of solved directions is 3]a traitor[else]traitors[end if] willing to aid you elsewhere. Once the traitors have helped you, [i]then[r] you can conquer the south and east with a bit more force. So you'll wan to take care of things to the [list of primary unsolved directions] first.";
+		say "Tackling [q of noun] seems tactically unwise at the moment. You'll want to do as much as you can diplomatically. You still have [if number of solved directions is 3]a traitor[else]traitors[end if] willing to aid you elsewhere. Once the traitors have helped you, [i]then[r] you can conquer the south and east with a bit more force. So you'll want to take care of things to the [list of primary not solved directions] first.";
 		if fourth-wall-warn is false:
 			now fourth-wall-warn is true;
 			say "[line break]And, yes, this is totally not me saying that I believe certain [4s] are easier to conquer than others, or at least, they have more similar themes, so you'll get off to a quicker start.";
@@ -1066,7 +1066,7 @@ to open-new-areas:
 	if number of solved directions is 4:
 		say "A panel of distinguished barons and earls is waiting for you back at the Ministry. There is backslapping and tallyhoing for a while before everyone immediately yells at each other that it's time to get serious. And you do.[paragraph break]Unfortunately, the governments of both East and [q of south] were packed with loyalists. So you will have to bring an extra ally along. Once you do, you will have a passage to [q of southeast].";
 		if hard-mode is false:
-			say "[line break]Though you don't need two allies at first for the basic diplomatic procedure that you quickly stalemate the East and [k of south] to gain their trust.";
+			say "[line break]However, you've already gone through the steps of stalemating a king to gain his trust, so we'll skip your initial trips to [q of south] and [q of east] and, when it opens up, [q of southeast].";
 			now all secondary directions are stalemate-bypassed;
 			now all secondary directions are stalemated;
 	else if number of solved directions is 5:
@@ -1216,8 +1216,9 @@ to calculate-ending:
 			continue the action;
 		let L be the list of nonoptimal directions;
 		say "You could have found more unique solutions to the [L].";
-		repeat with D running through L:
-			say "[D] [whether or not D is hard-stalemated] [whether or not D is hard-checkmated].";
+		if debug-state is true:
+			repeat with D running through L:
+				say "[D] [whether or not D is hard-stalemated] [whether or not D is hard-checkmated].";
 
 definition: a direction (called d) is nonoptimal:
 	if d is normal-stalemated, yes;
@@ -1232,10 +1233,11 @@ incident-row is a number that varies.
 
 to new-quest:
 	if quest-dir is not tried:
+		say "[line break]";
 		if number of tried directions is 0:
-			say "The initial reception at [cq] is a game of golf, the new sport that's swept nearby lands in the past twenty years. The [twelvebytwelvian] wins, of course, perfectly honestly. Perfectly honestly! As it should be. Your king has mandated people appreciate it, even if they are too poor to play it. But ... but ... a terrible insult occurred. Enough to remove any doubt [cq] must be conquered.[paragraph break]";
+			say "The initial reception at [cq] is a game of golf, the new sport that's swept nearby lands in the past twenty years. The [twelvebytwelvian] wins, of course, perfectly honestly. Perfectly honestly! As it should be. Your king has mandated his own citizens appreciate it, even if they are too poor to play it. But ... but ... a terrible insult occurred. Enough to remove any doubt [cq] must be conquered.[paragraph break]";
 		else:
-			say "Again, a golf game as welcome. Again, a diplomatic insult that justifies your takeover plans.You recall another insult that needs to be repaid as you visit [cq].[paragraph break]";
+			say "Again, a golf game as welcome. Again, an unforgiveable diplomatic insult that fully justifies your takeover plans for [cq]![paragraph break]";
 		increment incident-row;
 		choose row incident-row in the table of incidents;
 		say "[incident-text entry][line break]";
@@ -1254,14 +1256,14 @@ to new-quest:
 
 table of incidents
 incident-text	rough-order
-"The [cq] did not offer the proper mid-match refreshments. An unfair advantage, considering [the twelvebytwelvian] was tired from his long journey!"	1
-"The [cq] confessed to being 'too busy' (heh) to play golf or take lessons, thus greatly lessening the joy of [the twelvebytwelvian]'s emphatic victory."	1
-"The [cq] failed to give the [twelvebytwelvian] a mulligan at a particularly tricky hole with weird hazards. Rigged!"	1
-"The [cq]'s courtiers expressed mild skepticisim that [the twelvebytwelvian] had made three holes-in-one in the past year. Losers and haters!"	1
-"The [cq] did not offer the [twelvebytwelvian] his best clubs. Of course, your porters brought better, but it's the principle of the thing."	2
-"The [cq] arranged for transport between golf holes with the dingiest pony-cart you ever saw. No gold plating at all. Sad!"	2
-"The [cq] drew more attention with his golfing outfit than [the twelvebytwelvian]."	2
-"The [cq] did not flash an enthusiastic enough thumbs-up for the post-golf match portrait with the [twelvebytwelvian]."	2
+"The [ck] offered frou-frou vegetables and fruits instead of the proper mid-match refreshments. An unfair advantage, considering [the twelvebytwelvian] was tired from his long journey!"	1
+"The [ck] confessed to being 'too busy' (heh) to play golf or take lessons, thus greatly lessening the joy of [the twelvebytwelvian]'s emphatic victory."	1
+"The [ck] failed to give the [twelvebytwelvian] a mulligan at a particularly tricky hole with weird hazards. Rigged!"	1
+"The [ck]'s courtiers expressed mild skepticisim that [the twelvebytwelvian] had made three holes-in-one in the past year. Losers and haters!"	1
+"The [ck] did not offer the [twelvebytwelvian] his best clubs. Of course, your porters brought better, but it's the principle of the thing."	2
+"The [ck] arranged for transport between golf holes with the dingiest pony-cart you ever saw. No gold plating at all. Sad!"	2
+"The [ck] drew more attention with his golfing outfit than [the twelvebytwelvian]."	2
+"The [ck] did not flash an enthusiastic enough thumbs-up for the post-golf match portrait with [the twelvebytwelvian]."	2
 
 to reset-board:
 	repeat with P running through pieces:
@@ -1639,7 +1641,8 @@ understand "45" as forfiving.
 understand "54" as forfiving.
 
 carry out forfiving:
-	say "So, here's why the [4n] castles are the size they are.[paragraph break]I wanted to make the castles four-by-four, but then there's no center to dump you in. I had a similar problem with Threediopolis that I skated on until Jenni Polodna noticed 444 wasn't the center of a 10x10x10 cube. It just didn't feel right dumping you in an almost-center or a corner to start.[paragraph break]I also think having a bit more space works a bit better, and it allowed for me to require conceptually different solutions for the southeastern [4s] in hard mode. The downside may be that, with more space, there may be too many options, even in normal mode.";
+	say "Here are the in-game reasons the [4n] castles are five-by-five and not four-by-four: first, the [4s] are getting too big for their britches by having such a huge castle. Perhaps the increased size is a subconscious desire to be assimilated as [5b] was. They may be signaling they are worth taking over. Second, they are expressing a general need to be a part of something bigger, as they know you wouldn't just cede them territory for jollies. Third, you detect signs of disuse in the castle, a sign they can't take care of themselves here and need a little law and order.[paragraph break]Of course, if the castle were too small, perhaps the size of a [12n] baron's, it would be a sign [cq] knew they were inferior.[paragraph break]Oh, there's a fourth more technical reason I couldn't quite give four-by-four castles. You can see it with [fofiv]. It may be slightly spoilery.";
+	say "[line break]Oh, here's the fourth-wall reason why the [4n] castles are the size they are.[paragraph break]I wanted to make the castles four-by-four, but then there's no center to dump you in. I had a similar problem with Threediopolis that I skated on until Jenni Polodna noticed 444 wasn't the center of a 10x10x10 cube. It just didn't feel right dumping you in an almost-center or a corner to start.[paragraph break]I also think having a bit more space works a bit better, and it allowed for me to require conceptually different solutions for the southeastern [4s] in hard mode. The downside may be that, with more space, there may be too many options, even in normal mode.";
 	the rule succeeds;
 
 chapter hinting
@@ -1683,7 +1686,7 @@ understand "leg" as leging.
 carry out leging:
 	if screen-reader is true, say "Since there are no text maps in screen reader mode, the LEG command is unfortunately of limited use." instead;
 	say "[b][fixed letter spacing]UNOCCUPIED BY ALLIES:[r][variable letter spacing] + = guarded square, # = your location (guarded), * = your location (unguarded), - = uninhabited and unguarded.";
-	say "[b][fixed letter spacing]OCCUPIED BY ALLIES:[r][variable letter spacing] K, B and N refer to king, bishop and knight. If they are lower-case, they are enemy or traitorous pieces.";
+	say "[b][fixed letter spacing]  OCCUPIED BY ALLIES:[r][variable letter spacing] K, B and N refer to king, bishop and knight. If they are lower-case, they are enemy or traitorous pieces.";
 	now aware-of-legend is true;
 	the rule succeeds;
 

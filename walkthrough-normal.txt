@@ -92,9 +92,11 @@ As before, you need to give check, and while the bishop can guard one flight squ
 
 Note that you place your allies first, so your yellow or purple bishop drops with "place b," after which you then place the grey bishop with "place b."
 
-place b/s/a2/place b/s/place k
+place b/s/place k/a2/place b/s/place k
 
 ======================================== NORTHEAST (bishop vs. knight):
+
+First, a detour:
 
 +-+-+-+-+-+
 | | | | | |
