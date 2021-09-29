@@ -3,11 +3,25 @@ files=walkthrough-hard.txt,walkthrough-normal.txt
 ~	hard	t0
 ~	norm	t1
 @norm
-This is the normal-mode walkthrough for Fourbyfourian Quarryin'. IF you are downloading from ifcomp.org, note that the hard-mode walkthrough is contained in the ZIP file along with this normal walkthrough.
+This is the normal-mode walkthrough for Fourbyfourian Quarryin'. It looks to show the simplest ways through normal mode, elimnating discussion of any hard-mode puzzles, in case you want to revisit later. For just the moves, consult the superbrief walkthrough.
 @!
-This is the hard-mode walkthrough for Fourbyfourian Quarryin'. IF you are downloading from ifcomp.org, note that the hard-mode walkthrough is contained in the ZIP file along with this normal walkthrough.
+This is the hard-mode walkthrough for Fourbyfourian Quarryin'. If you are not comfortable with tricky puzzles or how chess pieces move, you may wish to see the normal-mode walkthrough or even the superbrief one that should be included in a ZIP file with these explanatory walkthroughs.
 
-Fourbyfourian Quarryin' is divided into seven quest zones: four where you have an enemy ally and three where you have two allies. The Fourbyfourias are arranged so there are bishops on the south and knights on the east.
+Here are some initial pointers as well as conventions for the walkthrough.
+
+For each area, you need to stalemate the enemy king (corner him without a legal move, but he is not attacked) and then checkmate him (attack him so he has no legal moves). However, in cases where a stalemate puzzle would be identical or redundant, the game skips over it and gives you credit for puzzles you've already solved.
+
+A key thing to note is that your king needs to do a lot of the work in every quest. It's more powerful than the bishop and knight, since it can potentially restrict three of his counterpart's squares, while the bishop and knight can only restrict two.
+
+Your pieces are in capital letters. Your enemy's are in small letters. K = king, B = bishop, N = knight.
+
+Note that there are multiple solutions, rotating the board or flipping them. I went with the upper left corner for the sake of consistency, but everything should work.
+
+Also note that this walkthrough uses abbreviations a lot, since the game allows them. The game parser will be able to disambiguate most of the time. It favors reserved pieces over placed ones over irrelevant ones and allies over enemies and traitors. Therefore, you may just find some shortcuts easier: n is knight, b is bishop, k is king. E is enemy and f is friendly, but you can also use the colors. Yellow and purple are randomly chosen for the first for quests--there are two of each--but enemies are always grey. So you can say yb or by or y b or b y for, say the yellow bishop, or pn or np or fn or nf for the purple knight. For the kings, no abbreviation is needed, since the enemy king must be placed last.
+
+You can even risk one-letter abbreviations to save keystrokes. FQ tries to guess what you mean. For instance, c b or p b both place your bishop, as it takes priority over the enemy bishop, and when you have two bishops, the game just picks randomly. You can even use just c or p to call or place the final piece (always the Fourbyfourian King) or second-final piece (whoever's not the Fourbyfourian King).
+
+Fourbyfourian Quarryin' is divided into seven quest zones: four where you have an enemy ally and three where you have two allies. The Fourbyfourias are arranged so there are always bishop allies in each southern conquest and knight allies in each eastern conquest.
 
 +-----------+---+
 |           | N |
@@ -32,17 +46,7 @@ Some of these solutions will be rejected on hard mode. So if you play hard mode 
 @!
 All of these solutions will work to solve normal mode. However, if you wish to solve normal mode, you may wish to see the normal mode walkthrough first, because its solutions are simpler and more intuitive.
 
-A key thing to note is that your king needs to do a lot of the work in every quest. It's more powerful than the bishop and knight, since it can potentially restrict three of his counterpart's squares, while the bishop and knight can only restrict two.
-
-Your pieces are in capital letters. Your enemy's are in small letters. K = king, B = bishop, N = knight.
-
-Note that there are multiple solutions, rotating the board or flipping them. I went with the upper left corner for the sake of consistency, but everything should work.
-
-Also note that this walkthrough uses abbreviations a lot, since the game allows them. The game parser will be able to disambiguate most of the time. It favors reserved pieces over placed ones over irrelevant ones and allies over enemies and traitors. Therefore, you may just find some shortcuts easier: n is knight, b is bishop, k is king. E is enemy and f is friendly, but you can also use the colors. Yellow and purple are randomly chosen for the first for quests--there are two of each--but enemies are always grey. So you can say yb or by or y b or b y for, say the yellow bishop, or pn or np or fn or nf for the purple knight. For the kings, no abbreviation is needed, since the enemy king must be placed last.
-
-You can even risk one-letter abbreviations to save keystrokes. FQ tries to guess what you mean. For instance, c b or p b both place your bishop, as it takes priority over the enemy bishop, and when you have two bishops, the game just picks randomly. You can even use just c or p to call or place the final piece (always the Fourbyfourian King) or second-final piece (whoever's not the Fourbyfourian King).
-
-First, the stalemates. Note you only have to perform each stalemate below once, since your allies in the north/northeast and west/southwest are equivalent. Once you do, you'll need to perform a checkmate next.
+First, the stalemates. Note you only have to perform each stalemate below once, since your allies in the north/northeast and west/southwest are equivalent. Once you stalemate, you'll need to perform a checkmate next.
 
 ~======================================= WEST/SOUTHWEST STALEMATES (king and knight vs. king):
 
