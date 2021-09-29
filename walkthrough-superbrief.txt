@@ -1,0 +1,43 @@
+This is a quick and dirty walkthrough for Fourbyfouria normal and hard modes, without any explanations.
+
+Knight stalemate:
+place n/s/place k/a1/place k
+
+Bishop stalemate, normal mode:
+w/place b/se/place k/a1/place k
+Bishop stalemate, hard mode:
+place k/s/place b/s/place k
+
+Knight vs. knight checkmate, west:
+s/place k/nw/place n/sw/place n/s/place k
+Knight vs. bishop checkmate, southwest:
+s/place n/s/place k/a2/place b/s/place k
+Bishop vs. bishop checkmate, north:
+place b/s/place k/a2/place b/s/place k
+Bishop vs. knight checkmate, northeast:
+s/place k/w/place b/w/place n/s/place k.
+
+There are several alternate solutions below. I'll go with the ones I used in my Inform sanity-test code.
+
+Two knights checkmate, south, normal:
+place n/w/place n/w/place k/a1/place k
+Two bishops checkmate, east, normal:
+place b/s/place b/a3/place k/a5/place k
+Bishop and knight checkmate, southeast, normal:
+place b/w/place k/w/place n/a5/place k
+
+Two knights stalemate, south, hard:
+place k/sw/place n/d2/place n/sw/place k
+Two knights checkmate, south, hard:
+w/place n/sw/place k/e3/place n/c1/place k
+
+Two bishops stalemate, east, hard:
+place b/w/place b/a1/place k/c1/place k
+Two bishops checkmate, east, hard:
+e/place b/a3/place k/se/place b/s/place k
+
+Bishop and knight stalemate, southeast, hard:
+a3/place n/a1/place b/e1/place k/c1/place k
+Bishop and knight checkmate, southeast, hard:
+place k/e/place n/sw/place b/s/place k
+
