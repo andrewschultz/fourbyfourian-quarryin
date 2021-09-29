@@ -248,6 +248,7 @@ def print_board(my_perm, blocked, knight_1, knight_2):
 
 def get_mates(knight_1, knight_2, wanted_mate, sideboard = True):
     current_solutions = []
+    my_mates = [0, 0]
     this_mate = "{} / {} {} {}".format(pieces[knight_1], pieces[knight_2], mate_type[wanted_mate], board_loc[sideboard])
     print("=========================BEGINNING check for {}.".format(this_mate))
     count = 0 # 0 = enemy king, 1 = 1st piece, 2 = 2nd piece, 3 = your king
@@ -323,7 +324,7 @@ def get_mates(knight_1, knight_2, wanted_mate, sideboard = True):
         if duplicate_yet:
             continue
         current_solutions.append(p)
-        count += 1
+        my_mates[checkmate] += 1
         same_color_bishop = ''
         if knight_1 == knight_2 and knight_2 == 0:
             cheap_sum = p[1][0] + p[1][1] + p[2][0] + p[2][1]
@@ -331,7 +332,7 @@ def get_mates(knight_1, knight_2, wanted_mate, sideboard = True):
                 same_color_bishop = " (SAME COLORED BISHOPS)"
         print("BAM! Solution # {} for {}{}.".format(count, this_mate, same_color_bishop))
         print_board(p, blocked, knight_1, knight_2)
-        print_moves(p, knight_1, knight_2, count, checkmate)
+        print_moves(p, knight_1, knight_2, my_mates[wanted_mate], checkmate)
     return "Total # for {} = {}\n".format(this_mate, count)
 
 end_string = ''
