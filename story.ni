@@ -1107,6 +1107,7 @@ to decide whether enemy-self-check:
 			if number of pieces in check-room is 1:
 				if fourbyfourian king is in check-room, decide yes;
 				no;
+			now check-room is the room fd of check-room;
 		no;
 	no; [this should never be reached]
 
@@ -1165,8 +1166,6 @@ carry out calling:
 			if enemy-self-check:
 				say "You also remember that though [second-piece of quest-dir] 'saw' his own king just now, his treachery doesn't extend to actual violence. So the [fourbyfourian] isn't really attacked.";
 			say "[line break]So things didn't quite work out, but you're able to blow it off to all involved as the sort of diplomatic meeting that inches things forward. You even put some backhanded blame on the enemy monarch for wasting YOUR king's time and not providing the sort of hospitality you expect. It doesn't really hurt them, but it does cover up your far more serious intent. So there'll be another chance. Just got to plan a bit better, next time.";
-			if quest-dir is secondary:
-				say "";
 			move player to Ministry of Unity;
 			the rule succeeds;
 		abide by misc-checks of quest-dir;
@@ -1945,7 +1944,7 @@ when play begins (this is the initial unchangeable options rule):
 		say "Forcing hard mode for testing purposes, because that is more likely to catch bugs. NORM will switch to normal mode.";
 		now hard-mode is true;
 		continue the action;
-	say "[this-game] can be played on hard or normal mode. In hard mode, some proper solutions will be rejected to force the player to try different approaches to different areas. Normal mode is recommended for newer chess players, at least for the first time through.";
+	say "[i][this-game] can be played on hard or normal mode. In hard mode, some proper solutions will be rejected to force the player to try different approaches to different areas. Normal mode is recommended for newer chess players, at least for the first time through.[r]";
 	while 1 is 1:
 		say "So, H for hard mode, or N for normal?";
 		let L be the chosen letter;
