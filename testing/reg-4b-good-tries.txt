@@ -1,0 +1,38 @@
+# reg-4i-good-tries.txt
+## make sure I have good response to good tries
+
+** game: /home/andrew/prt/debug-fourbyfourian-quarryin.z8
+** interpreter: /home/andrew/prt/dfrotz -m -w 5000
+
+* main-thru
+
+>j
+
+>n
+>place k
+>n
+>place
+>n
+>place
+
+>n
+>place b
+>n
+>place k
+>w
+>w
+>place b
+>place k
+
+While you're nominally placing the Fourbyfourian King last, it would replace the grey bishop, who would become the last piece/person placed. So you need to put the Fourbyfourian King on an empty square.
+
+>map
+You've placed the yellow bishop at c3, the grey bishop at a4 and the Twelvebytwelvian King at c4.
+You still need to place the Fourbyfourian King.
+
+>ne
+>place k
+You can't really place the enemy kings that close to each other. Oh, sure, they'll perform all the proper diplomacy ... but they really don't WANT to. At least, your king doesn't want to. He doesn't want his fingerprints on any ... disappearances.
+>map
+You've placed the yellow bishop at c3, the grey bishop at a4 and the Twelvebytwelvian King at c4.
+You still need to place the Fourbyfourian King.

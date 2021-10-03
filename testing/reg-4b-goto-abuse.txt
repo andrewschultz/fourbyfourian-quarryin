@@ -9,7 +9,11 @@
 # doesn't matter which area
 
 >c3
-You need to depart from the Ministry before going anywhere.
+You need to travel to a Fourbyfouria to go to a specific square on its map.
+>in
+>c3
+You need to travel to a Fourbyfouria to go to a specific square on its map.
+>out
 
 >n
 >a0
@@ -172,8 +176,8 @@ serious walk
 >undo
 
 >g
-There are twenty-four other squares, so you'll need to be more specific.
+There are twenty-four other squares here in North Fourbyfouria, so you'll need to be more specific.
 >go to
-There are twenty-four other squares, so you'll need to be more specific.
+There are twenty-four other squares here in North Fourbyfouria, so you'll need to be more specific.
 >gt
-There are twenty-four other squares, so you'll need to be more specific.
+There are twenty-four other squares here in North Fourbyfouria, so you'll need to be more specific.

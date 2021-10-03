@@ -173,8 +173,7 @@ Here are specifics of conquering North Fourbyfouria:
 > r n
 In North Fourbyfouria, you used the enemy bishop and your own king to wall in the enemy king.
 > r sw
-Here are specifics of your progress in Southwest Fourbyfouria:
-/So far, you bypassed \(in-game\) gaining the Southwest Fourbyfourian King's trust \(stalemating\) because you did so in West Fourbyfouria with the Twelvebytwelvian King at c4, the (yellow|purple) knight at c3, and the Fourbyfourian King at a5.
+/Here are specifics of your progress in Southwest Fourbyfouria: so far, you bypassed \(in-game\) gaining the Southwest Fourbyfourian King's trust \(stalemating\) because you did so in West Fourbyfouria with the Twelvebytwelvian King at c4, the (yellow|purple) knight at c3, and the Fourbyfourian King at a5.
 > r ne
 You're halfway to conquering Northeast Fourbyfouria.
 
@@ -184,7 +183,7 @@ In North Fourbyfouria, you used the enemy bishop and your own king to wall in th
 > ne
 > out
 > r ne
-/Here are specifics of your progress in Northeast Fourbyfouria: So far, you bypassed \(in-game\) gaining the Northeast Fourbyfourian King's trust \(stalemating\) because you did so in North Fourbyfouria with the Twelvebytwelvian King at c3, the (yellow|purple) bishop at c4, and the Fourbyfourian King at c5.
+/Here are specifics of your progress in Northeast Fourbyfouria: so far, you bypassed \(in-game\) gaining the Northeast Fourbyfourian King's trust \(stalemating\) because you did so in North Fourbyfouria with the Twelvebytwelvian King at c3, the (yellow|purple) bishop at c4, and the Fourbyfourian King at c5.
 !In fact, you haven't even been there.
 
 > d n
