@@ -458,7 +458,7 @@ to tutorial-process (tn - a table name):
 		move riv to the-square entry;
 		if screen-reader is false, show-one-tutorial;
 	if broke-tutorial is false, say "That's all of the tutorial for [the noun].";
-	now riv is off-stage;
+	move riv to offsite;
 	now riv is irrelevant;
 
 to show-one-tutorial:
@@ -1121,7 +1121,7 @@ this is the shuffle-pieces-around rule:
 		if number of pieces in location of player is 1:
 			let rp be random piece in location of player;
 			now rp is reserved;
-			now rp is off-stage;
+			move rp to offsite;
 		move noun to location of player;
 		now noun is placed;
 		update-guarded;
@@ -1415,7 +1415,7 @@ carry out kicking:
 	if noun is not listed in kick-list:
 		say "Oops. There is a bug here. [the noun] should be in an internal list, but it isn't. This won't affect gameplay.[paragraph break]";
 	remove noun from kick-list, if present;
-	now noun is off-stage;
+	move noun to offsite;
 	now noun is reserved;
 	say "With no small embarrassment, you whisper to [the noun] that their presence isn't quite needed right here, right now. You assure them there's been an important change of plans and all that sort of thing.";
 	update-guarded;
@@ -1656,8 +1656,7 @@ carry out helping:
 		now walkthrough-hint is true;
 		say "[line break]NOTE: if you want full hints, the walkthrough.txt file that came with this binary should have the details. This command tries to give you hints without spoiling anything. This nag will not appear again." instead;
 	if location of player is not puzzly, say "You have no specific tasks in [the location of the player], but you can hint a direction if you want, for specific [4s]." instead;
-	if debug-state is false:
-		abide by the visit-text of noun;
+	abide by the visit-text of quest-dir;
 	try hintdiring quest-dir;
 	the rule succeeds;
 
