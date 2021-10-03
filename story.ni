@@ -514,13 +514,13 @@ to decide whether (p1 - a piece) attacks (p2 - a piece):
 	if p1 attacks location of p2, yes;
 	no;
 
-to decide whether (p1 - a piece) attacks (r - a room):
+to decide whether (p1 - a piece) attacks (rm - a room):
 	if location of p1 is offsite, no;
-	if location of p1 is r, no;
+	if location of p1 is rm, no;
 	let x1 be xval of location of p1;
-	let x2 be xval of r;
+	let x2 be xval of rm;
 	let y1 be yval of location of p1;
-	let y2 be yval of r;
+	let y2 be yval of rm;
 	let dx be absval of (x1 - x2);
 	let dy be absval of (y1 - y2);
 	if p1 is a king:
@@ -530,10 +530,10 @@ to decide whether (p1 - a piece) attacks (r - a room):
 	if p1 is a bishop:
 		if absval of (x1 - x2) is not absval of (y1 - y2), no;
 		let temp-room be location of p1;
-		let the way be the best route from temp-room to r;
+		let the way be the best route from temp-room to rm;
 		while 1 is 1:
 			now temp-room is the room the way of temp-room;
-			if temp-room is r, yes;
+			if temp-room is rm, yes;
 			if temp-room is nothing, no;
 			if number of pieces in temp-room is 1, no;
 		no;
@@ -828,7 +828,6 @@ this is the bishop takes knight rule:
 this is the knight blocks bishop rule:
 	if Fourbyfourian king is not placed, continue the action;
 	let Q be diag-dist of first-piece of quest-dir and Fourbyfourian King;
-	say "[Q] diagonal distance.";
 	if Q < 2, continue the action;
 	note-amusing-stuff "bvn-miss";
 	say "The enemy knight, who wants to cooperate with your cunning plan, unfortunately has no choice. The king being in danger, and the knight in obvious position to prevent it, jumps to action![paragraph break]";
@@ -905,15 +904,20 @@ carry out gotoing:
 
 chapter calling
 
-does the player mean calling the Fourbyfourian King when number of reserved pieces > 1: it is unlikely.
+does the player mean calling the Fourbyfourian King when number of reserved pieces > 1:
+	it is unlikely.
 
-does the player mean calling first-piece of quest-dir when first-piece of quest-dir is reserved: it is likely.
+does the player mean calling first-piece of quest-dir when first-piece of quest-dir is reserved:
+	it is likely.
 
-does the player mean calling second-piece of quest-dir when first-piece of quest-dir is placed and second-piece of quest-dir is reserved: it is likely.
+does the player mean calling second-piece of quest-dir when first-piece of quest-dir is placed and second-piece of quest-dir is reserved:
+	it is likely.
 
-does the player mean calling a placed piece: it is unlikely.
+does the player mean calling a placed piece:
+	it is unlikely.
 
-does the player mean calling an irrelevant piece: it is very unlikely.
+does the player mean calling an irrelevant piece:
+	it is very unlikely.
 
 this is the same-colored-bishops rule:
 	unless number of placed bishops is 1, continue the action;
@@ -1585,7 +1589,8 @@ chapter creditsing
 
 carry out creditsing:
 	say "Thanks to chess.com, lichess.org, chessgames.com, and everyone who helped chess streaming become popular during the pandemic, on YouTube and Twitch. It saved my sanity enough to write [this-game], which will hopefully not take too much of yours. Thanks to Adam Sommerfield for ParserComp, which led to this game.";
-	say "Thanks to Amanda W., FA, and Olaf Nowacki for testing help.";
+	say "Thanks to Amanda W., FA, and Olaf Nowacki for testing help. They found more than they thought they did, and their questions helped make [this-game] much more user-friendly.";
+	say "[line break]Thanks to my fellow IFComp 2021 competitor A. Di Bianca for pointing out a couple bugs very early in-comp.";
 	say "[line break]Thanks to Robin Johnson, whose technical suggestion for [5b] paid quick dividends in [this-game].";
 	say "Thanks to publicdomainvectors.org for the vector art of the knight(s) and freesvg.org for the vector art of the bishop(s) in the cover art.";
 	say "[line break]If you find a bug or have a transcript, mail me at [email]. Or you can report bugs at [github].";
@@ -1803,7 +1808,10 @@ carry out toggleing:
 chapter verbs
 
 carry out verbsing:
-	say "[this-game] uses a simplified parser. The main commands are the planar directions: [b]N[r], [b]S[r], [b]E[r], [b]W[r], [b]NW[r], [b]NE[r], [b]SW[r], [b]SE[r]. [b]U[r] and [b]D[r], for up and down, aren't used. [b]OUT[r] anywhere but the [ministry] returns you to the [ministry].[paragraph break]You can also ignore directions to jump to a square when you're not in the Ministry of Unity. So typing [b]a1[r] sends you to a1, etc.[paragraph break]You can also [b]CALL[r]/[b]C[r] or [b]PLACE[r]/[b]P[r] a piece, enemy or friendly. Calling a piece already on the board moves it, and calling a piece to an occupied square removes the previous piece. You can also [kick] it off the board. These have abbreviations, too: [b]ABB[r] finds them.[paragraph break]Meta-verbs and options are discussed in [b]META[r] ([b]MET[r]/[b]ME[r]).[paragraph break][b]UNDO[r] is also available, though any quest can be solved in a maximum of seven moves.";
+	say "[this-game] uses a simplified parser. The main commands are the planar directions: [b]N[r], [b]S[r], [b]E[r], [b]W[r], [b]NW[r], [b]NE[r], [b]SW[r], [b]SE[r]. [b]U[r] and [b]D[r], for up and down, aren't used. [b]OUT[r] anywhere but the [ministry] returns you to the [ministry].
+	say "[line break]You can also ignore directions to jump to a square when you're not in the Ministry of Unity. So typing [b]a1[r] sends you to a1, etc.[paragraph break]You can also [b]CALL[r]/[b]C[r] or [b]PLACE[r]/[b]P[r] a piece, enemy or friendly. Calling a piece already on the board moves it, and calling a piece to an occupied square removes the previous piece. These have abbreviations, too: [b]ABB[r] finds them.
+	say "[line break]Meta-verbs and options are discussed in [b]META[r] ([b]MET[r]/[b]ME[r]). None of these are required, but they may ease play considerably
+	say "[line break][b]UNDO[r] is also available but of limited use. Any quest can be solved in a maximum of seven moves, and you can always [kick] a piece off the board, anyway.";
 	the rule succeeds;
 
 chapter xyzzy
