@@ -1410,11 +1410,17 @@ rule for supplying a missing noun when kicking:
 	if location of player is not puzzly:
 		say "You need to be on a quest with allies placed in order to [kick].";
 		reject the player's command;
+	if number of pieces in location of player is 1:
+		let rp be a random piece in location of player;
+		now noun is rp;
+		say "([the rp], who's right here)[paragraph break]";
+		continue the action;
 	let x be the number of entries in kick-list;
 	if x is 0:
 		say "You can't kick any allies out, because you haven't placed anyone yet.";
 		reject the player's command;
 	now noun is entry x of kick-list;
+	say "([the noun], whom you called most recently)";
 
 to place-and-list (p - a piece):
 	move p to location of player;
@@ -1429,7 +1435,7 @@ carry out kicking:
 	remove noun from kick-list, if present;
 	move noun to offsite;
 	now noun is reserved;
-	say "With no small embarrassment, you whisper to [the noun] that their presence isn't quite needed right here, right now. You assure them there's been an important change of plans and all that sort of thing.";
+	say "With no small embarrassment, you whisper to [the noun] that their presence isn't quite needed right here, right now. You assure them there's been an important change of plans and all that sort of thing.[paragraph break]";
 	update-guarded;
 	if number of entries in kick-list is 0:
 		say "Now you have no allies placed.";
@@ -1819,9 +1825,9 @@ carry out toggleing:
 chapter verbs
 
 carry out verbsing:
-	say "[this-game] uses a simplified parser. The main commands are the planar directions: [b]N[r], [b]S[r], [b]E[r], [b]W[r], [b]NW[r], [b]NE[r], [b]SW[r], [b]SE[r]. [b]U[r] and [b]D[r], for up and down, aren't used. [b]OUT[r] anywhere but the [ministry] returns you to the [ministry].
-	say "[line break]You can also ignore directions to jump to a square when you're not in the Ministry of Unity. So typing [b]a1[r] sends you to a1, etc.[paragraph break]You can also [b]CALL[r]/[b]C[r] or [b]PLACE[r]/[b]P[r] a piece, enemy or friendly. Calling a piece already on the board moves it, and calling a piece to an occupied square removes the previous piece. These have abbreviations, too: [b]ABB[r] finds them.
-	say "[line break]Meta-verbs and options are discussed in [b]META[r] ([b]MET[r]/[b]ME[r]). None of these are required, but they may ease play considerably
+	say "[this-game] uses a simplified parser. The main commands are the planar directions: [b]N[r], [b]S[r], [b]E[r], [b]W[r], [b]NW[r], [b]NE[r], [b]SW[r], [b]SE[r]. [b]U[r] and [b]D[r], for up and down, aren't used. [b]OUT[r] anywhere but the [ministry] returns you to the [ministry].";
+	say "[line break]You can also ignore directions to jump to a square when you're not in the Ministry of Unity. So typing [b]a1[r] sends you to a1, etc.[paragraph break]You can also [b]CALL[r]/[b]C[r] or [b]PLACE[r]/[b]P[r] a piece, enemy or friendly. Calling a piece already on the board moves it, and calling a piece to an occupied square removes the previous piece. These have abbreviations, too: [b]ABB[r] finds them.";
+	say "[line break]Meta-verbs and options are discussed in [b]META[r] ([b]MET[r]/[b]ME[r]). None of these are required, but they may ease play considerably.";
 	say "[line break][b]UNDO[r] is also available but of limited use. Any quest can be solved in a maximum of seven moves, and you can always [kick] a piece off the board, anyway.";
 	the rule succeeds;
 
