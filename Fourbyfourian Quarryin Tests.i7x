@@ -377,6 +377,8 @@ test hard with "hard/test a14h/test a57h".
 
 test roomlist with "hard/test a14h/test qs-h/s". [make sure a list of rooms pops up]
 
+test s2 with "test nvn-s/test bvb-s".
+
 section amusing / special cases
 
 [this tests BvB and B&B on both colored squares]

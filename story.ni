@@ -509,8 +509,8 @@ when play begins:
 
 chapter whether attacks
 
-to decide whether (p1 - a piece) attacks (p2 - a piece):
-	unless p2 is placed, no;
+to decide whether (p1 - a piece) attacks (p2 - a person):
+	if p2 is a piece and p2 is not placed, no;
 	if p1 attacks location of p2, yes;
 	no;
 
@@ -1061,10 +1061,20 @@ definition: a piece (called p) is check-warning:
 
 this is the check yourself and wreck yourself rule:
 	unless quest-dir is primary, continue the action;
-	if the second-piece of quest-dir attacks the Twelvebytwelvian King:
-		say "The [random placed piece] coughs. You realize that setup won't do. The [twelvebytwelvian] is stared down a bit too much by [the second-piece of quest-dir]. The enemy king might start to question why you or [the first-piece of quest-dir] won't rush to his defense.[paragraph break]So, somewhere else, maybe. As much as you'd sometimes love an excuse to see your monarch get bopped for no reason, the price is too high. A failed conquest and, of course, blame for said conquest.";
-		note-amusing-stuff "self-check";
-		the rule succeeds;
+	let sp be second-piece of quest-dir;
+	if sp is irrelevant, continue the action;
+	if sp is not placed and twelvebytwelvian king is not placed, continue the action;
+	move noun to location of player;
+	now noun is placed;
+	let self-check be whether or not sp attacks twelvebytwelvian king;
+	show-the-board;
+	move noun to offsite;
+	now noun is reserved;
+	show-the-board;
+	if self-check is false, continue the action;
+	say "The [random placed piece] coughs. You realize that setup won't do. The [twelvebytwelvian] is stared down a bit too much by [the second-piece of quest-dir]. The enemy king might start to question why you or [the first-piece of quest-dir] won't rush to his defense.[paragraph break]So, somewhere else, maybe. As much as you'd sometimes love an excuse to see your monarch get bopped for no reason, the price is too high. A failed conquest and, of course, blame for said conquest.";
+	note-amusing-stuff "self-check";
+	the rule succeeds;
 
 to open-new-areas:
 	if number of solved directions is 4:
@@ -1094,7 +1104,7 @@ definition: a room (called r) is capturable:
 this is the no-illegal-positions rule:
 	if number of reserved pieces > 1:
 		say "You'll want to place the [fourbyfourian] last." instead;
-	if diag-dist of Twelvebytwelvian king and Fourbyfourian king <= 1, say "You can't really place the enemy kings that close to each other. Oh, sure, they'll perform all the proper diplomacy ... but they really don't WANT to. At least, your king doesn't want to. He doesn't want his fingerprints on any ... disappearances." instead;
+	if diag-dist of Twelvebytwelvian king and player <= 1, say "You can't really place the enemy kings that close to each other. Oh, sure, they'll perform all the proper diplomacy ... but they really don't WANT to. At least, your king doesn't want to. He doesn't want his fingerprints on any ... disappearances." instead;
 
 to decide whether enemy-self-check:
 	if color of second-piece of quest-dir is white, no;
@@ -1135,6 +1145,8 @@ carry out calling:
 	if noun is irrelevant, say "You don't need to call [the noun]." instead;
 	if noun is Fourbyfourian king and number of reserved pieces > 1, say "You will want to call [the noun] last." instead;
 	if number of pieces in location of player is 1:
+		if noun is fourbyfourian king:
+			say "While you're nominally placing [the noun] last, it would replace [the random piece in the location of the player], who would become the last piece/person placed. So you need to put [the noun] on an empty square." instead;
 		say "But [the random piece in location of player] is already here at [location of player]. Replace it with [the noun]?";
 		abide by the shuffle-pieces-around rule;
 	if noun is placed:
@@ -1144,12 +1156,11 @@ carry out calling:
 		say "You already called [the noun] to [location of the noun]. Have them move over here?";
 		abide by the shuffle-pieces-around rule;
 	say "You place [the noun] at [location of player].";
-	move noun to location of player;
 	if noun is a bishop:
 		abide by the same-colored-bishops rule;
 	if noun is Fourbyfourian king, abide by the no-illegal-positions rule;
-	place-and-list noun;
 	abide by the check yourself and wreck yourself rule;
+	place-and-list noun;
 	now entry (status-index of noun) of current-quest-snapshot is location of player;
 	update-guarded;
 	show-the-board;
@@ -1406,6 +1417,7 @@ rule for supplying a missing noun when kicking:
 	now noun is entry x of kick-list;
 
 to place-and-list (p - a piece):
+	move p to location of player;
 	now p is placed;
 	add p to kick-list;
 
