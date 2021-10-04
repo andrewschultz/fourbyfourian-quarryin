@@ -1145,6 +1145,8 @@ carry out calling:
 	if noun is irrelevant, say "You don't need to call [the noun]." instead;
 	if noun is Fourbyfourian king and number of reserved pieces > 1, say "You will want to call [the noun] last." instead;
 	if number of pieces in location of player is 1:
+		if noun is placed:
+			say "Currently, calling a piece like this to switch piece locations isn't allowed. It's sensible and efficient for the player, but since I didn't code things well enough at first (too many specific cases,) you'll need to do just a little more legwork. Sorry for the inconvenience. It's tricky enough I may not get to this until post-comp, but I hope it doesn't impact your enjoyment." instead;
 		if noun is fourbyfourian king:
 			say "While you're nominally placing [the noun] last, it would replace [the random piece in the location of the player], who would become the last piece/person placed. So you need to put [the noun] on an empty square." instead;
 		say "But [the random piece in location of player] is already here at [location of player]. Replace it with [the noun]?";
