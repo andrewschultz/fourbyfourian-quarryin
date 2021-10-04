@@ -8,12 +8,21 @@
 
 >j
 
+# bishop stalemate
 >n
 >place k
 >n
 >place
 >n
 >place
+
+# knight stalemate
+>w
+>place n
+>s
+>place k
+>a1
+>place k
 
 >n
 >place b
@@ -27,12 +36,27 @@
 While you're nominally placing the Fourbyfourian King last, it would replace the grey bishop, who would become the last piece/person placed. So you need to put the Fourbyfourian King on an empty square.
 
 >map
-You've placed the yellow bishop at c3, the grey bishop at a4 and the Twelvebytwelvian King at c4.
+/You've placed the (yellow|purple) bishop at c3, the grey bishop at a4 and the Twelvebytwelvian King at c4\.
 You still need to place the Fourbyfourian King.
 
 >ne
 >place k
 You can't really place the enemy kings that close to each other. Oh, sure, they'll perform all the proper diplomacy ... but they really don't WANT to. At least, your king doesn't want to. He doesn't want his fingerprints on any ... disappearances.
 >map
-You've placed the yellow bishop at c3, the grey bishop at a4 and the Twelvebytwelvian King at c4.
+/You've placed the (yellow|purple) bishop at c3, the grey bishop at a4 and the Twelvebytwelvian King at c4\.
 You still need to place the Fourbyfourian King.
+
+>out
+
+>sw
+
+>a1
+>place b
+>c3
+>place n
+>e5
+>place k
+>kick n
+Whoah! Wait! That'd open up a sneaky attack on the Twelvebytwelvian King from the grey bishop. You realize it would be proper diplomatic procedure to remove one of them, first.
+
+!You place the

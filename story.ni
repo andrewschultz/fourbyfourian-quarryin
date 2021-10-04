@@ -1150,16 +1150,16 @@ carry out calling:
 		say "But [the random piece in location of player] is already here at [location of player]. Replace it with [the noun]?";
 		abide by the shuffle-pieces-around rule;
 	if noun is placed:
-		if noun is twelvebytwelvian king:
-			say "Since [the fourbyfourian] is the last person to call, replacing [the twelvebytwelvian] with him wouldn't work." instead;
 		if noun is random piece in location of player, say "It looks like you tried to call [the noun] to where he already was. If this is wrong, you may want to try being more specific." instead;
 		say "You already called [the noun] to [location of the noun]. Have them move over here?";
 		abide by the shuffle-pieces-around rule;
-	say "You place [the noun] at [location of player].";
+		if noun is twelvebytwelvian king:
+			say "The [twelvebytwelvian] grumbles at being ordered around like this, but hey, you've got the power here, and you can use it. A little. Not too much.";
 	if noun is a bishop:
 		abide by the same-colored-bishops rule;
 	if noun is Fourbyfourian king, abide by the no-illegal-positions rule;
 	abide by the check yourself and wreck yourself rule;
+	say "You place [the noun] at [location of player].";
 	place-and-list noun;
 	now entry (status-index of noun) of current-quest-snapshot is location of player;
 	update-guarded;
@@ -1427,11 +1427,27 @@ to place-and-list (p - a piece):
 	now p is placed;
 	add p to kick-list;
 
+this is the discovered attack on kick rule:
+	unless quest-dir is primary and quest-dir is stalemated, continue the action;
+	let sp be second-piece of quest-dir;
+	if sp is not placed, continue the action;
+	if twelvebytwelvian king is not placed, continue the action;
+	let old-loc be location of noun;
+	move noun to offsite;
+	now noun is reserved;
+	let disco be whether or not sp attacks twelvebytwelvian king;
+	move noun to old-loc;
+	now noun is placed;
+	if disco is true:
+		say "Whoah! Wait! That'd open up a sneaky attack on [the twelvebytwelvian] from [the sp]. You realize it would be proper diplomatic procedure to remove one of them, first.";
+		the rule succeeds;
+
 carry out kicking:
 	if location of player is not puzzly, say "You can't [kick] anyone when you're not on a quest." instead;
 	if noun is not placed, say "You don't need to kick [the noun], since it isn't [if noun is irrelevant]part of the quest[else]placed yet[end if]." instead;
+	abide by the discovered attack on kick rule;
 	if noun is not listed in kick-list:
-		say "Oops. There is a bug here. [the noun] should be in an internal list, but it isn't. This won't affect gameplay.[paragraph break]";
+		say "Oops. There is a bug here. [the noun] should be in an internal list, but it isn't. This won't affect gameplay, but it may affect recaps.[paragraph break]";
 	remove noun from kick-list, if present;
 	move noun to offsite;
 	now noun is reserved;
@@ -1790,13 +1806,13 @@ carry out recaping:
 			say "[line break]In [q of noun], you'll need the help of [the first-piece of noun][if noun is unsolved] and [the second-piece of noun][end if].";
 		the rule succeeds;
 	if noun is stalemated:
-		say "You're halfway to conquering [q of noun].[paragraph break]";
+		say "You're halfway to conquering [q of noun].";
 	if noun is solved:
 		if recap-text of noun is empty:
-			say "[q of noun] needs recap text.";
+			say "[paragraph break][q of noun] needs recap text.";
 		else:
-			say "[recap-text of noun]";
-	say "[paragraph break]Here are specifics of [if noun is stalemated]your progress in[else]conquering[end if] [q of noun]: ";
+			say "[paragraph break][recap-text of noun]";
+	say "[line break]Here are specifics of [if noun is stalemated]your progress in[else]conquering[end if] [q of noun]: ";
 	if noun is stalemate-bypassed:
 		let dir2 be similar-early of noun;
 		say "[if noun is not solved]so far, [end if]you bypassed (in-game) gaining the [k of noun]'s trust (stalemating) because you did so in [q of dir2] with [stale-list of stalemate-recap of dir2 and dir2].";
