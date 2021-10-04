@@ -1125,9 +1125,30 @@ to decide whether enemy-self-check:
 		no;
 	no; [this should never be reached]
 
+this is the would this check your king rule:
+	unless quest-dir is primary and quest-dir is stalemated, continue the action;
+	let sp be second-piece of quest-dir;
+	unless sp is noun or sp is placed, continue the action;
+	unless twelvebytwelvian is noun or twelvebytwelvian is placed, continue the action;
+	let old-loc be location of player;
+	let rp be random piece in location of player;
+	move rp to offsite;
+	now rp is reserved;
+	move noun to location of player;
+	now noun is placed;
+	let would-check be whether or not sp attacks twelvebytwelvian king;
+	move noun to offsite;
+	now noun is reserved;
+	move rp to location of player;
+	now rp is placed;
+	if would-check is true:
+		say "Swapping [the noun] for [the rp] would put [the twelvebytwelvian] in check from [the sp]. So that won't quite do.";
+		the rule succeeds;
+	continue the action;
+
 this is the shuffle-pieces-around rule:
 	if the player regex-prompt-consents:
-		say "You solemnly announce an unforeseen change of plans. The [noun] nods. It adds to the formality of it all. Perhaps the [cq] will be impressed or intimidated by all this procedure, making it easier to shut the trap.[paragraph break]";
+		say "You solemnly announce an unforeseen change of plans. The [noun] nods. It adds to the formality of it all. Perhaps the [ck] will be impressed or intimidated by all this procedure, making it easier to shut the trap.[paragraph break]";
 		if number of pieces in location of player is 1:
 			let rp be random piece in location of player;
 			now rp is reserved;
@@ -1149,6 +1170,7 @@ carry out calling:
 			say "Currently, calling a piece like this to switch piece locations isn't allowed. It's sensible and efficient for the player, but since I didn't code things well enough at first (too many specific cases,) you'll need to do just a little more legwork. Sorry for the inconvenience. It's tricky enough I may not get to this until post-comp, but I hope it doesn't impact your enjoyment." instead;
 		if noun is fourbyfourian king:
 			say "While you're nominally placing [the noun] last, it would replace [the random piece in the location of the player], who would become the last piece/person placed. So you need to put [the noun] on an empty square." instead;
+		abide by the would this check your king rule;
 		say "But [the random piece in location of player] is already here at [location of player]. Replace it with [the noun]?";
 		abide by the shuffle-pieces-around rule;
 	if noun is placed:

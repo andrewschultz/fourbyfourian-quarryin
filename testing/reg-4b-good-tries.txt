@@ -60,3 +60,13 @@ You still need to place the Fourbyfourian King.
 Whoah! Wait! That'd open up a sneaky attack on the Twelvebytwelvian King from the grey bishop. You realize it would be proper diplomatic procedure to remove one of them, first.
 
 !You place the
+
+>out
+
+>w
+>place grey knight
+>a2
+>place n
+>place k
+/Swapping the Twelvebytwelvian King for the (yellow|purple) knight would put the Twelvebytwelvian King in check from the grey knight\. So that won't quite do\.
+
