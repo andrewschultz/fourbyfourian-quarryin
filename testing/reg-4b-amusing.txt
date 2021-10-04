@@ -22,6 +22,10 @@
 >a5
 >place k
 
+# preliminary stuff done
+
+# check full list
+
 >amu
  ----Constructing a double check (both allies, no traitors, attacking the Fourbyfourian King)
  ----Placing the bishop too far from the king when you have the traitor knight
@@ -33,6 +37,37 @@
  ----Moving one of the eight L-shaped directions from Fivebyfivia in a Fourbyfouria
  ----Placing your knight where the traitor bishop can attack it
  ----Putting your own king in check
+ ----Placing opposing minor pieces so one or both attacks the other
+
+>w
+>place n
+>a2
+>place n
+Mexican Standoff
+DEBUG: standoff amusement entry done.
+
+>amu
+ ----Constructing a double check (both allies, no traitors, attacking the Fourbyfourian King)
+ ----Placing the bishop too far from the king when you have the traitor knight
+ ----Placing two opposing bishops on the same color tile
+ ----Placing your two bishops on the same color tile
+ ----Checkmating with two knights and a king in the corner
+ ----Everyone's favorite* text-adventure in-joke, XYZZY
+ ----Moving one of the eight L-shaped directions from Fivebyfivia in the Ministry of Unity
+ ----Moving one of the eight L-shaped directions from Fivebyfivia in a Fourbyfouria
+ ----Placing your knight where the traitor bishop can attack it
+ ----Putting your own king in check
+! ----Placing opposing minor pieces so one or both attacks the other
+
+>out
+
+>w
+>place n
+>a2
+>place n
+Mexican Standoff
+DEBUG: standoff amusement entry redone.
+>out
 
 > n
 > place bishop
@@ -52,6 +87,7 @@ DEBUG: bb-colors-first amusement entry done.
  ----Moving one of the eight L-shaped directions from Fivebyfivia in a Fourbyfouria
  ----Placing your knight where the traitor bishop can attack it
  ----Putting your own king in check
+! ----Placing opposing minor pieces so one or both attacks the other
 
 > n
 > w
@@ -80,6 +116,7 @@ DEBUG: bb-colors-second amusement entry done.
  ----Moving one of the eight L-shaped directions from Fivebyfivia in a Fourbyfouria
  ----Placing your knight where the traitor bishop can attack it
  ----Putting your own king in check
+! ----Placing opposing minor pieces so one or both attacks the other
 
 > e
 > w
@@ -111,6 +148,7 @@ DEBUG: beatdown amusement entry done.
  ----Moving one of the eight L-shaped directions from Fivebyfivia in a Fourbyfouria
  ----Placing your knight where the traitor bishop can attack it
  ----Putting your own king in check
+! ----Placing opposing minor pieces so one or both attacks the other
 
 > jump
 > se
@@ -166,6 +204,7 @@ DEBUG: bvn-miss amusement entry redone.
  ----Moving one of the eight L-shaped directions from Fivebyfivia in a Fourbyfouria
  ----Placing your knight where the traitor bishop can attack it
  ----Putting your own king in check
+! ----Placing opposing minor pieces so one or both attacks the other
 
 > jump
 > s
@@ -189,6 +228,7 @@ DEBUG: orwell amusement entry done.
  ----Moving one of the eight L-shaped directions from Fivebyfivia in a Fourbyfouria
  ----Placing your knight where the traitor bishop can attack it
  ----Putting your own king in check
+! ----Placing opposing minor pieces so one or both attacks the other
 
 >xyzzy
 The x-y plane provides enough challenges, thank you very much.
@@ -209,7 +249,7 @@ DEBUG: xyzzy amusement entry redone.
  ----Moving one of the eight L-shaped directions from Fivebyfivia in a Fourbyfouria
  ----Placing your knight where the traitor bishop can attack it
  ----Putting your own king in check
-
+! ----Placing opposing minor pieces so one or both attacks the other
 
 >fail
 >nnw
@@ -227,6 +267,7 @@ DEBUG: knight-moves-1 amusement entry done.
  ----Moving one of the eight L-shaped directions from Fivebyfivia in a Fourbyfouria
  ----Placing your knight where the traitor bishop can attack it
  ----Putting your own king in check
+! ----Placing opposing minor pieces so one or both attacks the other
 
 >n
 >nnw
@@ -244,6 +285,7 @@ DEBUG: knight-moves-2 amusement entry done.
 ! ----Moving one of the eight L-shaped directions from Fivebyfivia in a Fourbyfouria
  ----Placing your knight where the traitor bishop can attack it
  ----Putting your own king in check
+! ----Placing opposing minor pieces so one or both attacks the other
 
 >n
 >nnw
@@ -275,6 +317,7 @@ DEBUG: nvb-miss amusement entry done.
 ! ----Moving one of the eight L-shaped directions from Fivebyfivia in a Fourbyfouria
 ! ----Placing your knight where the traitor bishop can attack it
  ----Putting your own king in check
+! ----Placing opposing minor pieces so one or both attacks the other
 
 > w
 > n
@@ -287,7 +330,7 @@ coughs. You realize that setup
 DEBUG: self-check amusement entry done.
 > fail
 
-> amu
+>amu
 ! ----Constructing a double check (both allies, no traitors, attacking the Fourbyfourian King)
 ! ----Placing the bishop too far from the king when you have the traitor knight
 ! ----Placing two opposing bishops on the same color tile
@@ -298,6 +341,7 @@ DEBUG: self-check amusement entry done.
 ! ----Moving one of the eight L-shaped directions from Fivebyfivia in a Fourbyfouria
 ! ----Placing your knight where the traitor bishop can attack it
 ! ----Putting your own king in check
+! ----Placing opposing minor pieces so one or both attacks the other
 
 > w
 > n
@@ -308,5 +352,4 @@ DEBUG: self-check amusement entry done.
 > place k
 DEBUG: self-check amusement entry redone.
 > fail
-
 

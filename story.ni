@@ -1161,6 +1161,24 @@ this is the shuffle-pieces-around rule:
 		say "On second thought, [the noun] seems better positioned at [location of the noun]. For now.";
 	the rule succeeds;
 
+minor-slapfight is a truth state that varies.
+
+this is the minor piece slapfight rule:
+	if minor-slapfight is true, continue the action;
+	unless quest-dir is primary and quest-dir is stalemated, continue the action;
+	let sp be second-piece of quest-dir;
+	let fp be first-piece of quest-dir;
+	unless fp is placed and sp is placed, continue the action;
+	unless fp attacks sp or sp attacks fp, continue the action;
+	if fp attacks sp and sp attacks fp:
+		say "You've managed to engineer a Mexican Standoff. The [fp] and [the sp] glare at each other, both ready to jump, but not quite. It's amusing, what you can get them to do. Perhaps it won't make an ultimate solution, but it should let the [ck]'s guard down a bit.";
+	else unless sp attacks fp:
+		say "While [the fp] now potentially attacks [the sp], you make clear that that sort of thing won't fly, here. We're not hooligans in [12b], etc.! It's probably impressive or reassuring to gullible onlookers, including maybe the [ck], even if it doesn't get closer to the main goal.";
+	else unless fp attacks sp:
+		say "While [the sp] now potentially attacks [the fp], you make a crack about being a good host. Everyone smiles tightly. A perfect joke to reassert power and who's really in control.";
+	now minor-slapfight is true;
+	note-amusing-stuff "standoff";
+
 carry out calling:
 	if location of player is not puzzly, say "You don't need to call allies until you're away from the [the location of the player]." instead;
 	if noun is irrelevant, say "You don't need to call [the noun]." instead;
@@ -1188,6 +1206,7 @@ carry out calling:
 	now entry (status-index of noun) of current-quest-snapshot is location of player;
 	update-guarded;
 	show-the-board;
+	abide by the minor piece slapfight rule;
 	if noun is Fourbyfourian king:
 		consider the excessive beatdown rule;
 		abide by the king-place of quest-dir;
@@ -1270,6 +1289,7 @@ to retreat-to-unity:
 incident-row is a number that varies.
 
 to new-quest:
+	now minor-slapfight is false;
 	if quest-dir is not tried:
 		say "[line break]";
 		if number of tried directions is 0:
@@ -1924,6 +1944,7 @@ code	done-yet	amuse-list
 "northwest"	false	"Going northwest in the [ministry]"
 "orwell"	false	"Checkmating with two knights and a king in the corner (hard mode only)"
 "self-check"	false	"Putting your own king in check"
+"standoff"	false	"Placing opposing minor pieces so one or both attacks the other"
 "xyzzy"	false	"Everyone's favorite* text-adventure in-joke, XYZZY"
 
 volume parser rules and errors

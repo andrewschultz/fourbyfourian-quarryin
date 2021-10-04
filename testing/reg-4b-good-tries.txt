@@ -70,3 +70,37 @@ Whoah! Wait! That'd open up a sneaky attack on the Twelvebytwelvian King from th
 >place k
 /Swapping the Twelvebytwelvian King for the (yellow|purple) knight would put the Twelvebytwelvian King in check from the grey knight\. So that won't quite do\.
 
+>out
+
+###################standoff
+
+>w
+>place n
+>nw
+>w
+>place n
+/You've managed to engineer a Mexican Standoff\. The (yellow|purple) knight and the grey knight glare at each other, both ready to jump, but not quite\. It's amusing, what you can get them to do\. Perhaps it won't make an ultimate solution, but it should let the West Fourbyfourian King's guard down a bit\.
+>e
+>place k
+!You've managed to engineer a Mexican Standoff.
+
+>out
+
+>ne
+>place b
+>ne
+>place n
+/While the (yellow|purple) bishop now potentially attacks the grey knight, you make clear that that sort of thing won't fly, here\. We're not hooligans in Twelvebytwelvia, etc\.! It's probably impressive or reassuring to gullible onlookers, including maybe the Northeast Fourbyfourian King, even if it doesn't get closer to the main goal\.
+>n
+>place n
+>y
+!potentially attacks
+>out
+
+>ne
+>place b
+>n
+>ne
+>place n
+/While the grey knight now potentially attacks the (yellow|purple) bishop, you make a crack about being a good host\. Everyone smiles tightly\. A perfect joke to reassert power and who's really in control\.
+
