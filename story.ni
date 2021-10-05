@@ -1156,6 +1156,7 @@ this is the would this check your king rule:
 	continue the action;
 
 this is the shuffle-pieces-around rule:
+	the rule fails;
 	if the player regex-prompt-consents:
 		say "You solemnly announce an unforeseen change of plans. The [noun] nods. It adds to the formality of it all. Perhaps the [ck] will be impressed or intimidated by all this procedure, making it easier to shut the trap.[paragraph break]";
 		if number of pieces in location of player is 1:
@@ -1173,21 +1174,30 @@ this is the shuffle-pieces-around rule:
 minor-slapfight is a truth state that varies.
 
 this is the minor piece slapfight rule:
-	if minor-slapfight is true, continue the action;
 	let sp be second-piece of quest-dir;
 	let fp be first-piece of quest-dir;
 	unless fp is placed and sp is placed, continue the action;
 	unless fp attacks sp or sp attacks fp, continue the action;
 	if fp attacks sp and sp attacks fp:
-		say "You've managed to engineer a Mexican Standoff. The [fp] and [the sp] glare at each other, both ready to jump, but not quite. It's amusing, what you can get them to do. Perhaps it won't make an ultimate solution, but it should let the [ck]'s guard down a bit.";
+		if minor-slapfight is false:
+			say "You've managed to engineer a Mexican Standoff. The [fp] and [the sp] glare at each other, both ready to jump, but not quite. It's amusing, what you can get them to do. Perhaps it won't make an ultimate solution, but it should let the [ck]'s guard down a bit.";
+		else if debug-state is true:
+			say "DEBUG note: standoff between two minor pieces but slapfight flag is true.";
 	else unless sp attacks fp:
-		say "While [the fp] now potentially attacks [the sp], you make clear that that sort of thing won't fly, here. We're not hooligans in [12b], etc.! It's probably impressive or reassuring to gullible onlookers, including maybe the [ck], even if it doesn't get closer to the main goal.";
+		if minor-slapfight is false:
+			say "While [the fp] now potentially attacks [the sp], you make clear that that sort of thing won't fly, here. We're not hooligans in [12b], etc.! It's probably impressive or reassuring to gullible onlookers, including maybe the [ck], even if it doesn't get closer to the main goal.";
+		else if debug-state is true:
+			say "DEBUG note: traitor attacks ally but slapfight flag is true.";
 	else unless fp attacks sp:
-		say "While [the sp] now potentially attacks [the fp], you make a crack about being a good host. Everyone smiles tightly. A perfect joke to reassert power and who's really in control.";
+		if minor-slapfight is false:
+			say "While [the sp] now potentially attacks [the fp], you make a crack about being a good host. Everyone smiles tightly. A perfect joke to reassert power and who's really in control.";
+		else if debug-state is true:
+			say "DEBUG note: ally attacks traitor but slapfight flag is true.";
 	now minor-slapfight is true;
 	note-amusing-stuff "standoff";
 
 this is the unified self check check rule:
+	if debug-state is true, say "CALL [called-loc] [called-piece] KICK [kicked-loc] [kicked-piece].";
 	unless might-self-check, continue the action;
 	let called-loc be location of called-piece;
 	let kicked-loc be location of kicked-piece;
@@ -1239,7 +1249,6 @@ carry out calling:
 		say "You already called [the noun] to [location of the noun]. Have them move over here?";
 		unless the player regex-prompt-consents:
 			say "Okay, never mind." instead;
-		abide by the shuffle-pieces-around rule;
 		if noun is twelvebytwelvian king:
 			say "The [twelvebytwelvian] grumbles at being ordered around like this, but hey, you've got the power here, and you can use it. A little. Not too much.";
 	abide by the unified self check check rule;

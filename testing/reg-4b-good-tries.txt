@@ -50,6 +50,18 @@ You still need to place the Fourbyfourian King.
 
 >sw
 
+################testing putting your king in check
+
+################TEST CASE 1: DONT PLACE KING IN CHECK
+>sw
+>place b
+>e5
+>place k
+WRONG
+>out
+
+################TEST CASE 2: KICK A PIECE, KING IN CHECK
+>sw
 >a1
 >place b
 >c3
@@ -63,6 +75,8 @@ Whoah! Wait! That'd open up a sneaky attack on the Twelvebytwelvian King from th
 
 >out
 
+################TEST CASE 3: REPLACE PIECE WITH UNPLACED KING, KING IN CHECK
+
 >w
 >place grey knight
 >a2
@@ -71,6 +85,20 @@ Whoah! Wait! That'd open up a sneaky attack on the Twelvebytwelvian King from th
 /Swapping the Twelvebytwelvian King for the (yellow|purple) knight would put the Twelvebytwelvian King in check from the grey knight\. So that won't quite do\.
 
 >out
+
+################TEST CASE 4a: REPLACE PIECE WITH PLACED KING, KING IN CHECK
+>sw
+>place b
+>n
+>place k
+>e
+>place n
+>place 12
+>y
+WRONG
+################TEST CASE 4b: REPLACE KING WITH PLACED PIECE, KING IN CHECK
+>place k
+WRONG
 
 ###################standoff
 
