@@ -510,7 +510,7 @@ when play begins:
 chapter whether attacks
 
 to decide whether (p1 - a piece) attacks (p2 - a person):
-	if p2 is a piece and p2 is not placed, no;
+	if location of p1 is not puzzly or location of p2 is not puzzly, no;
 	if p1 attacks location of p2, yes;
 	no;
 
@@ -780,6 +780,15 @@ piece-bio of west is "[if west is simple-dumb][lone-stale]His physical abilities
 
 section quest solve rules
 
+to decide whether might-self-check:
+	unless quest-dir is primary, no;
+	unless quest-dir is stalemated, no;
+	let sp be second-piece of quest-dir;
+	let fp be second-piece of quest-dir;
+	unless sp is placed or sp is noun, no;
+	unless fp is placed or fp is noun, no;
+	yes;
+
 to decide whether half-final:
 	if boolval of bn-close + boolval of bn-far is 1, yes;
 	no;
@@ -927,13 +936,13 @@ this is the same-colored-bishops rule:
 		note-amusing-stuff "bb-colors-second";
 		if quest-dir is stalemated or hard-mode is false:
 			say "But wait! You realize that you are about to place both your bishops on the same-colored square. You may break a lot of stuffy old rules in [12b], but that's not one of them, especially since breaking that rule gives no practical benefit. Okay, it actually harms you.[paragraph break]Somewhere else, maybe.";
+			the rule succeeds;
 		else:
 			say "One of your bishops looks confused. The other looks very impressed. Each doesn't like the other being on their turf, but your unconventional approach of putting them on the same color square just might work ... this time. Or it might fail spectacularly.";
-			continue the action;
 	else:
 		note-amusing-stuff "bb-colors-first";
-		say "Your bishop and the enemy bishop look over at each other. They then both glare at you, as if in slight doubt of your leadership. They can't actually ... risk crossing paths, which might happen, since they're on the same color square.";
-	the rule succeeds;
+		say "Your bishop and the enemy bishop look over at each other. They then both glare at you and shrug, as if to say well, you're the boss here. You'll take flak if and when things don't work out.";
+	continue the action;
 
 to decide which number is check-total:
 	let temp be 0;
@@ -1165,7 +1174,6 @@ minor-slapfight is a truth state that varies.
 
 this is the minor piece slapfight rule:
 	if minor-slapfight is true, continue the action;
-	unless quest-dir is primary and quest-dir is stalemated, continue the action;
 	let sp be second-piece of quest-dir;
 	let fp be first-piece of quest-dir;
 	unless fp is placed and sp is placed, continue the action;
@@ -1179,30 +1187,69 @@ this is the minor piece slapfight rule:
 	now minor-slapfight is true;
 	note-amusing-stuff "standoff";
 
+this is the unified self check check rule:
+	unless might-self-check, continue the action;
+	let called-loc be location of called-piece;
+	let kicked-loc be location of kicked-piece;
+	if debug-state is true, say "CALL [called-loc] [called-piece] KICK [kicked-loc] [kicked-piece].";
+	if kicked-piece is not null-piece:
+		say "1a. [kicked-piece] to [called-loc].";
+		move kicked-piece to called-loc;
+	if called-piece is not null-piece:
+		say "1b. [called-piece] to [kicked-loc].";
+		move called-piece to location of player;
+	let block-stuff be false;
+	let sp be second-piece of quest-dir;
+	let your-king-checked be whether or not sp attacks twelvebytwelvian king;
+	if kicked-piece is not null-piece, move kicked-piece to kicked-loc;
+	if called-piece is not null-piece, move called-piece to called-loc;
+	if your-king-checked is true:
+		now block-stuff is true;
+		if called-piece is null-piece:
+			say "<KICK MAKES DISCOVERY NOTE>.";
+		else if kicked-piece is null-piece:
+			if called-piece is placed:
+				say "<MOVING CAUSES CHECK>.";
+			else:
+				say "<PLACING CAUSES CHECK>.";
+		else:
+			say "<SWITCHING CAUSES CHECK>.";
+	abide by the minor piece slapfight rule;
+	if block-stuff is true, the rule succeeds;
+
+
 carry out calling:
 	if location of player is not puzzly, say "You don't need to call allies until you're away from the [the location of the player]." instead;
 	if noun is irrelevant, say "You don't need to call [the noun]." instead;
 	if noun is Fourbyfourian king and number of reserved pieces > 1, say "You will want to call [the noun] last." instead;
+	reset-temps;
+	now called-piece is noun;
+	now called-loc is location of called-piece;
 	if number of pieces in location of player is 1:
-		if noun is placed:
-			say "Currently, calling a piece like this to switch piece locations isn't allowed. It's sensible and efficient for the player, but since I didn't code things well enough at first (too many specific cases,) you'll need to do just a little more legwork. Sorry for the inconvenience. It's tricky enough I may not get to this until post-comp, but I hope it doesn't impact your enjoyment." instead;
+		let rpl be random piece in location of player;
+		if rpl is the noun, say "It looks like you tried to call [the noun] to where he already was. If this is wrong, you may want to try being more specific." instead;
 		if noun is fourbyfourian king:
 			say "While you're nominally placing [the noun] last, it would replace [the random piece in the location of the player], who would become the last piece/person placed. So you need to put [the noun] on an empty square." instead;
-		abide by the would this check your king rule;
-		say "But [the random piece in location of player] is already here at [location of player]. Replace it with [the noun]?";
-		abide by the shuffle-pieces-around rule;
-	if noun is placed:
-		if noun is random piece in location of player, say "It looks like you tried to call [the noun] to where he already was. If this is wrong, you may want to try being more specific." instead;
+		now kicked-piece is rpl;
+		now kicked-loc is location of player;
+		say "But [the rpl] is already here at [location of player][if location of noun is puzzly], and [the noun] is already at [location of the noun][end if]. [if location of noun is puzzly]Swap[else]Replace[end if] [the rpl] with [the noun]?";
+		unless the player regex-prompt-consents:
+			say "Okay, never mind." instead;
+	else if noun is placed:
 		say "You already called [the noun] to [location of the noun]. Have them move over here?";
+		unless the player regex-prompt-consents:
+			say "Okay, never mind." instead;
 		abide by the shuffle-pieces-around rule;
 		if noun is twelvebytwelvian king:
 			say "The [twelvebytwelvian] grumbles at being ordered around like this, but hey, you've got the power here, and you can use it. A little. Not too much.";
+	abide by the unified self check check rule;
 	if noun is a bishop:
 		abide by the same-colored-bishops rule;
 	if noun is Fourbyfourian king, abide by the no-illegal-positions rule;
 	abide by the check yourself and wreck yourself rule;
 	say "You place [the noun] at [location of player].";
 	place-and-list noun;
+	if kicked-piece is not null-piece, now kicked-piece is reserved;
 	now entry (status-index of noun) of current-quest-snapshot is location of player;
 	update-guarded;
 	show-the-board;
@@ -1486,10 +1533,25 @@ this is the discovered attack on kick rule:
 		say "Whoah! Wait! That'd open up a sneaky attack on [the twelvebytwelvian] from [the sp]. You realize it would be proper diplomatic procedure to remove one of them, first.";
 		the rule succeeds;
 
+null-piece is a piece.
+called-loc is a room that varies.
+kicked-loc is a room that varies.
+called-piece is a piece that varies.
+kicked-piece is a piece that varies.
+
+to reset-temps:
+	now called-loc is offsite;
+	now kicked-loc is offsite;
+	now called-piece is null-piece;
+	now kicked-piece is null-piece;
+
 carry out kicking:
 	if location of player is not puzzly, say "You can't [kick] anyone when you're not on a quest." instead;
 	if noun is not placed, say "You don't need to kick [the noun], since it isn't [if noun is irrelevant]part of the quest[else]placed yet[end if]." instead;
-	abide by the discovered attack on kick rule;
+	reset-temps;
+	now kicked-piece is noun;
+	now kicked-loc is location of noun;
+	abide by the unified self check check rule;
 	if noun is not listed in kick-list:
 		say "Oops. There is a bug here. [the noun] should be in an internal list, but it isn't. This won't affect gameplay, but it may affect recaps.[paragraph break]";
 	remove noun from kick-list, if present;
@@ -1935,7 +1997,7 @@ to note-amusing-stuff (t - text):
 table of amusing stuff
 code	done-yet	amuse-list
 "beatdown"	false	"Constructing a double check (both allies, no traitors, attacking [the fourbyfourian])"
-"nvb-miss"	false	"Placing your knight where the traitor bishop can attack it"
+"nvb-miss"	false	"Placing your knight where it's checkmate, but the traitor bishop can attack it"
 "bvn-miss"	false	"Placing the bishop too far from the king when you have the traitor knight"
 "bb-colors-first"	false	"Placing two opposing bishops on the same color tile"
 "bb-colors-second"	false	"Placing your two bishops on the same color tile"
