@@ -1131,7 +1131,7 @@ this is the minor piece slapfight rule:
 			say "DEBUG note: standoff between two minor pieces but slapfight flag is true.";
 	else unless sp attacks fp:
 		if minor-slapfight is false:
-			say "While [the fp] now potentially attacks [the sp], you make clear that that sort of thing won't fly, here. We're not hooligans in [12b], etc.! It's probably impressive or reassuring to gullible onlookers, including maybe the [ck], even if it doesn't get closer to the main goal.";
+			say "While [the fp] now potentially attacks [the sp], you make clear that it's part of the festivities or tradition or something. We're not hooligans in [12b], etc.! It's probably impressive or reassuring to gullible onlookers, including maybe the [ck], even if it doesn't get closer to the main goal.";
 		else if debug-state is true:
 			say "DEBUG note: traitor attacks ally but slapfight flag is true.";
 	else unless fp attacks sp:
@@ -1143,7 +1143,7 @@ this is the minor piece slapfight rule:
 	note-amusing-stuff "standoff";
 
 this is the unified self check check rule:
-	if debug-state is true, say "CALL [called-loc] [called-piece] KICK [kicked-loc] [kicked-piece].";
+	if debug-state is true, say "DEBUG CALL [called-loc] [called-piece] KICK [kicked-loc] [kicked-piece].";
 	unless might-self-check, continue the action;
 	let called-loc be location of called-piece;
 	let kicked-loc be location of kicked-piece;
@@ -1272,7 +1272,7 @@ to calculate-ending:
 	if hard-mode is true:
 		say "You had just the right combination of force and tact to take over the [4s] without other countries getting too suspicious. Well, of course they were suspicious, but not enough to act until it was far too late. Everyone is happy, more or less, even if people in the new province aren't quite 'real' [4n]s.[paragraph break]But the important thing: you receive a statue with your likeness in Great Centroidia, the capital of [12b]! You loved your fast horse and all, but now that you proved yourself on your own, you shouldn't have to share the spotlight with it.[paragraph break]Alas, as you grow older, a new king demands the formation of a New Centroidia, which is more accessible to the far reaches of what was once [12b]. For strictly administrative purposes, of course. Your statue is left out, without quite enough people to lobby for you, though lesser minds and diplomatic talents are quite well-represented. Frustration!";
 	else:
-		say "But the similarities between all the [4n] Kings' disappearance is too much. Someone puts all the pieces together, and slowly but surely, you're fingered as a Person of Interest. Perhaps with more territories to conquer, your King would have backed you up, but here, you are offered as a sacrifice. You do, however, get a nifty diagonal street named after you in New Centroidia, the more practical capital now that Great Centroidia isn't really fully in the center any more.";
+		say "But the similarities between all the [4n] Kings['] disappearance is too much. Someone puts all the pieces together, and slowly but surely, you're fingered as a Person of Interest. Perhaps with more territories to conquer, your King would have backed you up, but here, you are offered as a sacrifice. You do, however, get a nifty diagonal street named after you in New Centroidia, the more practical capital now that Great Centroidia isn't really fully in the center any more.";
 		if number of nonoptimal directions is 0:
 			say "You managed to find non-overlapping solutions, so if you want to see the good entry, you should replay on hard mode. Or you can poke at the source and just read it. Either is an intellectual activity, of a sort.";
 			continue the action;
@@ -1300,7 +1300,7 @@ to new-quest:
 		if number of tried directions is 0:
 			say "The initial reception at [cq] is a game of golf, the new sport that's swept nearby lands in the past twenty years. The [twelvebytwelvian] wins, of course, perfectly honestly. Perfectly honestly! As it should be. Your king has mandated his own citizens appreciate it, even if they are too poor to play it. But ... but ... a terrible insult occurred. Enough to remove any doubt [cq] must be conquered.[paragraph break]";
 		else:
-			say "Again, a golf game as welcome. Again, an unforgiveable diplomatic insult that fully justifies your takeover plans for [cq]![paragraph break]";
+			say "Again, a golf game as welcome. Again, an unforgivable diplomatic insult that fully justifies your takeover plans for [cq]![paragraph break]";
 		increment incident-row;
 		choose row incident-row in the table of incidents;
 		say "[incident-text entry][line break]";
@@ -1322,7 +1322,7 @@ incident-text	rough-order
 "The [ck] offered frou-frou vegetables and fruits instead of the proper mid-match refreshments. An unfair advantage, considering [the twelvebytwelvian] was tired from his long journey!"	1
 "The [ck] confessed to being 'too busy' (heh) to play golf or take lessons, thus greatly lessening the joy of [the twelvebytwelvian]'s emphatic victory."	1
 "The [ck] failed to give the [twelvebytwelvian] a mulligan at a particularly tricky hole with weird hazards. Rigged!"	1
-"The [ck]'s courtiers expressed mild skepticisim that [the twelvebytwelvian] had made three holes-in-one in the past year. Losers and haters!"	1
+"The [ck]'s courtiers expressed mild skepticism that [the twelvebytwelvian] had made three holes-in-one in the past year. Losers and haters!"	1
 "The [ck] did not offer the [twelvebytwelvian] his best clubs. Of course, your porters brought better, but it's the principle of the thing."	2
 "The [ck] arranged for transport between golf holes with the dingiest pony-cart you ever saw. No gold plating at all. Sad!"	2
 "The [ck] drew more attention with his golfing outfit than [the twelvebytwelvian]."	2
@@ -1673,7 +1673,7 @@ chapter creditsing
 carry out creditsing:
 	say "Thanks to chess.com, lichess.org, chessgames.com, and everyone who helped chess streaming become popular during the pandemic, on YouTube and Twitch. It saved my sanity enough to write [this-game], which will hopefully not take too much of yours. Thanks to Adam Sommerfield for ParserComp, which led to this game.";
 	say "Thanks to Amanda W., FA, and Olaf Nowacki for testing help. They found more than they thought they did, and their questions helped make [this-game] much more user-friendly.";
-	say "[line break]Thanks to my fellow IFComp 2021 competitor A. Di Bianca for pointing out a couple bugs very early in-comp.";
+	say "[line break]Thanks to people who found bugs during IFComp 2021: my fellow competitor A. Di Bianca and past (and hopefully future) competitor Mathbrush.";
 	say "[line break]Thanks to Robin Johnson, whose technical suggestion for [5b] paid quick dividends in [this-game].";
 	say "Thanks to publicdomainvectors.org for the vector art of the knight(s) and freesvg.org for the vector art of the bishop(s) in the cover art.";
 	say "[line break]If you find a bug or have a transcript, mail me at [email]. Or you can report bugs at [github].";
@@ -1940,7 +1940,7 @@ to note-amusing-stuff (t - text):
 table of amusing stuff
 code	done-yet	amuse-list
 "beatdown"	false	"Constructing a double check (both allies, no traitors, attacking [the fourbyfourian])"
-"nvb-miss"	false	"Placing your knight where it's checkmate, but the traitor bishop can attack it"
+"nvb-miss"	false	"Placing your knight where it would be checkmate, but the traitor bishop can attack it"
 "bvn-miss"	false	"Placing the bishop too far from the king when you have the traitor knight"
 "bb-colors-first"	false	"Placing two opposing bishops on the same color tile"
 "bb-colors-second"	false	"Placing your two bishops on the same color tile"
