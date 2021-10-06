@@ -57,7 +57,8 @@ You still need to place the Fourbyfourian King.
 >place b
 >e5
 >place k
-WRONG
+/The grey bishop coughs\. You realize that setup won't do\. The Twelvebytwelvian King is stared down a bit too much by the grey bishop\. The enemy king might start to question why you or the (yellow|purple) knight won't rush to his defense\.
+So, somewhere else, maybe. As much as you'd sometimes love an excuse to see your monarch get bopped for no reason, the price is too high. A failed conquest and, of course, blame for said conquest.
 >out
 
 ################TEST CASE 2: KICK A PIECE, KING IN CHECK
@@ -82,6 +83,7 @@ Whoah! Wait! That'd open up a sneaky attack on the Twelvebytwelvian King from th
 >a2
 >place n
 >place k
+>y
 /Swapping the Twelvebytwelvian King for the (yellow|purple) knight would put the Twelvebytwelvian King in check from the grey knight\. So that won't quite do\.
 
 >out
@@ -95,10 +97,28 @@ Whoah! Wait! That'd open up a sneaky attack on the Twelvebytwelvian King from th
 >place n
 >place 12
 >y
-WRONG
+/Swapping the Twelvebytwelvian King for the (yellow|purple) knight would put the Twelvebytwelvian King in check from the grey bishop\. So that won't quite do\.
 ################TEST CASE 4b: REPLACE KING WITH PLACED PIECE, KING IN CHECK
 >place k
-WRONG
+/While you're nominally placing the Fourbyfourian King last, it would replace the (yellow|purple) knight, who would become the last piece/person placed. So you need to put the Fourbyfourian King on an empty square\.
+>out
+
+################TEST CASE 5a: MOVING PIECE CAUSES CHECK
+>n
+>place k
+>e
+>place grey
+>n
+>place grey
+>y
+The grey bishop looks confused. You wonder why for a moment. Ah, that's it, he would be attacking the Twelvebytwelvian King at c3! You nod and wave the grey bishop off. Yes, best stay at d3.
+
+################TEST CASE 5a: MOVING KING CAUSES CHECK
+>w
+>place k12
+>y
+The Twelvebytwelvian King looks confused. You wonder why for a moment. Ah, that's it, the grey bishop at d3 would be attacking him! You nod and wave the Twelvebytwelvian King off. Yes, best stay at c3.
+>out
 
 ###################standoff
 
@@ -118,7 +138,7 @@ WRONG
 >place b
 >ne
 >place n
-/While the (yellow|purple) bishop now potentially attacks the grey knight, you make clear that that sort of thing won't fly, here\. We're not hooligans in Twelvebytwelvia, etc\.! It's probably impressive or reassuring to gullible onlookers, including maybe the Northeast Fourbyfourian King, even if it doesn't get closer to the main goal\.
+/While the (yellow|purple) bishop now potentially attacks the grey knight, you make clear that it's part of the festivities or tradition or something\. We're not hooligans in Twelvebytwelvia, etc\.! It's probably impressive or reassuring to gullible onlookers, including maybe the Northeast Fourbyfourian King, even if it doesn't get closer to the main goal\.
 >n
 >place n
 >y

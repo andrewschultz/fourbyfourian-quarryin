@@ -1068,23 +1068,6 @@ definition: a piece (called p) is check-warning:
 	if p is placed, yes;
 	no;
 
-this is the check yourself and wreck yourself rule:
-	unless quest-dir is primary, continue the action;
-	let sp be second-piece of quest-dir;
-	if sp is irrelevant, continue the action;
-	if sp is not placed and twelvebytwelvian king is not placed, continue the action;
-	move noun to location of player;
-	now noun is placed;
-	let self-check be whether or not sp attacks twelvebytwelvian king;
-	show-the-board;
-	move noun to offsite;
-	now noun is reserved;
-	show-the-board;
-	if self-check is false, continue the action;
-	say "The [random placed piece] coughs. You realize that setup won't do. The [twelvebytwelvian] is stared down a bit too much by [the second-piece of quest-dir]. The enemy king might start to question why you or [the first-piece of quest-dir] won't rush to his defense.[paragraph break]So, somewhere else, maybe. As much as you'd sometimes love an excuse to see your monarch get bopped for no reason, the price is too high. A failed conquest and, of course, blame for said conquest.";
-	note-amusing-stuff "self-check";
-	the rule succeeds;
-
 to open-new-areas:
 	if number of solved directions is 4:
 		say "A panel of distinguished barons and earls is waiting for you back at the Ministry. There is backslapping and tallyhoing for a while before everyone immediately yells at each other that it's time to get serious. And you do.[paragraph break]Unfortunately, the governments of both East and [q of south] were packed with loyalists. So you will have to bring an extra ally along. Once you do, you will have a passage to [q of southeast].";
@@ -1134,43 +1117,6 @@ to decide whether enemy-self-check:
 		no;
 	no; [this should never be reached]
 
-this is the would this check your king rule:
-	unless quest-dir is primary and quest-dir is stalemated, continue the action;
-	let sp be second-piece of quest-dir;
-	unless sp is noun or sp is placed, continue the action;
-	unless twelvebytwelvian is noun or twelvebytwelvian is placed, continue the action;
-	let old-loc be location of player;
-	let rp be random piece in location of player;
-	move rp to offsite;
-	now rp is reserved;
-	move noun to location of player;
-	now noun is placed;
-	let would-check be whether or not sp attacks twelvebytwelvian king;
-	move noun to offsite;
-	now noun is reserved;
-	move rp to location of player;
-	now rp is placed;
-	if would-check is true:
-		say "Swapping [the noun] for [the rp] would put [the twelvebytwelvian] in check from [the sp]. So that won't quite do.";
-		the rule succeeds;
-	continue the action;
-
-this is the shuffle-pieces-around rule:
-	the rule fails;
-	if the player regex-prompt-consents:
-		say "You solemnly announce an unforeseen change of plans. The [noun] nods. It adds to the formality of it all. Perhaps the [ck] will be impressed or intimidated by all this procedure, making it easier to shut the trap.[paragraph break]";
-		if number of pieces in location of player is 1:
-			let rp be random piece in location of player;
-			now rp is reserved;
-			move rp to offsite;
-		move noun to location of player;
-		now noun is placed;
-		update-guarded;
-		show-the-board;
-	else:
-		say "On second thought, [the noun] seems better positioned at [location of the noun]. For now.";
-	the rule succeeds;
-
 minor-slapfight is a truth state that varies.
 
 this is the minor piece slapfight rule:
@@ -1203,10 +1149,8 @@ this is the unified self check check rule:
 	let kicked-loc be location of kicked-piece;
 	if debug-state is true, say "CALL [called-loc] [called-piece] KICK [kicked-loc] [kicked-piece].";
 	if kicked-piece is not null-piece:
-		say "1a. [kicked-piece] to [called-loc].";
 		move kicked-piece to called-loc;
 	if called-piece is not null-piece:
-		say "1b. [called-piece] to [kicked-loc].";
 		move called-piece to location of player;
 	let block-stuff be false;
 	let sp be second-piece of quest-dir;
@@ -1216,14 +1160,20 @@ this is the unified self check check rule:
 	if your-king-checked is true:
 		now block-stuff is true;
 		if called-piece is null-piece:
-			say "<KICK MAKES DISCOVERY NOTE>.";
+			say "Whoah! Wait! That'd open up a sneaky attack on [the twelvebytwelvian] from [the sp]. You realize it would be proper diplomatic procedure to remove one of them, first.";
 		else if kicked-piece is null-piece:
 			if called-piece is placed:
-				say "<MOVING CAUSES CHECK>.";
+				say "The [called-piece] looks confused. You wonder why for a moment. Ah, that's it, ";
+				if called-piece is sp:
+					say "he would be attacking [the twelvebytwelvian king] at [location of twelvebytwelvian king]! ";
+				else:
+					say "[the sp] at [location of sp] would be attacking him! ";
+				say "You nod and wave [the called-piece] off. Yes, best stay at [called-loc].";
 			else:
-				say "<PLACING CAUSES CHECK>.";
+				say "The [random placed piece] coughs. You realize that setup won't do. The [twelvebytwelvian] is stared down a bit too much by [the sp]. The enemy king might start to question why you or [the first-piece of quest-dir] won't rush to his defense.[paragraph break]So, somewhere else, maybe. As much as you'd sometimes love an excuse to see your monarch get bopped for no reason, the price is too high. A failed conquest and, of course, blame for said conquest.";
+				note-amusing-stuff "self-check";
 		else:
-			say "<SWITCHING CAUSES CHECK>.";
+			say "Swapping [the called-piece] for [the kicked-piece] would put [the twelvebytwelvian] in check from [the sp]. So that won't quite do.";
 	abide by the minor piece slapfight rule;
 	if block-stuff is true, the rule succeeds;
 
@@ -1255,7 +1205,6 @@ carry out calling:
 	if noun is a bishop:
 		abide by the same-colored-bishops rule;
 	if noun is Fourbyfourian king, abide by the no-illegal-positions rule;
-	abide by the check yourself and wreck yourself rule;
 	say "You place [the noun] at [location of player].";
 	place-and-list noun;
 	if kicked-piece is not null-piece, now kicked-piece is reserved;
@@ -1526,21 +1475,6 @@ to place-and-list (p - a piece):
 	move p to location of player;
 	now p is placed;
 	add p to kick-list;
-
-this is the discovered attack on kick rule:
-	unless quest-dir is primary and quest-dir is stalemated, continue the action;
-	let sp be second-piece of quest-dir;
-	if sp is not placed, continue the action;
-	if twelvebytwelvian king is not placed, continue the action;
-	let old-loc be location of noun;
-	move noun to offsite;
-	now noun is reserved;
-	let disco be whether or not sp attacks twelvebytwelvian king;
-	move noun to old-loc;
-	now noun is placed;
-	if disco is true:
-		say "Whoah! Wait! That'd open up a sneaky attack on [the twelvebytwelvian] from [the sp]. You realize it would be proper diplomatic procedure to remove one of them, first.";
-		the rule succeeds;
 
 null-piece is a piece.
 called-loc is a room that varies.

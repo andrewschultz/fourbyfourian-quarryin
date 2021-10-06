@@ -35,7 +35,7 @@
  ----Everyone's favorite* text-adventure in-joke, XYZZY
  ----Moving one of the eight L-shaped directions from Fivebyfivia in the Ministry of Unity
  ----Moving one of the eight L-shaped directions from Fivebyfivia in a Fourbyfouria
- ----Placing your knight where the traitor bishop can attack it
+ ----Placing your knight where it would be checkmate, but the traitor bishop can attack it
  ----Putting your own king in check
  ----Placing opposing minor pieces so one or both attacks the other
 
@@ -55,7 +55,7 @@ DEBUG: standoff amusement entry done.
  ----Everyone's favorite* text-adventure in-joke, XYZZY
  ----Moving one of the eight L-shaped directions from Fivebyfivia in the Ministry of Unity
  ----Moving one of the eight L-shaped directions from Fivebyfivia in a Fourbyfouria
- ----Placing your knight where the traitor bishop can attack it
+ ----Placing your knight where it would be checkmate, but the traitor bishop can attack it
  ----Putting your own king in check
 ! ----Placing opposing minor pieces so one or both attacks the other
 
@@ -85,7 +85,7 @@ DEBUG: bb-colors-first amusement entry done.
  ----Everyone's favorite* text-adventure in-joke, XYZZY
  ----Moving one of the eight L-shaped directions from Fivebyfivia in the Ministry of Unity
  ----Moving one of the eight L-shaped directions from Fivebyfivia in a Fourbyfouria
- ----Placing your knight where the traitor bishop can attack it
+ ----Placing your knight where it would be checkmate, but the traitor bishop can attack it
  ----Putting your own king in check
 ! ----Placing opposing minor pieces so one or both attacks the other
 
@@ -114,7 +114,7 @@ DEBUG: bb-colors-second amusement entry done.
  ----Everyone's favorite* text-adventure in-joke, XYZZY
  ----Moving one of the eight L-shaped directions from Fivebyfivia in the Ministry of Unity
  ----Moving one of the eight L-shaped directions from Fivebyfivia in a Fourbyfouria
- ----Placing your knight where the traitor bishop can attack it
+ ----Placing your knight where it would be checkmate, but the traitor bishop can attack it
  ----Putting your own king in check
 ! ----Placing opposing minor pieces so one or both attacks the other
 
@@ -146,7 +146,7 @@ DEBUG: beatdown amusement entry done.
  ----Everyone's favorite* text-adventure in-joke, XYZZY
  ----Moving one of the eight L-shaped directions from Fivebyfivia in the Ministry of Unity
  ----Moving one of the eight L-shaped directions from Fivebyfivia in a Fourbyfouria
- ----Placing your knight where the traitor bishop can attack it
+ ----Placing your knight where it would be checkmate, but the traitor bishop can attack it
  ----Putting your own king in check
 ! ----Placing opposing minor pieces so one or both attacks the other
 
@@ -202,7 +202,7 @@ DEBUG: bvn-miss amusement entry redone.
  ----Everyone's favorite* text-adventure in-joke, XYZZY
  ----Moving one of the eight L-shaped directions from Fivebyfivia in the Ministry of Unity
  ----Moving one of the eight L-shaped directions from Fivebyfivia in a Fourbyfouria
- ----Placing your knight where the traitor bishop can attack it
+ ----Placing your knight where it would be checkmate, but the traitor bishop can attack it
  ----Putting your own king in check
 ! ----Placing opposing minor pieces so one or both attacks the other
 
@@ -226,7 +226,7 @@ DEBUG: orwell amusement entry done.
  ----Everyone's favorite* text-adventure in-joke, XYZZY
  ----Moving one of the eight L-shaped directions from Fivebyfivia in the Ministry of Unity
  ----Moving one of the eight L-shaped directions from Fivebyfivia in a Fourbyfouria
- ----Placing your knight where the traitor bishop can attack it
+ ----Placing your knight where it would be checkmate, but the traitor bishop can attack it
  ----Putting your own king in check
 ! ----Placing opposing minor pieces so one or both attacks the other
 
@@ -247,7 +247,7 @@ DEBUG: xyzzy amusement entry redone.
 ! ----Everyone's favorite* text-adventure in-joke, XYZZY
  ----Moving one of the eight L-shaped directions from Fivebyfivia in the Ministry of Unity
  ----Moving one of the eight L-shaped directions from Fivebyfivia in a Fourbyfouria
- ----Placing your knight where the traitor bishop can attack it
+ ----Placing your knight where it would be checkmate, but the traitor bishop can attack it
  ----Putting your own king in check
 ! ----Placing opposing minor pieces so one or both attacks the other
 
@@ -265,7 +265,7 @@ DEBUG: knight-moves-1 amusement entry done.
 ! ----Everyone's favorite* text-adventure in-joke, XYZZY
 ! ----Moving one of the eight L-shaped directions from Fivebyfivia in the Ministry of Unity
  ----Moving one of the eight L-shaped directions from Fivebyfivia in a Fourbyfouria
- ----Placing your knight where the traitor bishop can attack it
+ ----Placing your knight where it would be checkmate, but the traitor bishop can attack it
  ----Putting your own king in check
 ! ----Placing opposing minor pieces so one or both attacks the other
 
@@ -283,7 +283,7 @@ DEBUG: knight-moves-2 amusement entry done.
 ! ----Everyone's favorite* text-adventure in-joke, XYZZY
 ! ----Moving one of the eight L-shaped directions from Fivebyfivia in the Ministry of Unity
 ! ----Moving one of the eight L-shaped directions from Fivebyfivia in a Fourbyfouria
- ----Placing your knight where the traitor bishop can attack it
+ ----Placing your knight where it would be checkmate, but the traitor bishop can attack it
  ----Putting your own king in check
 ! ----Placing opposing minor pieces so one or both attacks the other
 
@@ -315,7 +315,7 @@ DEBUG: nvb-miss amusement entry done.
 ! ----Everyone's favorite* text-adventure in-joke, XYZZY
 ! ----Moving one of the eight L-shaped directions from Fivebyfivia in the Ministry of Unity
 ! ----Moving one of the eight L-shaped directions from Fivebyfivia in a Fourbyfouria
-! ----Placing your knight where the traitor bishop can attack it
+! ----Placing your knight where it would be checkmate, but the traitor bishop can attack it
  ----Putting your own king in check
 ! ----Placing opposing minor pieces so one or both attacks the other
 
@@ -339,7 +339,7 @@ DEBUG: self-check amusement entry done.
 ! ----Everyone's favorite* text-adventure in-joke, XYZZY
 ! ----Moving one of the eight L-shaped directions from Fivebyfivia in the Ministry of Unity
 ! ----Moving one of the eight L-shaped directions from Fivebyfivia in a Fourbyfouria
-! ----Placing your knight where the traitor bishop can attack it
+! ----Placing your knight where it would be checkmate, but the traitor bishop can attack it
 ! ----Putting your own king in check
 ! ----Placing opposing minor pieces so one or both attacks the other
 
