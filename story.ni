@@ -1278,10 +1278,11 @@ to calculate-ending:
 	else:
 		say "But the similarities between all the [4n] Kings['] disappearance is too much. Someone puts all the pieces together, and slowly but surely, you're fingered as a Person of Interest. Perhaps with more territories to conquer, your King would have backed you up, but here, you are offered as a sacrifice. You do, however, get a nifty diagonal street named after you in New Centroidia, the more practical capital now that Great Centroidia isn't really fully in the center any more.";
 		if number of nonoptimal directions is 0:
-			say "You managed to find non-overlapping solutions, so if you want to see the good entry, you should replay on hard mode. Or you can poke at the source and just read it. Either is an intellectual activity, of a sort.";
+			say "You managed to find non-overlapping solutions, so if you want to see the good ending, you should replay on hard mode. Or you can poke at the source and just read it. Either is an intellectual activity, of a sort.";
 			continue the action;
 		let L be the list of nonoptimal directions;
-		say "You could have found more unique solutions to the [L].";
+		let lplur be whether or not the number of entries in L > 1;
+		say "Your solution[if lplur is true]s[end if] to the [L] [if lplur is true]were[else]was[end if] good, but [if lplur is true]they[else]it[end if] won't quite work in hard mode.";
 		if debug-state is true:
 			repeat with D running through L:
 				say "[D] [whether or not D is hard-stalemated] [whether or not D is hard-checkmated].";
@@ -1909,7 +1910,9 @@ carry out xyzzying:
 	else:
 		say "You wouldn't want to pick a fight with any 26-wide country, that's for sure. Also, there are no secret doors on the west side of the castle."
 
-volume amusing post-game
+volume post-game detailing
+
+book amusing stuff
 
 Rule for amusing a victorious player:
 	look-for-amuse false;
@@ -1955,6 +1958,53 @@ code	done-yet	amuse-list
 "self-check"	false	"Putting your own king in check"
 "standoff"	false	"Placing opposing minor pieces so one or both attacks the other"
 "xyzzy"	false	"Everyone's favorite* text-adventure in-joke, XYZZY"
+
+book normal previewing hard mode
+
+the tweaked print the final question rule is listed instead of the print the final question rule in before handling the final question.
+
+Table of Final Question Options (continued)
+final question wording	only if victorious	topic	final response rule		final response activity
+--	false	"p/pre/preview"	check-normal rule	--
+
+hard-previewing is an activity.
+
+this is the check-normal rule:
+	if hard-mode is true:
+		issue miscellaneous library message number 8;
+		the rule fails;
+	say "In hard mode, the first four checkmates are the same, but one of the stalemates is modified. The real challenge is in all three final regions ([q of east], [q of south], and [q of southeast]), where you can't stalemate or checkmate the enemy king in the corner, and the game rejects similar checkmates between quests.";
+
+when play begins (this is the part-boldify final options rule):
+	choose row with final response rule of immediately undo rule in Table of Final Question Options;
+	now final question wording entry is "[b]UNDO[r] the last command";
+	choose row with final response rule of immediately restore saved game rule in Table of Final Question Options;
+	now final question wording entry is "[b]RESTORE[r] a saved game";
+
+This is the tweaked print the final question rule:
+	let named options count be 0;
+	repeat through the Table of Final Question Options:
+		if the only if victorious entry is false or the story has ended finally:
+			if there is a final response rule entry
+				or the final response activity entry [activity] is not empty:
+				if there is a final question wording entry, increase named options count by 1;
+	if the named options count is less than 1, abide by the immediately quit rule;
+	say "Would you like to ";
+	if hard-mode is false, say "[b]P[r]/[b]PRE[r]/[b]PREVIEW[r] hard mode, ";
+	repeat through the Table of Final Question Options:
+		if the only if victorious entry is false or the story has ended finally:
+			if there is a final response rule entry
+				or the final response activity entry [activity] is not empty:
+				if there is a final question wording entry:
+					say "[b][final question wording entry][r]";
+					decrease named options count by 1;
+					if the named options count is 0:
+						say "?[line break]";
+					otherwise if the named options count is 1:
+						if the serial comma option is active, say ",";
+						say " or ";
+					otherwise:
+						say ", ";
 
 volume parser rules and errors
 
