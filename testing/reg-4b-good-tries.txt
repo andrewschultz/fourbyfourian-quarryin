@@ -8,13 +8,33 @@
 
 >j
 
-# bishop stalemate
+# bishop failed stalemate, too similar to knight
+
 >n
+>s
+>place b
+>c4
+>place k
+>a5
+>place k
+For whatever reason, the North Fourbyfourian King doesn't feel comfortable backed in that way, at least not without an ally next to them. He chickens out with a maddeningly plausible excuse.
+There's got to be a way to trap him away from the corner--then, surely, North Fourbyfouria will be better off ruled by someone much braver, a non-corner-fearing (but still center-seizing) leader like ... your very own king! Or, perhaps, a regent such as yourself.
+!The formation had to be right, though. It just HAD to. But the positioning -- not so much. Yet.
+
+# bishop failed stalemate, shift from corner
+
+>n
+>a3
 >place k
 >n
->place
+>place b
 >n
->place
+>place k
+For whatever reason, the North Fourbyfourian King doesn't feel comfortable backed in that way, at least not without an ally next to them. He chickens out with a maddeningly plausible excuse.
+There's got to be a way to trap him away from the corner--then, surely, North Fourbyfouria will be better off ruled by someone much braver, a non-corner-fearing (but still center-seizing) leader like ... your very own king! Or, perhaps, a regent such as yourself.
+The formation had to be right, though. It just HAD to. But the positioning -- not so much. Yet.
+
+
 
 # knight stalemate
 >w
@@ -23,6 +43,16 @@
 >place k
 >a1
 >place k
+
+# bishop stalemate
+>n
+>place k
+>n
+>place
+>n
+>place
+
+# piece (re)placing check: 4x4 king on placed piece should be rejected
 
 >n
 >place b
