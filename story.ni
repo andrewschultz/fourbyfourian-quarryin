@@ -178,7 +178,7 @@ to say tried:
 	if number of tried not solved directions is 0, continue the action;
 	let tried-unsolved be number of tried unsolved directions;
 	let stalemates be number of stalemated directions;
-	say ". You've[if tried-unsolved > 0] been to [list of tried unsolved directions] before[end if][if tried-unsolved > 0 and stalemates > 0] and[end if][if stalemates > 0] made good progress to the [list of stalemated directions][end if]";
+	say ". You've[if tried-unsolved > 0] been to the [list of tried unsolved directions] before[end if][if tried-unsolved > 0 and stalemates > 0] and[end if][if stalemates > 0] made good progress to the [list of stalemated directions][end if]";
 
 definition: a direction (called d) is solve-now:
 	if d is solved, no;
@@ -1023,7 +1023,7 @@ this is the stalemate dialogue rule:
 			abide by hard-stalemate-check of quest-dir;
 			let q2 be similar-early of quest-dir;
 			let other-guy be rival of first-piece of quest-dir;
-			say "You and [the first-piece of quest-dir] corner the [ck] and manage to convince him that you're really all just about the diplomacy these days, and they'd better trust you now and in the future. It ... seems to work![paragraph break]Once back at the Ministry of Unity, you realize your plans for [q of similar-early of quest-dir] are more or less identical. But so as not to show any yellow/purple favoritism, you go through the paces with [the rival of the first-piece of quest-dir].[paragraph break]Your trips to [q of q2] and [q of quest-dir] will include [the other-guy] who is not as loyal to their King as they should be. They won't attack their own king. They'll only obstruct him. And their help should be just enough.";
+			say "You and [the first-piece of quest-dir] corner the [ck] and manage to convince him that you're really all just about the diplomacy these days, and they'd better trust you now and in the future. It ... seems to work![paragraph break]Once back at the Ministry of Unity, you realize your plans for [q of similar-early of quest-dir] are more or less identical. But so as not to show any yellow/purple favoritism, you go through the paces with [the other-guy].[paragraph break]Your next trips to [q of q2] and [q of quest-dir] will include [the second-piece of quest-dir], who is not as loyal to their King as they should be. They won't attack their own king. They'll only obstruct him. And their help should be just enough.";
 			now quest-dir is stalemated;
 			now last-solved is quest-dir;
 			if quest-dir is not normal-stalemated, now quest-dir is hard-stalemated;
@@ -1243,7 +1243,7 @@ carry out calling:
 			if quest-dir is primary:
 				say "The [ck] feels pretty confident he won't get squeezed, even in the corner, with the loyal [second-piece of quest-dir] by his side. But how wrong he is! Sure, the [twelvebytwelvian] and [first-piece of quest-dir] are closing in, but ... but ... [the second-piece of quest-dir] doesn't move. He makes apologetic 'I ... but ... ' noises, confusing his leader just long enough.[paragraph break]Perhaps he realized things in his last moment, perhaps not. But either way, there is the matter of leaving a regent for the newly acquired lands: [the first-piece of quest-dir] would be just perfect. His successor may help later.";
 			else:
-				say "The [ck] doesn't look worried at first. After all, when you cornered him the last time, he escaped[if location of player is not cornery], and he isn't even pinned in the corner[end if]! So he has plenty of ways out, and one must work ... except he doesn't. The end is not the sort of thing I wish to focus on, and besides, the official version is abdication to spend more times exploring ... well, the rest of his new adopted land of [12b].";
+				say "The [ck] doesn't look worried at first. After all, when you cornered him the last time, he escaped[if location of player is not cornery], and he isn't even pinned in the corner[end if]! So he has plenty of ways out, and one must work ... except none do. The end is not the sort of thing I wish to focus on, and besides, the official version is abdication to spend more times exploring ... well, the rest of his new adopted land of [12b].";
 			if location of player is cornery:
 				now quest-dir is normal-checkmated;
 			if quest-dir is not normal-checkmated:
@@ -1404,7 +1404,7 @@ this is the no-corner-no-close rule:
 
 this is the two-knights-silly rule:
 	if hard-mode is true and location of player is cornery and you-checkmated:
-		say "While the [fourbyfourian] sees what's up and booms 'You can't force me there,' you have an idea. You technically ... really ... couldn't, even if everyone alternated moves. But if you could make someone, or a whole society, think that way ... what power you would have! Perhaps you could tie it up with some 2+2=5 motivational nonsense as well.[paragraph break]Also, you recall some egghead advisor rambling on about how a traitorous pawn or page could help you conquer [cq] effortlessly, but it seemed too nonsensically far out for you. Easier just to tackle the [fourbyfourian] on the edge.";
+		say "While the [fourbyfourian] sees what's up and booms 'You can't force me there,' you have an idea. You technically ... really ... couldn't, even if everyone alternated moves. But if you could make someone, or a whole society, think that way ... what power you would have! Perhaps you could tie it up with some 2+2=5 motivational nonsense as well.[paragraph break]Also, you recall some egghead advisor rambling on about how a traitorous pawn or page could help you conquer [cq] effortlessly, but it seemed too nonsensically far out for you. Easier just to figure how to tackle the [fourbyfourian] on the edge instead of in the corner.";
 		note-amusing-stuff "orwell";
 		retreat-to-unity;
 		the rule fails;
@@ -1678,7 +1678,7 @@ chapter creditsing
 carry out creditsing:
 	say "Thanks to chess.com, lichess.org, chessgames.com, and everyone who helped chess streaming become popular during the pandemic, on YouTube and Twitch. It saved my sanity enough to write [this-game], which will hopefully not take too much of yours. Thanks to Adam Sommerfield for ParserComp, which led to this game.";
 	say "Thanks to Amanda W., FA, and Olaf Nowacki for testing help. They found more than they thought they did, and their questions helped make [this-game] much more user-friendly.";
-	say "[line break]Thanks to people who found bugs during IFComp 2021: my fellow competitor A. Di Bianca and past (and hopefully future) competitor Mathbrush.";
+	say "[line break]Thanks to people who found bugs during IFComp 2021: my fellow competitors A. Di Bianca and Mike Russo and past (and hopefully future) competitor Mathbrush.";
 	say "[line break]Thanks to Robin Johnson, whose technical suggestion for [5b] paid quick dividends in [this-game].";
 	say "Thanks to publicdomainvectors.org for the vector art of the knight(s) and freesvg.org for the vector art of the bishop(s) in the cover art.";
 	say "[line break]If you find a bug or have a transcript, mail me at [email]. Or you can report bugs at [github].";
