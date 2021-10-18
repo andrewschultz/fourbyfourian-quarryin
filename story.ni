@@ -1000,7 +1000,11 @@ to say normal-ok:
 this is the hard-bishop-stalemate rule:
 	if location of player is cornery:
 		if hard-mode is true:
-			say "The planning felt right there, but for whatever reason, the [ck] doesn't feel comfortable backed in that way, at least not without an ally next to them. Maybe that idea will work later, but there's a way to trap him away from the corner, here.[paragraph break]Surely [cq] will be better off with a much braver leader like ... your very own king! Or, perhaps, a regent such as yourself.[line break][normal-ok]"; [?? for the next bit, mention they should go in a corner, if on hard mode] [?? also mention differently if you already solved KN vs K]
+			say "It should have worked. It [if west is stalemated or south is stalemated]already did off in [q of west] and [q of southwest], but maybe you need a new approach here[else]might work somewhere else, because things feel basically right[end if].";
+			say "[line break]For whatever reason, the [ck] doesn't feel comfortable backed in that way, at least not without an ally next to them. He chickens out with a maddeningly plausible excuse.[paragraph break]There's got to be a way to trap him away from the corner--then, surely, [cq] will be better off ruled by someone much braver, a non-corner-fearing (but still center-seizing) leader like ... your very own king! Or, perhaps, a regent such as yourself.";
+			if basic-dist of first-piece of quest-dir and player is 1 and basic-dist of first-piece of quest-dir and twelvebytwelvian king is 1:
+				say "[line break]The formation had to be right, though. It just HAD to. But the positioning -- not so much. Yet.";
+			say "[normal-ok]";
 			retreat-to-unity;
 			the rule succeeds;
 		now quest-dir is normal-stalemated;
