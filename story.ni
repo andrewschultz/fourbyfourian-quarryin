@@ -26,7 +26,11 @@ include Chess Common by Andrew Schultz.
 
 include Fourbyfourian Quarryin Tests by Andrew Schultz.
 
-section stuff only changed in debug mode
+section beta testing - not for release
+
+include Fourbyfourian Quarryin Beta Testing by Andrew Schultz.
+
+section stuff only changed in debug mode that still goes into release functions
 
 jump-over is a truth state that varies.
 
@@ -48,6 +52,14 @@ to say ck:
 	say "[k of quest-dir]"
 
 to say github: say "https://github.com/andrewschultz/fourbyfourian-quarryin"
+
+section variable shortcuts
+
+to decide which piece is fp:
+	decide on first-piece of quest-dir;
+
+to decide which piece is sp:
+	decide on second-piece of quest-dir;
 
 section meta/option booleans
 
@@ -408,12 +420,28 @@ rule for printing the locale description when map-view is true and location of p
 chapter c3 explaining 4 vs 5
 
 after printing the locale description for c3 when c3 is unvisited:
-	say "[line break]It has not escaped your notice that the castle was, in fact, five by five and not four by four as you expected. You can review the likely reasons why with [45][if hard-mode is true], which may be slightly spoilery[end if].";
+	say "[line break]It has not escaped your notice that the castle was, in fact, five by five and not four by four as you expected. You can review the likely reasons why with [fofiv][if hard-mode is true], which may be slightly spoilery[end if].[paragraph break]However, the main thing to do is just to canvas the area to figure where to [call-place] any allies, or, eventually, [the twelvebytwelvian].";
 	say "[line break]Technical note(s): ";
 	if player-knows-toggle is true:
 		say "You already know about [tog], but just in case, it can change between text maps and text descriptions.";
 	else:
 		say "The [tog] command can change from the text map you see above to a text description, though most testers and players seem to prefer text map.";
+
+place-ping is a truth state that varies.
+
+placed-yet is a truth state that varies.
+
+after printing the locale description:
+	if quest-moves is 0:
+		say "The [list of not irrelevant pieces] will be in the background, awaiting your suggestions of who goes where, as you [b]CALL[r] them, in some order.";
+	else if placed-yet is false and place-ping is false and :
+		say "You thought you heard [whiny-ally] telling you to get on with [b]CALL[r]ing someone, already. But this sort of thinking can't be rushed!";
+		now place-ping is true;
+
+to decide which piece is whiny-ally:
+	if second-piece of quest-dir is black, decide on first-piece of quest-dir;
+	if a random chance of 1 in 2 succeeds, decide on first-piece of quest-dir;
+	decide on second-piece of quest-dir;
 
 volume pieces
 
@@ -783,11 +811,14 @@ section quest solve rules
 to decide whether might-self-check:
 	unless quest-dir is primary, no;
 	unless quest-dir is stalemated, no;
-	let sp be second-piece of quest-dir;
-	let fp be second-piece of quest-dir;
-	unless sp is placed or sp is noun, no;
-	unless fp is placed or fp is noun, no;
-	yes;
+	say "[current action], [fp], [sp], [noun].";
+	if current action is kicking and sp is noun, no;
+	if current action is calling:
+		if sp is not noun and sp is not placed, no;
+		if sp is in location of player and noun is not placed, no;
+		if sp is noun, yes;
+	if sp is placed, yes;
+	no;
 
 to decide whether half-final:
 	if boolval of bn-close + boolval of bn-far is 1, yes;
@@ -827,7 +858,7 @@ this is the two-bishops-formation rule:
 		poss-dupe-note instead;
 
 this is the bishop takes knight rule:
-	say "Checking if [second-piece of quest-dir] at [location of second-piece of quest-dir] attacks [first-piece of quest-dir] at [location of first-piece of quest-dir].";
+	if debug-state is true, say "Checking if [second-piece of quest-dir] at [location of second-piece of quest-dir] attacks [first-piece of quest-dir] at [location of first-piece of quest-dir].";
 	if second-piece of quest-dir attacks first-piece of quest-dir:
 		say "Things seem perfect! Until ... until ... [the second-piece of quest-dir] nudges [the first-piece of quest-dir]. It's ... well, it had to be done. It would have been too obvious to let that slip. People might have asked questions. But [the first-piece of quest-dir] takes quite a few lumps before glaring at you. You smack [the second-piece of quest-dir] around a bit before apologizing for what must be a big giant misunderstanding. (They have to sit there and not blow their cover, after all!) You apologize profusely and hope there can be a less untoward diplomatic meeting in the future ... all the while suggesting it is the enemy king's fault.[paragraph break]On the ride home, [the first-piece of quest-dir] grumbles a bit. You mention it's all part of a greater plan. No details. That-all is top-secret!";
 		note-amusing-stuff "nvb-miss";
@@ -839,7 +870,7 @@ this is the knight blocks bishop rule:
 	let Q be diag-dist of first-piece of quest-dir and Fourbyfourian King;
 	if Q < 2, continue the action;
 	note-amusing-stuff "bvn-miss";
-	say "The enemy knight, who wants to cooperate with your cunning plan, unfortunately has no choice. The king being in danger, and the knight in obvious position to prevent it, jumps to action![paragraph break]";
+	say "The grey knight, who wants to cooperate with your cunning plan, unfortunately has no choice. The king being in danger, and the knight in obvious position to prevent it, jumps to action![paragraph break]";
 	if Q is 2:
 		say "A big fight ensues! A fake one, to impress the [fourbyfourian] and not really raise suspicions. But the grey knight, being traitorous, gets a cheap shot in or two. The [first-piece of quest-dir] isn't happy, but they know better to complain. You'll get [']em next time. You must've been close.";
 	else:
@@ -1104,7 +1135,6 @@ this is the no-illegal-positions rule:
 
 to decide whether enemy-self-check:
 	if color of second-piece of quest-dir is white, no;
-	let sp be second-piece of quest-dir;
 	let xdelt be absval of ((xval of location of fourbyfourian king) - (xval of location of sp));
 	let ydelt be absval of ((yval of location of fourbyfourian king) - (yval of location of sp));
 	if sp is grey knight:
@@ -1124,8 +1154,6 @@ to decide whether enemy-self-check:
 minor-slapfight is a truth state that varies.
 
 this is the minor piece slapfight rule:
-	let sp be second-piece of quest-dir;
-	let fp be first-piece of quest-dir;
 	unless fp is placed and sp is placed, continue the action;
 	unless fp attacks sp or sp attacks fp, continue the action;
 	if fp attacks sp and sp attacks fp:
@@ -1157,7 +1185,6 @@ this is the unified self check check rule:
 	if called-piece is not null-piece:
 		move called-piece to location of player;
 	let block-stuff be false;
-	let sp be second-piece of quest-dir;
 	let your-king-checked be whether or not sp attacks twelvebytwelvian king;
 	if kicked-piece is not null-piece, move kicked-piece to kicked-loc;
 	if called-piece is not null-piece, move called-piece to called-loc;
@@ -1180,7 +1207,6 @@ this is the unified self check check rule:
 			say "Swapping [the called-piece] for [the kicked-piece] would put [the twelvebytwelvian] in check from [the sp]. So that won't quite do.";
 	abide by the minor piece slapfight rule;
 	if block-stuff is true, the rule succeeds;
-
 
 carry out calling:
 	if location of player is not puzzly, say "You don't need to call allies until you're away from the [the location of the player]." instead;
@@ -1216,6 +1242,7 @@ carry out calling:
 	update-guarded;
 	show-the-board;
 	abide by the minor piece slapfight rule;
+	now placed-yet is true;
 	if noun is Fourbyfourian king:
 		consider the excessive beatdown rule;
 		abide by the king-place of quest-dir;
@@ -1298,6 +1325,8 @@ to retreat-to-unity:
 
 incident-row is a number that varies.
 
+quest-moves is a number that varies.
+
 to new-quest:
 	now minor-slapfight is false;
 	if quest-dir is not tried:
@@ -1320,6 +1349,7 @@ to new-quest:
 		add Ministry of Unity to current-quest-snapshot;
 	now Twelvebytwelvian King is reserved;
 	now Fourbyfourian King is reserved;
+	now quest-moves is 0;
 	reset-board;
 
 table of incidents
@@ -1480,6 +1510,7 @@ to place-and-list (p - a piece):
 	move p to location of player;
 	now p is placed;
 	add p to kick-list;
+	now placed-yet is true;
 
 null-piece is a piece.
 called-loc is a room that varies.
@@ -1894,9 +1925,11 @@ carry out toggleing:
 
 chapter verbs
 
+to say call-place: say "[b]CALL[r]/[b]C[r] or [b]PLACE[r]/[b]P[r]"
+
 carry out verbsing:
 	say "[this-game] uses a simplified parser. The main commands are the planar directions: [b]N[r], [b]S[r], [b]E[r], [b]W[r], [b]NW[r], [b]NE[r], [b]SW[r], [b]SE[r]. [b]U[r] and [b]D[r], for up and down, aren't used. [b]OUT[r] anywhere but the [ministry] returns you to the [ministry].";
-	say "[line break]You can also ignore directions to jump to a square when you're not in the Ministry of Unity. So typing [b]a1[r] sends you to a1, etc.[paragraph break]You can also [b]CALL[r]/[b]C[r] or [b]PLACE[r]/[b]P[r] a piece, enemy or friendly. Calling a piece already on the board moves it, and calling a piece to an occupied square removes the previous piece. These have abbreviations, too: [b]ABB[r] finds them.";
+	say "[line break]You can also ignore directions to jump to a square when you're not in the Ministry of Unity. So typing [b]a1[r] sends you to a1, etc.[paragraph break]You can also [call-place] a piece, enemy or friendly. Calling a piece already on the board moves it, and calling a piece to an occupied square removes the previous piece. These have abbreviations, too: [b]ABB[r] finds them.";
 	say "[line break]Meta-verbs and options are discussed in [b]META[r] ([b]MET[r]/[b]ME[r]). None of these are required, but they may ease play considerably.";
 	say "[line break][b]UNDO[r] is also available but of limited use. Any quest can be solved in a maximum of seven moves, and you can always [kick] a piece off the board, anyway.";
 	the rule succeeds;
@@ -2009,8 +2042,6 @@ volume parser rules and errors
 rule for printing a parser error:
 	say "I didn't recognize that command. Type [verbs] to see the full list of commands. [if location of player is puzzly][b]P[r] to place a piece is probably the big one. [end if]If you're confused what to do, [b]X[r] your manual again[if location of player is puzzly], or refer to the current map with [mapm][end if]."
 
-[include Fourbyfourian Quarryin Beta Testing by Andrew Schultz]
-
 volume meta
 
 report undoing an action:
@@ -2094,7 +2125,7 @@ when play begins (this is the randomizing game details rule):
 	sort the table of incidents in rough-order order;
 
 after printing the locale description when instructions-given is false:
-	say "[bracket][b]NOTE[r]: to get you started, [b]ABOUT[r] will give general information about [this-game]. [verbs] will show common verbs, which usually have abbreviations, and [b]CHESS[r] or [b]CH[r] will give the relevant rules of chess.[close bracket][line break]";
+	say "[i][bracket][b]NOTE[r][i]: to get you started, [b]ABOUT[r][i] will give general information about [this-game]. [verbs][i] will show common verbs, which usually have abbreviations, and [b]CHESS[r] or [b]CH[r][i] will give the relevant rules of chess.[close bracket][r][line break]";
 	now instructions-given is true;
 	continue the action;
 
