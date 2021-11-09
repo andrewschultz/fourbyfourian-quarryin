@@ -309,7 +309,7 @@ after examining map of the fourbyfourias:
 	else if number of solved directions is 4:
 		say "[line break]However, [southeast] is still greyed out. It only touches [12b] at a corner, so you need a path through [south] or [east] to get there.";
 	if player-knows-toggle is false:
-		say "[line break]You can use [tog] to toggle viewing a text description of the map and a text map. While most testers and players seem to prefer the text map, I still want to give you the options.";
+		say "[line break][i][bracket][b]NOTE[r][i]: you can use [tog][i] to toggle viewing a text description of the map and a text map. While most testers and players seem to prefer the text map, I still want to give you the options.[close bracket][line break][r]";
 		now player-knows-toggle is true;
 	the rule succeeds;
 
@@ -468,7 +468,7 @@ note-move-help is a truth state that varies.
 a piece can be gen-help-examined. a piece is usually not gen-help-examined.
 
 after examining a piece in Observation Grounds:
-	if noun is not gen-help-examined, say "NOTE: next time you examine [the noun][if rival of noun is not noun] or their rival, [the rival of noun][end if], you'll get a tutorial about how they move[if screen-reader is false], with text graphics[end if].";
+	if noun is not gen-help-examined, say "[i][bracket][b]NOTE[r][i]: next time you examine [the noun][if rival of noun is not noun] or their rival, [the rival of noun][end if], you'll get a tutorial about how they move[if screen-reader is false], with text graphics[end if].[close bracket][r][line break]";
 	now noun is gen-help-examined;
 	now rival of noun is gen-help-examined;
 
@@ -667,7 +667,7 @@ after examining a piece when location of player is puzzly (this is the general q
 	say "You think more generally of your relations with [the list of cooperative pieces] that led you to [q of quest-dir].[paragraph break][piece-bio of quest-dir][line break]";
 	if examine-yet is false:
 		now examine-yet is true;
-		say "[line break][i][bracket]NOTE: examining any ally will give you the same story for your current quest, except in the case of the southeastern [4s], where you get the same story for each.[close bracket][line break][r]"
+		say "[line break][i][bracket][b]NOTE[r][i]: examining any ally will give you the same story for your current quest, except in the case of the southeastern [4s], where you get the same story for each.[close bracket][line break][r]"
 
 to decide which piece is the relevant traitor:
 	if grey knight is not irrelevant, decide on grey knight;
@@ -838,7 +838,7 @@ dupe-noted-yet is a truth state that varies. [ if you found, say, the same BB an
 to poss-dupe-note:
 	if dupe-noted-yet is false:
 		now dupe-noted-yet is true;
-		say "(NOTE: your solution was fully valid, but this being hard mode, I'm being a bit of a stickler about finding different ways for the south and east [4s]. Hope it's not too much inconvenience, or maybe that you find the additional challenge interesting.)";
+		say "[i][bracket]NOTE: your solution was fully valid, but this being hard mode, I'm being a bit of a stickler about finding different ways for the south and east [4s]. Hope it's not too much inconvenience, or maybe that you find the additional challenge interesting.[close bracket][i][r]";
 	retreat-to-unity;
 	the rule succeeds;
 
@@ -1065,7 +1065,7 @@ this is the stalemate dialogue rule:
 			now last-solved is quest-dir;
 			if quest-dir is not normal-stalemated, now quest-dir is hard-stalemated;
 			if q2 is stalemated:
-				say "[line break]NOTE: you should not have been able to stalemate here, since you already did so in [q of q2]. This is a BUG.";
+				say "[line break][i][bracket][b]NOTE[r][i]: you should not have been able to stalemate here, since you already did so in [q of q2]. This is a BUG.[close bracket][r][line break]";
 			now q2 is stalemated;
 			now q2 is stalemate-bypassed;
 			now stalemate-recap of quest-dir is current-quest-snapshot;
@@ -2095,7 +2095,7 @@ when play begins (this is the assign variables and check for skips rule):
 
 when play begins (this is the initial unchangeable options rule):
 	if debug-state is true:
-		say "Forcing hard mode for testing purposes, because that is more likely to catch bugs. NORM will switch to normal mode.";
+		say "Forcing hard mode for testing purposes, because that is more likely to catch bugs. [b]NORM[r] will switch to normal mode.";
 		now hard-mode is true;
 		continue the action;
 	say "[i][this-game] can be played on hard or normal mode. In hard mode, some proper solutions will be rejected to force the player to try different approaches to different areas. Normal mode is recommended for newer chess players, at least for the first time through.[r]";
@@ -2114,11 +2114,11 @@ when play begins (this is the initial unchangeable options rule):
 when play begins (this is the randomizing game details rule):
 	if a random chance of 1 in 2 succeeds:
 		now first-piece of north is purple bishop;
-	else::
+	else:
 		now first-piece of northeast is purple bishop;
 	if a random chance of 1 in 2 succeeds:
 		now first-piece of southwest is purple knight;
-	else::
+	else:
 		now first-piece of west is purple knight;
 	if a random chance of 1 in 2 succeeds:
 		now first-piece of southeast is purple bishop;
