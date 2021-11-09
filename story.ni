@@ -55,10 +55,10 @@ to say github: say "https://github.com/andrewschultz/fourbyfourian-quarryin"
 
 section variable shortcuts
 
-to decide which piece is fp:
+to decide which piece is p1:
 	decide on first-piece of quest-dir;
 
-to decide which piece is sp:
+to decide which piece is p2:
 	decide on second-piece of quest-dir;
 
 section meta/option booleans
@@ -132,9 +132,9 @@ definition: a piece (called p) is cooperative:
 
 to say your-pals:
 	if quest-dir is primary:
-		say "a gratuitous biography of the [first-piece of quest-dir][if quest-dir is stalemated] with no mention of your secret helper, the [second-piece of quest-dir][end if]";
+		say "a gratuitous biography of [the p1][if quest-dir is stalemated] with no mention of your secret helper, [the p2][end if]";
 	else:
-		say "gratuitous biographies of the [first-piece of quest-dir] and [second-piece of quest-dir] helping you here";
+		say "gratuitous biographies of [the p1] and [p2] helping you here";
 
 check examining manual when location of player is not puzzly:
 	say "You read up on the basics of taking down an enemy king with [if number of solved directions > 4]one ally and one equally-strong traitor[else]two relatively inauspicious allies[end if]. But it's all a bit dry and technical, and you'll know what specifics apply better once you leave the the planning areas.";
@@ -264,7 +264,7 @@ check going when location of player is not puzzly (this is the hub check rule):
 	new-quest;
 	move player to c3;
 	if quest-dir is stalemated and already-solved of quest-dir is not empty:
-		say "Okay. You make a note of what you tried earlier, before you gained the enemy king's trust. It almost worked. It should work now.[paragraph break]Your king, [entry 1 of already-solved of quest-dir]. The [first-piece of quest-dir], [entry 2 of already-solved of quest-dir]. The [second-piece of quest-dir], [entry 3 of already-solved of quest-dir]. The king of [q of quest-dir], [entry 4 of already-solved of quest-dir].";
+		say "Okay. You make a note of what you tried earlier, before you gained the enemy king's trust. It almost worked. It should work now.[paragraph break]Your king, [entry 1 of already-solved of quest-dir]. The [p1], [entry 2 of already-solved of quest-dir]. The [p2], [entry 3 of already-solved of quest-dir]. The king of [q of quest-dir], [entry 4 of already-solved of quest-dir].";
 	the rule succeeds;
 
 check going (this is the note boundaries rule):
@@ -445,9 +445,9 @@ after going when location of player is puzzly:
 	continue the action;
 
 to decide which piece is whiny-ally:
-	if second-piece of quest-dir is black, decide on first-piece of quest-dir;
-	if a random chance of 1 in 2 succeeds, decide on first-piece of quest-dir;
-	decide on second-piece of quest-dir;
+	if color of p2 is black, decide on p1;
+	if a random chance of 1 in 2 succeeds, decide on p1;
+	decide on p2;
 
 volume pieces
 
@@ -543,27 +543,27 @@ when play begins:
 
 chapter whether attacks
 
-to decide whether (p1 - a piece) attacks (p2 - a person):
-	if location of p1 is not puzzly or location of p2 is not puzzly, no;
-	if p1 attacks location of p2, yes;
+to decide whether (myp - a piece) attacks (thatp - a person):
+	if location of myp is not puzzly or location of thatp is not puzzly, no;
+	if myp attacks location of thatp, yes;
 	no;
 
-to decide whether (p1 - a piece) attacks (rm - a room):
-	if location of p1 is offsite, no;
-	if location of p1 is rm, no;
-	let x1 be xval of location of p1;
+to decide whether (myp - a piece) attacks (rm - a room):
+	if location of myp is offsite, no;
+	if location of myp is rm, no;
+	let x1 be xval of location of myp;
 	let x2 be xval of rm;
-	let y1 be yval of location of p1;
+	let y1 be yval of location of myp;
 	let y2 be yval of rm;
 	let dx be absval of (x1 - x2);
 	let dy be absval of (y1 - y2);
-	if p1 is a king:
+	if myp is a king:
 		if dx > 1, no;
 		if dy > 1, no;
 		yes;
-	if p1 is a bishop:
+	if myp is a bishop:
 		if absval of (x1 - x2) is not absval of (y1 - y2), no;
-		let temp-room be location of p1;
+		let temp-room be location of myp;
 		let the way be the best route from temp-room to rm;
 		while 1 is 1:
 			now temp-room is the room the way of temp-room;
@@ -571,30 +571,30 @@ to decide whether (p1 - a piece) attacks (rm - a room):
 			if temp-room is nothing, no;
 			if number of pieces in temp-room is 1, no;
 		no;
-	if p1 is a knight:
+	if myp is a knight:
 		if dx is 1 and dy is 2, yes;
 		if dx is 2 and dy is 1, yes;
 		no;
 
-to decide whether (p1 - a piece) is checked:
-	repeat with p2 running through pieces:
-		if color of p1 is color of p2, next;
-		if p2 attacks p1, yes;
+to decide whether (myp - a piece) is checked:
+	repeat with thatp running through pieces:
+		if color of myp is color of thatp, next;
+		if thatp attacks myp, yes;
 	no;
 
-to decide whether (p1 - a piece) is immobile:
+to decide whether (myp - a piece) is immobile:
 	repeat with Q running through planar directions:
-		let R2 be the room Q from location of p1;
+		let R2 be the room Q from location of myp;
 		if R2 is nothing, next;
 		let this-attack be false;
-		repeat with p2 running through pieces:
-			if location of p2 is offsite, next;
-			if color of p1 is color of p2:
-				if location of p2 is R2, now this-attack is true;
+		repeat with thatp running through pieces:
+			if location of thatp is offsite, next;
+			if color of myp is color of thatp:
+				if location of thatp is R2, now this-attack is true;
 				next;
-			if p2 attacks R2, now this-attack is true;
+			if thatp attacks R2, now this-attack is true;
 		if this-attack is false:
-			[if debug-state is true, say "DEBUG:[R2] [q] of [location of p1] is an escapable square.";]
+			[if debug-state is true, say "DEBUG:[R2] [q] of [location of myp] is an escapable square.";]
 			no;
 	yes;
 
@@ -796,11 +796,11 @@ definition: a direction (called d) is simple-dumb:
 	if d is unsolved, yes;
 	no;
 
-to say lone-stale: say "You managed to persuade [the first-piece of quest-dir] that [q of quest-dir] was the TRUE plum assignment, here. Of course, this and [similar-early of quest-dir] are about the same, but he doesn't need to know that. "
+to say lone-stale: say "You managed to persuade [the p1] that [q of quest-dir] was the TRUE plum assignment, here. Of course, this and [similar-early of quest-dir] are about the same, but he doesn't need to know that. "
 
-piece-bio of north is "[if north is simple-dumb][lone-stale]His list of reasons to tax everyone except the church was a truly brilliant piece of public relations and a windfall for the treasury. It also allowed enough leeway to tax (eventually) the church. You know a few knights very willing to advocate for that.[else]You're impressed with how [the first-piece of quest-dir] reached out to the grey bishop at the every-decade international ecumenical conference to lay the groundwork for the imminent betrayal, as well as the reasons they gave to justify said betrayal. But of course you can't show it.[end if]".
+piece-bio of north is "[if north is simple-dumb][lone-stale]His list of reasons to tax everyone except the church was a truly brilliant piece of public relations and a windfall for the treasury. It also allowed enough leeway to tax (eventually) the church. You know a few knights very willing to advocate for that.[else]You're impressed with how [the p1] reached out to the grey bishop at the every-decade international ecumenical conference to lay the groundwork for the imminent betrayal, as well as the reasons they gave to justify said betrayal. But of course you can't show it.[end if]".
 
-piece-bio of northeast is "[if northeast is simple-dumb][lone-stale]His insights into keeping the populace divided between 'the monarchy deserves all the power' and 'the clergy deserves all the power' are thoughtful indeed. You just don't quite agree on the respective ratios of who believes what. Perhaps a sabotaged crusade, seemingly ordered by the clergy, will tip the balance the right way.[else]You can't deny [the first-piece of quest-dir] did well to tap into [the second-piece of quest-dir]'s natural resentment of their own monarchs. Perhaps [the first-piece of quest-dir] did a bit too well.[end if]".
+piece-bio of northeast is "[if northeast is simple-dumb][lone-stale]His insights into keeping the populace divided between 'the monarchy deserves all the power' and 'the clergy deserves all the power' are thoughtful indeed. You just don't quite agree on the respective ratios of who believes what. Perhaps a sabotaged crusade, seemingly ordered by the clergy, will tip the balance the right way.[else]You can't deny [the p1] did well to tap into [the p2]'s natural resentment of their own monarchs. Perhaps [the p1] did a bit too well.[end if]".
 
 piece-bio of east is "The two bishops simply do not like each other, but they know better than to show it. You had such a fight arguing over things: who would get the final blow in on the [ck]? Who would take the light squares, of which there are 13 in an X-by-Xian castle, with only 12 dark squares? Who was better at getting pawns out of their way so they could move about and get stuff done? And you didn't want to get them started on arcane ecumenical matters. Fortunately, they know to shelve their hostility until the job is done, and you were able to placate them enough so they would get the job done. You think. There's always the worry of some bizarre religious edict that dovetails with the current popular superstitions that could rob you of power.".
 
@@ -808,22 +808,21 @@ piece-bio of southeast is "The trip up to [ck] was brutal. You'd heard all the r
 
 piece-bio of south is "The two knights really can't stand each other, but fortunately, taunting from bishops that they couldn't do the job alone, or they could only do it by accident, inspired teamwork. You managed to convince the knights they don't need to guard each other--in fact, that's inefficient--and they wouldn't have to wait for a traitorous pawn after seventy maneuvers. The knights believe they are good at diplomacy, and truth be told, they work together well: the dumb strong one and the smart weak one. All the promises of yes, we will go off to war and no, we won't go off to war--so difficult to keep straight. But thankfully knights are easy to distract.".
 
-piece-bio of southwest is "[if southwest is simple-dumb][lone-stale]He's quite the leader, and his charisma expands well beyond other knights. You are impressed at his ability to mock knights more able than himself without showing his own weaknesses.[else]. You weren't surprised when [the first-piece of quest-dir] and [the second-piece of quest-dir] hit it off at a formal banquet in Great Centroidia. When [the second-piece of quest-dir] complained about [cq], you arranged a return banquet to make sure [the first-piece of quest-dir] did not do the same about [12b]. A few sneaky meeting later, and he was on your side.".
+piece-bio of southwest is "[if southwest is simple-dumb][lone-stale]He's quite the leader, and his charisma expands well beyond other knights. You are impressed at his ability to mock knights more able than himself without showing his own weaknesses.[else]. You weren't surprised when [the p1] and [the p2] hit it off at a formal banquet in Great Centroidia. When [the p2] complained about [cq], you arranged a return banquet to make sure [the p1] did not do the same about [12b]. A few sneaky meeting later, and he was on your side.".
 
-piece-bio of west is "[if west is simple-dumb][lone-stale]His physical abilities cannot be denied, but his leadership? Well, you can't have it all. Still, you sort of had to take him along, especially after he grumbled that his squire was a worthless spoiled brat who only got the position due to noble birth.[else]You're fortunate that skills and jousting tournament just occurred and that it was rigged. Having placed in a tie for second, below a clearly inferior knight from distant lands, [the first-piece of quest-dir] and [the second-piece of quest-dir] bonded over the unfairness of the judges. A quick word with [the second-piece of quest-dir], and suddenly they wanted so much more than [cq] could give.[end if]".
+piece-bio of west is "[if west is simple-dumb][lone-stale]His physical abilities cannot be denied, but his leadership? Well, you can't have it all. Still, you sort of had to take him along, especially after he grumbled that his squire was a worthless spoiled brat who only got the position due to noble birth.[else]You're fortunate that skills and jousting tournament just occurred and that it was rigged. Having placed in a tie for second, below a clearly inferior knight from distant lands, [the p1] and [the p2] bonded over the unfairness of the judges. A quick word with [the p2], and suddenly they wanted so much more than [cq] could give.[end if]".
 
 section quest solve rules
 
 to decide whether might-self-check:
 	unless quest-dir is primary, no;
 	unless quest-dir is stalemated, no;
-	say "[current action], [fp], [sp], [noun].";
-	if current action is kicking and sp is noun, no;
+	if current action is kicking and p2 is noun, no;
 	if current action is calling:
-		if sp is not noun and sp is not placed, no;
-		if sp is in location of player and noun is not placed, no;
-		if sp is noun, yes;
-	if sp is placed, yes;
+		if p2 is not noun and p2 is not placed, no;
+		if p2 is in location of player and noun is not placed, no;
+		if p2 is noun, yes;
+	if p2 is placed, yes;
 	no;
 
 to decide whether half-final:
@@ -864,23 +863,23 @@ this is the two-bishops-formation rule:
 		poss-dupe-note instead;
 
 this is the bishop takes knight rule:
-	if debug-state is true, say "Checking if [second-piece of quest-dir] at [location of second-piece of quest-dir] attacks [first-piece of quest-dir] at [location of first-piece of quest-dir].";
-	if second-piece of quest-dir attacks first-piece of quest-dir:
-		say "Things seem perfect! Until ... until ... [the second-piece of quest-dir] nudges [the first-piece of quest-dir]. It's ... well, it had to be done. It would have been too obvious to let that slip. People might have asked questions. But [the first-piece of quest-dir] takes quite a few lumps before glaring at you. You smack [the second-piece of quest-dir] around a bit before apologizing for what must be a big giant misunderstanding. (They have to sit there and not blow their cover, after all!) You apologize profusely and hope there can be a less untoward diplomatic meeting in the future ... all the while suggesting it is the enemy king's fault.[paragraph break]On the ride home, [the first-piece of quest-dir] grumbles a bit. You mention it's all part of a greater plan. No details. That-all is top-secret!";
+	if debug-state is true, say "Checking if [p2] at [location of p2] attacks [p1] at [location of p1].";
+	if p2 attacks p1:
+		say "Things seem perfect! Until ... until ... [the p2] nudges [the p1]. It's ... well, it had to be done. It would have been too obvious to let that slip. People might have asked questions. But [the p1] takes quite a few lumps before glaring at you. You smack [the p2] around a bit before apologizing for what must be a big giant misunderstanding. (They have to sit there and not blow their cover, after all!) You apologize profusely and hope there can be a less untoward diplomatic meeting in the future ... all the while suggesting it is the enemy king's fault.[paragraph break]On the ride home, [the p1] grumbles a bit. You mention it's all part of a greater plan. No details. That-all is top-secret!";
 		note-amusing-stuff "nvb-miss";
 		retreat-to-unity;
 		the rule succeeds;
 
 this is the knight blocks bishop rule:
 	if Fourbyfourian king is not placed, continue the action;
-	let Q be diag-dist of first-piece of quest-dir and Fourbyfourian King;
+	let Q be diag-dist of p1 and Fourbyfourian King;
 	if Q < 2, continue the action;
 	note-amusing-stuff "bvn-miss";
 	say "The grey knight, who wants to cooperate with your cunning plan, unfortunately has no choice. The king being in danger, and the knight in obvious position to prevent it, jumps to action![paragraph break]";
 	if Q is 2:
-		say "A big fight ensues! A fake one, to impress the [fourbyfourian] and not really raise suspicions. But the grey knight, being traitorous, gets a cheap shot in or two. The [first-piece of quest-dir] isn't happy, but they know better to complain. You'll get [']em next time. You must've been close.";
+		say "A big fight ensues! A fake one, to impress the [fourbyfourian] and not really raise suspicions. But the grey knight, being traitorous, gets a cheap shot in or two. The [p1] isn't happy, but they know better to complain. You'll get [']em next time. You must've been close.";
 	else:
-		say "The knight throws itself in front of the bishop. You have no choice but to call out [the first-piece of quest-dir] for a shocking appearance of aggression and assure the [fourbyfourian] you had nothing to do with it, and if you can help yourself, it won't happen again. The [first-piece of quest-dir] looks ... less than happy. But you mention some failures are, like, divine will and stuff, which the bishop can't argue with. After all, he's used that argument on some unlucky doomed unfortunates, himself. So he's still on the team.";
+		say "The knight throws itself in front of the bishop. You have no choice but to call out [the p1] for a shocking appearance of aggression and assure the [fourbyfourian] you had nothing to do with it, and if you can help yourself, it won't happen again. The [p1] looks ... less than happy. But you mention some failures are, like, divine will and stuff, which the bishop can't argue with. After all, he's used that argument on some unlucky doomed unfortunates, himself. So he's still on the team.";
 	retreat-to-unity;
 	the rule succeeds;
 
@@ -954,10 +953,10 @@ chapter calling
 does the player mean calling the Fourbyfourian King when number of reserved pieces > 1:
 	it is unlikely.
 
-does the player mean calling first-piece of quest-dir when first-piece of quest-dir is reserved:
+does the player mean calling p1 when p1 is reserved:
 	it is likely.
 
-does the player mean calling second-piece of quest-dir when first-piece of quest-dir is placed and second-piece of quest-dir is reserved:
+does the player mean calling p2 when p1 is placed and p2 is reserved:
 	it is likely.
 
 does the player mean calling a placed piece:
@@ -1009,8 +1008,8 @@ rule for supplying a missing noun when calling:
 		the rule succeeds;
 	if Fourbyfourian king is placed and number of reserved pieces is 2: [ e.g. placed king, have BB or NN left so it doesn't matter ]
 		if quest-dir is east or quest-dir is south:
-			now noun is first-piece of quest-dir;
-			say "([the noun], since it is functionally equivalent to [the second-piece of quest-dir])[line break]";
+			now noun is p1;
+			say "([the noun], since it is functionally equivalent to [the p2])[line break]";
 			the rule succeeds;
 	say "I'll need something more specific, since I can't decide which piece to place of the remaining ones. You have [the list of reserved pieces] still to call.";
 	reject the player's command;
@@ -1022,7 +1021,7 @@ to decide whether you-stalemated:
 	no;
 
 to decide whether king-cornered-not-stalemated:
-	unless second-piece of quest-dir is placed and color of second-piece of quest-dir is black, no;
+	unless p2 is placed and color of p2 is black, no;
 	if Fourbyfourian king is checked, no;
 	if Fourbyfourian king is immobile, yes;
 	no;
@@ -1040,7 +1039,7 @@ this is the hard-bishop-stalemate rule:
 		if hard-mode is true:
 			say "It should have worked. It [if west is stalemated or south is stalemated]already did off in [q of west] and [q of southwest], but maybe you need a new approach here[else]might work somewhere else, because things feel basically right[end if].";
 			say "[line break]For whatever reason, the [ck] doesn't feel comfortable backed in that way, at least not without an ally next to them. He chickens out with a maddeningly plausible excuse.[paragraph break]There's got to be a way to trap him away from the corner--then, surely, [cq] will be better off ruled by someone much braver, a non-corner-fearing (but still center-seizing) leader like ... your very own king! Or, perhaps, a regent such as yourself.";
-			if basic-dist of first-piece of quest-dir and player is 1 and basic-dist of first-piece of quest-dir and twelvebytwelvian king is 1:
+			if basic-dist of p1 and player is 1 and basic-dist of p1 and twelvebytwelvian king is 1:
 				say "[line break]The formation had to be right, though. It just HAD to. But the positioning -- not so much. Yet.";
 			say "[normal-ok]";
 			retreat-to-unity;
@@ -1060,8 +1059,8 @@ this is the stalemate dialogue rule:
 		else:
 			abide by hard-stalemate-check of quest-dir;
 			let q2 be similar-early of quest-dir;
-			let other-guy be rival of first-piece of quest-dir;
-			say "You and [the first-piece of quest-dir] corner the [ck] and manage to convince him that you're really all just about the diplomacy these days, and they'd better trust you now and in the future. It ... seems to work![paragraph break]Once back at the Ministry of Unity, you realize your plans for [q of similar-early of quest-dir] are more or less identical. But so as not to show any yellow/purple favoritism, you go through the paces with [the other-guy].[paragraph break]Your next trips to [q of q2] and [q of quest-dir] will include [the second-piece of quest-dir], who is not as loyal to their King as they should be. They won't attack their own king. They'll only obstruct him. And their help should be just enough.";
+			let other-guy be rival of p1;
+			say "You and [the p1] corner the [ck] and manage to convince him that you're really all just about the diplomacy these days, and they'd better trust you now and in the future. It ... seems to work![paragraph break]Once back at the Ministry of Unity, you realize your plans for [q of similar-early of quest-dir] are more or less identical. But so as not to show any yellow/purple favoritism, you go through the paces with [the other-guy].[paragraph break]Your next trips to [q of q2] and [q of quest-dir] will include [the p2], who is not as loyal to their King as they should be. They won't attack their own king. They'll only obstruct him. And their help should be just enough.";
 			now quest-dir is stalemated;
 			now last-solved is quest-dir;
 			if quest-dir is not normal-stalemated, now quest-dir is hard-stalemated;
@@ -1099,14 +1098,14 @@ this is the checkmate dialogue rule:
 
 to decide which number is status-index of noun:
 	if noun is Twelvebytwelvian king, decide on 1;
-	if noun is first-piece of quest-dir, decide on 2;
-	if noun is second-piece of quest-dir, decide on 3;
+	if noun is p1, decide on 2;
+	if noun is p2, decide on 3;
 	if noun is Fourbyfourian King:
 		if quest-dir is primary and quest-dir is unsolved, decide on 3;
 	decide on 4;
 
 definition: a piece (called p) is check-warning:
-	if p is first-piece of quest-dir, no;
+	if p is p1, no;
 	if p is placed, yes;
 	no;
 
@@ -1141,15 +1140,15 @@ this is the no-illegal-positions rule:
 	if diag-dist of Twelvebytwelvian king and player <= 1, say "You can't really place the enemy kings that close to each other. Oh, sure, they'll perform all the proper diplomacy ... but they really don't WANT to. At least, your king doesn't want to. He doesn't want his fingerprints on any ... disappearances." instead;
 
 to decide whether enemy-self-check:
-	if color of second-piece of quest-dir is white, no;
-	let xdelt be absval of ((xval of location of fourbyfourian king) - (xval of location of sp));
-	let ydelt be absval of ((yval of location of fourbyfourian king) - (yval of location of sp));
-	if sp is grey knight:
+	if color of p2 is white, no;
+	let xdelt be absval of ((xval of location of fourbyfourian king) - (xval of location of p2));
+	let ydelt be absval of ((yval of location of fourbyfourian king) - (yval of location of p2));
+	if p2 is grey knight:
 		if (xdelt is 1 and ydelt is 2) or (xdelt is 2 and ydelt is 1), yes;
 		no;
-	if sp is grey bishop:
-		let fd be from-dir of location of sp and location of fourbyfourian king;
-		let check-room be the room fd of location of sp;
+	if p2 is grey bishop:
+		let fd be from-dir of location of p2 and location of fourbyfourian king;
+		let check-room be the room fd of location of p2;
 		while check-room is not nothing:
 			if number of pieces in check-room is 1:
 				if fourbyfourian king is in check-room, decide yes;
@@ -1161,21 +1160,21 @@ to decide whether enemy-self-check:
 minor-slapfight is a truth state that varies.
 
 this is the minor piece slapfight rule:
-	unless fp is placed and sp is placed, continue the action;
-	unless fp attacks sp or sp attacks fp, continue the action;
-	if fp attacks sp and sp attacks fp:
+	unless p1 is placed and p2 is placed, continue the action;
+	unless p1 attacks p2 or p2 attacks p1, continue the action;
+	if p1 attacks p2 and p2 attacks p1:
 		if minor-slapfight is false:
-			say "You've managed to engineer a Mexican Standoff. The [fp] and [the sp] glare at each other, both ready to jump, but not quite. It's amusing, what you can get them to do. Perhaps it won't make an ultimate solution, but it should let the [ck]'s guard down a bit.";
+			say "You've managed to engineer a Mexican Standoff. The [p1] and [the p2] glare at each other, both ready to jump, but not quite. It's amusing, what you can get them to do. Perhaps it won't make an ultimate solution, but it should let the [ck]'s guard down a bit.";
 		else if debug-state is true:
 			say "DEBUG note: standoff between two minor pieces but slapfight flag is true.";
-	else unless sp attacks fp:
+	else unless p2 attacks p1:
 		if minor-slapfight is false:
-			say "While [the fp] now potentially attacks [the sp], you make clear that it's part of the festivities or tradition or something. We're not hooligans in [12b], etc.! It's probably impressive or reassuring to gullible onlookers, including maybe the [ck], even if it doesn't get closer to the main goal.";
+			say "While [the p1] now potentially attacks [the p2], you make clear that it's part of the festivities or tradition or something. We're not hooligans in [12b], etc.! It's probably impressive or reassuring to gullible onlookers, including maybe the [ck], even if it doesn't get closer to the main goal.";
 		else if debug-state is true:
 			say "DEBUG note: traitor attacks ally but slapfight flag is true.";
-	else unless fp attacks sp:
+	else unless p1 attacks p2:
 		if minor-slapfight is false:
-			say "While [the sp] now potentially attacks [the fp], you make a crack about being a good host. Everyone smiles tightly. A perfect joke to reassert power and who's really in control.";
+			say "While [the p2] now potentially attacks [the p1], you make a crack about being a good host. Everyone smiles tightly. A perfect joke to reassert power and who's really in control.";
 		else if debug-state is true:
 			say "DEBUG note: ally attacks traitor but slapfight flag is true.";
 	now minor-slapfight is true;
@@ -1192,26 +1191,26 @@ this is the unified self check check rule:
 	if called-piece is not null-piece:
 		move called-piece to location of player;
 	let block-stuff be false;
-	let your-king-checked be whether or not sp attacks twelvebytwelvian king;
+	let your-king-checked be whether or not p2 attacks twelvebytwelvian king;
 	if kicked-piece is not null-piece, move kicked-piece to kicked-loc;
 	if called-piece is not null-piece, move called-piece to called-loc;
 	if your-king-checked is true:
 		now block-stuff is true;
 		if called-piece is null-piece:
-			say "Whoah! Wait! That'd open up a sneaky attack on [the twelvebytwelvian] from [the sp]. You realize it would be proper diplomatic procedure to remove one of them, first.";
+			say "Whoah! Wait! That'd open up a sneaky attack on [the twelvebytwelvian] from [the p2]. You realize it would be proper diplomatic procedure to remove one of them, first.";
 		else if kicked-piece is null-piece:
 			if called-piece is placed:
 				say "The [called-piece] looks confused. You wonder why for a moment. Ah, that's it, ";
-				if called-piece is sp:
+				if called-piece is p2:
 					say "he would be attacking [the twelvebytwelvian king] at [location of twelvebytwelvian king]! ";
 				else:
-					say "[the sp] at [location of sp] would be attacking him! ";
+					say "[the p2] at [location of p2] would be attacking him! ";
 				say "You nod and wave [the called-piece] off. Yes, best stay at [called-loc].";
 			else:
-				say "The [random placed piece] coughs. You realize that setup won't do. The [twelvebytwelvian] is stared down a bit too much by [the sp]. The enemy king might start to question why you or [the first-piece of quest-dir] won't rush to his defense.[paragraph break]So, somewhere else, maybe. As much as you'd sometimes love an excuse to see your monarch get bopped for no reason, the price is too high. A failed conquest and, of course, blame for said conquest.";
+				say "The [random placed piece] coughs. You realize that setup won't do. The [twelvebytwelvian] is stared down a bit too much by [the p2]. The enemy king might start to question why you or [the p1] won't rush to his defense.[paragraph break]So, somewhere else, maybe. As much as you'd sometimes love an excuse to see your monarch get bopped for no reason, the price is too high. A failed conquest and, of course, blame for said conquest.";
 				note-amusing-stuff "self-check";
 		else:
-			say "Swapping [the called-piece] for [the kicked-piece] would put [the twelvebytwelvian] in check from [the sp]. So that won't quite do.";
+			say "Swapping [the called-piece] for [the kicked-piece] would put [the twelvebytwelvian] in check from [the p2]. So that won't quite do.";
 	abide by the minor piece slapfight rule;
 	if block-stuff is true, the rule succeeds;
 
@@ -1258,7 +1257,7 @@ carry out calling:
 		unless Fourbyfourian king is checked:
 			if quest-dir is stalemated:
 				if king-cornered-not-stalemated:
-					say "Once again, you stalemated the enemy king--well, sort of. But that doesn't work this time. He doesn't feel completely helpless, what with his [second-piece of quest-dir] to order around. You're pretty sure you need to put him under pressure to finish the job--he needs to be attacked, with no way out.";
+					say "Once again, you stalemated the enemy king--well, sort of. But that doesn't work this time. He doesn't feel completely helpless, what with his [p2] to order around. You're pretty sure you need to put him under pressure to finish the job--he needs to be attacked, with no way out.";
 				else:
 					say "But the [ck] is neither in check nor immobilized. So nothing really happens this time.";
 			else:
@@ -1266,7 +1265,7 @@ carry out calling:
 			if quest-dir is secondary:
 				say "[line break]And unfortunately this [if quest-dir is stalemated]doesn't put the enemy king any more at ease[else]is not enough to put the enemy king at ease. You'll need to get them into a seemingly tougher situation, then let them slip out[end if].";
 			if enemy-self-check:
-				say "You also remember that though [second-piece of quest-dir] 'saw' his own king just now, his treachery doesn't extend to actual violence. So the [fourbyfourian] isn't really attacked.";
+				say "You also remember that though [p2] 'saw' his own king just now, his treachery doesn't extend to actual violence. So the [fourbyfourian] isn't really attacked.";
 			say "[line break]So things didn't quite work out, but you're able to blow it off to all involved as the sort of diplomatic meeting that inches things forward. You even put some backhanded blame on the enemy monarch for wasting YOUR king's time and not providing the sort of hospitality you expect. It doesn't really hurt them, but it does cover up your far more serious intent. So there'll be another chance. Just got to plan a bit better, next time.";
 			move player to Ministry of Unity;
 			the rule succeeds;
@@ -1276,7 +1275,7 @@ carry out calling:
 			abide by right-checkmate of quest-dir;
 			if debug-state is true, say "DEBUG: Checkmate achieved.";
 			if quest-dir is primary:
-				say "The [ck] feels pretty confident he won't get squeezed, even in the corner, with the loyal [second-piece of quest-dir] by his side. But how wrong he is! Sure, the [twelvebytwelvian] and [first-piece of quest-dir] are closing in, but ... but ... [the second-piece of quest-dir] doesn't move. He makes apologetic 'I ... but ... ' noises, confusing his leader just long enough.[paragraph break]Perhaps he realized things in his last moment, perhaps not. But either way, there is the matter of leaving a regent for the newly acquired lands: [the first-piece of quest-dir] would be just perfect. His successor may help later.";
+				say "The [ck] feels pretty confident he won't get squeezed, even in the corner, with the loyal [p2] by his side. But how wrong he is! Sure, the [twelvebytwelvian] and [p1] are closing in, but ... but ... [the p2] doesn't move. He makes apologetic 'I ... but ... ' noises, confusing his leader just long enough.[paragraph break]Perhaps he realized things in his last moment, perhaps not. But either way, there is the matter of leaving a regent for the newly acquired lands: [the p1] would be just perfect. His successor may help later.";
 			else:
 				say "The [ck] doesn't look worried at first. After all, when you cornered him the last time, he escaped[if location of player is not cornery], and he isn't even pinned in the corner[end if]! So he has plenty of ways out, and one must work ... except none do. The end is not the sort of thing I wish to focus on, and besides, the official version is abdication to spend more times exploring ... well, the rest of his new adopted land of [12b].";
 			if location of player is cornery:
@@ -1350,10 +1349,10 @@ to new-quest:
 	now quest-dir is tried;
 	reset-guard;
 	now all pieces are irrelevant;
-	now first-piece of quest-dir is reserved;
+	now p1 is reserved;
 	now current-quest-snapshot is { Ministry, Ministry, Ministry };
 	unless quest-dir is primary and quest-dir is unsolved:
-		now second-piece of quest-dir is reserved;
+		now p2 is reserved;
 		add Ministry of Unity to current-quest-snapshot;
 	now Twelvebytwelvian King is reserved;
 	now Fourbyfourian King is reserved;
@@ -1625,8 +1624,8 @@ to show-the-board:
 		say "[b]LEG[r] shows the full legend of pieces.";
 		now aware-of-legend is true;
 	if aware-of-enemy-attacks is false:
-		if second-piece of quest-dir is placed and color of second-piece of quest-dir is black:
-			say "Note that attacks for [the second-piece of quest-dir] aren't shown, as they don't restrict [the fourbyfourian], so they'd be a distraction. You'll be warned if you place [the twelvebytwelvian] where an enemy could attack him. The [second-piece of quest-dir], not being an outright obvious traitor, can only block a square [the fourbyfourian] could run to.";
+		if p2 is placed and color of p2 is black:
+			say "Note that attacks for [the p2] aren't shown, as they don't restrict [the fourbyfourian], so they'd be a distraction. You'll be warned if you place [the twelvebytwelvian] where an enemy could attack him. The [p2], not being an outright obvious traitor, can only block a square [the fourbyfourian] could run to.";
 			now aware-of-enemy-attacks is true;
 
 to say pie of (rm - a room):
