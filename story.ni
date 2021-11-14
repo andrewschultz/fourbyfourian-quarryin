@@ -126,7 +126,7 @@ to say who-coop: say "you need the cooperation of [the list of cooperative piece
 
 definition: a piece (called p) is cooperative:
 	if color of P is black and quest-dir is primary and quest-dir is unsolved, no;
-	if P is fourbyfourian king, no;
+	if P is k4, no;
 	if P is irrelevant, no;
 	yes;
 
@@ -260,7 +260,7 @@ check going when location of player is not puzzly (this is the hub check rule):
 	if noun is solved, say "Of course, it would be pleasant to return to the scene of your success at [q of noun]. You will, eventually. There will be a great banquet and everything, the most unsurprising surprise party there ever was! And quite bluntly, the regents you installed need to spruce up the palace a bit. Not so much that it drains the [12b] treasury, of course.[paragraph break]So the fun can wait. There is still business." instead;
 	abide by visit-text of noun;
 	now quest-dir is noun;
-	say "[if player is in grounds]Rushing through the [ministry] with a quick good-bye, y[else]Y[end if]ou head to [cq]. [unless noun is primary and noun is unsolved]Your allies for this quest are [summary-text of noun][else]You only have [the twelvebytwelvian king] and [the first-piece of noun] with you[end if].";
+	say "[if player is in grounds]Rushing through the [ministry] with a quick good-bye, y[else]Y[end if]ou head to [cq]. [unless noun is primary and noun is unsolved]Your allies for this quest are [summary-text of noun][else]You only have [the k12] and [the first-piece of noun] with you[end if].";
 	new-quest;
 	move player to c3;
 	if quest-dir is stalemated and already-solved of quest-dir is not empty:
@@ -325,7 +325,7 @@ definition: a piece (called p) is observable:
 
 check going inside in Ministry of Unity:
 	now all pieces are off-stage;
-	move Twelvebytwelvian King to Observation Grounds;
+	move k12 to Observation Grounds;
 	move a random observable bishop to Observation Grounds;
 	move a random observable knight to Observation Grounds;
 	now all pieces are not init-observed;
@@ -420,7 +420,7 @@ rule for printing the locale description when map-view is true and location of p
 chapter c3 explaining 4 vs 5
 
 after printing the locale description for c3 when c3 is unvisited:
-	say "[line break]It has not escaped your notice that the castle was, in fact, five by five and not four by four as you expected. You can review the likely reasons why with [fofiv][if hard-mode is true], which may be slightly spoilery[end if].[paragraph break]However, the main thing to do is just to canvas the area to figure where to [call-place] any allies, or, eventually, [the twelvebytwelvian].";
+	say "[line break]It has not escaped your notice that the castle was, in fact, five by five and not four by four as you expected. You can review the likely reasons why with [fofiv][if hard-mode is true], which may be slightly spoilery[end if].[paragraph break]However, the main thing to do is just to canvas the area to figure where to [call-place] any allies, or, eventually, [the k12].";
 	say "[line break][i][bracket]Technical note(s): ";
 	if player-knows-toggle is true:
 		say "You already know about [tog][i], but just in case, it can change between text maps and text descriptions";
@@ -539,7 +539,7 @@ The verb to rival (it rivals, they rival, it rivaled) implies the rivalry relati
 when play begins:
 	now the yellow bishop rivals the purple bishop;
 	now the yellow knight rivals the purple knight;
-	now the twelvebytwelvian king rivals the twelvebytwelvian king;
+	now the k12 rivals the k12;
 
 chapter whether attacks
 
@@ -630,13 +630,11 @@ piece-tutorial of a knight is usually table of knight tutorials.
 
 chapter king
 
-a king is a kind of piece.
+a king is a kind of piece. piece-tutorial of a king is usually table of king tutorials.
 
-the Twelvebytwelvian King is a king. color of Twelvebytwelvian king is white. understand "k" and "k12" and "12k" and "12" and "fk" and "kf" as twelvebytwelvian king. "Your king waits here for you to set everything just so.". description of twelvebytwelvian king is "The king can move in any directions, though it just wouldn't do to have him zipping across the board. He'd be too exhausted to lead, but he could. Of course he could, even if he isn't as spry as when he was younger!".
+the k12 is a king. color of k12 is white. printed name of k12 is "Twelvebytwelvian King". understand "k" and "12k" and "12" and "fk" and "kf" and "twelvebytwelvian/king" and "twelvebytwelvian king" as k12. "Your king waits here for you to set everything just so.". description of k12 is "The king can move in any directions, though it just wouldn't do to have him zipping across the board. He'd be too exhausted to lead, but he could. Of course he could, even if he isn't as spry as when he was younger!".
 
-the Fourbyfourian King is a king. color of Fourbyfourian king is black. understand "k" and "4k" and "k4" and "ke" and "ek" and "4" and "k e" and "e k" and "k 4" and "4 k" as fourbyfourian king. description is "Any sort of eye contact might cause the [fourbyfourian] to get suspicious. You can't have that.". "You shouldn't be able to see the Fourbyfourian king.".
-
-piece-tutorial of a king is usually table of king tutorials.
+the k4 is a king. color of k4 is black. understand "k" and "4k" and "ke" and "ek" and "4" and "k e" and "e k" and "k 4" and "4 k" and "fourbyfourian/king" and "fourbyfourian king" as k4. printed name is "Fourbyfourian King". description is "Any sort of eye contact might cause [the k4] to get suspicious. You can't have that.". "You shouldn't be able to see [the k4].".
 
 chapter examining pieces in the field
 
@@ -646,13 +644,13 @@ pvy-note is a truth state that varies.
 
 carry out examining a piece when location of player is puzzly (this is the alternate stories on examining rule):
 	if pvy-note is false:
-		if color of noun is white and noun is not fourbyfourian king:
+		if color of noun is white and noun is not k4:
 			say "[minor-color].";
 			now pvy-note is true;
 	if the noun is examined, the rule succeeds;
 	now the noun is examined;
-	if the noun is the Twelvebytwelvian king:
-		say "You and the [twelvebytwelvian] have a good working relationship that is not blemished by anything like friendship. You have nothing to say to each other, besides the obligatory flattery. He would nod pointedly at you to get back to work if you stared too long.";
+	if the noun is the k12:
+		say "You and the [k12] have a good working relationship that is not blemished by anything like friendship. You have nothing to say to each other, besides the obligatory flattery. He would nod pointedly at you to get back to work if you stared too long.";
 	else:
 		say "The [noun] avoids eye contact. That's probably for the best. You don't want to tip off any [4n] suspicions, and you don't want to seem like you're playing favorites--indeed, you want bishops and knights of every color to kiss up to you equally, because equality is important.[paragraph break]Besides, when the time comes, you will nod, and your allies will act[if quest-dir is simple-dumb]--or not act, in the case of [the relevant traitor][end if].[paragraph break]";
 	the rule succeeds;
@@ -671,7 +669,7 @@ after examining a piece when location of player is puzzly (this is the general q
 
 to decide which piece is the relevant traitor:
 	if grey knight is not irrelevant, decide on grey knight;
-	decide on Fourbyfourian king;
+	decide on k4;
 
 to say waits-here: say "waits here, seemingly relaxed, but ready to spring to action"
 
@@ -764,13 +762,13 @@ to say first-hints:
 		say "You probably need [the second-piece of the item described] to block the enemy king's fleeing path";
 		if the item described is northeast, say ". But this one's a bit different from the other three--one more thing to look for";
 	else:
-		say "You probably need [the twelvebytwelvian] and [the first-piece of the item described] to push [the fourbyfourian] where he can't move at all, even if he's not attacked"
+		say "You probably need [the k12] and [the first-piece of the item described] to push [the k4] where he can't move at all, even if he's not attacked"
 
 first-piece of north is yellow bishop. second-piece of north is grey bishop. north is primary. hard-stalemate-check of north is the hard-bishop-stalemate rule. hint-text of north is "[first-hints].". quick-text of north is "[if north is stalemated]B vs. B[else]B[end if]". summary-text of north is "two bishops, one traitorous". recap-text of north is "In [q of north], you used the enemy bishop and your own king to wall in the enemy king.".
 
 first-piece of northeast is yellow bishop. second-piece of northeast is grey knight. northeast is primary. hard-stalemate-check of northeast is the hard-bishop-stalemate rule. hint-text of northeast is "[first-hints].". quick-text of northeast is "[if northeast is stalemated]B vs. N[else]B[end if]". misc-checks of northeast is knight blocks bishop rule. summary-text of northeast is "a bishop and a traitorous knight". recap-text of northeast is "In [q of northeast], you had to put everyone in a Tetris L-shaped block, enemy king in the corner, to conquer him. If your bishop had been further away, the traitor knight would've had to save the king."
 
-first-piece of west is yellow knight. second-piece of west is grey knight. west is primary. hint-text of west is "[first-hints].". quick-text of west is "[if west is stalemated]N vs. N[else]N[end if]". summary-text of west is "two knights, one traitorous". recap-text of west is "In [q of west], you linked everyone in a sort of fish-hook to trap the enemy king, with the [twelvebytwelvian] farthest away. You couldn't keep the king two squares from the enemy king, as the enemy knight would be attacking."
+first-piece of west is yellow knight. second-piece of west is grey knight. west is primary. hint-text of west is "[first-hints].". quick-text of west is "[if west is stalemated]N vs. N[else]N[end if]". summary-text of west is "two knights, one traitorous". recap-text of west is "In [q of west], you linked everyone in a sort of fish-hook to trap the enemy king, with the [k12] farthest away. You couldn't keep the king two squares from the enemy king, as the enemy knight would be attacking."
 
 first-piece of southwest is yellow knight. second-piece of southwest is grey bishop. southwest is primary. hint-text of southwest is "[first-hints].". quick-text of southwest is "[if southwest is stalemated]N vs. B[else]N[end if]". misc-checks of southwest is bishop takes knight rule. summary-text of southwest is "a knight and a traitorous bishop". recap-text of southwest is "In [q of southwest], your king and knight faced the enemy king and bishop, each two squares away."
 
@@ -843,7 +841,7 @@ to poss-dupe-note:
 	the rule succeeds;
 
 definition: a piece (called p) is double-adjacent:
-	if basic-dist of p and Fourbyfourian king is 1 and basic-dist of p and Twelvebytwelvian king is 1:
+	if basic-dist of p and k4 is 1 and basic-dist of p and k12 is 1:
 		yes;
 	no;
 
@@ -852,14 +850,14 @@ this is the two-bishops-formation rule:
 		if hard-mode is false:
 			now quest-dir is normal-checkmated;
 			continue the action;
-		say "[if south is solved]The [fourbyfourian] notices something is up. You remember that you had everyone in roughly the same place over in [q of south] with the two knights.  Perhaps you need to find a new way to corner the [ck]. Too many similar moves may lead to proof of your activities[else]Something's up. The bishops cough at you, a bit confused. You shake your head, but they both shake their heads back. They wouldn't do this to you unless something was up.  So after the diplomatic meeting, you ask. They mention perhaps ... perhaps this specific maneuver may be more useful somewhere else.[paragraph break]They almost look satisfied with that bit of thoughtful dialogue. So much of their work is just intimidating people into what to believe that a bit of logical futzing is refreshing. They seem to be thinking back wistfully to the good old days of dreaming about gaining vast power--so different from having to wield it constantly[end if].";
+		say "[if south is solved]The [k4] notices something is up. You remember that you had everyone in roughly the same place over in [q of south] with the two knights.  Perhaps you need to find a new way to corner the [ck]. Too many similar moves may lead to proof of your activities[else]Something's up. The bishops cough at you, a bit confused. You shake your head, but they both shake their heads back. They wouldn't do this to you unless something was up.  So after the diplomatic meeting, you ask. They mention perhaps ... perhaps this specific maneuver may be more useful somewhere else.[paragraph break]They almost look satisfied with that bit of thoughtful dialogue. So much of their work is just intimidating people into what to believe that a bit of logical futzing is refreshing. They seem to be thinking back wistfully to the good old days of dreaming about gaining vast power--so different from having to wield it constantly[end if].";
 		poss-dupe-note instead;
 	let temp be boolval of (whether or not yellow bishop is double-adjacent) + boolval of (whether or not purple bishop is double-adjacent);
 	if temp > 0:
 		if hard-mode is false:
 			now quest-dir is normal-checkmated;
 			continue the action;
-		say "The [fourbyfourian] feels a bit squished in by [if temp is 2]your two bishops[else]one of your bishops being THAT close--and, well, your king, for that matter, no offense. He makes an excuse to wriggle out just before you can close the net.";
+		say "The [k4] feels a bit squished in by [if temp is 2]your two bishops[else]one of your bishops being THAT close--and, well, your king, for that matter, no offense. He makes an excuse to wriggle out just before you can close the net.";
 		poss-dupe-note instead;
 
 this is the bishop takes knight rule:
@@ -871,15 +869,15 @@ this is the bishop takes knight rule:
 		the rule succeeds;
 
 this is the knight blocks bishop rule:
-	if Fourbyfourian king is not placed, continue the action;
-	let Q be diag-dist of p1 and Fourbyfourian King;
+	if k4 is not placed, continue the action;
+	let Q be diag-dist of p1 and k4;
 	if Q < 2, continue the action;
 	note-amusing-stuff "bvn-miss";
 	say "The grey knight, who wants to cooperate with your cunning plan, unfortunately has no choice. The king being in danger, and the knight in obvious position to prevent it, jumps to action![paragraph break]";
 	if Q is 2:
-		say "A big fight ensues! A fake one, to impress the [fourbyfourian] and not really raise suspicions. But the grey knight, being traitorous, gets a cheap shot in or two. The [p1] isn't happy, but they know better to complain. You'll get [']em next time. You must've been close.";
+		say "A big fight ensues! A fake one, to impress [the k4] and not really raise suspicions. But the grey knight, being traitorous, gets a cheap shot in or two. The [p1] isn't happy, but they know better to complain. You'll get [']em next time. You must've been close.";
 	else:
-		say "The knight throws itself in front of the bishop. You have no choice but to call out [the p1] for a shocking appearance of aggression and assure the [fourbyfourian] you had nothing to do with it, and if you can help yourself, it won't happen again. The [p1] looks ... less than happy. But you mention some failures are, like, divine will and stuff, which the bishop can't argue with. After all, he's used that argument on some unlucky doomed unfortunates, himself. So he's still on the team.";
+		say "The knight throws itself in front of the bishop. You have no choice but to call out [the p1] for a shocking appearance of aggression and assure [the k4] you had nothing to do with it, and if you can help yourself, it won't happen again. The [p1] looks ... less than happy. But you mention some failures are, like, divine will and stuff, which the bishop can't argue with. After all, he's used that argument on some unlucky doomed unfortunates, himself. So he's still on the team.";
 	retreat-to-unity;
 	the rule succeeds;
 
@@ -950,7 +948,7 @@ carry out gotoing:
 
 chapter calling
 
-does the player mean calling the Fourbyfourian King when number of reserved pieces > 1:
+does the player mean calling the k4 when number of reserved pieces > 1:
 	it is unlikely.
 
 does the player mean calling p1 when p1 is reserved:
@@ -985,28 +983,28 @@ to decide which number is check-total:
 	let temp be 0;
 	repeat with Q running through placed pieces:
 		if color of Q is black, next;
-		if Q is Twelvebytwelvian king, next;
-		if Q attacks the Fourbyfourian king, increment temp;
+		if Q is k12, next;
+		if Q attacks the k4, increment temp;
 	decide on temp;
 
 this is the excessive beatdown rule:
 	if check-total is 2:
 		note-amusing-stuff "beatdown";
-		say "The pieces under your command look over at you questioningly. While they recognize what fun it is to both be attacking the [fourbyfourian] at once, they also consider such fun is not strategically sound. Still, you're the boss...";
+		say "The pieces under your command look over at you questioningly. While they recognize what fun it is to both be attacking [the k4] at once, they also consider such fun is not strategically sound. Still, you're the boss...";
 
 rule for supplying a missing noun when calling:
 	if location of player is not puzzly:
-		now noun is Twelvebytwelvian king;
+		now noun is k12;
 		the rule succeeds; [doesn't matter. Same reaction for them all!]
-	if Fourbyfourian king is reserved and number of reserved pieces is 1:
-		say "(the [fourbyfourian] is last)[line break]";
-		now noun is Fourbyfourian king;
+	if k4 is reserved and number of reserved pieces is 1:
+		say "([the k4] is last)[line break]";
+		now noun is k4;
 		the rule succeeds;
-	if Fourbyfourian king is reserved and number of reserved pieces is 2: [ maybe redundant but let's make sure ]
-		now noun is a random reserved piece that is not the Fourbyfourian king;
-		say "([the noun] before the [fourbyfourian])[line break]";
+	if k4 is reserved and number of reserved pieces is 2: [ maybe redundant but let's make sure ]
+		now noun is a random reserved piece that is not the k4;
+		say "([the noun] before [the k4])[line break]";
 		the rule succeeds;
-	if Fourbyfourian king is placed and number of reserved pieces is 2: [ e.g. placed king, have BB or NN left so it doesn't matter ]
+	if k4 is placed and number of reserved pieces is 2: [ e.g. placed king, have BB or NN left so it doesn't matter ]
 		if quest-dir is east or quest-dir is south:
 			now noun is p1;
 			say "([the noun], since it is functionally equivalent to [the p2])[line break]";
@@ -1016,19 +1014,19 @@ rule for supplying a missing noun when calling:
 
 to decide whether you-stalemated:
 	if quest-dir is primary and quest-dir is stalemated, no;
-	if Fourbyfourian king is checked, no;
-	if Fourbyfourian king is immobile, yes;
+	if k4 is checked, no;
+	if k4 is immobile, yes;
 	no;
 
 to decide whether king-cornered-not-stalemated:
 	unless p2 is placed and color of p2 is black, no;
-	if Fourbyfourian king is checked, no;
-	if Fourbyfourian king is immobile, yes;
+	if k4 is checked, no;
+	if k4 is immobile, yes;
 	no;
 
 to decide whether you-checkmated:
-	unless Fourbyfourian king is checked, no;
-	unless Fourbyfourian king is immobile, no;
+	unless k4 is checked, no;
+	unless k4 is immobile, no;
 	yes;
 
 to say normal-ok:
@@ -1039,7 +1037,7 @@ this is the hard-bishop-stalemate rule:
 		if hard-mode is true:
 			say "It should have worked. It [if west is stalemated or south is stalemated]already did off in [q of west] and [q of southwest], but maybe you need a new approach here[else]might work somewhere else, because things feel basically right[end if].";
 			say "[line break]For whatever reason, the [ck] doesn't feel comfortable backed in that way, at least not without an ally next to them. He chickens out with a maddeningly plausible excuse.[paragraph break]There's got to be a way to trap him away from the corner--then, surely, [cq] will be better off ruled by someone much braver, a non-corner-fearing (but still center-seizing) leader like ... your very own king! Or, perhaps, a regent such as yourself.";
-			if basic-dist of p1 and player is 1 and basic-dist of p1 and twelvebytwelvian king is 1:
+			if basic-dist of p1 and player is 1 and basic-dist of p1 and k12 is 1:
 				say "[line break]The formation had to be right, though. It just HAD to. But the positioning -- not so much. Yet.";
 			say "[normal-ok]";
 			retreat-to-unity;
@@ -1055,7 +1053,7 @@ this is the stalemate dialogue rule:
 	if debug-state is true, say "DEBUG: Stalemate achieved.";
 	if quest-dir is primary:
 		if quest-dir is stalemated:
-			say "You shouldn't be able to re-stalemate [the fourbyfourian king]. This is a BUG.";
+			say "You shouldn't be able to re-stalemate [the k4]. This is a BUG.";
 		else:
 			abide by hard-stalemate-check of quest-dir;
 			let q2 be similar-early of quest-dir;
@@ -1070,25 +1068,25 @@ this is the stalemate dialogue rule:
 			now q2 is stalemate-bypassed;
 			now stalemate-recap of quest-dir is current-quest-snapshot;
 	else if quest-dir is stalemated:
-		say "Again, you pretty much cornered the [fourbyfourian] without attacking him. Awkward laughter resonates in this diplomatic meeting. It only sort of builds up his trust. You know how it is, when someone oversells something? You might be risking that here. The [fourbyfourian] (fool) already trusts you enough. Next time, you can go fully on offense.";
+		say "Again, you pretty much cornered [the k4] without attacking him. Awkward laughter resonates in this diplomatic meeting. It only sort of builds up his trust. You know how it is, when someone oversells something? You might be risking that here. The [k4] (fool) already trusts you enough. Next time, you can go fully on offense.";
 	else:
 		now quest-dir is stalemated;
-		say "Oh my! The [fourbyfourian] is trapped, but not too trapped. After a lot of verbal manipulation, you manage to convince him that this show of almost-force is just standard negotiating technique, and if he can't trust you, who can he trust?[paragraph break]The diplomatic maneuver is thus a success. After a few hours, you take leave, confident your little feint will keep the [fourbyfourian] off-guard enough, you will get him next time.";
+		say "Oh my! The [k4] is trapped, but not too trapped. After a lot of verbal manipulation, you manage to convince him that this show of almost-force is just standard negotiating technique, and if he can't trust you, who can he trust?[paragraph break]The diplomatic maneuver is thus a success. After a few hours, you take leave, confident your little feint will keep [the k4] off-guard enough, you will get him next time.";
 		now stalemate-recap of quest-dir is current-quest-snapshot;
 	retreat-to-unity;
 	the rule succeeds;
 
 this is the checkmate dialogue rule:
 	if quest-dir is secondary and quest-dir is not stalemated:
-		say "But wait! The [fourbyfourian] feels a LITTLE too under attack. He excuses himself for ... well, a family emergency, an important jousting tournament to judge, another one of those banquets, you know.[paragraph break]";
+		say "But wait! The [k4] feels a LITTLE too under attack. He excuses himself for ... well, a family emergency, an important jousting tournament to judge, another one of those banquets, you know.[paragraph break]";
 		if number of solved secondary directions > 0:
 			say "Ye Olde Bummeur. You mixed things up. You should have slow-walked it a bit more, as in [q of random solved secondary direction].";
 		else if number of stalemated secondary directions > 0:
 			say "Man! You felt like you had something there. But you didn't gain the king's trust as in [q of random stalemated secondary direction]. You'll need to do that.";
 		else:
-			say "Drat! You were a bit too aggressive. Perhaps if there were a way to make [the fourbyfourian] feel almost-trapped but let him off the hook ... then he could be suckered. But not now.";
+			say "Drat! You were a bit too aggressive. Perhaps if there were a way to make [the k4] feel almost-trapped but let him off the hook ... then he could be suckered. But not now.";
 		if already-solved of quest-dir is empty:
-			say "Perhaps this will work later. You note the position in your head. Some scribe will write it down. Perhaps once you've gained [the fourbyfourian]'s trust you won't attack him. Then, you can even say 'Ha, if I were going to fool you, I wouldn't use this exact same formation you'd been suspicious of, earlier.' People fall for that, even when they should know better.";
+			say "Perhaps this will work later. You note the position in your head. Some scribe will write it down. Perhaps once you've gained [the k4]'s trust you won't attack him. Then, you can even say 'Ha, if I were going to fool you, I wouldn't use this exact same formation you'd been suspicious of, earlier.' People fall for that, even when they should know better.";
 			now checkmate-recap of quest-dir is current-quest-snapshot;
 			now already-solved of quest-dir is {};
 		else:
@@ -1097,10 +1095,10 @@ this is the checkmate dialogue rule:
 		the rule succeeds;
 
 to decide which number is status-index of noun:
-	if noun is Twelvebytwelvian king, decide on 1;
+	if noun is k12, decide on 1;
 	if noun is p1, decide on 2;
 	if noun is p2, decide on 3;
-	if noun is Fourbyfourian King:
+	if noun is k4:
 		if quest-dir is primary and quest-dir is unsolved, decide on 3;
 	decide on 4;
 
@@ -1126,7 +1124,7 @@ to open-new-areas:
 
 definition: a room (called r) is near-unguarded:
 	if r is guarded, no;
-	if r is adjacent to location of fourbyfourian king, yes;
+	if r is adjacent to location of k4, yes;
 	no;
 
 definition: a room (called r) is capturable:
@@ -1136,22 +1134,22 @@ definition: a room (called r) is capturable:
 
 this is the no-illegal-positions rule:
 	if number of reserved pieces > 1:
-		say "You'll want to place the [fourbyfourian] last." instead;
-	if diag-dist of Twelvebytwelvian king and player <= 1, say "You can't really place the enemy kings that close to each other. Oh, sure, they'll perform all the proper diplomacy ... but they really don't WANT to. At least, your king doesn't want to. He doesn't want his fingerprints on any ... disappearances." instead;
+		say "You'll want to place [the k4] last." instead;
+	if diag-dist of k12 and player <= 1, say "You can't really place the enemy kings that close to each other. Oh, sure, they'll perform all the proper diplomacy ... but they really don't WANT to. At least, your king doesn't want to. He doesn't want his fingerprints on any ... disappearances." instead;
 
 to decide whether enemy-self-check:
 	if color of p2 is white, no;
-	let xdelt be absval of ((xval of location of fourbyfourian king) - (xval of location of p2));
-	let ydelt be absval of ((yval of location of fourbyfourian king) - (yval of location of p2));
+	let xdelt be absval of ((xval of location of k4) - (xval of location of p2));
+	let ydelt be absval of ((yval of location of k4) - (yval of location of p2));
 	if p2 is grey knight:
 		if (xdelt is 1 and ydelt is 2) or (xdelt is 2 and ydelt is 1), yes;
 		no;
 	if p2 is grey bishop:
-		let fd be from-dir of location of p2 and location of fourbyfourian king;
+		let fd be from-dir of location of p2 and location of k4;
 		let check-room be the room fd of location of p2;
 		while check-room is not nothing:
 			if number of pieces in check-room is 1:
-				if fourbyfourian king is in check-room, decide yes;
+				if k4 is in check-room, decide yes;
 				no;
 			now check-room is the room fd of check-room;
 		no;
@@ -1191,40 +1189,40 @@ this is the unified self check check rule:
 	if called-piece is not null-piece:
 		move called-piece to location of player;
 	let block-stuff be false;
-	let your-king-checked be whether or not p2 attacks twelvebytwelvian king;
+	let your-king-checked be whether or not p2 attacks k12;
 	if kicked-piece is not null-piece, move kicked-piece to kicked-loc;
 	if called-piece is not null-piece, move called-piece to called-loc;
 	if your-king-checked is true:
 		now block-stuff is true;
 		if called-piece is null-piece:
-			say "Whoah! Wait! That'd open up a sneaky attack on [the twelvebytwelvian] from [the p2]. You realize it would be proper diplomatic procedure to remove one of them, first.";
+			say "Whoah! Wait! That'd open up a sneaky attack on [the k12] from [the p2]. You realize it would be proper diplomatic procedure to remove one of them, first.";
 		else if kicked-piece is null-piece:
 			if called-piece is placed:
 				say "The [called-piece] looks confused. You wonder why for a moment. Ah, that's it, ";
 				if called-piece is p2:
-					say "he would be attacking [the twelvebytwelvian king] at [location of twelvebytwelvian king]! ";
+					say "he would be attacking [the k12] at [location of k12]! ";
 				else:
 					say "[the p2] at [location of p2] would be attacking him! ";
 				say "You nod and wave [the called-piece] off. Yes, best stay at [called-loc].";
 			else:
-				say "The [random placed piece] coughs. You realize that setup won't do. The [twelvebytwelvian] is stared down a bit too much by [the p2]. The enemy king might start to question why you or [the p1] won't rush to his defense.[paragraph break]So, somewhere else, maybe. As much as you'd sometimes love an excuse to see your monarch get bopped for no reason, the price is too high. A failed conquest and, of course, blame for said conquest.";
+				say "The [random placed piece] coughs. You realize that setup won't do. The [k12] is stared down a bit too much by [the p2]. The enemy king might start to question why you or [the p1] won't rush to his defense.[paragraph break]So, somewhere else, maybe. As much as you'd sometimes love an excuse to see your monarch get bopped for no reason, the price is too high. A failed conquest and, of course, blame for said conquest.";
 				note-amusing-stuff "self-check";
 		else:
-			say "Swapping [the called-piece] for [the kicked-piece] would put [the twelvebytwelvian] in check from [the p2]. So that won't quite do.";
+			say "Swapping [the called-piece] for [the kicked-piece] would put [the k12] in check from [the p2]. So that won't quite do.";
 	abide by the minor piece slapfight rule;
 	if block-stuff is true, the rule succeeds;
 
 carry out calling:
 	if location of player is not puzzly, say "You don't need to call allies until you're away from the [the location of the player]." instead;
 	if noun is irrelevant, say "You don't need to call [the noun]." instead;
-	if noun is Fourbyfourian king and number of reserved pieces > 1, say "You will want to call [the noun] last." instead;
+	if noun is k4 and number of reserved pieces > 1, say "You will want to call [the noun] last." instead;
 	reset-temps;
 	now called-piece is noun;
 	now called-loc is location of called-piece;
 	if number of pieces in location of player is 1:
 		let rpl be random piece in location of player;
 		if rpl is the noun, say "It looks like you tried to call [the noun] to where he already was. If this is wrong, you may want to try being more specific." instead;
-		if noun is fourbyfourian king:
+		if noun is k4:
 			say "While you're nominally placing [the noun] last, it would replace [the random piece in the location of the player], who would become the last piece/person placed. So you need to put [the noun] on an empty square." instead;
 		now kicked-piece is rpl;
 		now kicked-loc is location of player;
@@ -1235,12 +1233,12 @@ carry out calling:
 		say "You already called [the noun] to [location of the noun]. Have them move over here?";
 		unless the player regex-prompt-consents:
 			say "Okay, never mind." instead;
-		if noun is twelvebytwelvian king:
-			say "The [twelvebytwelvian] grumbles at being ordered around like this, but hey, you've got the power here, and you can use it. A little. Not too much.";
+		if noun is k12:
+			say "The [k12] grumbles at being ordered around like this, but hey, you've got the power here, and you can use it. A little. Not too much.";
 	abide by the unified self check check rule;
 	if noun is a bishop:
 		abide by the same-colored-bishops rule;
-	if noun is Fourbyfourian king, abide by the no-illegal-positions rule;
+	if noun is k4, abide by the no-illegal-positions rule;
 	say "You place [the noun] at [location of player].";
 	place-and-list noun;
 	if kicked-piece is not null-piece, now kicked-piece is reserved;
@@ -1250,11 +1248,11 @@ carry out calling:
 	abide by the minor piece slapfight rule;
 	now placed-yet is true;
 	now place-ping is true;
-	if noun is Fourbyfourian king:
+	if noun is k4:
 		consider the excessive beatdown rule;
 		abide by the king-place of quest-dir;
 		if you-stalemated, abide by the stalemate dialogue rule;
-		unless Fourbyfourian king is checked:
+		unless k4 is checked:
 			if quest-dir is stalemated:
 				if king-cornered-not-stalemated:
 					say "Once again, you stalemated the enemy king--well, sort of. But that doesn't work this time. He doesn't feel completely helpless, what with his [p2] to order around. You're pretty sure you need to put him under pressure to finish the job--he needs to be attacked, with no way out.";
@@ -1265,7 +1263,7 @@ carry out calling:
 			if quest-dir is secondary:
 				say "[line break]And unfortunately this [if quest-dir is stalemated]doesn't put the enemy king any more at ease[else]is not enough to put the enemy king at ease. You'll need to get them into a seemingly tougher situation, then let them slip out[end if].";
 			if enemy-self-check:
-				say "You also remember that though [p2] 'saw' his own king just now, his treachery doesn't extend to actual violence. So the [fourbyfourian] isn't really attacked.";
+				say "You also remember that though [p2] 'saw' his own king just now, his treachery doesn't extend to actual violence. So the [k4] isn't really attacked.";
 			say "[line break]So things didn't quite work out, but you're able to blow it off to all involved as the sort of diplomatic meeting that inches things forward. You even put some backhanded blame on the enemy monarch for wasting YOUR king's time and not providing the sort of hospitality you expect. It doesn't really hurt them, but it does cover up your far more serious intent. So there'll be another chance. Just got to plan a bit better, next time.";
 			move player to Ministry of Unity;
 			the rule succeeds;
@@ -1275,7 +1273,7 @@ carry out calling:
 			abide by right-checkmate of quest-dir;
 			if debug-state is true, say "DEBUG: Checkmate achieved.";
 			if quest-dir is primary:
-				say "The [ck] feels pretty confident he won't get squeezed, even in the corner, with the loyal [p2] by his side. But how wrong he is! Sure, the [twelvebytwelvian] and [p1] are closing in, but ... but ... [the p2] doesn't move. He makes apologetic 'I ... but ... ' noises, confusing his leader just long enough.[paragraph break]Perhaps he realized things in his last moment, perhaps not. But either way, there is the matter of leaving a regent for the newly acquired lands: [the p1] would be just perfect. His successor may help later.";
+				say "The [ck] feels pretty confident he won't get squeezed, even in the corner, with the loyal [p2] by his side. But how wrong he is! Sure, the [k12] and [p1] are closing in, but ... but ... [the p2] doesn't move. He makes apologetic 'I ... but ... ' noises, confusing his leader just long enough.[paragraph break]Perhaps he realized things in his last moment, perhaps not. But either way, there is the matter of leaving a regent for the newly acquired lands: [the p1] would be just perfect. His successor may help later.";
 			else:
 				say "The [ck] doesn't look worried at first. After all, when you cornered him the last time, he escaped[if location of player is not cornery], and he isn't even pinned in the corner[end if]! So he has plenty of ways out, and one must work ... except none do. The end is not the sort of thing I wish to focus on, and besides, the official version is abdication to spend more times exploring ... well, the rest of his new adopted land of [12b].";
 			if location of player is cornery:
@@ -1339,7 +1337,7 @@ to new-quest:
 	if quest-dir is not tried:
 		say "[line break]";
 		if number of tried directions is 0:
-			say "The initial reception at [cq] is a game of golf, the new sport that's swept nearby lands in the past twenty years. The [twelvebytwelvian] wins, of course, perfectly honestly. Perfectly honestly! As it should be. Your king has mandated his own citizens appreciate it, even if they are too poor to play it. But ... but ... a terrible insult occurred. Enough to remove any doubt [cq] must be conquered.[paragraph break]";
+			say "The initial reception at [cq] is a game of golf, the new sport that's swept nearby lands in the past twenty years. The [k12] wins, of course, perfectly honestly. Perfectly honestly! As it should be. Your king has mandated his own citizens appreciate it, even if they are too poor to play it. But ... but ... a terrible insult occurred. Enough to remove any doubt [cq] must be conquered.[paragraph break]";
 		else:
 			say "Again, a golf game as welcome. Again, an unforgivable diplomatic insult that fully justifies your takeover plans for [cq]![paragraph break]";
 		increment incident-row;
@@ -1354,21 +1352,21 @@ to new-quest:
 	unless quest-dir is primary and quest-dir is unsolved:
 		now p2 is reserved;
 		add Ministry of Unity to current-quest-snapshot;
-	now Twelvebytwelvian King is reserved;
-	now Fourbyfourian King is reserved;
+	now k12 is reserved;
+	now k4 is reserved;
 	now quest-moves is 0;
 	reset-board;
 
 table of incidents
 incident-text	rough-order
-"The [ck] offered frou-frou vegetables and fruits instead of the proper mid-match refreshments. An unfair advantage, considering [the twelvebytwelvian] was tired from his long journey!"	1
-"The [ck] confessed to being 'too busy' (heh) to play golf or take lessons, thus greatly lessening the joy of [the twelvebytwelvian]'s emphatic victory."	1
-"The [ck] failed to give the [twelvebytwelvian] a mulligan at a particularly tricky hole with weird hazards. Rigged!"	1
-"The [ck]'s courtiers expressed mild skepticism that [the twelvebytwelvian] had made three holes-in-one in the past year. Losers and haters!"	1
-"The [ck] did not offer the [twelvebytwelvian] his best clubs. Of course, your porters brought better, but it's the principle of the thing."	2
+"The [ck] offered frou-frou vegetables and fruits instead of the proper mid-match refreshments. An unfair advantage, considering [the k12] was tired from his long journey!"	1
+"The [ck] confessed to being 'too busy' (heh) to play golf or take lessons, thus greatly lessening the joy of [the k12]'s emphatic victory."	1
+"The [ck] failed to give the [k12] a mulligan at a particularly tricky hole with weird hazards. Rigged!"	1
+"The [ck]'s courtiers expressed mild skepticism that [the k12] had made three holes-in-one in the past year. Losers and haters!"	1
+"The [ck] did not offer the [k12] his best clubs. Of course, your porters brought better, but it's the principle of the thing."	2
 "The [ck] arranged for transport between golf holes with the dingiest pony-cart you ever saw. No gold plating at all. Sad!"	2
-"The [ck] drew more attention with his golfing outfit than [the twelvebytwelvian]."	2
-"The [ck] did not flash an enthusiastic enough thumbs-up for the post-golf match portrait with [the twelvebytwelvian]."	2
+"The [ck] drew more attention with his golfing outfit than [the k12]."	2
+"The [ck] did not flash an enthusiastic enough thumbs-up for the post-golf match portrait with [the k12]."	2
 
 to reset-board:
 	repeat with P running through pieces:
@@ -1377,7 +1375,7 @@ to reset-board:
 		now P is reserved;
 
 definition: a piece (called p) is not-last:
-	if p is Fourbyfourian king, no;
+	if p is k4, no;
 	if p is reserved, yes;
 
 section rules for what's guarded
@@ -1441,7 +1439,7 @@ this is the no-corner-no-close rule:
 
 this is the two-knights-silly rule:
 	if hard-mode is true and location of player is cornery and you-checkmated:
-		say "While the [fourbyfourian] sees what's up and booms 'You can't force me there,' you have an idea. You technically ... really ... couldn't, even if everyone alternated moves. But if you could make someone, or a whole society, think that way ... what power you would have! Perhaps you could tie it up with some 2+2=5 motivational nonsense as well.[paragraph break]Also, you recall some egghead advisor rambling on about how a traitorous pawn or page could help you conquer [cq] effortlessly, but it seemed too nonsensically far out for you. Easier just to figure how to tackle the [fourbyfourian] on the edge instead of in the corner.";
+		say "While [the k4] sees what's up and booms 'You can't force me there,' you have an idea. You technically ... really ... couldn't, even if everyone alternated moves. But if you could make someone, or a whole society, think that way ... what power you would have! Perhaps you could tie it up with some 2+2=5 motivational nonsense as well.[paragraph break]Also, you recall some egghead advisor rambling on about how a traitorous pawn or page could help you conquer [cq] effortlessly, but it seemed too nonsensically far out for you. Easier just to figure how to tackle [the k4] on the edge instead of in the corner.";
 		note-amusing-stuff "orwell";
 		retreat-to-unity;
 		the rule fails;
@@ -1625,7 +1623,7 @@ to show-the-board:
 		now aware-of-legend is true;
 	if aware-of-enemy-attacks is false:
 		if p2 is placed and color of p2 is black:
-			say "Note that attacks for [the p2] aren't shown, as they don't restrict [the fourbyfourian], so they'd be a distraction. You'll be warned if you place [the twelvebytwelvian] where an enemy could attack him. The [p2], not being an outright obvious traitor, can only block a square [the fourbyfourian] could run to.";
+			say "Note that attacks for [the p2] aren't shown, as they don't restrict [the k4], so they'd be a distraction. You'll be warned if you place [the k12] where an enemy could attack him. The [p2], not being an outright obvious traitor, can only block a square [the k4] could run to.";
 			now aware-of-enemy-attacks is true;
 
 to say pie of (rm - a room):
@@ -1638,9 +1636,9 @@ to say pie of (rm - a room):
 		say "n";
 	else if yellow knight is in rm or purple knight is in rm:
 		say "N";
-	else if twelvebytwelvian king is in rm:
+	else if k12 is in rm:
 		say "K";
-	else if Fourbyfourian king is in rm:
+	else if k4 is in rm:
 		say "k";
 	else if rm is guarded and location of player is rm:
 		say "#";
@@ -1885,10 +1883,10 @@ rule for supplying a missing noun when recaping:
 	now the noun is last-solved;
 
 to say stale-list of (L - a list of rooms) and (d - a direction):
-	say "[the Twelvebytwelvian king] at [entry 1 of L], [the first-piece of D] at [entry 2 of L], and [the Fourbyfourian king] at [entry 3 of L]";
+	say "[the k12] at [entry 1 of L], [the first-piece of D] at [entry 2 of L], and [the k4] at [entry 3 of L]";
 
 to say list-out of (L - a list of rooms) and (d - a direction):
-	say "[the Twelvebytwelvian king] at [entry 1 of L], [the first-piece of D] at [entry 2 of L], [the second-piece of D] at [entry 3 of L], and [the Fourbyfourian king] at [entry 4 of L]";
+	say "[the k12] at [entry 1 of L], [the first-piece of D] at [entry 2 of L], [the second-piece of D] at [entry 3 of L], and [the k4] at [entry 4 of L]";
 
 carry out recaping:
 	if number of not unsolved directions is 0, say "You have no conquerings to recap. Yet." instead;
@@ -1987,7 +1985,7 @@ to note-amusing-stuff (t - text):
 
 table of amusing stuff
 code	done-yet	amuse-list
-"beatdown"	false	"Constructing a double check (both allies, no traitors, attacking [the fourbyfourian])"
+"beatdown"	false	"Constructing a double check (both allies, no traitors, attacking [the k4])"
 "nvb-miss"	false	"Placing your knight where it would be checkmate, but the traitor bishop can attack it"
 "bvn-miss"	false	"Placing the bishop too far from the king when you have the traitor knight"
 "bb-colors-first"	false	"Placing two opposing bishops on the same color tile"

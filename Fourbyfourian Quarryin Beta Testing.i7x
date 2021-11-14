@@ -8,14 +8,14 @@ book starting stuff
 
 include Start With Transcripts by Andrew Schultz.
 
-when play begins (this is the fourbyfourian instruction rule):
+when play begins (this is the beta 4x4 instruction rule):
 	say "For testers: do what you can. I'm mainly curious how the first four quests work out. My hope is that they get easier the more you do, so you're ready for the final three.";
 	say "[line break]Also, I am wondering about if you found the mnemonic for what quests are in which direction useful or sensible or not.";
 	say "[line break]I have general concerns about the text too. I hope the text when someone makes an errant try is funny, and I want it there for chess players. But I don't want to discourage non-players. I also suspect I have forgotten a few descriptions in my notes.";
 	say "[line break]The hinting can probably be adjusted, too.";
 	say "[wfak]";
 
-the fourbyfourian instruction rule is listed after the prompt transcript when starting rule in the when play begins rulebook.
+the beta 4x4 instruction rule is listed after the prompt transcript when starting rule in the when play begins rulebook.
 
 book verbs stuff
 
