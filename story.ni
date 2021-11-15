@@ -169,6 +169,19 @@ to decide if (r1 - a room) and (r2 - a room) are samecolored:
 to decide which number is quests-left:
 	decide on number of questable directions - number of solved directions.
 
+to decide which room is inside-corner of (rm - a room):
+	let mindist be 4;
+	let temproom be ministry;
+	repeat with di running through directions:
+		let drm be the room di of rm;
+		if drm is nothing, next;
+		if drm is c3, decide on c3;
+		let thisdist be basic-dist of c3 and drm;
+		if thisdist < mindist:
+			now temproom is drm;
+			now mindist is thisdist;
+	decide on temproom;
+
 chapter unity
 
 the Ministry of Unity is a not puzzly room. xval is 8. yval is 8. "The planning has been done. [can-leave][tried]. For refreshers on who does what, you can go [b]IN[r] or [b]INSIDE[r] to the observation grounds.[paragraph break]A map of [12b] and the surrounding [4s] adorns one wall[one of]. You can [xbold] it for details, if you want[or][stopping].".
