@@ -1885,8 +1885,13 @@ understand "recap" as recaping.
 understand "r" as recaping.
 
 rule for supplying a missing noun when recaping:
-	say "Going with the last solved direction, [last-solved].";
-	now the noun is last-solved;
+	if quest-dir is unsolved:
+		if last-solved is not inside:
+			say "Going with the last solved direction, [last-solved].";
+			continue the action;
+		say "You have no accomplishments to recap. Yet.";
+		reject the player's command;
+	now the noun is quest-dir;
 
 to say stale-list of (L - a list of rooms) and (d - a direction):
 	say "[the k12] at [entry 1 of L], [the first-piece of D] at [entry 2 of L], and [the k4] at [entry 3 of L]";
