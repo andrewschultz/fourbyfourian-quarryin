@@ -157,8 +157,6 @@ include Debug Levels and Checks by Andrew Schultz.
 
 volume starting
 
-current-quest-snapshot is a list of rooms variable.
-
 volume rooms
 
 to decide which number is the parity of (r - a room):
@@ -1066,15 +1064,26 @@ this is the stalemate dialogue rule:
 				say "[line break][i][bracket][b]NOTE[r][i]: you should not have been able to stalemate here, since you already did so in [q of q2]. This is a BUG.[close bracket][r][line break]";
 			now q2 is stalemated;
 			now q2 is stalemate-bypassed;
-			now stalemate-recap of quest-dir is current-quest-snapshot;
+			fill-quest-history-list;
 	else if quest-dir is stalemated:
 		say "Again, you pretty much cornered [the k4] without attacking him. Awkward laughter resonates in this diplomatic meeting. It only sort of builds up his trust. You know how it is, when someone oversells something? You might be risking that here. The [k4] (fool) already trusts you enough. Next time, you can go fully on offense.";
 	else:
 		now quest-dir is stalemated;
 		say "Oh my! The [k4] is trapped, but not too trapped. After a lot of verbal manipulation, you manage to convince him that this show of almost-force is just standard negotiating technique, and if he can't trust you, who can he trust?[paragraph break]The diplomatic maneuver is thus a success. After a few hours, you take leave, confident your little feint will keep [the k4] off-guard enough, you will get him next time.";
-		now stalemate-recap of quest-dir is current-quest-snapshot;
+		fill-quest-history-list;
 	retreat-to-unity;
 	the rule succeeds;
+
+to fill-quest-history-list: [ your king, your ally, (optional second ally,) their king ]
+	let X be a list of rooms;
+	add location of k12 to X;
+	add location of p1 to X;
+	unless quest-dir is primary and quest-dir is stalemated, add location of p2 to X;
+	add location of k4 to X;
+	if quest-dir is stalemated:
+		now stalemate-recap of quest-dir is X;
+	else:
+		now checkmate-recap of quest-dir is X;
 
 this is the checkmate dialogue rule:
 	if quest-dir is secondary and quest-dir is not stalemated:
@@ -1087,7 +1096,7 @@ this is the checkmate dialogue rule:
 			say "Drat! You were a bit too aggressive. Perhaps if there were a way to make [the k4] feel almost-trapped but let him off the hook ... then he could be suckered. But not now.";
 		if already-solved of quest-dir is empty:
 			say "Perhaps this will work later. You note the position in your head. Some scribe will write it down. Perhaps once you've gained [the k4]'s trust you won't attack him. Then, you can even say 'Ha, if I were going to fool you, I wouldn't use this exact same formation you'd been suspicious of, earlier.' People fall for that, even when they should know better.";
-			now checkmate-recap of quest-dir is current-quest-snapshot;
+			fill-quest-history-list;
 			now already-solved of quest-dir is {};
 		else:
 			say "So that's another way to take down [q of quest-dir] when the time is right. Nice, though you only need one.";
@@ -1242,7 +1251,6 @@ carry out calling:
 	say "You place [the noun] at [location of player].";
 	place-and-list noun;
 	if kicked-piece is not null-piece, now kicked-piece is reserved;
-	now entry (status-index of noun) of current-quest-snapshot is location of player;
 	update-guarded;
 	show-the-board;
 	abide by the minor piece slapfight rule;
@@ -1281,7 +1289,7 @@ carry out calling:
 			if quest-dir is not normal-checkmated:
 				now quest-dir is hard-checkmated;
 			now quest-dir is solved;
-			now checkmate-recap of quest-dir is current-quest-snapshot;
+			fill-quest-history-list;
 			now last-solved is quest-dir;
 			open-new-areas;
 			if number of to-solve directions is 0:
@@ -1348,10 +1356,8 @@ to new-quest:
 	reset-guard;
 	now all pieces are irrelevant;
 	now p1 is reserved;
-	now current-quest-snapshot is { Ministry, Ministry, Ministry };
 	unless quest-dir is primary and quest-dir is unsolved:
 		now p2 is reserved;
-		add Ministry of Unity to current-quest-snapshot;
 	now k12 is reserved;
 	now k4 is reserved;
 	now quest-moves is 0;
