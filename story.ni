@@ -396,7 +396,7 @@ room-edge-text of d5 is "east a bit on the north edge".
 room-edge-text of e5 is "at the dangerously remote northeast corner".
 
 to decide which number is basic-dist of (r1 - a room) and (r2 - a room):
-	decide on absval of (xval of r1 - xval of r2) + absval of (yval of r1 - yval of r2)
+	decide on (absval of (xval of r1 - xval of r2)) + (absval of (yval of r1 - yval of r2))
 
 to decide which number is basic-dist of (t1 - a thing) and (t2 - a thing):
 	decide on basic-dist of location of t1 and location of t2;
