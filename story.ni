@@ -430,7 +430,7 @@ rule for printing the locale description when map-view is true and location of p
 
 chapter c3 explaining 4 vs 5
 
-after printing the locale description for c3 when c3 is unvisited:
+after printing the locale description for c3 when c3 is unvisited (this is the first new quest rule):
 	say "[line break]It has not escaped your notice that the castle was, in fact, five by five and not four by four as you expected. You can review the likely reasons why with [fofiv][if hard-mode is true], which may be slightly spoilery[end if].[paragraph break]However, the main thing to do is just to canvas the area to figure where to [call-place] any allies, or, eventually, [the k12].";
 	say "[line break][i][bracket]Technical note(s): ";
 	if player-knows-toggle is true:
@@ -444,12 +444,14 @@ place-ping is a truth state that varies.
 
 placed-yet is a truth state that varies.
 
-after printing the locale description when location of player is puzzly:
+after printing the locale description when location of player is puzzly (this is the roll call on new quest rule):
 	if quest-moves is 0:
 		say "The [list of not irrelevant pieces] will be in the background, awaiting your suggestions of who goes where, as you [b]CALL[r] them, in some order.";
 	else if placed-yet is false and place-ping is false and quest-moves is 5:
 		say "You thought you heard [the whiny-ally] telling you to get on with [b]CALL[r]ing someone, already. Of course you will. They need to be patient! This sort of thinking can't be rushed!";
 		now place-ping is true;
+
+the roll call on new quest rule is listed before the first new quest rule in after printing the locale description.
 
 after going when location of player is puzzly:
 	increment quest-moves;
