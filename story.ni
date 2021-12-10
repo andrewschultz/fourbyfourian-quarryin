@@ -268,7 +268,7 @@ check going when location of player is not puzzly (this is the hub check rule):
 		say "Alas, the vast lands northwest of [12b] are so unruly as to feature nonlinear borders. Some such borders are not even defined by rivers![paragraph break]Plus, they're vast enough, it'd take too long to get to their capitals. Oh, and the whole painful winters and large armies things, too." instead;
 	if noun is inside or noun is outside, continue the action;
 	if noun is unquestable, say "There's nothing to conquer to the [noun]." instead;
-	if noun is solved, say "Of course, it would be pleasant to return to the scene of your success at [q of noun]. You will, eventually. There will be a great banquet and everything, the most unsurprising surprise party there ever was! And quite bluntly, the regents you installed need to spruce up the palace a bit. Not so much that it drains the [12b] treasury, of course.[paragraph break]So the fun can wait. There is still business." instead;
+	if noun is solved, say "Of course, it would be pleasant to return to the scene of your success at [q of noun]. You will, eventually. There will be a great banquet and everything, the most unsurprising surprise party there ever was! And quite bluntly, the regents you installed need a good bit of time to spruce up the palace a bit. Not so much that it drains the [12b] treasury, of course.[paragraph break]So the fun can wait. There is still business." instead;
 	abide by visit-text of noun;
 	now quest-dir is noun;
 	say "[if player is in grounds]Rushing through the [ministry] with a quick good-bye, y[else]Y[end if]ou head to [cq]. [unless noun is primary and noun is unsolved]Your allies for this quest are [summary-text of noun][else]You only have [the k12] and [the first-piece of noun] with you[end if].";
@@ -1296,7 +1296,12 @@ carry out calling:
 				else:
 					say "But the [ck] is neither in check nor immobilized. So nothing really happens this time.";
 			else:
-				say "You laid off the [ck] this time, but perhaps a bit too much. He had [if number of near-unguarded rooms is 1]only one place to go[else]several places to go, including [random near-unguarded room][end if].";
+				say "You laid off the [ck] this time, but perhaps a bit too much. ";
+				if number of capturable rooms > 0:
+					let sq be a random capturable room;
+					say "He was able to run over [the random piece in sq] as he escaped, too! Ouch!";
+				else:
+					say "He had [if number of near-unguarded rooms is 1]only one place to go[else]several places to go, including [random near-unguarded room][end if].";
 			if quest-dir is secondary:
 				say "[line break]And unfortunately this [if quest-dir is stalemated]doesn't put the enemy king any more at ease[else]is not enough to put the enemy king at ease. You'll need to get them into a seemingly tougher situation, then let them slip out[end if].";
 			if enemy-self-check:
@@ -1330,8 +1335,8 @@ carry out calling:
 			if number of capturable rooms > 0, let sq be a random capturable room;
 			say "Oh no! The [ck] sees [sq] is available, and he goes there[if sq is capturable], running over [the random piece in sq] in the process without even apologizing. Ouch![else].[end if]";
 			if quest-dir is primary:
-				if quest-dir is unsolved:
-					say "[line break]Perhaps you were trying to do too much at once. If there was a way to trap the [ck] without attacking him ... that might make him feel helpless, yet trust you in the future.";
+				if quest-dir is unsolved and p1 attacks k4:
+					say "[line break]Perhaps having [the p1] attacking the [ck] was too much to start. Maybe if you saw a way to trap the [ck] without attacking him ... that might make him feel helpless, yet trust you in the future.";
 		retreat-to-unity;
 		the rule succeeds;
 	if screen-reader is false, continue the action;
@@ -1940,17 +1945,17 @@ carry out recaping:
 		say "You're halfway to conquering [q of noun].";
 	if noun is solved:
 		if recap-text of noun is empty:
-			say "[paragraph break][q of noun] needs recap text.";
+			say "[line break][q of noun] needs recap text.";
 		else:
-			say "[paragraph break][recap-text of noun]";
-	say "[line break]Here are specifics of [if noun is stalemated]your progress in[else]conquering[end if] [q of noun]: ";
+			say "[line break][recap-text of noun][line break]";
+	say "[line break]Here are specifics of [if noun is stalemated]your progress in[else]conquering[end if] [q of noun]:[line break]";
 	if noun is stalemate-bypassed:
 		let dir2 be similar-early of noun;
-		say "[if noun is not solved]so far, [end if]you bypassed (in-game) gaining the [k of noun]'s trust (stalemating) because you did so in [q of dir2] with [stale-list of stalemate-recap of dir2 and dir2].";
+		say "    [if noun is not solved]so far, [end if]you bypassed (in-game) gaining the [k of noun]'s trust (stalemating) because you did so in [q of dir2] with [stale-list of stalemate-recap of dir2 and dir2].";
 	else:
-		say "[if noun is solved]Y[else]So far, y[end if]ou gained the enemy king's trust (stalemated) with [if noun is primary][stale-list of stalemate-recap of noun and noun][else][list-out of stalemate-recap of noun and noun][end if].";
+		say "    [if noun is solved]Y[else]So far, y[end if]ou gained the enemy king's trust (stalemated) with [if noun is primary][stale-list of stalemate-recap of noun and noun][else][list-out of stalemate-recap of noun and noun][end if].";
 	if noun is solved:
-		say "[line break]  You [if noun is not stalemate-bypassed]then [end if]captured the enemy king (checkmated) with [list-out of checkmate-recap of noun and noun].";
+		say "    You [if noun is not stalemate-bypassed]then [end if]captured the enemy king (checkmated) with [list-out of checkmate-recap of noun and noun].";
 	the rule succeeds;
 
 chapter toggleing
