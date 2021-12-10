@@ -750,11 +750,19 @@ map-abbrev of west is " w ". map-abbrev of southwest is " sw". map-abbrev of sou
 
 map-abbrev of southeast is " se".
 
+southeast-bishop is a truth state that varies.
+
 to decide which direction is similar-early of (d - a direction):
 	if d is north, decide on northeast;
 	if d is northeast, decide on north;
 	if d is west, decide on southwest;
 	if d is southwest, decide on west;
+	if d is east or (d is southeast and southeast-bishop is true):
+		if northeast is stalemate-bypassed, decide on north;
+		decide on northeast;
+	if d is south or (d is southeast and southeast-bishop is false):
+		if west is stalemate-bypassed, decide on southwest;
+		decide on west;
 	decide on d;
 
 section direction definitions
@@ -2154,6 +2162,8 @@ when play begins (this is the randomizing game details rule):
 	if a random chance of 1 in 2 succeeds:
 		now first-piece of east is purple bishop;
 		now second-piece of east is yellow bishop;
+	if a random chance of 1 in 2 succeeds:
+		now southeast-bishop is true;
 	sort the table of incidents in rough-order order;
 
 after printing the locale description when instructions-given is false:
