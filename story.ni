@@ -1272,6 +1272,12 @@ carry out calling:
 		abide by the same-colored-bishops rule;
 	if noun is k4, abide by the no-illegal-positions rule;
 	say "You place [the noun] at [location of player].";
+	if kicked-piece is not null-piece:
+		if noun is reserved:
+			now kicked-piece is reserved;
+			move kicked-piece to offsite;
+		else:
+			move kicked-piece to location of noun;
 	place-and-list noun;
 	if kicked-piece is not null-piece, now kicked-piece is reserved;
 	update-guarded;
