@@ -404,6 +404,8 @@ test oneoffs with "nw/xyzzy/nnw/e/nnw/fail"
 test standoff with "w/place n/nw/w/place k/place n/y".
 test discovery with "sw/place n/a1/place b/e5/place k/kick n".
 
+test dubcheck with "a5/place k/a1/place b/b2/place n/c3/place k".
+
 test amuse with "test bcolors1/test bcolors2/test dc-bb/test bvn1/test bvn2/test orwell/test oneoffs"
 
 Fourbyfourian Quarryin Tests ends here.

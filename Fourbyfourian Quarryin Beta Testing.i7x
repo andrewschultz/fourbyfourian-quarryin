@@ -13,6 +13,7 @@ when play begins (this is the beta 4x4 instruction rule):
 	say "[line break]Also, I am wondering about if you found the mnemonic for what quests are in which direction useful or sensible or not.";
 	say "[line break]I have general concerns about the text too. I hope the text when someone makes an errant try is funny, and I want it there for chess players. But I don't want to discourage non-players. I also suspect I have forgotten a few descriptions in my notes.";
 	say "[line break]The hinting can probably be adjusted, too.";
+	say "[line break]Oh yes! The [b]JUMP[r] command can be used to jump over restrictions.";
 	say "[wfak]";
 
 the beta 4x4 instruction rule is listed after the prompt transcript when starting rule in the when play begins rulebook.

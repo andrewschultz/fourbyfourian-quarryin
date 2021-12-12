@@ -16,7 +16,7 @@ release along with the "Parchment" interpreter.
 
 release along with cover art.
 
-the release number is 1.
+the release number is 2.
 
 section modules
 
@@ -422,6 +422,10 @@ to decide which number is diag-dist of (r1 - a room) and (r2 - a room):
 
 to decide which number is diag-dist of (t1 - a thing) and (t2 - a thing):
 	decide on diag-dist of location of t1 and location of t2;
+
+to decide whether (t1 - a thing) and (t2 - a thing) diagonalize:
+	if (basic-dist of t1 and t2) is 2 * (diag-dist of t1 and t2), yes;
+	no;
 
 rule for printing the locale description when map-view is true and location of player is puzzly:
 	show-the-board;
@@ -1008,10 +1012,40 @@ to decide which number is check-total:
 		if Q attacks the k4, increment temp;
 	decide on temp;
 
-this is the excessive beatdown rule:
+to decide whether (r1 - a room) and (r2 - a room) knightmove:
+	let xdelt be absval of ((xval of r1) - (xval of r2));
+	let ydelt be absval of ((yval of r1) - (yval of r2));
+	if xdelt is 1 and ydelt is 2, yes;
+	if xdelt is 2 and ydelt is 1, yes;
+	no;
+
+this is the double checking double checks rule:
 	if check-total is 2:
-		note-amusing-stuff "beatdown";
 		say "The pieces under your command look over at you questioningly. While they recognize what fun it is to both be attacking [the k4] at once, they also consider such fun is not strategically sound. Still, you're the boss...";
+		note-amusing-stuff "beatdown";
+		continue the action;
+	if quest-dir is not southeast, continue the action;
+	unless p1 and p2 diagonalize, continue the action;
+	unless k4 and p2 diagonalize, continue the action;
+	unless p1 and k4 diagonalize, continue the action;
+	let kn-dist be diag-dist of k4 and p2;
+	let kb-dist be diag-dist of k4 and p1;
+	let bn-dist be diag-dist of p1 and p2;
+	unless kn-dist + bn-dist is kb-dist, continue the action;
+	let got-knight-move be false;
+	repeat with rm running through puzzly rooms:
+		unless rm and location of k4 knightmove, next;
+		unless rm and location of p2 knightmove, next;
+		if location of k12 is rm, next;
+		now got-knight-move is true;
+		break;
+	if got-knight-move is false, continue the action;
+	note-amusing-stuff "prepare double check";
+	say "[one of]Congratulations! You have prepared an actual double check according to the rules of chess. The [k4] laughs appreciatively at the performance, because it is obviously just a joke, right? Right?[or]The [k4] yawns as you choreograph the double-check trick again.[stopping]";
+	choose row with code of "beatdown" in table of amusing stuff;
+	if done-yet entry is false:
+		say "[one of][line break]In fact, you not only figured this out, but you managed to get this before the easier general double-attack miscellaneous configuration. Whether you did this on purpose or by accident, that's very impressive.[or][stopping]";
+	continue the action;
 
 rule for supplying a missing noun when calling:
 	if location of player is not puzzly:
@@ -1286,7 +1320,7 @@ carry out calling:
 	now placed-yet is true;
 	now place-ping is true;
 	if noun is k4:
-		consider the excessive beatdown rule;
+		consider the double checking double checks rule;
 		abide by the king-place of quest-dir;
 		if you-stalemated, abide by the stalemate dialogue rule;
 		unless k4 is checked:
@@ -1470,7 +1504,10 @@ section rules for placing
 
 this is the no-corner rule:
 	if location of player is cornery and hard-mode is true:
-		say "The [ck], alas, knows your tricks. He won't be snuck into some corner, at least not without any allies. You'll have to find somewhere else to 'invite' him. On another diplomatic mission, perhaps. This wasn't quite the success you'd hoped.";
+		if number of near-unguarded rooms is 0:
+			say "The [ck], alas, knows your tricks. He won't be snuck into some corner, at least not without any allies. You'll have to find somewhere else to 'invite' him. On another diplomatic mission, perhaps. This wasn't quite the success you'd hoped.";
+		else:
+			say "The [ck], though not in immediate danger, smiles a bit and asks, do I really need to be in this corner? Surprised, you officiously answer no. He's obviously of a different stock than the first kings you met.";
 		retreat-to-unity;
 		the rule fails;
 
@@ -2030,7 +2067,8 @@ to note-amusing-stuff (t - text):
 
 table of amusing stuff
 code	done-yet	amuse-list
-"beatdown"	false	"Constructing a double check (both allies, no traitors, attacking [the k4])"
+"prepare double check"	false	"Preparing a legitimate double check (placing one already-placed ally so it and the other ally attack [the k4])"
+"beatdown"	false	"Constructing an undoable double check (both allies, no traitors, attacking [the k4])"
 "nvb-miss"	false	"Placing your knight where it would be checkmate, but the traitor bishop can attack it"
 "bvn-miss"	false	"Placing the bishop too far from the king when you have the traitor knight"
 "bb-colors-first"	false	"Placing two opposing bishops on the same color tile"
@@ -2178,7 +2216,7 @@ when play begins (this is the randomizing game details rule):
 	sort the table of incidents in rough-order order;
 
 after printing the locale description when instructions-given is false:
-	say "[i][bracket][b]NOTE[r][i]: to get you started, [b]ABOUT[r][i] will give general information about [this-game]. [verbs][i] will show common verbs, which usually have abbreviations, and [b]CHESS[r] or [b]CH[r][i] will give the relevant rules of chess.[close bracket][r][line break]";
+	say "[i][bracket][b]NOTE[r][i]: to get you started, [b]ABOUT[r][i] will give general information about [this-game]. [verbs][i] will show common verbs, which usually have abbreviations, and [b]CHESS[r][i] or [b]CH[r][i] will give the relevant rules of chess.[close bracket][r][line break]";
 	now instructions-given is true;
 	continue the action;
 
