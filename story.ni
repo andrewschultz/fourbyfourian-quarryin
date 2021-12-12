@@ -1539,6 +1539,14 @@ To decide whether (N - an object) fits the parse list: (- (FindInParseList({N}))
 
 definition: a thing is matched if it fits the parse list.
 
+rule for asking which do you mean:
+	unless number of matched things is 2, continue the action;
+	unless k4 is matched, continue the action;
+	unless k12 is matched, continue the action;
+	say "The [k12] is already out, and the [k4] needs to be placed last, so there's enough ambiguity that I'll ask you to [b]P K12[r] specifically to move [the k12] around.";
+	bypass disambiguation;
+	the rule succeeds;
+
 rule for asking which do you mean when everything matched is irrelevant (this is the bypass disambiguation rule):
 	if the current action is calling:
 		say "I couldn't find a good match for that in [the list of not irrelevant pieces], your current allies for this quest, so I didn't do anything[if number of placed pieces > 0]. You still need to call [the list of reserved pieces][end if]. You may need to be more specific.";
@@ -1748,13 +1756,11 @@ ironic-ab is a truth state that varies.
 
 carry out abbing:
 	say "You can use abbreviations while placing pieces. They were meant to be relatively intuitive. [4n] traitor pieces are always grey. Your [12n] allies can be either yellow or purple.";
-	say "[line break]You can also abbreviate pieces with K for king, N for knight, and B for bishop. Combining these with the piece color abbreviations Y for yellow and P for purple ([12n],) and G for grey ([4n],) you can refer to any piece in two characters, you can refer to a piece specifically. In addition, if you have the same type of yellow and purple piece on the board, and you just say B, the game picks one, because they are functionally equivalent.";
-	say "[line break]So this means you can type something short like [b]P YB[r] or [b]P BY[r] to place a yellow bishop. Combined with being able to type a square to visit it, this hopefully reduces the need to fight with the parser.";
-	say "[line break]While kings don't have colors, the enemy king is always the final one to call, so the game knows what you mean if you type K. But you can also say [b]FK[r], [b]KF[r], [b]12K[r], [b]K12[r] for the friendly king explicitly, or [b]EK[r], [b]KF[r], [b]4K[r], [b]K4[r] for the enemy king.";
-	say "[line break]You can also use spaces in these abbreviations, if you don't like the weird nonsense words or whatever.";
+	say "[line break]The minor piece abbreviations are [b]N[r] for Knight, and [b]B[r] for Bishop. The color abbreviations are [b]Y[r] for yellow, [b]P[r] for purple ([12n],) and [b]G[r] for grey ([4n].) So you can refer to any piece uniquely in shorthand. The purple bishop, for instance, could be [b]BP[r], [b]PB[r], [b]P B[r] or [b]B P[r]. You can use spaces";
+	say "[line break]Kings are slightly different: [b]K4[r] or [b]K12[r] or even [b]4K[r] or [b]12K[r] disambiguates the kings, but [this-game] should be able to disambiguate which you mean if you say [b]K[r], since [the 4k] is always placed last.";
 	if ironic-ab is false:
 		now ironic-ab is true;
-		say "[line break]And yes, it's also worth noting and snickering at, if you wish, how [b]ABB[r] is not as abbreviated as [b]A[r]. But I figure people will see [b]ABOUT[r] first, and they are less likely to want or need to read it twice.";
+		say "[line break]And yes, it's also worth noting and snickering, if you wish, at how [b]ABB[r] is not as abbreviated as [b]A[r]. But I figure people will see [b]ABOUT[r] first.";
 	the rule succeeds;
 
 chapter abouting
