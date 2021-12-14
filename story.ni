@@ -973,8 +973,17 @@ carry out gotoing:
 
 chapter calling
 
+to decide whether same-pieces:
+	unless quest-dir is secondary, no;
+	if p1 is a knight and p2 is a knight, yes;
+	if p1 is a bishop and p2 is a bishop, yes;
+	no;
+
 does the player mean calling the k4 when number of reserved pieces > 1:
 	it is unlikely.
+
+does the player mean calling p1 when same-pieces:
+	it is likely.
 
 does the player mean calling p1 when p1 is reserved:
 	it is likely.
@@ -1094,6 +1103,8 @@ this is the hard-bishop-stalemate rule:
 			say "[line break]For whatever reason, the [ck] doesn't feel comfortable backed in that way, at least not without an ally next to them. He chickens out with a maddeningly plausible excuse.[paragraph break]There's got to be a way to trap him away from the corner--then, surely, [cq] will be better off ruled by someone much braver, a non-corner-fearing (but still center-seizing) leader like ... your very own king! Or, perhaps, a regent such as yourself.";
 			if basic-dist of p1 and player is 1 and basic-dist of p1 and k12 is 1:
 				say "[line break]The formation had to be right, though. It just HAD to. But the positioning -- not so much. Yet.";
+			else if debug-state is true:
+				say "[line break]DEBUG: no KBK in corner."; [dont change this message as it is used in regression testing...I may be updating the above text.]
 			say "[normal-ok]";
 			retreat-to-unity;
 			the rule succeeds;
@@ -1278,6 +1289,23 @@ this is the unified self check check rule:
 	abide by the minor piece slapfight rule;
 	if block-stuff is true, the rule succeeds;
 
+this is the how enemy king escapes rule:
+	let ncr be number of capturable rooms;
+	if ncr > 1:
+		if quest-dir is southeast and diag-dist of p1 and p2 is 2 and p1 and p2 diagonalize:
+			say "The [k4] chuckles. The two bishops sandwiching him aren't defending each other, so he can take a shot at one--or can he? Wait, no, he's sort of trapped. There's some nervous laughter. You could see [the k4] looked a bit surprised and helpless, which was fun but not really productive.";
+			note-amusing-stuff "bishop-trap";
+			continue the action;
+		say "The [ck] looks around fearfully for a moment but then smiles wickedly. He pushes [the p1] to one side and [the p2] to the other as he runs away. Both had inadequate backup! Both [the p1] and [the p2] glare at you when you dust yourself off.[paragraph break]You're going to pretend you meant to do that, that it was just one of the little power games you play so nobody gets a VERY swell head.";
+		note-amusing-stuff "fork-calamity";
+		continue the action;
+	let sq be a random near-unguarded room;
+	if number of capturable rooms > 0, let sq be a random capturable room;
+	say "Oh no! The [ck] sees [sq] is available, and he goes there[if sq is capturable], running over [the random piece in sq] in the process without even apologizing. Ouch![else].[end if]";
+	if quest-dir is primary:
+		if quest-dir is unsolved and p1 attacks k4:
+			say "[line break]Perhaps having [the p1] attacking the [ck] was too much to start. Maybe if you saw a way to trap the [ck] without attacking him ... that might make him feel helpless, yet trust you in the future.";
+
 carry out calling:
 	if location of player is not puzzly, say "You don't need to call allies until you're away from the [the location of the player]." instead;
 	if noun is irrelevant, say "You don't need to call [the noun]." instead;
@@ -1331,6 +1359,8 @@ carry out calling:
 					say "But the [ck] is neither in check nor immobilized. So nothing really happens this time.";
 			else:
 				say "You laid off the [ck] this time, but perhaps a bit too much. ";
+				if number of capturable rooms is 2:
+					say "The [ck] even managed to push aside both [the p1] and [the p2] as he went. They wren't guarding each other!
 				if number of capturable rooms > 0:
 					let sq be a random capturable room;
 					say "He was able to run over [the random piece in sq] as he escaped, too! Ouch!";
@@ -1365,12 +1395,7 @@ carry out calling:
 				end the story;
 				the rule succeeds;
 		else:
-			let sq be a random near-unguarded room;
-			if number of capturable rooms > 0, let sq be a random capturable room;
-			say "Oh no! The [ck] sees [sq] is available, and he goes there[if sq is capturable], running over [the random piece in sq] in the process without even apologizing. Ouch![else].[end if]";
-			if quest-dir is primary:
-				if quest-dir is unsolved and p1 attacks k4:
-					say "[line break]Perhaps having [the p1] attacking the [ck] was too much to start. Maybe if you saw a way to trap the [ck] without attacking him ... that might make him feel helpless, yet trust you in the future.";
+			consider the how enemy king escapes rule;
 		retreat-to-unity;
 		the rule succeeds;
 	if screen-reader is false, continue the action;
@@ -1674,7 +1699,7 @@ carry out boarding:
 	if location of player is not puzzly:
 		if screen-reader is true, say "Unfortunately, the map of all the [4s] would tear up a screen reader, so I can't depict it in this mode." instead;
 		say "Here is a rough text representation of the map of the [4s].[paragraph break]";
-		say "[big-map]" instead;
+		say "[big-map][line break]" instead;
 	say "STRATEGIC MAP OF [printed name of quest-dir in upper case] FOURBYFOURIA SO FAR:[line break]";
 	if screen-reader is true, say "Since you are using a screen reader, text maps in any [4b] are disabled. You'll need to restart if you want to use them." instead;
 	show-the-board;
@@ -1757,7 +1782,7 @@ ironic-ab is a truth state that varies.
 carry out abbing:
 	say "You can use abbreviations while placing pieces. They were meant to be relatively intuitive. [4n] traitor pieces are always grey. Your [12n] allies can be either yellow or purple.";
 	say "[line break]The minor piece abbreviations are [b]N[r] for Knight, and [b]B[r] for Bishop. The color abbreviations are [b]Y[r] for yellow, [b]P[r] for purple ([12n],) and [b]G[r] for grey ([4n].) So you can refer to any piece uniquely in shorthand. The purple bishop, for instance, could be [b]BP[r], [b]PB[r], [b]P B[r] or [b]B P[r]. You can use spaces";
-	say "[line break]Kings are slightly different: [b]K4[r] or [b]K12[r] or even [b]4K[r] or [b]12K[r] disambiguates the kings, but [this-game] should be able to disambiguate which you mean if you say [b]K[r], since [the 4k] is always placed last.";
+	say "[line break]Kings are slightly different: [b]K4[r] or [b]K12[r] or even [b]4K[r] or [b]12K[r] disambiguates the kings, but [this-game] should be able to disambiguate which you mean if you say [b]K[r], since [the k4] is always placed last.";
 	if ironic-ab is false:
 		now ironic-ab is true;
 		say "[line break]And yes, it's also worth noting and snickering, if you wish, at how [b]ABB[r] is not as abbreviated as [b]A[r]. But I figure people will see [b]ABOUT[r] first.";
@@ -1775,7 +1800,7 @@ carry out abouting:
 		else if observation grounds are visited:
 			say "[if observation grounds are visited]You've been to the Observational Grounds, where examining your allies can tell you what they do.";
 	else:
-		say "The technical stuff: [this-game] is a sequel to [5d], my entry in the 2021 ParserComp. I first had the idea for [this-game] a week or so before the deadline. Obviously, I couldn't do much with it besides write out the basic stuff. Most of the puzzles revolve around checkmates with very few pieces left on the board. I wondered how many I could find. I had some problems with solutions being too similar. But it seemed there was enough for a challenging game.";
+		say "The technical stuff: [this-game] was originally an entry in IFComp 2021 (September to November) and a sequel to [5d], my entry in the 2021 ParserComp. I first had the idea for [this-game] a week or so before the deadline. Obviously, I couldn't do much with it besides write out the basic stuff. Most of the puzzles revolve around checkmates with very few pieces left on the board. I wondered how many I could find. I had some problems with solutions being too similar. But it seemed there was enough for a challenging game.[paragraph break]The post-comp release was in December 2021.";
 	say "[line break]The next time you type [about], you will see [if show-technical is true]game history[else]gameplay[end if] details.";
 	now show-technical is whether or not show-technical is false;
 	the rule succeeds;
