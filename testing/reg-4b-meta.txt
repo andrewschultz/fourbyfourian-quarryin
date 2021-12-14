@@ -7,9 +7,9 @@
 * main-thru
 
 > recap
-You have no conquerings to recap. Yet.
+You have no accomplishments to recap. Yet.
 > r
-You have no conquerings to recap. Yet.
+You have no accomplishments to recap. Yet.
 
 > n
 > out
@@ -40,10 +40,11 @@ Meta-verbs and options are discussed in
 
 > abbrev
 You can use abbreviations while placing pieces. They were meant to be relatively intuitive. Fourbyfourian traitor pieces are always grey. Your Twelvebytwelvian allies can be either yellow or purple.
-And yes, it's also worth noting and snickering at, if you wish, how ABB is not as abbreviated as A. But I figure people will see ABOUT first, and they are less likely to want or need to read it twice.
+#And yes, it's also worth noting and snickering at, if you wish, how ABB is not as abbreviated as A. But I figure people will see ABOUT first, and they are less likely to want or need to read it twice.
+snickering
 > abb
 You can use abbreviations while placing pieces. They were meant to be relatively intuitive. Fourbyfourian traitor pieces are always grey. Your Twelvebytwelvian allies can be either yellow or purple.
-!And yes, it's also worth noting and snickering at, if you wish, how ABB is not as abbreviated as A. But I figure people will see ABOUT first, and they are less likely to want or need to read it twice.
+!snickering
 > ab
 You can use abbreviations while placing pieces. They were meant to be relatively intuitive. Fourbyfourian traitor pieces are always grey. Your Twelvebytwelvian allies can be either yellow or purple.
 
@@ -90,9 +91,12 @@ Here is a list of meta-verbs and options you can use. None are necessary to comp
 Here is a list of meta-verbs and options you can use. None are necessary to complete the game, but they can all be useful.
 
 > recap
-Going with the last solved direction, west.
+# text here needs to be recap-text. Specifics are unimportant.
+You're halfway to conquering Northeast Fourbyfouria.
+Here are specifics of your progress in Northeast Fourbyfouria:
 > r
-Going with the last solved direction, west.
+You're halfway to conquering Northeast Fourbyfouria.
+Here are specifics of your progress in Northeast Fourbyfouria:
 
 > map
 Here is a rough text representation of the map of the Fourbyfourias.
@@ -166,6 +170,9 @@ DEBUG: Checkmate achieved.
 > call
 DEBUG: Checkmate achieved.
 
+>recap se
+You haven't taken over Southeast Fourbyfouria yet. In fact, you haven't even been there.
+
 > recap n
 In North Fourbyfouria, you used the enemy bishop and your own king to wall in the enemy king.
 Here are specifics of conquering North Fourbyfouria:
@@ -173,7 +180,8 @@ Here are specifics of conquering North Fourbyfouria:
 > r n
 In North Fourbyfouria, you used the enemy bishop and your own king to wall in the enemy king.
 > r sw
-/Here are specifics of your progress in Southwest Fourbyfouria: so far, you bypassed \(in-game\) gaining the Southwest Fourbyfourian King's trust \(stalemating\) because you did so in West Fourbyfouria with the Twelvebytwelvian King at c4, the (yellow|purple) knight at c3, and the Fourbyfourian King at a5.
+Here are specifics of your progress in Southwest Fourbyfouria:
+/so far, you bypassed \(in-game\) gaining the Southwest Fourbyfourian King's trust \(stalemating\) because you did so in West Fourbyfouria with the Twelvebytwelvian King at c4, the (yellow|purple) knight at c3, and the Fourbyfourian King at a5.
 > r ne
 You're halfway to conquering Northeast Fourbyfouria.
 
@@ -183,7 +191,8 @@ In North Fourbyfouria, you used the enemy bishop and your own king to wall in th
 > ne
 > out
 > r ne
-/Here are specifics of your progress in Northeast Fourbyfouria: so far, you bypassed \(in-game\) gaining the Northeast Fourbyfourian King's trust \(stalemating\) because you did so in North Fourbyfouria with the Twelvebytwelvian King at c3, the (yellow|purple) bishop at c4, and the Fourbyfourian King at c5.
+Here are specifics of your progress in Northeast Fourbyfouria:
+/so far, you bypassed \(in-game\) gaining the Northeast Fourbyfourian King's trust \(stalemating\) because you did so in North Fourbyfouria with the Twelvebytwelvian King at c3, the (yellow|purple) bishop at c4, and the Fourbyfourian King at c5.
 !In fact, you haven't even been there.
 
 > d n

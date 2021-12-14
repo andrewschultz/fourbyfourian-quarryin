@@ -27,7 +27,9 @@
 # check full list
 
 >amu
- ----Constructing a double check (both allies, no traitors, attacking the Fourbyfourian King)
+ ----Making it so the Fourbyfourian King seems to be able to capture either bishop, but he can't
+ ----Allowing the Fourbyfourian King to escape by beating up both your minor-piece allies
+ ----Constructing an undoable double check (both allies, no traitors, attacking the Fourbyfourian King)
  ----Placing the bishop too far from the king when you have the traitor knight
  ----Placing two opposing bishops on the same color tile
  ----Placing your two bishops on the same color tile
@@ -47,7 +49,9 @@ Mexican Standoff
 DEBUG: standoff amusement entry done.
 
 >amu
- ----Constructing a double check (both allies, no traitors, attacking the Fourbyfourian King)
+ ----Making it so the Fourbyfourian King seems to be able to capture either bishop, but he can't
+ ----Allowing the Fourbyfourian King to escape by beating up both your minor-piece allies
+ ----Constructing an undoable double check (both allies, no traitors, attacking the Fourbyfourian King)
  ----Placing the bishop too far from the king when you have the traitor knight
  ----Placing two opposing bishops on the same color tile
  ----Placing your two bishops on the same color tile
@@ -77,8 +81,10 @@ DEBUG: bb-colors-first amusement entry done.
 > out
 
 >amu
+ ----Making it so the Fourbyfourian King seems to be able to capture either bishop, but he can't
+ ----Allowing the Fourbyfourian King to escape by beating up both your minor-piece allies
  ----Placing your two bishops on the same color tile
- ----Constructing a double check (both allies, no traitors, attacking the Fourbyfourian King)
+ ----Constructing an undoable double check (both allies, no traitors, attacking the Fourbyfourian King)
  ----Placing the bishop too far from the king when you have the traitor knight
 ! ----Placing two opposing bishops on the same color tile
  ----Checkmating with two knights and a king in the corner
@@ -106,9 +112,11 @@ DEBUG: bb-colors-second amusement entry done.
 > out
 
 >amu
+ ----Making it so the Fourbyfourian King seems to be able to capture either bishop, but he can't
+ ----Allowing the Fourbyfourian King to escape by beating up both your minor-piece allies
 ! ----Placing two opposing bishops on the same color tile
 ! ----Placing your two bishops on the same color tile
- ----Constructing a double check (both allies, no traitors, attacking the Fourbyfourian King)
+ ----Constructing an undoable double check (both allies, no traitors, attacking the Fourbyfourian King)
  ----Placing the bishop too far from the king when you have the traitor knight
  ----Checkmating with two knights and a king in the corner
  ----Everyone's favorite* text-adventure in-joke, XYZZY
@@ -138,7 +146,9 @@ DEBUG: bb-colors-second amusement entry redone.
 DEBUG: beatdown amusement entry done.
 
 >amu
-! ----Constructing a double check (both allies, no traitors, attacking the Fourbyfourian King)
+ ----Making it so the Fourbyfourian King seems to be able to capture either bishop, but he can't
+ ----Allowing the Fourbyfourian King to escape by beating up both your minor-piece allies
+! ----Constructing an undoable double check (both allies, no traitors, attacking the Fourbyfourian King)
 ! ----Placing two opposing bishops on the same color tile
 ! ----Placing your two bishops on the same color tile
  ----Placing the bishop too far from the king when you have the traitor knight
@@ -194,7 +204,9 @@ DEBUG: bvn-miss amusement entry done.
 DEBUG: bvn-miss amusement entry redone.
 
 >amu
-! ----Constructing a double check (both allies, no traitors, attacking the Fourbyfourian King)
+ ----Making it so the Fourbyfourian King seems to be able to capture either bishop, but he can't
+ ----Allowing the Fourbyfourian King to escape by beating up both your minor-piece allies
+! ----Constructing an undoable double check (both allies, no traitors, attacking the Fourbyfourian King)
 ! ----Placing the bishop too far from the king when you have the traitor knight
 ! ----Placing two opposing bishops on the same color tile
 ! ----Placing your two bishops on the same color tile
@@ -218,7 +230,9 @@ DEBUG: bvn-miss amusement entry redone.
 DEBUG: orwell amusement entry done.
 
 >amu
-! ----Constructing a double check (both allies, no traitors, attacking the Fourbyfourian King)
+ ----Making it so the Fourbyfourian King seems to be able to capture either bishop, but he can't
+ ----Allowing the Fourbyfourian King to escape by beating up both your minor-piece allies
+! ----Constructing an undoable double check (both allies, no traitors, attacking the Fourbyfourian King)
 ! ----Placing the bishop too far from the king when you have the traitor knight
 ! ----Placing two opposing bishops on the same color tile
 ! ----Placing your two bishops on the same color tile
@@ -239,7 +253,9 @@ You wouldn't want to pick a fight with any 26-wide country, that's for sure. Als
 DEBUG: xyzzy amusement entry redone.
 
 >amu
-! ----Constructing a double check (both allies, no traitors, attacking the Fourbyfourian King)
+ ----Making it so the Fourbyfourian King seems to be able to capture either bishop, but he can't
+ ----Allowing the Fourbyfourian King to escape by beating up both your minor-piece allies
+! ----Constructing an undoable double check (both allies, no traitors, attacking the Fourbyfourian King)
 ! ----Placing the bishop too far from the king when you have the traitor knight
 ! ----Placing two opposing bishops on the same color tile
 ! ----Placing your two bishops on the same color tile
@@ -257,7 +273,9 @@ Besides, seven Fourbyfourias are enough to conquer. You can only take over so ma
 DEBUG: knight-moves-1 amusement entry done.
 
 >amu
-! ----Constructing a double check (both allies, no traitors, attacking the Fourbyfourian King)
+ ----Making it so the Fourbyfourian King seems to be able to capture either bishop, but he can't
+ ----Allowing the Fourbyfourian King to escape by beating up both your minor-piece allies
+! ----Constructing an undoable double check (both allies, no traitors, attacking the Fourbyfourian King)
 ! ----Placing the bishop too far from the king when you have the traitor knight
 ! ----Placing two opposing bishops on the same color tile
 ! ----Placing your two bishops on the same color tile
@@ -275,7 +293,9 @@ Besides, if you want to go to b5, you can just type b5 at the command prompt. Yo
 DEBUG: knight-moves-2 amusement entry done.
 
 >amu
-! ----Constructing a double check (both allies, no traitors, attacking the Fourbyfourian King)
+ ----Making it so the Fourbyfourian King seems to be able to capture either bishop, but he can't
+ ----Allowing the Fourbyfourian King to escape by beating up both your minor-piece allies
+! ----Constructing an undoable double check (both allies, no traitors, attacking the Fourbyfourian King)
 ! ----Placing the bishop too far from the king when you have the traitor knight
 ! ----Placing two opposing bishops on the same color tile
 ! ----Placing your two bishops on the same color tile
@@ -307,7 +327,9 @@ Things seem perfect! Until ... until ...
 DEBUG: nvb-miss amusement entry done.
 
 >amu
-! ----Constructing a double check (both allies, no traitors, attacking the Fourbyfourian King)
+ ----Making it so the Fourbyfourian King seems to be able to capture either bishop, but he can't
+ ----Allowing the Fourbyfourian King to escape by beating up both your minor-piece allies
+! ----Constructing an undoable double check (both allies, no traitors, attacking the Fourbyfourian King)
 ! ----Placing the bishop too far from the king when you have the traitor knight
 ! ----Placing two opposing bishops on the same color tile
 ! ----Placing your two bishops on the same color tile
@@ -331,7 +353,9 @@ DEBUG: self-check amusement entry done.
 > fail
 
 >amu
-! ----Constructing a double check (both allies, no traitors, attacking the Fourbyfourian King)
+ ----Making it so the Fourbyfourian King seems to be able to capture either bishop, but he can't
+ ----Allowing the Fourbyfourian King to escape by beating up both your minor-piece allies
+! ----Constructing an undoable double check (both allies, no traitors, attacking the Fourbyfourian King)
 ! ----Placing the bishop too far from the king when you have the traitor knight
 ! ----Placing two opposing bishops on the same color tile
 ! ----Placing your two bishops on the same color tile
@@ -352,4 +376,78 @@ DEBUG: self-check amusement entry done.
 > place k
 DEBUG: self-check amusement entry redone.
 > fail
+
+> e
+> e5
+> place k
+> b4
+> place b
+> d2
+> place b
+> c3
+> place k
+DEBUG: bishop-trap amusement entry done.
+> fail
+
+> e
+> e5
+> place k
+> a2
+> place b
+> c4
+> place b
+> b3
+> place k
+DEBUG: bishop-trap amusement entry redone.
+> fail
+
+>amu
+! ----Making it so the Fourbyfourian King seems to be able to capture either bishop, but he can't
+ ----Allowing the Fourbyfourian King to escape by beating up both your minor-piece allies
+! ----Constructing an undoable double check (both allies, no traitors, attacking the Fourbyfourian King)
+! ----Placing the bishop too far from the king when you have the traitor knight
+! ----Placing two opposing bishops on the same color tile
+! ----Placing your two bishops on the same color tile
+! ----Checkmating with two knights and a king in the corner
+! ----Everyone's favorite* text-adventure in-joke, XYZZY
+! ----Moving one of the eight L-shaped directions from Fivebyfivia in the Ministry of Unity
+! ----Moving one of the eight L-shaped directions from Fivebyfivia in a Fourbyfouria
+! ----Placing your knight where it would be checkmate, but the traitor bishop can attack it
+! ----Putting your own king in check
+! ----Placing opposing minor pieces so one or both attacks the other
+
+> s
+> place n
+> e
+> place n
+> a1
+> place k
+> c2
+> place k
+DEBUG: fork-calamity amusement entry done.
+
+> se
+> place b
+> e
+> place n
+> a5
+> place k
+> c4
+> place k
+DEBUG: fork-calamity amusement entry redone.
+
+>amu
+! ----Making it so the Fourbyfourian King seems to be able to capture either bishop, but he can't
+! ----Allowing the Fourbyfourian King to escape by beating up both your minor-piece allies
+! ----Constructing an undoable double check (both allies, no traitors, attacking the Fourbyfourian King)
+! ----Placing the bishop too far from the king when you have the traitor knight
+! ----Placing two opposing bishops on the same color tile
+! ----Placing your two bishops on the same color tile
+! ----Checkmating with two knights and a king in the corner
+! ----Everyone's favorite* text-adventure in-joke, XYZZY
+! ----Moving one of the eight L-shaped directions from Fivebyfivia in the Ministry of Unity
+! ----Moving one of the eight L-shaped directions from Fivebyfivia in a Fourbyfouria
+! ----Placing your knight where it would be checkmate, but the traitor bishop can attack it
+! ----Putting your own king in check
+! ----Placing opposing minor pieces so one or both attacks the other
 

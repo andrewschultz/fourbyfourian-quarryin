@@ -979,10 +979,12 @@ to decide whether same-pieces:
 	if p1 is a bishop and p2 is a bishop, yes;
 	no;
 
+[ piece priority rules ]
+
 does the player mean calling the k4 when number of reserved pieces > 1:
 	it is unlikely.
 
-does the player mean calling p1 when same-pieces:
+does the player mean calling p1 when same-pieces and p1 is reserved:
 	it is likely.
 
 does the player mean calling p1 when p1 is reserved:
@@ -1060,6 +1062,10 @@ rule for supplying a missing noun when calling:
 	if location of player is not puzzly:
 		now noun is k12;
 		the rule succeeds; [doesn't matter. Same reaction for them all!]
+	if (number of reserved pieces is 4) or (number of reserved pieces is 3 and k12 is placed):
+		if quest-dir is south or quest-dir is east:
+			now noun is p1;
+			the rule succeeds;
 	if k4 is reserved and number of reserved pieces is 1:
 		say "([the k4] is last)[line break]";
 		now noun is k4;
@@ -1292,19 +1298,21 @@ this is the unified self check check rule:
 this is the how enemy king escapes rule:
 	let ncr be number of capturable rooms;
 	if ncr > 1:
-		if quest-dir is southeast and diag-dist of p1 and p2 is 2 and p1 and p2 diagonalize:
+		if quest-dir is east and diag-dist of p1 and p2 is 2 and p1 and p2 diagonalize:
 			say "The [k4] chuckles. The two bishops sandwiching him aren't defending each other, so he can take a shot at one--or can he? Wait, no, he's sort of trapped. There's some nervous laughter. You could see [the k4] looked a bit surprised and helpless, which was fun but not really productive.";
 			note-amusing-stuff "bishop-trap";
-			continue the action;
+			retreat-to-unity;
+			the rule succeeds;
 		say "The [ck] looks around fearfully for a moment but then smiles wickedly. He pushes [the p1] to one side and [the p2] to the other as he runs away. Both had inadequate backup! Both [the p1] and [the p2] glare at you when you dust yourself off.[paragraph break]You're going to pretend you meant to do that, that it was just one of the little power games you play so nobody gets a VERY swell head.";
 		note-amusing-stuff "fork-calamity";
-		continue the action;
+		retreat-to-unity;
+		the rule succeeds;
 	let sq be a random near-unguarded room;
-	if number of capturable rooms > 0, let sq be a random capturable room;
-	say "Oh no! The [ck] sees [sq] is available, and he goes there[if sq is capturable], running over [the random piece in sq] in the process without even apologizing. Ouch![else].[end if]";
-	if quest-dir is primary:
-		if quest-dir is unsolved and p1 attacks k4:
-			say "[line break]Perhaps having [the p1] attacking the [ck] was too much to start. Maybe if you saw a way to trap the [ck] without attacking him ... that might make him feel helpless, yet trust you in the future.";
+	if number of capturable rooms > 0:
+		let sq be a random capturable room;
+		say "Oh no! The [ck] sees [sq] is available, and he goes there running over [the random piece in sq] in the process without even apologizing. Ouch! But, hey, one more reason those boors in [cq] need a little more law and order.";
+		retreat-to-unity;
+		the rule succeeds;
 
 carry out calling:
 	if location of player is not puzzly, say "You don't need to call allies until you're away from the [the location of the player]." instead;
@@ -1348,6 +1356,7 @@ carry out calling:
 	now placed-yet is true;
 	now place-ping is true;
 	if noun is k4:
+		abide by the how enemy king escapes rule;
 		consider the double checking double checks rule;
 		abide by the king-place of quest-dir;
 		if you-stalemated, abide by the stalemate dialogue rule;
@@ -1358,14 +1367,7 @@ carry out calling:
 				else:
 					say "But the [ck] is neither in check nor immobilized. So nothing really happens this time.";
 			else:
-				say "You laid off the [ck] this time, but perhaps a bit too much. ";
-				if number of capturable rooms is 2:
-					say "The [ck] even managed to push aside both [the p1] and [the p2] as he went. They wren't guarding each other!
-				if number of capturable rooms > 0:
-					let sq be a random capturable room;
-					say "He was able to run over [the random piece in sq] as he escaped, too! Ouch!";
-				else:
-					say "He had [if number of near-unguarded rooms is 1]only one place to go[else]several places to go, including [random near-unguarded room][end if].";
+				say "You laid off the [ck] this time, but perhaps a bit too much. He had [if number of near-unguarded rooms is 1]only one place to go, and he went there: [random near-unguarded room][else]several places to go, including [random near-unguarded room][end if].";
 			if quest-dir is secondary:
 				say "[line break]And unfortunately this [if quest-dir is stalemated]doesn't put the enemy king any more at ease[else]is not enough to put the enemy king at ease. You'll need to get them into a seemingly tougher situation, then let them slip out[end if].";
 			if enemy-self-check:
@@ -1394,8 +1396,12 @@ carry out calling:
 				calculate-ending;
 				end the story;
 				the rule succeeds;
-		else:
-			consider the how enemy king escapes rule;
+			retreat-to-unity;
+			the rule succeeds;
+		let nu be a random near-unguarded room;
+		say "Oh no! The [ck] sees [nu] is available, and he dawdles on over.";
+		if quest-dir is primary and quest-dir is unsolved and p1 attacks k4:
+			say "[line break]Perhaps having [the p1] attacking the [ck] was too much to start. Maybe if you saw a way to trap the [ck] without attacking him ... that might make him feel helpless, yet trust you in the future.";
 		retreat-to-unity;
 		the rule succeeds;
 	if screen-reader is false, continue the action;
@@ -2098,6 +2104,8 @@ to note-amusing-stuff (t - text):
 
 table of amusing stuff
 code	done-yet	amuse-list
+"bishop-trap"	false	"Making it so [the k4] seems to be able to capture either bishop, but he can't"
+"fork-calamity"	false	"Allowing [the k4] to escape by beating up both your minor-piece allies"
 "prepare double check"	false	"Preparing a legitimate double check (placing one already-placed ally so it and the other ally attack [the k4])"
 "beatdown"	false	"Constructing an undoable double check (both allies, no traitors, attacking [the k4])"
 "nvb-miss"	false	"Placing your knight where it would be checkmate, but the traitor bishop can attack it"
