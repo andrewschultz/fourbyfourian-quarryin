@@ -2032,6 +2032,20 @@ carry out recaping:
 		say "    You [if noun is not stalemate-bypassed]then [end if]captured the enemy king (checkmated) with [list-out of checkmate-recap of noun and noun].";
 	the rule succeeds;
 
+chapter swearing addendum to common file
+
+puzzly-swear is a truth state that varies.
+
+carry out swearing obscenely when location of player is not puzzly:
+	say "[one of]You string together some profanities to get the troops fired up. And they are![paragraph break]But maybe they're just acting fired up because it's the only way to stop you swearing.[paragraph break]Lazy bums. That's why they're there, and you're here.[or]Profanities, troops fired up, yay. Same old drill again. Time for real action![stopping]";
+	the rule succeeds;
+
+after swearing obscenely (this is the note two swear reactions rule):
+	if puzzly-swear is false:
+		say "Oh. Yes. If you like that sort of thing, there's a different response [if location of player is not puzzly]when you're out questing[else]back home[end if].";
+		now puzzly-swear is true;
+	continue the action;
+
 chapter toggleing
 
 player-knows-toggle is a truth state that varies.
