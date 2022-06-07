@@ -302,7 +302,7 @@ understand "map of 12b/12b12/12" and "12 map/12b map/12b12 map" and "12/12b/12b1
 understand "map of 4b/4b4/4" and "4 map/4b map/4b4 map" and "4/4b/4b4" as map of the fourbyfourias.
 
 carry out examining map of the Fourbyfourias when map-view is false:
-	if screen-reader is false:
+	if screenread is false:
 		say "[if number of solved directions > 0]It's a 'before' map, not showing what you've annexed. [end if][12b] takes up most of the northwest--it's got more land mass than the seven tinier [4s] combined. It's striped purple and yellow, the colors of each half of [5b], and your allies['] colors.[paragraph break]Clockwise in varying shades of grey from the upper right are [north], [northeast], [east], [southeast], [south], [southwest] and [west]. To the northwest are sprawling lands too big and unprofitable to annex.[paragraph break]The map has some mnemonics you can study with [mne].";
 		the rule succeeds;
 
@@ -485,7 +485,7 @@ note-move-help is a truth state that varies.
 a piece can be gen-help-examined. a piece is usually not gen-help-examined.
 
 after examining a piece in Observation Grounds:
-	if noun is not gen-help-examined, say "[i][bracket][b]NOTE[r][i]: next time you examine [the noun][if rival of noun is not noun] or their rival, [the rival of noun][end if], you'll get a tutorial about how they move[if screen-reader is false], with text graphics[end if].[close bracket][r][line break]";
+	if noun is not gen-help-examined, say "[i][bracket][b]NOTE[r][i]: next time you examine [the noun][if rival of noun is not noun] or their rival, [the rival of noun][end if], you'll get a tutorial about how they move[if screenread is false], with text graphics[end if].[close bracket][r][line break]";
 	now noun is gen-help-examined;
 	now rival of noun is gen-help-examined;
 
@@ -507,7 +507,7 @@ to tutorial-process (tn - a table name):
 			say "[the-text entry][paragraph break]";
 			now need-wait is true;
 		move riv to the-square entry;
-		if screen-reader is false, show-one-tutorial;
+		if screenread is false, show-one-tutorial;
 	if broke-tutorial is false, say "That's all of the tutorial for [the noun].";
 	move riv to offsite;
 	now riv is irrelevant;
@@ -1408,7 +1408,7 @@ carry out calling:
 			say "[line break][one of]Spite checks are nice and all, but they're best served for when you're desperate and at a disadvantage, but the opposite is true here. [or][stopping]Perhaps having [the p1] attack the [ck] was too much to start. Maybe if you saw a way to trap the [ck] without attacking him ... that might make him feel helpless, yet trust you in the future.";
 		retreat-to-unity;
 		the rule succeeds;
-	if screen-reader is false, continue the action;
+	if screenread is false, continue the action;
 	show-the-board;
 	if map-notes-flag is false:
 		now map-notes-flag is true;
@@ -1707,11 +1707,11 @@ to say big-map:
 
 carry out boarding:
 	if location of player is not puzzly:
-		if screen-reader is true, say "Unfortunately, the map of all the [4s] would tear up a screen reader, so I can't depict it in this mode." instead;
+		if screenread is true, say "Unfortunately, the map of all the [4s] would tear up a screen reader, so I can't depict it in this mode." instead;
 		say "Here is a rough text representation of the map of the [4s].[paragraph break]";
 		say "[big-map][line break]" instead;
 	say "STRATEGIC MAP OF [printed name of quest-dir in upper case] FOURBYFOURIA SO FAR:[line break]";
-	if screen-reader is true, say "Since you are using a screen reader, text maps in any [4b] are disabled. You'll need to restart if you want to use them." instead;
+	if screenread is true, say "Since you are using a screen reader, text maps in any [4b] are disabled. You'll need to restart if you want to use them." instead;
 	show-the-board;
 	show-pieces;
 	the rule succeeds.
@@ -1727,7 +1727,7 @@ aware-of-legend is a truth state that varies.
 aware-of-enemy-attacks is a truth state that varies.
 
 to show-the-board:
-	if screen-reader is true:
+	if screenread is true:
 		repeat with Q running through placed pieces:
 			say "[Q] is at [location of Q].";
 		continue the action;
@@ -1930,7 +1930,7 @@ understand the command "leg" as something new.
 understand "leg" as leging.
 
 carry out leging:
-	if screen-reader is true, say "Since there are no text maps in screen reader mode, the LEG command is unfortunately of limited use." instead;
+	if screenread is true, say "Since there are no text maps in screen reader mode, the LEG command is unfortunately of limited use." instead;
 	say "[b][fixed letter spacing]UNOCCUPIED BY ALLIES:[r][variable letter spacing] + = guarded square, # = your location (guarded), * = your location (unguarded), - = uninhabited and unguarded.";
 	say "[b][fixed letter spacing]  OCCUPIED BY ALLIES:[r][variable letter spacing] K, B and N refer to king, bishop and knight. If they are lower-case, they are enemy or traitorous pieces.";
 	now aware-of-legend is true;
@@ -1938,29 +1938,14 @@ carry out leging:
 
 chapter metaing
 
-metaing is an action out of world.
-
-understand the command "meta" as something new.
-understand the command "met" as something new.
-understand the command "me" as something new.
-
-understand "meta" as metaing.
-understand "met" as metaing.
-understand "me" as metaing.
-
-to say mne: say "[b]MNE[r]/[b]MN[r]"
-
-to say fofiv: say "[b]45[r] or [b]54[r]"
-
-to say mapm: say "[b]MAP[r] or [b]M[r]"
-
 carry out metaing:
 	say "Here is a list of meta-verbs and options you can use. None are necessary to complete the game, but they can all be useful.";
-	say "[line break][about] tells about the game. [cred] tells more technical details and thanks testers. [b]CHESS[r] or [b]CH[r] gives the relevant rules of chess. [b]DETAILS[r]/[b]DETAIL[r]/[b]D[r] gives some fourth-wall meta-details about your current quest.";
-	say "[line break][mapm] or [b]BOARD[r] or [b]B[r] shows the current quest map. [b]TOGGLE[r] or [b]T[r] toggles the map. [b]LEG[r] shows the quest map legend.";
+	say "[line break][about] tells about the ideas behind [this-game]. [cred] tells more technical details and thanks testers. [b]CHESS[r] or [b]CH[r] gives the relevant rules of chess. [b]DETAILS[r]/[b]DETAIL[r]/[b]D[r] gives some fourth-wall meta-details about your current quest.";
+	say "[line break][mapm] or [b]BOARD[r] or [b]B[r] shows the current quest map. [b]LEG[r] shows the quest map legend.";
 	now aware-of-legend is true;
 	if c3 is visited, say "[line break][fofiv] gives an explanation for why the [4n] castles are not, well, four-by-four.";
 	say "[line break][b]HINT[r] or [b]H[r] hints your current area or, if you give a direction, an area you've tried but haven't beaten yet.";
+	note-square-inversions;
 	if number of solved directions > 0, say "[line break][b]R[r] or [b]RECAP[r] is available to recap areas you've solved. By default, it goes to the last one, but you can specify a direction.";
 	if player is in Ministry of Unity:
 		if ever-mnemonic is true or map is examined:
@@ -2055,7 +2040,7 @@ chapter toggleing
 player-knows-toggle is a truth state that varies.
 
 carry out toggleing:
-	if screen-reader is true, say "Since you are using a screen reader, text maps are disabled. You'll need to restart if you want to use them or change their options." instead;
+	if screenread is true, say "Since you are using a screen reader, text maps are disabled. You'll need to restart if you want to use them or change their options." instead;
 	now map-view is whether or not map-view is false;
 	say "Map text-graphics view toggled to [on-off of map-view].";
 	if map-view is false, the rule succeeds;
@@ -2247,7 +2232,7 @@ when play begins (this is the initial unchangeable options rule):
 			continue the action;
 	say "[this-game] has an option to use text maps in some places. This may cause problems with a screen reader. Are you using a screen reader?";
 	if the player consents:
-		now screen-reader is true;
+		now screenread is true;
 
 when play begins (this is the randomizing game details rule):
 	if a random chance of 1 in 2 succeeds:
@@ -2273,7 +2258,7 @@ when play begins (this is the randomizing game details rule):
 	sort the table of incidents in rough-order order;
 
 after printing the locale description when instructions-given is false:
-	say "[i][bracket][b]NOTE[r][i]: to get you started, [b]ABOUT[r][i] will give general information about [this-game]. [verbs][i] will show common verbs, which usually have abbreviations, and [b]CHESS[r][i] or [b]CH[r][i] will give the relevant rules of chess.[close bracket][r][line break]";
+	say "[i][bracket][b]NOTE[r][i]: to get you started, [b]ABOUT[r][i] will give general information about [this-game]. [v-i][i] will show common verbs, which usually have abbreviations, and [b]CHESS[r][i] or [b]CH[r][i] will give the relevant rules of chess.[close bracket][r][line break]";
 	now instructions-given is true;
 	continue the action;
 

@@ -174,19 +174,6 @@ carry out staing:
 	abide by the impractical game state check rule;
 	the rule succeeds;
 
-chapter tsring
-
-tsring is an action out of world.
-
-understand the command "tsr" as something new.
-
-understand "tsr" as tsring.
-
-carry out tsring:
-	now screen-reader is whether or not screen-reader is false;
-	say "Screen reader mode is now [on-off of screen-reader].";
-	the rule succeeds;
-
 chapter wipeing
 
 rule for supplying a missing noun when wipeing:
