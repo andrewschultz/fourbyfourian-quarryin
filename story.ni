@@ -1079,6 +1079,10 @@ rule for supplying a missing noun when calling:
 			now noun is p1;
 			say "([the noun], since it is functionally equivalent to [the p2])[line break]";
 			the rule succeeds;
+	if number of reserved pieces is 3 and number of placed pieces is 0:
+		now noun is p1;
+		say "([the noun], as kings should be left standing around at your orders as little as possible)[line break]";
+		the rule succeeds;
 	say "I'll need something more specific, since I can't decide which piece to place of the remaining ones. You have [the list of reserved pieces] still to call.";
 	reject the player's command;
 
@@ -1367,7 +1371,7 @@ carry out calling:
 				else:
 					say "But the [ck] is neither in check nor immobilized. So nothing really happens this time.";
 			else:
-				say "You laid off the [ck] this time, but perhaps a bit too much. He had [if number of near-unguarded rooms is 1]only one place to go, and he went there: [random near-unguarded room][else]several places to go, including [random near-unguarded room][end if].";
+				say "You laid off the [ck] this time, but perhaps a bit too much. He had [if number of near-unguarded rooms is 1]only one place to go, and he went there: [random near-unguarded room][else]multiple places to go, including [random near-unguarded room][end if].";
 			if quest-dir is secondary:
 				say "[line break]And unfortunately this [if quest-dir is stalemated]doesn't put the enemy king any more at ease[else]is not enough to put the enemy king at ease. You'll need to get them into a seemingly tougher situation, then let them slip out[end if].";
 			if enemy-self-check:
@@ -1401,7 +1405,7 @@ carry out calling:
 		let nu be a random near-unguarded room;
 		say "Oh no! The [ck] sees [nu] is available, and he dawdles on over.";
 		if quest-dir is primary and quest-dir is unsolved and p1 attacks k4:
-			say "[line break]Perhaps having [the p1] attacking the [ck] was too much to start. Maybe if you saw a way to trap the [ck] without attacking him ... that might make him feel helpless, yet trust you in the future.";
+			say "[line break][one of]Spite checks are nice and all, but they're best served for when you're desperate and at a disadvantage, but the opposite is true here. [or][stopping]Perhaps having [the p1] attack the [ck] was too much to start. Maybe if you saw a way to trap the [ck] without attacking him ... that might make him feel helpless, yet trust you in the future.";
 		retreat-to-unity;
 		the rule succeeds;
 	if screen-reader is false, continue the action;
@@ -1536,7 +1540,7 @@ section rules for placing
 this is the no-corner rule:
 	if location of player is cornery and hard-mode is true:
 		if number of near-unguarded rooms is 0:
-			say "The [ck], alas, knows your tricks. He won't be snuck into some corner, at least not without any allies. You'll have to find somewhere else to 'invite' him. On another diplomatic mission, perhaps. This wasn't quite the success you'd hoped.";
+			say "Yes! You've set a nice little trap! But the [ck], alas, knows your tricks. He won't be snuck into some corner, at least not without any allies. You'll have to find somewhere else to 'invite' him. On another diplomatic mission, perhaps. This wasn't quite the success you'd hoped.";
 		else:
 			say "The [ck], though not in immediate danger, smiles a bit and asks, do I really need to be in this corner? Surprised, you officiously answer no. He's obviously of a different stock than the first kings you met.";
 		retreat-to-unity;

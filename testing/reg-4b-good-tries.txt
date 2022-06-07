@@ -8,6 +8,35 @@
 
 >j
 
+# bishop check for stalemate
+>n
+>p b
+>s
+>p k
+>a1
+>p
+Perhaps having the yellow bishop attack the North Fourbyfourian King was too much to start. Maybe if you saw a way to trap the North Fourbyfourian King without attacking him ... that might make him feel helpless, yet trust you in the future.
+Ministry of Unity
+
+# bishop no check for stalemate
+>n
+>p k
+>s
+>p b
+>a1
+>p k
+You laid off the North Fourbyfourian King this time, but perhaps a bit too much. He had only one place to go, and he went there: a2.
+
+# bishop no check for stalemate 2
+>n
+>c1
+>p k
+>n
+>p b
+>a5
+>p
+/You laid off the North Fourbyfourian King this time, but perhaps a bit too much. He had multiple places to go, including (b5|b4)\.
+
 # bishop failed stalemate, too similar to knight
 
 >n

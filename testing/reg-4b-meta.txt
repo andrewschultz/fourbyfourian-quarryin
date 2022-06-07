@@ -245,6 +245,27 @@ You walk away, feigning boredom, pretending to the Fourbyfourian King it was HIS
 > f
 You walk away, feigning boredom, pretending to the Fourbyfourian King it was HIS fault the negotiations, or whatever ... failed. This gaslighting doesn't work often, but it's worth the (lack of) effort.
 
+* swearing
+> bother
+As Mr. Lewandowski, my high school chess coach, used to say: "Chess is a gentleman's game, Mr. (not-Schultz)."
+Or, alternatively, "Mr. (not-Schultz,) chess is a gentleman's game!"
+For those truly interested, there is an in-game response if you must curse again.
+Oh. Yes. If you like that sort of thing, there's a different response when you're out questing.
+> bother
+> ne
+> bother
+As Mr. Lewandowski, my high school chess coach, used to say: "Chess is a gentleman's game, Mr. (not-Schultz)."
+Or, alternatively, "Mr. (not-Schultz,) chess is a gentleman's game!"
+For those truly interested, there is an in-game response if you must curse again.
+!Oh. Yes. If you like that sort of thing, there's a different response back home.
+!Oh. Yes. If you like that sort of thing, there's a different response when you're out questing.
+> undo
+> undo
+> undo
+> undo
+> ne
+> bother
+
 * screen-reader-tests
 > tsr
 > map
